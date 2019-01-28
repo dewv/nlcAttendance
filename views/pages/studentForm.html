@@ -1,0 +1,29 @@
+<form method="POST" action="<%= action %>">
+    <div>
+      <label for="username">Username</label>
+      <input autofocus id="username" name="username" type="email" value="<%= formData.username %>"> 
+    </div>
+    
+    <div>
+      <label for="firstName">First name</label>
+      <input id="firstName" name="firstName" type="text" value="<%= formData.firstName %>"> 
+    </div>
+    
+    <div>
+      <label for="lastName">Last name</label>
+      <input id="lastName" name="lastName" type="text" value="<%= formData.lastName %>">
+    </div>
+    
+    <div>
+      <label for="fallSport">Fall sport</label>
+      <%- fallSport %>
+    </div>
+
+    <div>
+      <label for="springSport">Spring sport</label>
+      <%- springSport %>
+    </div>
+
+    <button type="submit"><%= buttonLabel %></button>
+</form>
+ 
