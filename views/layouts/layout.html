@@ -1,16 +1,20 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>New Sails App</title>
+<html lang="en">
 
-    <!-- Viewport mobile tag for sensible mobile support -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<head>
+  <meta charset="utf-8">
+  <title>
+    <%= pageTitle %>
+  </title>
 
-    <%/* If you want to discourage search engines from indexing this site, uncomment the following line: */%>
+  <!-- Viewport mobile tag for sensible mobile support -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <%/* If you want to discourage search engines from indexing this site, uncomment the following line: */%>
     <%/* <meta name="robots" content="noindex"> */%>
 
 
-    <!--
+      <!--
         Stylesheets and Preprocessors
         ==============================
 
@@ -31,14 +35,18 @@
             + Use a different or additional preprocessor, like SASS, SCSS or Stylus
     -->
 
-    <!--STYLES-->
-    <link rel="stylesheet" href="/styles/importer.css">
-    <!--STYLES END-->
+      <!--STYLES-->
+      <link rel="stylesheet" href="/styles/importer.css">
 
-  </head>
+      <!--<link rel="stylesheet" href="/stylesheets/style.css">
+      <link rel="stylesheet" href="/stylesheets/fa.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+      <!--STYLES END-->
 
-  <body>
-    <%- body %>
+</head>
+
+<body>
+  <%- body %>
 
 
 
@@ -64,7 +72,7 @@
     -->
 
     <!--TEMPLATES-->
-    
+
     <!--TEMPLATES END-->
 
 
@@ -110,5 +118,6 @@
     <!--SCRIPTS-->
     <script src="/dependencies/sails.io.js"></script>
     <!--SCRIPTS END-->
-  </body>
+</body>
+
 </html>
