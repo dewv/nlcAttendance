@@ -15,8 +15,8 @@ class StudentModel extends Model {
     /** override */
     async getAssociationDomains() {
         return {
-            fallSport: await Sport.find({ season: 'fall'}),
-            springSport: await Sport.find({ season: 'spring'})
+            fallSport: await Sport.find({ season: 'Fall'}),
+            springSport: await Sport.find({ season: 'Spring'})
         };
     }
 
