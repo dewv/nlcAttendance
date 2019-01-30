@@ -12,7 +12,7 @@ class Model {
      * @public
      */
     get sails() {
-        throw new Error(`Class '${this.constructor.name}' is a subclass of 'Model', and must implement abstract getter 'sails'.`);
+        throw new Error(`Class '${this.constructor.name}' is a subclass of \`Model\`, and must implement abstract getter \`sails\`.`);
     }
 
     /**
@@ -53,7 +53,7 @@ class Model {
      * @abstract
      */
     async encodeAssociations(record) {
-        throw new Error(`Class '${this.constructor.name}' is a subclass of 'Model', and must implement abstract method 'encodeAssociations'.`);
+        throw new Error(`Class '${this.constructor.name}' is a subclass of \`Model\`, and must implement abstract method \`encodeAssociations\`.`);
     }
 
     /**
@@ -65,9 +65,14 @@ class Model {
      * @abstract
      */
     async populateOne(id) {
-        throw new Error(`Class '${this.constructor.name}' is a subclass of 'Model', and must implement abstract method 'populateOne'.`);
+        throw new Error(`Class '${this.constructor.name}' is a subclass of \`Model\`, and must implement abstract method \`populateOne\`.`);
     }
 
+    hasAssociation(propertyName) {
+        let property = this.sails.attributes[propertyName];
+        if (typeof property === "undefined") return false;
+        return typeof property.model === "string"; 
+    }
 }
 
 module.exports = Model;

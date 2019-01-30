@@ -1,3 +1,5 @@
+"use strict";
+
 const Model = require("./furlsails/Model");
 
 class StudentModel extends Model {
