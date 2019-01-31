@@ -1,7 +1,7 @@
 "use strict";
 
-const runSuperclassTests = require("../furl/furlsails/test/Model");
-const studentModel = require("../furl/studentModel");
+const runSuperclassTests = require("../furlsails/test/Model");
+const studentModel = require("../studentModel");
 
 describe("Student model", function() {
     let testData = {

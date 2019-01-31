@@ -1,4 +1,4 @@
-var sails = require('sails');
+let sails = require('sails');
 
 // Before running any tests...
 before(function(done) {

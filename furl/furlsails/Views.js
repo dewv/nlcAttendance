@@ -54,7 +54,7 @@ class Views {
     /**
      * Generates an HTML <select> tag with specified <option>s. 
      * @argument {string} htmlName - Value to be used for the <select>'s name and id attributes.
-     * @argument {Object} domain - Array of objects containing the <option>s that should appear in the <select>.
+     * @argument {[Object]} domain - Array of objects containing the <option>s that should appear in the <select>.
      * @argument {string} property - Name of the property to extract from domain objects.
      * @argument {string} selected - The option value that should be selected.
      * @return {string} HTML for a <select> tag.
