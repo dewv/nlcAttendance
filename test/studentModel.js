@@ -44,25 +44,27 @@ describe("Student model", function() {
     function studentTest(model, testData) {
         describe("studentModel specific test", function() {
         
-            context("`fallSport should only contain sports with the season attribute  equivlant to 'Fall'", function() { //Sports applied by their season attribute.
-                it("should find 'Fall' season attribute for the record", async function() {
-                    let fall = await Sport.findOne({ season: 'Fall' });
-                    let result = fall.season;
-                    let association = testData.associations.fallSport.season;
-                    should.exist(result, "fallSport domain is empty");
-                    result.should.equal(association, "fallSport domain contains " + result + " but should contain " + association);
+            context("Fall Sport is a Fall Sport", function() {
+                it("The sport in the student's fallSport field is a fall sport", async function() {
+                    for (let i = 0; i < testData.records.length; i++) {
+                        let a = await studentModel.populateOne(testData.records[i].id);
+                        let result = a.fallSport.season;
+                        let expected = 'Fall';
+                        should.exist(result, "The fallSport field does not have a season.");
+                        result.should.equal(expected, "Expected the season to be " + expected + " the table returned " + result);
+                    }
                 });
             });
             
-            context("`springSport should only contain sports with the season attribute  equivlant to 'Fall'", function() {
-                it("should find 'Fall' season attribute for the record", async function() {
-                    let spring = await Sport.findOne({ season: 'Spring' });
-                    let result = spring.season;
-                    let association = testData.associations.springSport.season;
-    
-                    should.exist(result, "fallSport domain is empty");
-                    result.should.equal(association, "fallSport domain contains " + result + " but should contain " + association);
-    
+            context("Spring Sport is a Spring Sport", function() {
+                it("The sport in the student's springSport field is a spring sport", async function() {
+                    for (let i = 0; i < testData.records.length; i++) {
+                        let a = await studentModel.populateOne(testData.records[i].id);
+                        let result = a.springSport.season;
+                        let expected = 'Spring';
+                        should.exist(result, "The springSport field does not have a season.");
+                        result.should.equal(expected, "Expected the season to be " + expected + " the table returned " + result);
+                    }
                 });
             });
         });
