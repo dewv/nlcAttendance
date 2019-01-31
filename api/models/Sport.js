@@ -1,6 +1,6 @@
 let sport = {
   attributes: {
-    name: { type: 'string', required: true, }
+    name: { type: 'string', required: true, },
   }
 };
 
