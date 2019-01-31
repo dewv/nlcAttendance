@@ -14,7 +14,8 @@ class StudentModel extends Model {
     async getAssociationDomains() {
         return {
             fallSport: await Sport.find(),
-            springSport: await Sport.find()
+            springSport: await Sport.find(),
+            classRank: await ClassRank.find(),
         };
     }
 
@@ -29,11 +30,16 @@ class StudentModel extends Model {
             let springSport = await Sport.findOne({ name: record.springSport });
             record.springSport = springSport ? springSport.id : null;
         }
+        
+        if (record.classRank) {
+            let classRank = await ClassRank.findOne({ });
+            record.classRank = classRank ? classRank.id : null;
+        }
     }
 
     /** override */
     async populateOne(id) {
-        return await Student.findOne({ id }).populate("fallSport").populate("springSport");
+        return await Student.findOne({ id }).populate("fallSport").populate("springSport").populate("classRank");
     }
 }
 

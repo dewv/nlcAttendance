@@ -6,7 +6,7 @@
     
     <div>
       <label for="firstName">First name</label>
-      <input id="firstName" name="firstName" type="text" value="<%= formData.firstName %>"> 
+      <input id="firstName" name="firstName" type="text" autofocus maxlength="255" required value="<%= formData.firstName %>"> 
     </div>
     
     <div>
@@ -15,15 +15,30 @@
     </div>
     
     <div>
+      <label for="ClassRank">Class Rank</label>
+      <%- classRank %>
+    </div>
+    
+    <div>
+      <label for="MajorOne">Major 1</label>
+      <%- majors %>
+    </div>
+    
+    <div>
+      <label for="MajorTwo">Major 2</label>
+      <%- majors %>
+    </div>
+    
+    <div>
       <label for="fallSport">Fall sport</label>
-      <%- Html.DropDownList("Fall Sport", new SelectList(studentModel, "fallSport") %>
+      <%- fallSport %>
     </div>
 
     <div>
       <label for="springSport">Spring sport</label>
       <%- springSport %>
     </div>
-
+    
     <button type="submit"><%= buttonLabel %></button>
 </form>
  
