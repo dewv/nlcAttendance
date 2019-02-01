@@ -16,6 +16,7 @@ class StudentModel extends Model {
             fallSport: await Sport.find(),
             springSport: await Sport.find(),
             classRank: await ClassRank.find(),
+            majors: await Majors.find(),
         };
     }
 
@@ -32,8 +33,12 @@ class StudentModel extends Model {
         }
         
         if (record.classRank) {
-            let classRank = await ClassRank.findOne({ });
+            let classRank = await ClassRank.findOne({ name: record.name });
             record.classRank = classRank ? classRank.id : null;
+        }
+         if (record.majors) {
+            let majors = await Majors.findOne({ name: record.name });
+            record.majors = majors ? Majors.id : null;
         }
     }
 
@@ -45,4 +50,4 @@ class StudentModel extends Model {
 
 module.exports = new StudentModel();
 
-/* global Student, Sport */
+/* global Student, Sport, ClassRank, Majors */
