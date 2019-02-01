@@ -15,13 +15,15 @@ describe("Student model", function() {
 
         testData.associations.springSport = await Sport.create({ name: "TEST SPRING SPORT", season: "Spring" }).fetch();
 
-        testData.records.push(await Student.create({
+        let newRecord = await Student.create({
             username: "TESTSTUDENT@DEWV.EDU",
             firstName: "TEST",
             lastName: "STUDENT",
             fallSport: testData.associations.fallSport.id,
             springSport: testData.associations.springSport.id
-        }).fetch());
+        }).fetch();
+        
+        testData.records.push(await studentModel.populateOne(newRecord.id));
     });
 
     after(async function() {
