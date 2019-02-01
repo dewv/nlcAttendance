@@ -42,7 +42,19 @@ class StudentViews extends Views {
             ejsData[domain] = this._generateHtmlSelect(domain, domains[domain], "name", record[domain] === null ? null : record[domain].name);
         }
 
-        response.view(this._filePath, ejsData);
+        if (response.view) {
+            response.view(this._filePath, ejsData);
+        }
+        else {
+            // test only: no `view` method in mock express response    
+            require("ejs").renderFile("views/" + this._filePath + ".html", ejsData, function(error, result) {
+                if (error) {
+                    console.log(JSON.stringify(error));
+                    return error;
+                }
+                response.end(result);
+            });
+        }
     }
 
     /** override */

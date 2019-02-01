@@ -1,8 +1,7 @@
 "use strict";
 
-const runSuperclassTests = require("../furl/furlsails/test/Model");
-const studentModel = require("../furl/studentModel");
-const should = require("should");
+const runSuperclassTests = require("../furlsails/test/Model");
+const studentModel = require("../studentModel");
 
 describe("Student model", function() {
     let testData = {
@@ -71,4 +70,4 @@ describe("Student model", function() {
     }
 });
 
-/* global Student, Sport */
+/* global Student, Sport, should */
