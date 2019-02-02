@@ -28,7 +28,7 @@ module.exports = {
             ejsData[domain] = await sails.helpers.generateHtmlSelect(domain, domains[domain]);
         }
 
-        response.view(`pages/${request.params.model}/createForm`, ejsData);
+        return sails.helpers.responseViewSafely(response, `pages/${request.params.model}/createForm`, ejsData);
     },
 
     /**
@@ -41,7 +41,7 @@ module.exports = {
     createFormSubmitted: async function(request, response) {
         let encodedData = await sails.helpers.encodeAssociations(sails.models[request.params.model], request.body);
         await sails.models[request.params.model].create(encodedData);
-        response.redirect(`/${request.params.model}`);
+        return response.redirect(`/${request.params.model}`);
     },
 
     /**
@@ -65,7 +65,7 @@ module.exports = {
             ejsData[domain] = await sails.helpers.generateHtmlSelect(domain, domains[domain], recordToUpdate[domain] === null ? undefined : recordToUpdate[domain].name);
         }
 
-        response.view(`pages/${request.params.model}/editForm`, ejsData);
+        return sails.helpers.responseViewSafely(response, `pages/${request.params.model}/editForm`, ejsData);
     },
 
     /**
@@ -78,7 +78,7 @@ module.exports = {
     editFormSubmitted: async function(request, response) {
         let encodedData = await sails.helpers.encodeAssociations(sails.models[request.params.model], request.body);
         await sails.models[request.params.model].updateOne({ id: request.params.id }).set(encodedData);
-        response.redirect(`/${request.params.model}/${request.params.id}`);
+        return response.redirect(`/${request.params.model}/${request.params.id}`);
     }
 
 };
