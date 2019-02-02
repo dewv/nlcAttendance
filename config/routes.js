@@ -1,9 +1,11 @@
-const studentController = require("../furl/studentController");
-
 let routes = {
-  '/': '/student'
+    '/': '/student',
+    
+    "GET /:model/new": "RestController.createFormRequested",
+    "POST /:model": "RestController.createFormSubmitted",
+    
+    "GET /:model/:id/edit": "RestController.editFormRequested",
+    "POST /:model/:id": "RestController.editFormSubmitted"
 };
-
-studentController.addRoutes(routes);
 
 module.exports.routes = routes;
