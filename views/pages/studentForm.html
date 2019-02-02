@@ -1,5 +1,5 @@
 
-<script src="assets/js/studentForm.js"></script>
+<script type="text/javascript" src="/js/studentForm.js"></script>
 
 <form method="POST" action="<%= action %>">
     <div>
@@ -30,12 +30,13 @@
     <br> 
     Are you an athlete?
     <br>
-    <input type="radio" name="yesAthlete" onclick="showSports()"/>
+    <input type="radio" name="yesAthlete" onclick="showSports()" /> Yes
+    <input type="radio" name="noAthlete" /> No
     <br>
     
     <div>
       <br>
-      <label for="fallSport" id="fallSports">Fall sport</label>
+      <label for="fallSport" id="fallSports" style="display:none;">Fall sport</label>
       <%- fallSport %>
       <br>
     </div>
