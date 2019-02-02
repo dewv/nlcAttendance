@@ -51,7 +51,7 @@ class StudentModel extends Model {
 
     /** override */
     async populateOne(id) {
-        return await Student.findOne({ id }).populate("fallSport").populate("springSport").populate("classRank");
+        return await Student.findOne({ id }).populate("fallSport").populate("springSport").populate("classRank").populate("majors").populate("residentialStatus");
     }
 }
 

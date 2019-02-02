@@ -1,11 +1,11 @@
 <form method="POST" action="<%= action %>">
     <div>
-      <label for="firstName">First name</label>
+      <label for="firstName" value="First Name">First name</label>
       <input id="firstName" name="firstName" type="text" autofocus maxlength="255" required value="<%= formData.firstName %>"> 
     </div>
     
     <div>
-      <label for="lastName">Last name</label>
+      <label for="lastName" value="Last Name">Last name</label>
       <input id="lastName" name="lastName" type="text" value="<%= formData.lastName %>">
     </div>
     
@@ -27,18 +27,28 @@
     <br> 
     Are you an athlete?
     <br>
-    
+    <input type="radio" name="yesAthlete" onclick="showSports()"/>
+    <br>
     
     <div>
-      <label for="fallSport">Fall sport</label>
+      <br>
+      <label for="fallSport" id="fallSports">Fall sport</label>
       <%- fallSport %>
+      <br>
     </div>
 
     <div>
-      <label for="springSport">Spring sport</label>
+      <br>
+      <label for="springSport" id="springSports">Spring sport</label>
       <%- springSport %>
+      <br>
     </div>
     
     <button type="submit"><%= buttonLabel %></button>
 </form>
+
+function showSports() {
+      document.getElementById('fallSports').style.display = "fallSports";
+      document.getElementById('springSports').style.display = "springSports";
+      }
  
