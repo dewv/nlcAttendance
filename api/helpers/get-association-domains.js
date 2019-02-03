@@ -1,8 +1,8 @@
 module.exports = {
 
-    friendlyName: 'Get association domains',
+    friendlyName: "Get association domains",
 
-    description: 'Provides domain values for each association',
+    description: "Provides domain values for each association",
 
     inputs: {
         model: {
@@ -14,7 +14,7 @@ module.exports = {
 
     exits: {
         success: {
-            outputFriendlyName: 'Association domains',
+            outputFriendlyName: "Association domains",
         }
     },
 

@@ -1,6 +1,6 @@
 module.exports = {
 
-    friendlyName: 'populateOne',
+    friendlyName: "populateOne",
 
     description: "Retrieves attributes and populates all associations for a specified ID",
 
@@ -20,7 +20,7 @@ module.exports = {
 
     exits: {
         success: {
-            outputFriendlyName: 'Populated record',
+            outputFriendlyName: "Populated record",
         }
     },
 

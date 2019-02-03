@@ -1,6 +1,6 @@
 module.exports = {
 
-    friendlyName: 'Generate HTML <select>',
+    friendlyName: "Generate HTML <select>",
 
     description: "Generate an HTML <select> tag with <option>s for a specified domain's values",
 
@@ -26,7 +26,7 @@ module.exports = {
 
     exits: {
         success: {
-            outputFriendlyName: 'HTML <select>',
+            outputFriendlyName: "HTML <select>",
         }
     },
 
@@ -34,9 +34,9 @@ module.exports = {
         let result = `<select id="${inputs.htmlName}" name="${inputs.htmlName}"> <option>Choose one ...</option> `;
         for (let i = 0; i < inputs.domain.length; i++) {
             if (inputs.domain[i].name) {
-            result += `<option value="${inputs.domain[i].name}"`;
-            if (inputs.selected && inputs.selected === inputs.domain[i].name) result += " selected";
-            result += `>${inputs.domain[i].name}</option> `;
+                result += `<option value="${inputs.domain[i].name}"`;
+                if (inputs.selected && inputs.selected === inputs.domain[i].name) result += " selected";
+                result += `>${inputs.domain[i].name}</option> `;
             } else {
                 sails.log.error("Domain value passed to generateHtmlSelect helper does not have `name` property");
             }

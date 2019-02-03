@@ -1,8 +1,8 @@
 module.exports = {
 
-    friendlyName: 'Get blank record',
+    friendlyName: "Get blank record",
 
-    description: 'Generate a data record with "empty" values for model attributes, appropriate for populating create form.',
+    description: "Generate a data record with \"empty\" values for model attributes, appropriate for populating create form.",
 
     inputs: {
         model: {
@@ -14,7 +14,7 @@ module.exports = {
 
     exits: {
         success: {
-            outputFriendlyName: 'Blank record',
+            outputFriendlyName: "Blank record",
         }
     },
 

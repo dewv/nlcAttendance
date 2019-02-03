@@ -1,6 +1,6 @@
 module.exports = {
 
-    friendlyName: 'Encode associations',
+    friendlyName: "Encode associations",
 
     description: "Replaces user-entered association domain values with their corresponding ID/key.",
 
@@ -20,7 +20,7 @@ module.exports = {
 
     exits: {
         success: {
-            outputFriendlyName: 'Encoded associations',
+            outputFriendlyName: "Encoded associations",
         }
     },
 
