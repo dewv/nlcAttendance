@@ -26,7 +26,7 @@
   "scripts": {
     "start": "NODE_ENV=production node app.js",
     "test": "npm run lint && npm run mocha && echo 'Done.'",
-    "lint": "./node_modules/.bin/eslint . --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'",
+    "lint": "./node_modules/.bin/eslint ./api --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'",
     "mocha": "_mocha ./furl/furlsails/test/lifecycle.js ./furl/test"
   },
   "main": "app.js",
