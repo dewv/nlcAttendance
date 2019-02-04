@@ -1,5 +1,4 @@
-function showSports() {
-      document.getElementById('fallSports').style.display = "fallSports";
-      document.getElementById('springSports').style.display = "springSports";
+function show() {
+      document.getElementsByClassName('sports').style.display = 'block';
       }
  

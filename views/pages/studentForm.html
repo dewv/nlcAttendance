@@ -1,52 +1,54 @@
 
-<script type="text/javascript" src="/studentForm.js"></script>
+<script type="text/javascript" src="/js/studentForm.js"></script>
 
 <form method="POST" action="<%= action %>">
     <div>
       <label for="firstName" value="First Name">First name</label>
       <input id="firstName" name="firstName" type="text" autofocus maxlength="255" required value="<%= formData.firstName %>"> 
     </div>
+    <br>
     
     <div>
       <label for="lastName" value="Last Name">Last name</label>
       <input id="lastName" name="lastName" type="text" value="<%= formData.lastName %>">
     </div>
+    <br>
     
     <div>
       <label for="ClassRank">Class Rank</label>
       <%- classRank %>
     </div>
+    <br>
     
     <div>
       <label for="MajorOne">Major 1</label>
       <%- majors %>
     </div>
+    <br>
     
     <div>
       <label for="MajorTwo">Major 2</label>
       <%- majors %>
     </div>
+    <br>
     
-    <br> 
+    
     Are you an athlete?
     <br>
-    <input type="radio" name="yesAthlete" onclick="showSports()" /> Yes
+    <input type="radio" name="yesAthlete" onclick="show()" /> Yes
     <input type="radio" name="noAthlete" /> No
     <br>
     
     <div>
       <br>
-      <label for="fallSport" id="fallSports" style="display:none;">Fall sport</label>
-      <%- fallSport %>
-      <br>
+      <label for="fallSport" id="fallSports" style="display:none;" class="sports">Fall sport <%- fallSport %></label>
     </div>
 
     <div>
       <br>
-      <label for="springSport" id="springSports" style="display:none;">Spring sport</label>
-      <%- springSport %>
-      <br>
+      <label for="springSport" id="springSports" style="display:none;" class="sports">Spring sport <%- springSport %></label>
     </div>
+    <br>
     
     <button type="submit"><%= buttonLabel %></button>
 </form>
