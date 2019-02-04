@@ -1,8 +1,14 @@
+/**
+ * @module get-defaults
+ * 
+ * Usage: `sails.helpers.getDefaults(model);`
+ */
+ 
 module.exports = {
 
-    friendlyName: "Get blank record",
+    friendlyName: "Get defaults",
 
-    description: "Generate a data record with \"empty\" values for model attributes, appropriate for populating create form.",
+    description: "Generate a data record with default values for model attributes, appropriate for populating create form.",
 
     inputs: {
         model: {
@@ -18,7 +24,9 @@ module.exports = {
         }
     },
 
-    fn: async function(inputs, exits) {
+    sync: true,
+
+    fn: function(inputs, exits) {
         let result = {};
         for (let property in inputs.model.attributes) {
             if (inputs.model.attributes[property].defaultsTo) result[property] = inputs.model.attributes[property].defaultsTo;

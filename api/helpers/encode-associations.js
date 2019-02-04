@@ -1,3 +1,9 @@
+/**
+ * @module encode-association
+ * 
+ * Usage: `sails.helpers.encodeAssociations(model, record);`
+ */
+ 
 module.exports = {
 
     friendlyName: "Encode associations",

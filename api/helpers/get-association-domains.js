@@ -1,3 +1,9 @@
+/**
+ * @module get-association-domains 
+ * 
+ * Usage: `sails.helpers.getAssociationDomains(model);`
+ */
+ 
 module.exports = {
 
     friendlyName: "Get association domains",

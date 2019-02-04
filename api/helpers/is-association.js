@@ -1,3 +1,9 @@
+/**
+ * @module is-association 
+ * 
+ * Usage: `sails.helpers.isAssociation(model, propertyName);`
+ */
+ 
 module.exports = {
 
 
@@ -19,7 +25,6 @@ module.exports = {
             type: "string",
             required: true
         }
-
     },
 
     exits: {
@@ -37,6 +42,5 @@ module.exports = {
         if (typeof property === "undefined") return exits.success(false);
         return exits.success(typeof property.model === "string");
     }
-
 };
 

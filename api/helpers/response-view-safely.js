@@ -1,3 +1,9 @@
+/**
+ * @module response-view-safely 
+ * 
+ * Usage: `sails.helpers.responseViewSafely(response, viewPath, data);`
+ */
+ 
 const fs = require("fs"); // nodejs file system access
 
 module.exports = {

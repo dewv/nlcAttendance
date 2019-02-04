@@ -1,5 +1,5 @@
 let routes = {
-    '/': '/student',
+    "/": "/student",
     
     "GET /:model/new": "RestController.createFormRequested",
     "POST /:model": "RestController.createFormSubmitted",

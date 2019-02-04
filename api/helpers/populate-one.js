@@ -1,3 +1,9 @@
+/**
+ * @module populate-one
+ * 
+ * Usage: `sails.helpers.populateOne(model, id);`
+ */
+ 
 module.exports = {
 
     friendlyName: "populateOne",

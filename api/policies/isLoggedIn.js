@@ -1,5 +1,5 @@
 /**
- * Policy to require authentication
+ * @module isLoggedIn
  */
  
 module.exports = async function(request, response, proceed) {

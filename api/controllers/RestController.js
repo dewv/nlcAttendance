@@ -1,11 +1,7 @@
 /**
- * RestController
+ * @module RestController
  *
- * @description :: Server-side actions for handling incoming requests.
- * @help        :: See https://sailsjs.com/docs/concepts/actions
- * 
- * A generic controller for routing standard REST requests to the proper model's view.
- * 
+ * @description A generic controller for routing standard REST requests to the proper model's view.
  */
 
 module.exports = {
@@ -20,7 +16,7 @@ module.exports = {
         let model = sails.models[request.params.model];
         let domains = await sails.helpers.getAssociationDomains(model);
         let ejsData = {
-            formData: await sails.helpers.getBlankRecord(model),
+            formData: await sails.helpers.getDefaults(model),
             action: "/" + request.params.model
         };
 
@@ -80,5 +76,4 @@ module.exports = {
         await sails.models[request.params.model].updateOne({ id: request.params.id }).set(encodedData);
         return response.redirect(`/${request.params.model}/${request.params.id}`);
     }
-
 };

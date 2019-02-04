@@ -1,17 +1,29 @@
+/**
+ * @module _helpers
+ */
+ 
 "use strict";
-
 const should = require("should");
+const config = require("../../config/models");
 
+/**
+ * Tests the specified model's integration with helpers, using the specified test data.
+ * @argument {string} model - The sailsjs model to be tested.
+ * @argument {Object[]} testData - Data records to be used for testing.
+ * @public
+ */
 module.exports = function(model, testData) {
-    describe("standard superclass tests", function() {
 
-        context("`getBlankRecord` helper", function() {
-            it("should return a record with expected sailsjs model attributes", function() {
-                let result = sails.helpers.getBlankRecord(model);
+    describe("Standard tests of model, helpers integration", function() {
+
+        context("`getDefaults` helper", async function() {
+            it("should return a record with expected sailsjs model attributes", async function() {
+                let result = sails.helpers.getDefaults(model);
                 result.should.not.be.an.Error();
                 result.should.be.an.Object();
-                for (let property in model.sails.attributes) {
-                    should.exist(result[property], `The record returned by \`getBlankRecord\` has no ${property} property`);
+                for (let property in model.attributes) {
+                    if (config.models.attributes[property]) continue; // skip base attributes
+                    should.exist(result[property], `The record returned by \`getDefaults\` has no ${property} property`);
                 }
             });
         });
@@ -29,11 +41,10 @@ module.exports = function(model, testData) {
 
         context("`encodeAssociations` helper", async function() {
             it("should replace the specified record's domain values with keys for each associated sailsjs model", async function() {
-                let record = sails.helpers.getBlankRecord(model);
+                let record = sails.helpers.getDefaults(model);
                 for (let property in model.attributes) {
                     if (sails.helpers.isAssociation(model, property)) {
                         should.exist(testData.associations[property].name, "This test code depends on each association having a `name` property, but found none in " + property + ": " + JSON.stringify(testData.associations[property]));
-
                         record[property] = testData.associations[property].name;
                     }
                 }
@@ -51,7 +62,7 @@ module.exports = function(model, testData) {
         context("`populateOne` helper", function() {
             it("should return a data record for the specified ID, with all associations populated", async function() {
                 let id = testData.records[0].id;
-                let result = await sails.helpers.populateOne(model, id);
+                let result = await sails.helpers.populateOne(sails.models[model], id);
                 result.should.not.be.an.Error();
                 result.should.be.an.Object();
                 should.exist(result.id, "The record returned by `populateOne` has no `id` property");

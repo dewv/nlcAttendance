@@ -1,3 +1,7 @@
+/**
+ * @file Handles startup/shutdown of app before/after mocha tests.
+ */
+ 
 let sails = require("sails");
 
 // Before running any tests...

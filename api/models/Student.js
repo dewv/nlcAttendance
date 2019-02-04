@@ -1,4 +1,10 @@
-let student = {
+/**
+ * @module Student
+ * 
+ * Usage: `Sptuden` or `sails.models.Student`
+ */
+ 
+module.exports = { 
     attributes: {
         username: { type: "string", required: true, allowNull: false, unique: true },
         firstName: { type: "string", required: true, allowNull: false },
@@ -7,5 +13,3 @@ let student = {
         springSport: { model: "Sport" }
     },
 };
-
-module.exports = student;
