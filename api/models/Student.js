@@ -1,7 +1,7 @@
 /**
  * @module Student
  * 
- * Usage: `Sptuden` or `sails.models.Student`
+ * Usage: `Student` or `sails.models.Student`
  */
  
 module.exports = { 
