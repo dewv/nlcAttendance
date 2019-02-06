@@ -15,7 +15,8 @@
     "Promise": true,
     "sails": true,
     "_": true,
-    "Sport": true,
+    "FallSport": true,
+    "SpringSport": true,
     "Student": true
     // …and any others (e.g. `"Organization": true`)
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

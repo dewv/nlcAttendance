@@ -1,7 +1,7 @@
 /**
  * @file Defines tests for the Student sailsjs model.
  */
- 
+
 "use strict";
 const helperIntegrationTests = require("./_helpers");
 
@@ -13,9 +13,8 @@ describe("Student model", function() {
 
     before(async function() {
         // before tests run, create test data
-        testData.associations.fallSport = await Sport.create({ name: "TEST FALL SPORT" }).fetch();
-
-        testData.associations.springSport = await Sport.create({ name: "TEST SPRING SPORT" }).fetch();
+        testData.associations.fallSport = await FallSport.create({ name: "TEST FALL SPORT" }).fetch();
+        testData.associations.springSport = await SpringSport.create({ name: "TEST SPRING SPORT" }).fetch();
 
         testData.records.push(await Student.create({
             username: "TESTSTUDENT@DEWV.EDU",
@@ -28,9 +27,8 @@ describe("Student model", function() {
 
     after(async function() {
         // after tests run, destroy test data
-        for (let property in testData.associations) {
-            await Sport.destroyOne({ id: testData.associations[property].id });
-        }
+        await FallSport.destroyOne({ id: testData.associations.fallSport.id });
+        await SpringSport.destroyOne({ id: testData.associations.springSport.id });
 
         for (let i = 0; i < testData.records.length; i++) {
             await Student.destroyOne({ id: testData.records[i].id });
