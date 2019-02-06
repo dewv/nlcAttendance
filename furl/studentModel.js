@@ -15,7 +15,7 @@ class StudentModel extends Model {
         return {
             fallSport: await Sport.find(),
             springSport: await Sport.find(),
-            majors: await Majors.find(),
+            major: await Major.find(),
         };
     }
 
@@ -31,9 +31,9 @@ class StudentModel extends Model {
             record.springSport = springSport ? springSport.id : null;
         }
         
-        if (record.majors) {
-            let majors = await Majors.findOne({ name: record.name });
-            record.majors = majors ? Majors.id : null;
+        if (record.major) {
+            let major = await Major.findOne({ name: record.name });
+            record.major = major ? Major.id : null;
         }
     }
 
@@ -45,4 +45,4 @@ class StudentModel extends Model {
 
 module.exports = new StudentModel();
 
-/* global Student, Sport, Majors,  */
+/* global Student, Sport, Major,  */
