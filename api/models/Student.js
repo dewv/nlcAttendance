@@ -5,8 +5,9 @@ let student = {
         lastName: { type: 'string', required: true, allowNull: false },
         fallSport: { model: "Sport" },
         springSport: { model: "Sport" },
-        classRank: {model: "ClassRank" },
-        majors: {model: "Majors"},
+        classRank: {type: 'string', required: true, allowNull: false },
+        majors: {model: "Major"},
+        residentialStatus: {type: 'string', required: true, allowNull: false},
     },
 };
 
