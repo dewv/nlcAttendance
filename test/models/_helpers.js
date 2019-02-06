@@ -9,7 +9,7 @@ const config = require("../../config/models");
 /**
  * Tests the specified model's integration with helpers, using the specified test data.
  * @argument {string} model - The sailsjs model to be tested.
- * @argument {Object[]} testData - Data records to be used for testing.
+ * @argument {Object[]} testData - Data record to be used for testing.
  * @public
  */
 module.exports = function(model, testData) {
@@ -61,7 +61,7 @@ module.exports = function(model, testData) {
 
         context("`populateOne` helper", function() {
             it("should return a data record for the specified ID, with all associations populated", async function() {
-                let id = testData.records[0].id;
+                let id = testData.record.id;
                 let result = await sails.helpers.populateOne(sails.models[model], id);
                 result.should.not.be.an.Error();
                 result.should.be.an.Object();
@@ -77,7 +77,7 @@ module.exports = function(model, testData) {
                         }
                     }
                     else {
-                        result[property].should.equal(testData.records[0][property]);
+                        result[property].should.equal(testData.record[property]);
                     }
                 }
             });
