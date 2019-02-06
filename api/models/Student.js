@@ -1,8 +1,14 @@
-let student = {
+/**
+ * @module Student
+ * 
+ * Usage: `Student` or `sails.models.Student`
+ */
+ 
+module.exports = { 
     attributes: {
-        username: { type: 'string', required: true, allowNull: false },
-        firstName: { type: 'string', required: true, allowNull: false },
-        lastName: { type: 'string', required: true, allowNull: false },
+        username: { type: "string", required: true, allowNull: false, unique: true },
+        firstName: { type: "string", required: true, allowNull: false },
+        lastName: { type: "string", required: true, allowNull: false },
         fallSport: { model: "Sport" },
         springSport: { model: "Sport" },
         classRank: {type: 'string', required: true, allowNull: false },
@@ -10,6 +16,4 @@ let student = {
         residentialStatus: {type: 'string', required: true, allowNull: false},
     },
 };
-
-module.exports = student;
 
