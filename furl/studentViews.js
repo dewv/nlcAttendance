@@ -6,7 +6,7 @@ const Views = require("./furlsails/Views");
 class StudentViews extends Views {
     constructor() {
         super();
-        this._filePath = "pages/student/editForm";
+        this._filePath = "pages/studentForm";
         this._baseUrl = "/student";
     }
 
