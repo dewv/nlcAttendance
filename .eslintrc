@@ -17,6 +17,7 @@
     "_": true,
     "FallSport": true,
     "SpringSport": true,
+    "Major": true,
     "Student": true
     // …and any others (e.g. `"Organization": true`)
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
