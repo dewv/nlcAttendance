@@ -9,7 +9,7 @@ const config = require("../../config/models");
 /**
  * Tests the specified model's integration with helpers, using the specified test data.
  * @argument {string} model - The sailsjs model to be tested.
- * @argument {Object[]} testData - Data records to be used for testing.
+ * @argument {Object[]} testData - Data record to be used for testing.
  * @public
  */
 module.exports = function(model, testData) {
