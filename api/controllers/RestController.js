@@ -60,7 +60,7 @@ module.exports = {
             ejsData[domain] = await sails.helpers.generateHtmlSelect(domain, domains[domain], recordToUpdate[domain] === null ? undefined : recordToUpdate[domain].name);
         }
 
-        return sails.helpers.responseViewSafely(response, `pages/${request.params.model}/editForm`, ejsData);
+        return await sails.helpers.responseViewSafely(response, `pages/${request.params.model}/editForm`, ejsData);
     },
 
     /**
