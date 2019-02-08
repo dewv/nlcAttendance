@@ -1,20 +1,20 @@
-https://github.com/dewv/nlc_attendance/blob/master/views/visit/check_in.html
-
+<!--
 <% var pageTitle = "Naylor Learning Center - Check In"; %>
-<% include ../page_top_template.html %>
+
 <% include ../logoutTimer.html %>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+-->
 <script src="/javascripts/formCheck.js"></script>
 
-<form action="<% baseUrl %>" method="post">
+<form action="<% action %>" method="post">
+    
     <br> What is your goal/purpose for this visit?
-    <a target="_blank" href="#" title="What do you hope to accomplish today?"><img src="/images/question.png" height="12" alt="help button" /></a>
+    <a target="_blank" href="#" title="What do you hope to accomplish today?"> </a>
     <br>
     
     <textarea name="purpose" autofocus rows="10" cols="30" maxlength="255" required></textarea>
     <br>
     <br>
+    
     <input type="submit" value="Submit">
 </form>
 
-<% include ../page_bottom_template.html %>
