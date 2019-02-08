@@ -1,24 +1,27 @@
 /**
- * @module populate-one
- * 
- * Usage: `sails.helpers.populateOne(model, id);`
+ * @name sails&period;helpers&period;populateOne
+ * @description Retrieves attributes and populates all associations for a specified ID.
+ * @function
+ * @argument {Object} model - A Sails model defining the attributes and associations.
+ * @argument {number} id - The ID/key of the desired data record.
+ * @return {Object} A data record with all associations populated.
+ * @async
  */
- 
 module.exports = {
 
     friendlyName: "populateOne",
 
-    description: "Retrieves attributes and populates all associations for a specified ID",
+    description: "Retrieves attributes and populates all associations for a specified ID.",
 
     inputs: {
         model: {
-            description: "A sails model defining the attributes and associations",
+            description: "A Sails model defining the attributes and associations.",
             type: "ref",
             required: true
         },
 
         id: {
-            description: "The ID/key of the desired data record",
+            description: "The ID/key of the desired data record.",
             type: "number",
             required: true
         }

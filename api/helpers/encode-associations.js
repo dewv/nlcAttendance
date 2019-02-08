@@ -1,24 +1,26 @@
 /**
- * @module encode-association
- * 
- * Usage: `sails.helpers.encodeAssociations(model, record);`
+ * @name sails&period;helpers&period;encodeAssociations
+ * @description Replaces user-entered association domain values with their corresponding ID/key.
+ * @function
+ * @argument {Object} model - A Sails model defining the associations, if any.
+ * @argument {Object} record - A data record that may contain association domain values that need encoding.
+ * @return {Object} The record argument, modified so that any association domain values are replace with their ID/key.
+ * @async
  */
- 
 module.exports = {
-
     friendlyName: "Encode associations",
 
     description: "Replaces user-entered association domain values with their corresponding ID/key.",
 
     inputs: {
         model: {
-            description: "A sails model defining the associations, if any",
+            description: "A Sails model defining the associations, if any.",
             type: "ref",
             required: true
         },
 
         record: {
-            description: "A data record that may contain association domain values that need encoding",
+            description: "A data record that may contain association domain values that need encoding.",
             type: "ref",
             required: true
         }
@@ -32,7 +34,7 @@ module.exports = {
 
     fn: async function(inputs, exits) {
         for (let property in inputs.model.attributes) {
-            if (sails.helpers.isAssociation(inputs.model, property)) { 
+            if (sails.helpers.isAssociation(inputs.model, property)) {
                 let lookup = await sails.models[inputs.model.attributes[property].model].findOne({ name: inputs.record[property] });
                 inputs.record[property] = lookup ? lookup.id : null;
             }

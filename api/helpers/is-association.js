@@ -1,27 +1,29 @@
 /**
- * @module is-association 
- * 
- * Usage: `sails.helpers.isAssociation(model, propertyName);`
+ * @name sails&period;helpers&period;isAssociation
+ * @description Determines if a model property is an associated model.
+ * @function
+ * @argument {Object} model - The Sails model to check.
+ * @argument {string} propertyName - The name of the model property to check.
+ * @return {boolean}
  */
- 
 module.exports = {
 
 
     friendlyName: "Is association",
 
 
-    description: "Determines if a model property is an associated model",
+    description: "Determines if a model property is an associated model.",
 
 
     inputs: {
         model: {
-            description: "The sailsjs model to check",
+            description: "The Sails model to check.",
             type: "ref",
             required: true
         },
     
         propertyName: {
-            description: "The name of the model property to check",
+            description: "The name of the model property to check.",
             type: "string",
             required: true
         }
