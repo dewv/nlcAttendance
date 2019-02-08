@@ -1,4 +1,4 @@
-/**
+/*
  * @module Student
  * 
  * Usage: `Student` or `sails.models.Student`

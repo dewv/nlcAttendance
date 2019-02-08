@@ -29,7 +29,8 @@
     "start": "NODE_ENV=production node app.js",
     "test": "npm run lint && npm run mocha && echo 'Done.'",
     "lint": "./node_modules/.bin/eslint ./api --fix --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'",
-    "mocha": "_mocha ./test/lifecycle.js ./test/**/*.js"
+    "mocha": "_mocha ./test/lifecycle.js ./test/**/*.js",
+    "docs": "jsdoc -d docs api/**/*.js"
   },
   "main": "app.js",
   "repository": {

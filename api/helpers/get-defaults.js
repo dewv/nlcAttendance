@@ -1,18 +1,19 @@
 /**
- * @module get-defaults
- * 
- * Usage: `sails.helpers.getDefaults(model);`
- */
- 
+ * @name sails&period;helpers&period;getDefaults
+ * @description Generates a data record with default values for model attributes, appropriate for populating create form.
+ * @function
+ * @argument {Object} model - A Sails model whose attributes define the structure of the blank record.
+ * @return {Object} A data record containing default values.
+*/
 module.exports = {
 
     friendlyName: "Get defaults",
 
-    description: "Generate a data record with default values for model attributes, appropriate for populating create form.",
+    description: "Generates a data record with default values for model attributes, appropriate for populating create form.",
 
     inputs: {
         model: {
-            description: "A sails model whose attributes define the structure of the blank record",
+            description: "A Sails model whose attributes define the structure of the blank record.",
             type: "ref",
             required: true
         }
