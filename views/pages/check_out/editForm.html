@@ -1,0 +1,35 @@
+<% var pageTitle = "Naylor Learning Center - Check Out"; %>
+
+    <!-- If they didn't check in send them to the check in page -->
+
+    <!-- <p>You checed in <%= ######### %> -->
+
+<form method="POST" action="<%= action %>">
+    <p>The purpose of your visit was: </p>
+    <textarea rows="4" cols="75" disabled><%= visit.visit_purpose %></textarea>
+    <br>
+    <p>Did you accomplish yhe goal/purpose of your visit?</p>
+
+    <input type="radio" name="purpose_achived" value="Yes" /> Yes
+    <input type="radio" name="purpose_achived" value="No" /> No
+    <input type="radio" name="purpose_achived" value="NotSure" /> Not Sure
+    <br>
+
+    <br>
+    <p>Did you use a tutor?</p>
+    <input type="radio" name="used_tutor" value="Yes" /> Yes
+    <input type="radio" name="used_tutor" value="No" /> No
+    <br>
+    <p>If yes, list the courses: </p>
+    <input id="tutor" type="text" name="tutor" maxlength="255"/>
+    
+    <br>
+    <p>Comments:</p>
+    <textarea rows="4" cols="75" placeholder="Description"></textarea>
+    <br>
+    
+    <br>
+    <button type="submit">Submit</button>
+    
+
+</form>
