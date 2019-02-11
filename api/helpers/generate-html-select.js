@@ -1,30 +1,32 @@
 /**
- * @module generate-html-select 
- * 
- * Usage: `sails.helpers.generateHtmlSelect(htmlName, domain, selected);`
+ * @name sails&period;helpers&period;generateHtmlSelect
+ * @description Generates an HTML &lt;select&gt; tag with &lt;option&gt;s for a specified domain's values.
+ * @function
+ * @argument {string} htmlName - Value to be used for the &lt;select&gt;'s name and id attributes.
+ * @argument {Object[]} domain - Array of objects with `name` properties that will be &lt;option&gt;s in the &lt;select&gt;.
+ * @argument {string} [selected] - The &lt;option&gt; value that should be selected.
+ * @return {string} HTML for a &lt;select&gt; tag.
  */
- 
 module.exports = {
-
     friendlyName: "Generate HTML <select>",
 
-    description: "Generate an HTML <select> tag with <option>s for a specified domain's values",
+    description: "Generates an HTML <select> tag with <option>s for a specified domain's values.",
 
     inputs: {
         htmlName: {
-            description: "Value to be used for the <select>'s name and id attributes",
+            description: "Value to be used for the <select>'s name and id attributes.",
             type: "string",
             required: true
         },
 
         domain: {
-            description: "Array of objects with `name` properties that will be <option>s in the <select>",
+            description: "Array of objects with `name` properties that will be <option>s in the <select>.",
             type: "ref",
             required: true
         },
 
         selected: {
-            description: "The option value that should be selected",
+            description: "The option value that should be selected.",
             type: "string",
             required: false
         },

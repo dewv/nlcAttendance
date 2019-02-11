@@ -3,7 +3,6 @@
  *
  * @description A generic controller for routing standard REST requests to the proper model's view.
  */
-
 module.exports = {
     /**
      * Handles request to display a form for entering a new data record.
@@ -61,7 +60,7 @@ module.exports = {
             ejsData[domain] = await sails.helpers.generateHtmlSelect(domain, domains[domain], recordToUpdate[domain] === null ? undefined : recordToUpdate[domain].name);
         }
 
-        return sails.helpers.responseViewSafely(response, `pages/${request.params.model}/editForm`, ejsData);
+        return await sails.helpers.responseViewSafely(response, `pages/${request.params.model}/editForm`, ejsData);
     },
 
     /**

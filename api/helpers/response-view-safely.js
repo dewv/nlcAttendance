@@ -1,37 +1,41 @@
 /**
- * @module response-view-safely 
- * 
- * Usage: `sails.helpers.responseViewSafely(response, viewPath, data);`
+ * @name sails&period;helpers&period;responseViewSafely
+ * @description Responds with an HTML page, or 404 error if view template does not exist.
+ * @function
+ * @argument {Object} response - The Express/Sails object representing an HTTP response.
+ * @argument {string} pathToView - The path to the desired view file relative to your app's views folder (usually views/), without the file extension, and with no trailing slash.
+ * @argument {Object} [locals] - Data to pass to the view template. 
+ * @see {@link https://sailsjs.com/documentation/reference/response-res/res-view}, which throws server error if view template does not exist.
+ * @async
  */
- 
 const fs = require("fs"); // nodejs file system access
 
 module.exports = {
 
     friendlyName: "Response view safely",
 
-    description: "Sends Web response using specified view template, or sends 404 if template does not exist",
+    description: "Responds with an HTML page, or 404 error if view template does not exist.",
 
     inputs: {
         response: {
-            description: "The Express.js object representing an HTTP response",
+            description: "The Express/Sails object representing an HTTP response.",
             type: "ref",
             required: true
         },
 
-        viewPath: {
-            description: "The path (relative to `views` folder) of the requested view template",
+        pathToView: {
+            description: "The path to the desired view file relative to your app's views folder (usually views/), without the file extension, and with no trailing slash.",
             type: "string",
             required: true
         },
 
-        data: {
-            description: "Data to be provided to view",
+        locals: {
+            description: "Data to pass to the view template.",
             type: "ref",
             required: false
         }
     },
-
+    
     exits: {
         success: {
             description: "Response complete",
@@ -39,9 +43,9 @@ module.exports = {
     },
 
     fn: async function(inputs, exits) {
-        fs.access(`views/${inputs.viewPath}.html`, fs.constants.F_OK, (error) => {
+        fs.access(`views/${inputs.pathToView}.html`, fs.constants.F_OK, (error) => {
             if (error) return exits.success(inputs.response.notFound());
-            return exits.success(inputs.response.view(inputs.viewPath, inputs.data));
+            return exits.success(inputs.response.view(inputs.pathToView, inputs.locals));
         });
     }
 

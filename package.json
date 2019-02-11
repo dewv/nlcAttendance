@@ -8,11 +8,14 @@
     "@sailshq/connect-redis": "^3.2.1",
     "@sailshq/lodash": "^3.10.3",
     "@sailshq/socket.io-redis": "^5.2.0",
+    "ajv": "^6.8.1",
     "cheerio": "^1.0.0-rc.2",
     "eslint": "^5.13.0",
     "grunt": "^1.0.3",
+    "mocha": "^5.2.0",
     "mock-express-request": "^0.2.2",
     "mock-express-response": "^0.2.2",
+    "mysql": "^2.16.0",
     "sails": "^1.1.0",
     "sails-hook-grunt": "^3.1.0",
     "sails-hook-orm": "^2.1.1",
@@ -24,10 +27,13 @@
     "@sailshq/eslint": "^4.19.3"
   },
   "scripts": {
+    "postinstall": "test \"$NODE_ENV\" != production && (test -L ../.eslintrc || ln -s `pwd`/.eslintrc ../.eslintrc) && mysql-ctl start && mysql -u root -e 'CREATE DATABASE IF NOT EXISTS nlcAttendance;'",
+    "sails": "test \"$NODE_ENV\" != production && mysql-ctl start && sails lift",
     "start": "NODE_ENV=production node app.js",
     "test": "npm run lint && npm run mocha && echo 'Done.'",
-    "lint": "./node_modules/.bin/eslint ./api --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'",
-    "mocha": "_mocha ./test/lifecycle.js ./test/**/*.js" 
+    "lint": "./node_modules/.bin/eslint ./api --fix --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'",
+    "mocha": "(test \"$NODE_ENV\" = production || mysql-ctl start) && _mocha ./test/lifecycle.js ./test/**/*.js",
+    "docs": "rm -r docs 2> /dev/null && jsdoc -d docs api/**/*.js"
   },
   "main": "app.js",
   "repository": {
