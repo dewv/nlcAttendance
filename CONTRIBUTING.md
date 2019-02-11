@@ -1,37 +1,116 @@
 # Contributing to NLC Attendance tracker
 
+## About this application
+
+This application tracks student attendance at Davis & Elkins College's Naylor Learning Center. It is a  [DevOps](https://dewv.net/) project.
+
+## Use cases
+
+Here is a description of the application's behavior, organized according to usage scenarios.
+
+### Sign in and user roles
+
+D&E students and staff access the application using a Web browser. They must authenticate using their D&E account credentials; the application communicates with the college's directory server.
+
+Based on user account credentials and directory information, the application can distinguish students from staff; different types of users have different access permissions.
+
+When a user successfully signs in, the application checks for their profile record-- staff or student, as appropriate. If no record is found (because it is the user's first time using the system), a default record is automatically created. Newly created records will have a flag set to indicate that the user must update their profile information. If desired, DevOps staff can manually set the flag for existing user accounts.
+
+### Mandatory profile updates
+
+The application now has a profile record for the user. If the "force update" flag is set, the application routes the user to the appropriate profile update form-- student or staff. The application will not allow the user to access any other features while the flag is set. Submitting the appropriate profile update form clears the "force update" flag.
+
+Staff users can access all staff features from any Web browser.
+
+Student users can update their profile information from any Web browser. However, they can check in and check out only from specially "registered" browsers on PCs located in the Naylor Learning Center. 
+
+### Student check in, check out
+
+When a student signs in to the application, different screens may greet them, according to the following logic.
+
+If the student is using an "unregistered" browser, or the "force update" flag is set on their profile record, they will see the student profile update form. As previously discussed, this is the *only* feature students can access from an "unregistered" browser.
+
+Otherwise, if the student is checked out (i.e., they have no open Visit record), they will be taken to the check in (Visit create) form. The form requires them to describe the purpose of their Visit to the NLC. When the form is submitted, a Visit record is created, storing the student's identity, purpose of their visit, the date/time of form submission, and the location (see "Register this browser", below). This is an "open" Visit record; the student is now checked in. The application will display a success message and a "sign out" link. Because the application is used in "kiosk mode" on shared PCs, the student will automatically be logged out after a short delay. The application will display the sign in page.
+
+Otherwise, the student is checked in (i.e., the have an open Visit record). They will be taken to the check out (Visit update form). The form always displays the student's check in date/time and purpose of their visit. It requires them to indicate if that purpose was achieved (Yes, No, or Not sure), if they used a tutor (Yes, No), and if they did, for which courses were they tutored (text area). There is a text area for optional Comments. As a special case, if the date of the student's check in is *not* the current system date, the form asks them to estimate the duration of their visit, in quarter-hour increments, up to a maximum of 8 hours. In the normal case, the student is checking out the same day that they checked in, and the date/time of their check out is automatically captured at form submission. The Visit record is updated with the information from the form, plus a flag that indicates if the duration was estimated or not. The Visit record is now "closed"; the student is checked out. The application will display a success message and a "sign out" link. Because the application is used in "kiosk mode" on shared PCs, the student will automatically be logged out after a short delay. The application will display the sign in page.
+
+### Voluntary student profile updates
+
+In case the student wishes to voluntarily update their user profile, a link to the update form will appear on the check in form, check out form, and the success pages that briefly appear after both operations.
+
+### The staff menu
+
+Unless the "force update" flag is routing them to their profile update form, a staff user is presented with a menu of choices.
+
+#### Register this browser
+
+A link to a form that prompts the user to enter a "location" string. On form submit, this string is stored as the value of a cookie in the browser. It is the presence of this cookie that "registers" a browser so that it permits check in and check out operations. The expiration time of the cookie is one year from the time of creation.
+
+The location value is stored on each student Visit record created with the browser.
+
+#### View attendance data
+
+A link to a page that displays a table of all Visit records in reverse chronological order (most recent first). The following columns are included.
+
+- Student Name
+- Check In
+- Check Out
+- Visit Length (computed to nearest quarter-hour)
+- Purpose
+- Purpose Achieved?
+- Tutoring
+- Comments
+- Check out estimated?
+
+#### Dump spreadsheet data
+
+A link to a page that displays a table of all Visit records in reverse chronological order (most recent first). All available data attributes are present, including the computed Visit length.
+
+The intent is for this table to be copied and pasted into a spreadsheet.
+
+Possible future enhancement: this triggers a file download. Discuss with customer contact. May want a way to track what has been previously downloaded.
+
+#### Update your profile
+
+A link to the profile update form, for voluntary updates.
+
+#### Sign out
+
+A link that ends the staff user's login session.
+
+
 ## What should I know before I get started?
 
 ### Setting up your development environment
 
 These instructions assume that you are using a c9 workspace based on the blank Ubuntu template. But the process would be similar for any Linux environment where Node.js and MySQL are already installed.
 
-In a bash terminal, run the following commands. (The `#` lines are comments; you don't need to type them.) You should need to run these commands only once.
+In a bash terminal, run the following commands. (The `#` lines are comments; you don't need to type them.) 
 
 ```bash
+# Upgrade c9's dusty old version of Node
+nvm install 11
+nvm use 11
+nvm alias default 11
+
+# Install Sails globally
+npm install sails -g
+
 # Clone the repository from GitHub
 git clone https://github.com/dewv/nlcAttendance
 
 # Navigate to the project folder (root of the git repository)
 cd nlcAttendance
 
-# Install the *latest* version of the mocha test software
-npm install -g mocha@latest
-
-# Upgrade c9's dusty old version of node
-nvm install 11
-nvm use 11
-nvm alias default 11
-```
-
-This project uses the npm package manager. 
-
-```bash
 # Install the dependencies listed in package.json
 npm install
 ```
 
-A file named `package.json` lists all of the libraries and modules required to launch the application. Once in a while, new dependencies might be added to the file. (This should only happen when there is a consensus among the team. Avoid unilaterally introducing new dependencies.) When this happens, you will need to run the preceding command to install the newly required components.
+The commands to upgrade Node and install Sails only need to be run once in a c9 workspace. (In other words, if you are already using Node version 11 and Sails in your c9 workspace, you don't need to run the commands for each project.
+
+The remaining commands set up this application's project.
+
+A file named `package.json` lists all of the libraries and modules required to launch the application. Once in a while, new dependencies might be added to the file. (This should only happen when there is a consensus among the team. Avoid unilaterally introducing new dependencies.) When this happens, you will need to run the `npm install` command again, to install the newly required components.
 
 You might also [customize your git client](https://gist.github.com/smattingly/8350f90af596346acdd683c186a57a26#file-configuregit-md).
 
@@ -66,24 +145,24 @@ There are two extensions to note.
 
 These instructions are specifically for launching the application in a *development* environment.
 
-Before starting the application, two prerequisites must be met.
+```bash
+# Start the application
+npm run sails
+```
 
-1. The `mysql` database server must be running. *In c9*, the command is `mysql-ctl start`. (The service may already be running, but there is no harm in re-running this in c9.)
-2. A database for the application must exist. If you are about to start the app for the first time, run this command: `mysql -u root -e "CREATE DATABASE nlcAttendance;"`
-
-:construction: (Note: I will be trying to automate those steps soon.)
-
-When the prerequisites are met, you can start the application with this command.
-
-`sails lift`
-
-:construction: (Note: before I try to explain the whole drop/safe/whatever deal, I am going to try to handle that automatically too. For now, just ask.)
+The command above runs a script defined in `package.json`. The script starts the c9 MySQL database server, then starts the Node/Express/Sails application. You should see a series of messages, ending with one that says the server is connected to port 8080.
 
 You can now access the application by pointing your Web browser to `https://WORKSPACE-USER.c9users.io`, where `WORKSPACE` represents the name of your c9 workspace, and `USER` is your c9 username.
 
 In the terminal where you launched the application, various messages will appear as incoming traffic is handled. 
 
 Use `Ctrl-C` to terminate the application.
+
+## Running tests
+
+There are three `package.json` scripts for checking code quality in the application.
+
+
 
 ## Components of the application
 
@@ -146,7 +225,30 @@ The application's helpers are documented [here](https://dewv.github.io/nlcAttend
 
 ### JavaScript style checking
 
-:construction: eslint 
+The [eslint](https://eslint.org/) tool is used to check and correct JavaScript code, using configuration settings in the `.eslintrc` file.
+
+There are several ways that this tool is activated.
+
+1. It is the tool that produces the icons and associated messages that appear in the "gutter" of the source code editor, next to the line numbers.
+2. The terminal command `npm run lint` executes a script in `package.json` that runs the tool and reports any findings. This script runs the tool with its `--fix` flag, which will automatically fix some code issues. Be aware that this can cause otherwise unexpected changes when you run `git status`.
+3. The terminal command `npm test` executes a script in `package.json` that first runs the lint script just discussed, and then runs the mocha test script discussed elsewhere.
+
+As discussed above, c9 has a problematic expectation for the location of the `.eslintrc` config file; we work around this with a symlink.
+
+Even so, c9 can be strange about reacting to changes in the config file. If your editor is showing icons/messages that should be disabled by recent changes to the configuration, this trick will usually resolve the situation.
+
+```bash
+# if necessary, navigate to the project folder/repository
+cd ~/workspace/nlcAttendance
+
+# rename the symlink in the parent folder to 'x' (or any unused name)
+mv ../.eslintrc ../x
+
+# rename it again to restore its proper name
+mv ../x ../.eslintrc
+```
+
+The bash command `mv` moves a file, which amounts to a rename when the same folder is used. By changing the name of the symlink then changing it back, we trick c9 into picking up the changes in the editor's display of eslint results.
 
 ### mocha style guide
 
