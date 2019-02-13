@@ -69,8 +69,8 @@ module.exports.models = {
   ***************************************************************************/
 
   attributes: {
-    createdAt: { type: 'number', autoCreatedAt: true, },
-    updatedAt: { type: 'number', autoUpdatedAt: true, },
+    createdAt: { type: 'number', autoCreatedAt: "checkInTime", },
+    updatedAt: { type: 'number', autoUpdatedAt: "checkOutTime", },
     id: { type: 'number', autoIncrement: true, },
   },
 
