@@ -1,6 +1,11 @@
 let routes = {
     "/": "/student",
     
+    // "GET /login"
+    // "POST /login"    should redirect students to check in, staff to menu
+    // "GET /logout"
+    // "GET /staff/menu" 
+    
     "GET /:model/new": "RestController.createFormRequested",
     "POST /:model": "RestController.createFormSubmitted",
     

@@ -18,9 +18,14 @@ module.exports.policies = {
      ***************************************************************************/
 
     // '*': true,
-
+    
     RestController: {
-        "editFormRequested": "isLoggedIn"
+        "createFormRequested": ["isAuthenticated", "isAuthorized", "isAppropriate"],
+        "createFormSubmitted": ["isAuthenticated", "isAuthorized", "isAppropriate"],
+        
+        "editFormRequested": ["isAuthenticated", "isAuthorized", "isAppropriate"],
+        "editFormSubmitted": ["isAuthenticated", "isAuthorized", "isAppropriate"],
+        
     }
 
 };
