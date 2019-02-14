@@ -6,7 +6,7 @@
 
 module.exports = {
     attributes: {
-        username: { type: "string", required: true, allowNull: false, unique: true, isEmail: true },
+        name: { type: "string", required: true, allowNull: false, unique: true, isEmail: true },
         firstName: { type: "string", required: true, allowNull: false },
         lastName: { type: "string", required: true, allowNull: false },
         academicRank: { type: "string", required: false, allowNull: true, isIn: ["Freshman", "Sophomore", "Junior", "Senior"] },
