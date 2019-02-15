@@ -1,6 +1,5 @@
 {
   "name": "nlcAttendance",
-  "private": true,
   "version": "0.0.0",
   "description": "Attendance tracking for the Naylor Learning Center",
   "keywords": [],
@@ -36,13 +35,13 @@
     "test": "npm run lint && npm run mocha && echo 'Done.'",
     "lint": "./node_modules/.bin/eslint ./api --fix --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'",
     "mocha": "mysql-ctl start; nyc --reporter=lcov ./node_modules/.bin/_mocha --recursive ./test/lifecycle.js ./test",
-    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "coverage": "cat ./coverage/lcov.info | coveralls", 
     "docs": "rm -r docs 2> /dev/null && jsdoc -d docs api/**/*.js"
   },
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/dewv/nlcAttendance.git"
+    "url": "https://github.com/dewv/nlcAttendance.git"
   },
   "author": "dewv.net",
   "license": "MIT",
