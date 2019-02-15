@@ -1,5 +1,27 @@
-<p>This is the staff edit form.</p>
+<form method="POST" action="<%= action %>">
+  <div>
+    <label for="username">Username</label>
+    <input autofocus id="username" name="username" type="email" value="<%= formData.username %>">
+  </div>
 
-<p>Here is the data it receives:</p>
+  <div>
+    <label for="firstName">First name</label>
+    <input id="firstName" name="firstName" type="text" value="<%= formData.firstName %>">
+  </div>
 
-<p><%= JSON.stringify(formData) %></p>
+  <div>
+    <label for="lastName">Last name</label>
+    <input id="lastName" name="lastName" type="text" value="<%= formData.lastName %>">
+  </div>
+
+  <div>
+    Are you an SLP Instructor? :
+<select>
+  <option id="myOption" value="Yes">Yes</option>
+  <option value="No">No</option>
+</select>
+
+  </div>
+
+  <button id="submitButton" type="submit">Update</button>
+</form>
