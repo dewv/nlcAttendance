@@ -35,7 +35,7 @@
     "test": "npm run lint && npm run mocha && echo 'Done.'",
     "lint": "./node_modules/.bin/eslint ./api --fix --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'",
     "mocha": "mysql-ctl start; nyc --reporter=lcov ./node_modules/.bin/_mocha --recursive ./test/lifecycle.js ./test",
-    "coverage": "cat ./coverage/lcov.info | coveralls", 
+    "coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js", 
     "docs": "rm -r docs 2> /dev/null && jsdoc -d docs api/**/*.js"
   },
   "main": "app.js",

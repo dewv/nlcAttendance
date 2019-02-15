@@ -191,6 +191,3 @@ typings/
 
 # next.js build output
 .next
-
-# output from jsdoc
-docs
