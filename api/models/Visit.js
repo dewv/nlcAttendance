@@ -8,12 +8,8 @@
 module.exports = {
 
     attributes: {
-        /**
-         * The default sails create record time is used for checkInTime.
-         * The default sails last updated time is used to calculate visitLength
-         */
         name: { model: "Student" },
-        checkInTime: { type: "string", required: true, allowNull: false },
+        checkInTime: { type: "string", allowNull: false },
         checkOutTime: { type: "string", allowNull: true },
         visitLength: { type: "number", required: false, allowNull: true },
         visitPurpose: { type: "string", required: true, allowNull: false },
@@ -21,19 +17,23 @@ module.exports = {
         usedTutor: { type: "boolean", allowNull: false, defaultsTo: false },
         tutor: { type: "string", required: false, allowNull: true },
         comment: { type: "string", required: true, allowNull: false },
+        needEstimate: { type: "boolean", allowNull: false, defaultsTo: false },
         estimatedDuration: { type: "number", allowNull: true }
     },
-    
+
     beforeCreate: function(visit, proceed) {
-        visit.checkInTime = new Date.now();
+        visit.checkInTime = Date.now();
         return proceed;
     },
 
     beforeUpdate: function(visit, proceed) {
-        visit.checkOutTime = new Date.now();
+        visit.checkOutTime = Date.now();
         let elapsed = visit.checkOutTime.getHours - visit.checkInTime.getHours;
-        let difference = new Date(elapsed);
+        let difference = Date(elapsed);
         visit.visitLength = difference.getHours() + " " + difference.getMinutes();
+        if (visit.visitLength > 5) {
+            visit.needEstimate = true;
+        }
         return proceed;
     },
 

@@ -54,7 +54,7 @@ module.exports = {
         // Students. All but first have associations populated.
         for (let i = 0; i < recordCount; i++) {
             await Student.create({
-                username: `USERNAME${i + 1}@DEWV.NET`,
+                name: `USERNAME${i + 1}@DEWV.NET`,
                 firstName: `FIRSTNAME${i + 1}`,
                 lastName: `LASTNAME${i + 1}`,
                 academicRank: i === 0 ? null : Student.attributes.academicRank.validations.isIn[i % Student.attributes.academicRank.validations.isIn.length],
