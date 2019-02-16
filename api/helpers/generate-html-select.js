@@ -43,12 +43,13 @@ module.exports = {
     fn: function(inputs, exits) {
         let result = `<select id="${inputs.htmlName}" name="${inputs.htmlName}"> <option>Choose one ...</option> `;
         for (let i = 0; i < inputs.domain.length; i++) {
+            /* istanbul ignore else */
             if (inputs.domain[i].name) {
                 result += `<option value="${inputs.domain[i].name}"`;
                 if (inputs.selected && inputs.selected === inputs.domain[i].name) result += " selected";
                 result += `>${inputs.domain[i].name}</option> `;
             }
-            else {
+            else { 
                 sails.log.error("Domain value passed to generateHtmlSelect helper does not have `name` property");
             }
         }

@@ -36,9 +36,7 @@ describe("Student views", function() {
                 console.log(JSON.stringify(error));
             }
 
-            console.log("result: " + result);
             let checkFor = new ViewTests(result);
-
 
             it("should include a text input to edit the first name", function(done) {
                 checkFor.formInputText("firstName", expectedData.firstName).should.be.true();

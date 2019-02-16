@@ -35,12 +35,10 @@ module.exports = {
 
     fn: async function(inputs, exits) {
         let result = await inputs.model.findOne({ id: inputs.id });
-        if (result) {
-            for (let property in inputs.model.attributes) {
-                if (sails.helpers.isAssociation(inputs.model, property)) {
-                    let lookup = await sails.models[inputs.model.attributes[property].model].findOne({ id: result[property] });
-                    result[property] = lookup ? lookup : null;
-                }
+        for (let property in inputs.model.attributes) {
+            if (sails.helpers.isAssociation(inputs.model, property)) {
+                let lookup = await sails.models[inputs.model.attributes[property].model].findOne({ id: result[property] });
+                result[property] = lookup ? lookup : null;
             }
         }
 
