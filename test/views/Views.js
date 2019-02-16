@@ -1,5 +1,8 @@
 "use strict";
 const jquery = require("cheerio");
+const helperIntegrationTests = require("./_helpers");
+
+helperIntegrationTests();
 
 class ViewTests {
     /**
@@ -55,5 +58,6 @@ class ViewTests {
         return (results.length === 1);
     }
 }
+
 
 module.exports = ViewTests;
