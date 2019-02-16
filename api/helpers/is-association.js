@@ -41,8 +41,7 @@ module.exports = {
 
     fn: function (inputs, exits) {
         let property = inputs.model.attributes[inputs.propertyName];
-        if (typeof property === "undefined") return exits.success(false);
-        return exits.success(typeof property.model === "string");
+        return exits.success(typeof property !== "undefined" && typeof property.model === "string");
     }
 };
 

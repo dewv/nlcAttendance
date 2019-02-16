@@ -1,0 +1,15 @@
+{
+    "check-coverage": true,
+    "skip-full": true,
+    "lines": 99,
+    "statements": 95,
+    "functions": 95,
+    "branches": 95,
+    "exclude": [
+        "test/**/*.js",
+        "api/controllers/RestController.js"
+    ],
+    "reporter": [
+        "lcov"
+    ]
+}
