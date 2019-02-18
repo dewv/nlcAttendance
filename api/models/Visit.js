@@ -9,8 +9,8 @@ module.exports = {
 
     attributes: {
         name: { model: "Student" },
-        checkInTime: { type: "string", allowNull: false },
-        checkOutTime: { type: "string", allowNull: true },
+        checkInTime: { type: "ref", columnType: "timestamp", autoCreatedAt: true },
+        checkOutTime: { type: "ref", columnType: "timestamp", autoUpdatedAt: true },
         visitLength: { type: "number", required: false, allowNull: true },
         visitPurpose: { type: "string", required: true, allowNull: false },
         purposeAchieved: { type: "string", required: true, allowNull: false, isIn: ["Yes", "No", "NotSure"] },
@@ -20,18 +20,12 @@ module.exports = {
         needEstimate: { type: "boolean", allowNull: false, defaultsTo: false },
         estimatedDuration: { type: "number", allowNull: true }
     },
-
-    beforeCreate: function(visit, proceed) {
-        visit.checkInTime = Date.now();
-        return proceed;
-    },
-
+    
     beforeUpdate: function(visit, proceed) {
-        visit.checkOutTime = Date.now();
-        let elapsed = visit.checkOutTime.getHours - visit.checkInTime.getHours;
-        let difference = Date(elapsed);
-        visit.visitLength = difference.getHours() + " " + difference.getMinutes();
-        if (visit.visitLength > 5) {
+        visit.checkInTime = new Date.getMinutes(visit.checkInTime);
+        visit.checkOutTime = new Date.getMinutes(visit.checkOutTime);
+        visit.visitLength = visit.checkOutTime - visit.checkInTime;
+        if (visit.visitLength > 300) {
             visit.needEstimate = true;
         }
         return proceed;
