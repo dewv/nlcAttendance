@@ -40,7 +40,7 @@ describe("Student model", function() {
         testStudent.fallSport = testData.associations.fallSport.id;
         testStudent.springSport = testData.associations.springSport.id;
         testStudent.majorOne = testData.associations.majorOne.id;
-        testStudent.majorTwo = testData.associations.majorTwo.id;
+        testStudent.majorTwo = null;
 
         // Create main test record, with associations in place
         testData.record = await Student.create(testStudent).fetch();
