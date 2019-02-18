@@ -9,8 +9,8 @@ describe("Check In Views", function() {
 
         let expectedData = {
             id: 0,
-            username: "testuser@dewv.net",
-            firstName: "Test",
+            name: "testuser@dewv.net",
+            firstName: "User",
             lastName: "User",
             academicRank: "Junior",
             majorOne: "CSCI",
@@ -18,7 +18,7 @@ describe("Check In Views", function() {
             residentialStatus: "commuter",
             fallSport: { name: "fs1" },
             springSport: null,
-            slpInstructorName: "slpInstructorName"
+            forceUpdate: false,
         };
 
         let ejsData = {
