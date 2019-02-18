@@ -19,8 +19,4 @@ module.exports.policies = {
 
     // '*': true,
 
-    RestController: {
-        "editFormRequested": "isLoggedIn"
-    }
-
 };
