@@ -36,7 +36,7 @@
     "xtest": "./node_modules/.bin/_mocha --recursive ./test/lifecycle.js ./test",
     "mocha": "mysql-ctl start 2> /dev/null; nyc ./node_modules/.bin/_mocha --recursive ./test/lifecycle.js ./test",
     "coverage": "nyc report",
-    "docs": "rm -r docs 2> /dev/null && jsdoc -d docs api/**/*.js"
+    "docs": "rm -r docs 2> /dev/null && jsdoc -c ./jsdoc.conf -d docs api/**/*.js"
   },
   "main": "app.js",
   "repository": {

@@ -1,13 +1,17 @@
 /**
- * SpringSport.js
- *
- * @description :: A model definition represents a database table/collection.
- * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
+ * Represents a set of Spring sport records. 
+ * @module 
+ * @implements Model
+ * @borrows SpringSportRecord as SpringSportRecord 
  */
-
 module.exports = {
     attributes: {
         name: { type: "string", required: true, unique: true}
     }
 };
 
+/**
+ * A Spring sport record.
+ * @typedef {Record} SpringSportRecord
+ * @property {string} name - The sport's name.
+ */

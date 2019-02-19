@@ -1,7 +1,7 @@
 /**
- * @module RestController
- *
- * @description A generic controller for routing standard REST requests to the proper model's view.
+ * Routes standard REST requests to the proper model's view.
+ * @implements Controller
+ * @module
  */
 module.exports = {
     /**
