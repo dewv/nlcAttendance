@@ -1,10 +1,9 @@
 /**
- * Staff.js
- *
- * @description :: A model definition represents a database table/collection.
- * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
+ * Represents a set of staff profile records. 
+ * @module 
+ * @implements Model
+ * @borrows StaffRecord as StaffRecord 
  */
-
 module.exports = {
 
     attributes: {
@@ -16,3 +15,13 @@ module.exports = {
     },
 
 };
+
+/**
+ * A staff profile record.
+ * @typedef {Record} StaffRecord
+ * @property {string} username - The staff member's email address, @dewv.edu.
+ * @property {string} firstName - The staff member's first name.
+ * @property {string} lastName - The staff member's last name.
+ * @property {boolean} isSlpInstructor - Indicates if the staff member is an SLP instructor. 
+ * @property {boolean} forceUpdate=true - Indicates if it is mandatory for the student to update their profile. 
+ */
