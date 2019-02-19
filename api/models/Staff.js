@@ -14,4 +14,5 @@ module.exports = {
         isSlpInstructor: { type: "boolean", allowNull: "false", defaultsTo: false },
         forceUpdate: { type: "boolean", defaultsTo: true }
     },
+
 };

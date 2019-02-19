@@ -12,12 +12,13 @@ describe("Staff model", function() {
     };
 
     let testStaff = {
-        username: "TESTSTUDENT@DEWV.EDU",
+        username: "TESTSTAFF@DEWV.NET",
         firstName: "TEST",
-        lastName: "STAFF",        
-        isSlpInstructor: "TESTSLP"
+        lastName: "STAFF",  
+        isSlpInstructor: true,
+        forceUpdate: true,
     };
-
+    
     // Before tests run ...
     before(async function() {
 
@@ -35,7 +36,7 @@ describe("Staff model", function() {
     after(destroyTestData);
 
     // Run helper integration tests
-    helperIntegrationTests("student", testData);
+    helperIntegrationTests("staff", testData);
     
     async function destroyTestData() {
         // Destroy main test record
