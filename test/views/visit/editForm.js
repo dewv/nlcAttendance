@@ -8,17 +8,17 @@ describe("Check In Views", function() {
     context("The edit form", async function(done) {
 
         let expectedData = {
-            id: 0,
-            name: "testuser@dewv.net",
-            firstName: "User",
-            lastName: "User",
-            academicRank: "Junior",
-            majorOne: "CSCI",
-            majorTwo: null,
-            residentialStatus: "commuter",
-            fallSport: { name: "fs1" },
-            springSport: null,
-            forceUpdate: false,
+            name: {id: "1"},
+            checkInTime: "2019-02-20T15:11:46.000Z",
+            checkOutTime: "2019-02-20T15:11:50.000Z",
+            visitLength: null,
+            visitPurpose: "Study",
+            purposeAchieved: "NotSure",
+            usedTutor: true,
+            tutor: "DR. Help",
+            comment: "Very good",
+            needEstimate: false,
+            estimatedDuration: null,
         };
 
         let ejsData = {
