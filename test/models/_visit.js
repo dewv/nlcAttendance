@@ -64,15 +64,11 @@ module.exports = function(model, testData) {
                     result.should.equal(expected, "The name attribute is set to " + result + " but expected to be set to " + expected + ".");
                 });
             });
-            context("`Test the beforeUpdate lifecycle callback,", async function() {
+            context("`Test the postPopulate function,", async function() {
                 it("Attribute visitLength was calculated correctly", async function() {
-                    let beforeTest = async function() {
-                        await sails.models["visit"].updateOne({ id: visitData.record.id }).set(visitData.record);
-                    };
-                    beforeTest();
-                    visitData.record.checkOutTime = new Date();
-                    let visitSample = await sails.models["visit"].findOne({id: visitData.record.id});
-                    let result = visitSample.visitLength;
+                    let visitTest = Visit.postPopulate(visitData.record);
+                    visitData.record.checkOutTime = new Date.now();
+                    let result = visitTest.visitLength;
                     let checkIn = new Date.getMinutes(visitData.record.checkInTime);
                     let checkOut = new Date.getMinutes(visitData.record.checkOutTime);
                     let expected = checkOut - checkIn;
