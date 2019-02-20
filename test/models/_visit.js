@@ -36,7 +36,7 @@ module.exports = function(model, testData) {
 
             // Associate, using the new IDs
             visitData.associations.name = testData.record.id;
-            
+
             testVisit.name = visitData.associations.name;
             // Create main test record, with associations in place
             visitData.record = await Visit.create(testVisit).fetch();
@@ -60,27 +60,27 @@ module.exports = function(model, testData) {
                     result.should.not.be.an.Error();
                     result.should.be.an.Number();
                     should.exist(result, "The record did not return anything.");
-                    
+
                     result.should.equal(expected, "The name attribute is set to " + result + " but expected to be set to " + expected + ".");
                 });
             });
-            context("`Test the beforeUpdate lifecycle callback,", async function () {
+            context("`Test the beforeUpdate lifecycle callback,", async function() {
                 it("Attribute visitLength was calculated correctly", async function() {
-                   visitData.record.checkOutTime = new Date();
-                   await Visit.update(visitData.record, visitData.record);
-                   let visitSample = Visit.findOne(1);
-                   let result = visitSample.visitLength;
-                   let checkIn = new Date.getMinutes(visitData.record.checkInTime);
-                   let checkOut = new Date.getMinutes(visitData.record.checkOutTime);
-                   let expected = checkOut - checkIn;
-                   result.should.not.be.an.Error();
-                   result.should.be.an.Number();
-                   expected.should.not.be.an.Error();
-                   expected.should.be.an.Number();
-                   should.exist(result, "visitLength does not exist.");
-                   
-                   result.should.be.equal(expected, "After the record updated the visitLength attribute is " + result + ". We expected " + expected + ".");
-                   
+                    await sails.models["visit"].updateOne({ id: visitData.record.id }).set(visitData.record);
+                    visitData.record.checkOutTime = new Date();
+                    let visitSample = await sails.models["visit"].findOne({id: visitData.record.id});
+                    let result = visitSample.visitLength;
+                    let checkIn = new Date.getMinutes(visitData.record.checkInTime);
+                    let checkOut = new Date.getMinutes(visitData.record.checkOutTime);
+                    let expected = checkOut - checkIn;
+                    result.should.not.be.an.Error();
+                    result.should.be.an.Number();
+                    expected.should.not.be.an.Error();
+                    expected.should.be.an.Number();
+                    should.exist(result, "visitLength does not exist.");
+
+                    result.should.be.equal(expected, "After the record updated the visitLength attribute is " + result + ". We expected " + expected + ".");
+
                 });
             });
         });
@@ -90,7 +90,7 @@ module.exports = function(model, testData) {
 
         async function destroyTestData() {
             // Destroy main test record
-            await Visit.destroyOne({ id: 1});
+            await Visit.destroyOne({ id: 1 });
         }
     });
 };
