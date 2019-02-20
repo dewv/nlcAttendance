@@ -8,7 +8,7 @@
  */
 module.exports = {
     attributes: {
-        name: { type: "string", required: true, allowNull: false, unique: true, isEmail: true },
+        username: { type: "string", required: true, allowNull: false, unique: true, isEmail: true },
         firstName: { type: "string", required: true, allowNull: false },
         lastName: { type: "string", required: true, allowNull: false },
         academicRank: { type: "string", required: false, allowNull: true, isIn: ["Freshman", "Sophomore", "Junior", "Senior"] },
@@ -56,7 +56,7 @@ module.exports = {
         // Students. All but first have associations populated.
         for (let i = 0; i < recordCount; i++) {
             await Student.create({
-                name: `USERNAME${i + 1}@DEWV.NET`,
+                username: `USERNAME${i + 1}@DEWV.NET`,
                 firstName: `FIRSTNAME${i + 1}`,
                 lastName: `LASTNAME${i + 1}`,
                 academicRank: i === 0 ? null : Student.attributes.academicRank.validations.isIn[i % Student.attributes.academicRank.validations.isIn.length],

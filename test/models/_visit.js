@@ -66,7 +66,10 @@ module.exports = function(model, testData) {
             });
             context("`Test the beforeUpdate lifecycle callback,", async function() {
                 it("Attribute visitLength was calculated correctly", async function() {
-                    await sails.models["visit"].updateOne({ id: visitData.record.id }).set(visitData.record);
+                    let beforeTest = async function() {
+                        await sails.models["visit"].updateOne({ id: visitData.record.id }).set(visitData.record);
+                    };
+                    beforeTest();
                     visitData.record.checkOutTime = new Date();
                     let visitSample = await sails.models["visit"].findOne({id: visitData.record.id});
                     let result = visitSample.visitLength;
