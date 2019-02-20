@@ -23,11 +23,7 @@ describe("Check In Views", function() {
 
         let ejsData = {
             formData: expectedData,
-            action: "/student/0",
-            fallSport: `<select id="fallSport"><option value="${expectedData.fallSport.name}" selected>${expectedData.fallSport.name}</option> <option value="fs2">fs2</option> </select>`,
-            springSport: `<select id="springSport"><option value="ss1">ss1</option> <option value="ss2">ss2</option> </select>`,
-            majorOne: `<select id="majorOne"><option value="mo1">mo1</option> <option value="${expectedData.majorOne.name}" selected>${expectedData.majorOne.name}</option> <option value="mo3">mo3</option> </select>`,
-            majorTwo: `<select id="majorTwo"><option value="mt1">mt1</option> <option value="mt2">mt2</option> <option value="mt3">mt3</option> </select>`
+            action: "/visit",
         };
 
         // Generate the view
@@ -39,7 +35,7 @@ describe("Check In Views", function() {
             let checkFor = new ViewTests(result);
 
             it("should include a text input to edit the first name", function(done) {
-                checkFor.formInputText("firstName", expectedData.firstName).should.be.true();
+                checkFor.formInputText("checkInTime", expectedData.checkInTime).should.be.true();
                 done();
             });
 
@@ -53,7 +49,7 @@ describe("Check In Views", function() {
                 done();
             });
 
-            it("should include select options to edit the spring sport", function(done) {
+            it("should include text area", function(done) {
                 checkFor.formSelectOption("springSport").should.be.true();
                 done();
             });
