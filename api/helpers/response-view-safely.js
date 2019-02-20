@@ -2,9 +2,9 @@
  * @name sails&period;helpers&period;responseViewSafely
  * @description Responds with an HTML page, or 404 error if view template does not exist.
  * @function
- * @argument {Object} response - The Express/Sails object representing an HTTP response.
- * @argument {string} pathToView - The path to the desired view file relative to your app's views folder (usually views/), without the file extension, and with no trailing slash.
- * @argument {Object} [locals] - Data to pass to the view template. 
+ * @argument {external:Response} response - The Express/Sails object representing an HTTP response.
+ * @argument {string} pathToView - The path to the desired view file, relative to `views/`, with no file extension or trailing slash.
+ * @argument {ViewData} [locals] - Data to pass to the view template. 
  * @see {@link https://sailsjs.com/documentation/reference/response-res/res-view}, which throws server error if view template does not exist.
  * @async
  */
@@ -35,7 +35,7 @@ module.exports = {
             required: false
         }
     },
-    
+
     exits: {
         success: {
             description: "Response complete",
@@ -50,3 +50,11 @@ module.exports = {
     }
 
 };
+
+/**
+ * Data needed to configure an EJS view.
+ * @typedef {Object} ViewData
+ * @property {Record} formData - The data values to populate in the view's form inputs.
+ * @property {string} action - The value of the `action` atrribute for the view's &lt;form&gt; element.
+ * @property {string} [...domainSelect] - HTML source for &lt;select&gt; element; property name is associated Sails model.
+ */

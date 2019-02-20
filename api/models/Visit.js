@@ -13,10 +13,10 @@ module.exports = {
         checkOutTime: { type: "ref", columnType: "timestamp", autoUpdatedAt: true },
         visitLength: { type: "number", required: false, allowNull: true },
         visitPurpose: { type: "string", required: true, allowNull: false },
-        purposeAchieved: { type: "string", required: true, allowNull: true, isIn: ["Yes", "No", "NotSure"] },
+        purposeAchieved: { type: "string", allowNull: true, isIn: ["Yes", "No", "NotSure"] },
         usedTutor: { type: "boolean", allowNull: false, defaultsTo: false },
         tutor: { type: "string", required: false, allowNull: true },
-        comment: { type: "string", required: true, allowNull: true },
+        comment: { type: "string", allowNull: true },
         needEstimate: { type: "boolean", allowNull: false, defaultsTo: false },
         estimatedDuration: { type: "number", allowNull: true }
     },

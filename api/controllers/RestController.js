@@ -1,7 +1,7 @@
 /**
- * @module RestController
- *
- * @description A generic controller for routing standard REST requests to the proper model's view.
+ * Routes standard REST requests to the proper model's view.
+ * @implements Controller
+ * @module
  */
 module.exports = {
     /**
@@ -13,7 +13,7 @@ module.exports = {
      */
     createFormRequested: async function(request, response) {
         let model = sails.models[request.params.model];
-        let domains = await sails.helpers.getAssociationDomains(model);
+        let domains = await sails.helpers.getDomains(model);
         let ejsData = {
             formData: await sails.helpers.getDefaults(model),
             action: "/" + request.params.model
@@ -22,7 +22,7 @@ module.exports = {
         for (let domain in domains) {
             ejsData[domain] = await sails.helpers.generateHtmlSelect(domain, domains[domain]);
         }
-
+        console.log(JSON.stringify(ejsData));
         return sails.helpers.responseViewSafely(response, `pages/${request.params.model}/createForm`, ejsData);
     },
 
@@ -50,14 +50,23 @@ module.exports = {
         let model = sails.models[request.params.model];
         let recordToUpdate = await sails.helpers.populateOne(model, request.params.id);
         if (!recordToUpdate) return response.notFound();
-        let domains = await sails.helpers.getAssociationDomains(model);
+        let domains = await sails.helpers.getDomains(model);
         let ejsData = {
             formData: recordToUpdate,
             action: `/${request.params.model}/${request.params.id}`
         };
 
         for (let domain in domains) {
-            ejsData[domain] = await sails.helpers.generateHtmlSelect(domain, domains[domain], recordToUpdate[domain] === null ? undefined : recordToUpdate[domain].name);
+            let selected = undefined;
+            if (recordToUpdate[domain]) {
+                if (recordToUpdate[domain].name) {
+                    selected = recordToUpdate[domain].name;
+                }
+                else {
+                    selected = recordToUpdate[domain];
+                }
+            }
+            ejsData[domain] = await sails.helpers.generateHtmlSelect(domain, domains[domain], selected);
         }
 
         return await sails.helpers.responseViewSafely(response, `pages/${request.params.model}/editForm`, ejsData);

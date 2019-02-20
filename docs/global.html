@@ -104,7 +104,7 @@
     
 
     
-    <h4 class="name" id="sails&period;helpers&period;encodeAssociations"><span class="type-signature">(async) </span>sails&period;helpers&period;encodeAssociations<span class="signature">(model, record)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="sails&period;helpers&period;encodeAssociations"><span class="type-signature">(async) </span>sails&period;helpers&period;encodeAssociations<span class="signature">(model, record)</span><span class="type-signature"> &rarr; {<a href="Record.html">Record</a>}</span></h4>
     
 
     
@@ -154,7 +154,7 @@
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="Model.html">Model</a></span>
 
 
             
@@ -177,7 +177,7 @@
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="Record.html">Record</a></span>
 
 
             
@@ -226,11 +226,6 @@
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_encode-associations.js.html">helpers/encode-associations.js</a>, <a href="helpers_encode-associations.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
 
     
 
@@ -266,7 +261,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type"><a href="Record.html">Record</a></span>
 
 
     </dd>
@@ -457,11 +452,6 @@
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_generate-html-select.js.html">helpers/generate-html-select.js</a>, <a href="helpers_generate-html-select.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
 
     
 
@@ -515,164 +505,7 @@
     
 
     
-    <h4 class="name" id="sails&period;helpers&period;getAssociationDomains"><span class="type-signature">(async) </span>sails&period;helpers&period;getAssociationDomains<span class="signature">(model)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Provides domain values for each association.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>model</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">A Sails model whose associations are keys in the result dictionary.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_get-association-domains.js.html">helpers/get-association-domains.js</a>, <a href="helpers_get-association-domains.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    A dictionary where keys are the model's associations, and values are arrays of domain value strings.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="sails&period;helpers&period;getDefaults"><span class="type-signature"></span>sails&period;helpers&period;getDefaults<span class="signature">(model)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="sails&period;helpers&period;getDefaults"><span class="type-signature"></span>sails&period;helpers&period;getDefaults<span class="signature">(model)</span><span class="type-signature"> &rarr; {<a href="Record.html">Record</a>}</span></h4>
     
 
     
@@ -722,7 +555,7 @@
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="Model.html">Model</a></span>
 
 
             
@@ -771,11 +604,6 @@
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_get-defaults.js.html">helpers/get-defaults.js</a>, <a href="helpers_get-defaults.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
 
     
 
@@ -811,6 +639,158 @@
     </dt>
     <dd>
         
+<span class="param-type"><a href="Record.html">Record</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="sails&period;helpers&period;getDomains"><span class="type-signature">(async) </span>sails&period;helpers&period;getDomains<span class="signature">(model)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Provides domain values for each relevant model attribute, based on association or validations.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>model</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Model.html">Model</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A Sails model whose relevant attributes are keys in the result dictionary.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    A dictionary where keys are the model's relevant attributes, and values are arrays of domain value strings.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
 <span class="param-type">Object</span>
 
 
@@ -829,7 +809,7 @@
     
 
     
-    <h4 class="name" id="sails&period;helpers&period;isAssociation"><span class="type-signature"></span>sails&period;helpers&period;isAssociation<span class="signature">(model, propertyName)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id="sails&period;helpers&period;isAssociation"><span class="type-signature"></span>sails&period;helpers&period;isAssociation<span class="signature">(model, {propertyName)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
     
 
     
@@ -879,7 +859,7 @@
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="Model.html">Model</a></span>
 
 
             
@@ -896,15 +876,10 @@
 
         <tr>
             
-                <td class="name"><code>propertyName</code></td>
+                <td class="name"><code>{propertyName</code></td>
             
 
             <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
             
             </td>
 
@@ -950,11 +925,6 @@
 
     
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_is-association.js.html">helpers/is-association.js</a>, <a href="helpers_is-association.js.html#line1">line 1</a>
-    </li></ul></dd>
     
 
     
@@ -1005,7 +975,7 @@
     
 
     
-    <h4 class="name" id="sails&period;helpers&period;populateOne"><span class="type-signature">(async) </span>sails&period;helpers&period;populateOne<span class="signature">(model, id)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="sails&period;helpers&period;populateOne"><span class="type-signature">(async) </span>sails&period;helpers&period;populateOne<span class="signature">(model, id)</span><span class="type-signature"> &rarr; {<a href="Record.html">Record</a>}</span></h4>
     
 
     
@@ -1055,7 +1025,7 @@
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="Model.html">Model</a></span>
 
 
             
@@ -1127,11 +1097,6 @@
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_populate-one.js.html">helpers/populate-one.js</a>, <a href="helpers_populate-one.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
 
     
 
@@ -1167,7 +1132,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type"><a href="Record.html">Record</a></span>
 
 
     </dd>
@@ -1185,7 +1150,7 @@
     
 
     
-    <h4 class="name" id="sails&period;helpers&period;responseViewSafely"><span class="type-signature"></span>sails&period;helpers&period;responseViewSafely<span class="signature">(response, pathToView, locals<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="sails&period;helpers&period;responseViewSafely"><span class="type-signature">(async) </span>sails&period;helpers&period;responseViewSafely<span class="signature">(response, pathToView, locals<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
     
 
     
@@ -1237,7 +1202,7 @@
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="external-Response.html">external:Response</a></span>
 
 
             
@@ -1286,7 +1251,7 @@
 
             
 
-            <td class="description last">The path to the desired view file relative to your app's views folder (usually views/), without the file extension, and with no trailing slash.</td>
+            <td class="description last">The path to the desired view file, relative to `views/`, with no file extension or trailing slash.</td>
         </tr>
 
     
@@ -1299,7 +1264,7 @@
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type"><a href="global.html#ViewData">ViewData</a></span>
 
 
             
@@ -1358,11 +1323,6 @@
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="helpers_response-view-safely.js.html">helpers/response-view-safely.js</a>, <a href="helpers_response-view-safely.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
 
     
 
@@ -1399,6 +1359,1293 @@
     
 
     
+        <h3 class="subsection-title">Type Definitions</h3>
+
+        
+                
+<h4 class="name" id="academicRankDomain">academicRankDomain</h4>
+
+
+
+
+<div class="description">
+    Domain values for student academic rank.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id="FallSportRecord">FallSportRecord</h4>
+
+
+
+
+<div class="description">
+    A Fall sport record.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><a href="Record.html">Record</a></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The sport's name.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id="MajorRecord">MajorRecord</h4>
+
+
+
+
+<div class="description">
+    An academic major record.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><a href="Record.html">Record</a></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The major's name.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id="residentialStatusDomain">residentialStatusDomain</h4>
+
+
+
+
+<div class="description">
+    Domain values for student residential status.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id="SpringSportRecord">SpringSportRecord</h4>
+
+
+
+
+<div class="description">
+    A Spring sport record.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><a href="Record.html">Record</a></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The sport's name.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id="StaffRecord">StaffRecord</h4>
+
+
+
+
+<div class="description">
+    A staff profile record.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><a href="Record.html">Record</a></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>username</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The staff member's email address, @dewv.edu.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>firstName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The staff member's first name.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lastName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The staff member's last name.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>isSlpInstructor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Indicates if the staff member is an SLP instructor.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>forceUpdate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last">Indicates if it is mandatory for the student to update their profile.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id="StudentRecord">StudentRecord</h4>
+
+
+
+
+<div class="description">
+    A student profile record.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><a href="Record.html">Record</a></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>username</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The student's email address, @dewv.edu.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>firstName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The student's first name.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lastName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The student's last name.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>academicRank</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#academicRankDomain">academicRankDomain</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The student's academic rank.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>majorOne</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#MajorRecord">MajorRecord</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The student's primary major.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>majorTwo</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#MajorRecord">MajorRecord</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The student's secondary major.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>residentialStatus</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#residentialStatusDomain">residentialStatusDomain</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The student's residential status.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fallSport</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">FallSport</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The student's Fall sport.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>springSport</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">SpringSport</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The student's Spring sport.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>forceUpdate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last">Indicates if it is mandatory for the student to update their profile.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id="ViewData">ViewData</h4>
+
+
+
+
+<div class="description">
+    Data needed to configure an EJS view.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>formData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Record.html">Record</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The data values to populate in the view's form inputs.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>action</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The value of the `action` atrribute for the view's &lt;form&gt; element.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>...domainSelect</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">HTML source for &lt;select&gt; element; property name is associated Sails model.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+    
 
     
 </article>
@@ -1411,13 +2658,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-RestController.html">RestController</a></li></ul><h3>Global</h3><ul><li><a href="global.html#sails&period;helpers&period;encodeAssociations">sails&period;helpers&period;encodeAssociations</a></li><li><a href="global.html#sails&period;helpers&period;generateHtmlSelect">sails&period;helpers&period;generateHtmlSelect</a></li><li><a href="global.html#sails&period;helpers&period;getAssociationDomains">sails&period;helpers&period;getAssociationDomains</a></li><li><a href="global.html#sails&period;helpers&period;getDefaults">sails&period;helpers&period;getDefaults</a></li><li><a href="global.html#sails&period;helpers&period;isAssociation">sails&period;helpers&period;isAssociation</a></li><li><a href="global.html#sails&period;helpers&period;populateOne">sails&period;helpers&period;populateOne</a></li><li><a href="global.html#sails&period;helpers&period;responseViewSafely">sails&period;helpers&period;responseViewSafely</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-controllers_RestController.html">controllers/RestController</a></li><li><a href="module-models_FallSport.html">models/FallSport</a></li><li><a href="module-models_Major.html">models/Major</a></li><li><a href="module-models_SpringSport.html">models/SpringSport</a></li><li><a href="module-models_Staff.html">models/Staff</a></li><li><a href="module-models_Student.html">models/Student</a></li></ul><h3>Externals</h3><ul><li><a href="external-Request.html">Request</a></li><li><a href="external-Response.html">Response</a></li></ul><h3>Interfaces</h3><ul><li><a href="Controller.html">Controller</a></li><li><a href="Model.html">Model</a></li><li><a href="Record.html">Record</a></li></ul><h3>Global</h3><ul><li><a href="global.html#sails&period;helpers&period;encodeAssociations">sails&period;helpers&period;encodeAssociations</a></li><li><a href="global.html#sails&period;helpers&period;generateHtmlSelect">sails&period;helpers&period;generateHtmlSelect</a></li><li><a href="global.html#sails&period;helpers&period;getDefaults">sails&period;helpers&period;getDefaults</a></li><li><a href="global.html#sails&period;helpers&period;getDomains">sails&period;helpers&period;getDomains</a></li><li><a href="global.html#sails&period;helpers&period;isAssociation">sails&period;helpers&period;isAssociation</a></li><li><a href="global.html#sails&period;helpers&period;populateOne">sails&period;helpers&period;populateOne</a></li><li><a href="global.html#sails&period;helpers&period;responseViewSafely">sails&period;helpers&period;responseViewSafely</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Feb 08 2019 04:04:00 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Feb 19 2019 23:20:14 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>

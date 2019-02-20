@@ -1,9 +1,11 @@
-/*
- * @module Student
- * 
- * Usage: `Student` or `sails.models.Student`
+/**
+ * Represents a set of student profile records. 
+ * @module 
+ * @implements Model
+ * @borrows StudentRecord as StudentRecord 
+ * @borrows academicRankDomain as academicRankDomain
+ * @borrows residentialStatusDomain as residentialStatusDomain
  */
-
 module.exports = {
     attributes: {
         name: { type: "string", required: true, allowNull: false, unique: true, isEmail: true },
@@ -68,3 +70,28 @@ module.exports = {
         }
     }
 };
+
+/**
+ * Domain values for student academic rank. 
+ * @typedef {string} academicRankDomain 
+ */
+
+/**
+ * Domain values for student residential status. 
+ * @typedef {string} residentialStatusDomain
+ */
+
+/**
+ * A student profile record.
+ * @typedef {Record} StudentRecord
+ * @property {string} name - The student's email address, @dewv.edu.
+ * @property {string} firstName - The student's first name.
+ * @property {string} lastName - The student's last name.
+ * @property {academicRankDomain} academicRank - The student's academic rank.
+ * @property {MajorRecord} majorOne - The student's primary major. 
+ * @property {MajorRecord} majorTwo - The student's secondary major. 
+ * @property {residentialStatusDomain} residentialStatus - The student's residential status.
+ * @property {FallSport} fallSport - The student's Fall sport. 
+ * @property {SpringSport} springSport - The student's Spring sport. 
+ * @property {boolean} forceUpdate=true - Indicates if it is mandatory for the student to update their profile. 
+ */

@@ -32,7 +32,7 @@ If the student is using an "unregistered" browser, or the "force update" flag is
 
 Otherwise, if the student is checked out (i.e., they have no open Visit record), they will be taken to the check in (Visit create) form. The form requires them to describe the purpose of their Visit to the NLC. When the form is submitted, a Visit record is created, storing the student's identity, purpose of their visit, the date/time of form submission, and the location (see "Register this browser", below). This is an "open" Visit record; the student is now checked in. The application will display a success message and a "sign out" link. Because the application is used in "kiosk mode" on shared PCs, the student will automatically be logged out after a short delay. The application will display the sign in page.
 
-Otherwise, the student is checked in (i.e., the have an open Visit record). They will be taken to the check out (Visit update form). The form always displays the student's check in date/time and purpose of their visit. It requires them to indicate if that purpose was achieved (Yes, No, or Not sure), if they used a tutor (Yes, No), and if they did, for which courses were they tutored (text area). There is a text area for optional Comments. As a special case, if the date of the student's check in is *not* the current system date, the form asks them to estimate the duration of their visit, in quarter-hour increments, up to a maximum of 8 hours. In the normal case, the student is checking out the same day that they checked in, and the date/time of their check out is automatically captured at form submission. The Visit record is updated with the information from the form, plus a flag that indicates if the duration was estimated or not. The Visit record is now "closed"; the student is checked out. The application will display a success message and a "sign out" link. Because the application is used in "kiosk mode" on shared PCs, the student will automatically be logged out after a short delay. The application will display the sign in page.
+Otherwise, the student is checked in (i.e., they have an open Visit record). They will be taken to the check out (Visit update) form. The form always displays the student's check in date/time and purpose of their visit. It requires them to indicate if that purpose was achieved (Yes, No, or Not sure), if they used a tutor (Yes, No), and if they did, for which courses were they tutored (text area). There is a text area for optional Comments. As a special case, if the date of the student's check in is *not* the current system date, the form asks them to estimate the duration of their visit, in quarter-hour increments, up to a maximum of 8 hours. In the normal case, the student is checking out the same day that they checked in, and the date/time of their check out is automatically captured at form submission. (The timestamps automatically placed on Sails models will serve as the check in and (actual, not estimated) check out times.) The Visit record is updated with the information from the form, the duration of the Visit, plus a flag that indicates if the duration was estimated or not. The Visit record is now "closed"; the student is checked out. The application will display a success message and a "sign out" link. Because the application is used in "kiosk mode" on shared PCs, the student will automatically be logged out after a short delay. The application will display the sign in page.
 
 ### Voluntary student profile updates
 
@@ -162,7 +162,17 @@ Use `Ctrl-C` to terminate the application.
 
 There are three `package.json` scripts for checking code quality in the application.
 
+- `npm run lint` will check the JavaScript code against the rules defined in `.eslintrc`, and fix some problems that it identifies.
+- `npm run mocha` will run all automated test cases.
+- `npm run coverage` will check how much of the code is tested by the mocha process, enforcing a threshold of 95% or higher.
 
+All three of these scripts are run, in the order listed, when the command `npm test` is issued. Notice that this is a standard script, so the word `run` is not needed.
+
+It is important to run `npm test` and verify successful results before issuing a pull request.
+
+When pull requests to master are created, the Travis CI (continuous integration) service will automatically create a virtual machine in the cloud, clone the application's git repository, run the `npm install` script, and run the `npm test` script.
+
+The pull request will be marked with the CI results, indicating that all status checks passed, or that some failed.
 
 ## Components of the application
 
@@ -182,6 +192,8 @@ The following minor models exist only as "reference lists." Data for these model
 - FallSport: the set of Fall sports that can appear on a student profile
 - SpringSport: the set of Spring sports that can appear on a student profile
 
+Each major model should define a `createDevelopmentData` function that creates sample data for the model and possibly for associated minor models. The function should be called from `config/bootstrap.js` in order to populate the database at runtime. See the `Student` model for an example.
+
 ### Views
 
 Views present information to the user. For data entry/editing, this means an HTML form; for read-only displays it means some other HTML page.
@@ -191,8 +203,6 @@ The Student and Staff components use a "find or create" approach. This means tha
 Accordingly, the `student` and `staff` folders (will) have only an `editForm.html` file, following the naming convention expected by the `RestController` class (see the next section).
 
 The Visit component must support creating new records (known as a "check in") and editing existing records (known as a "check out").  So, the `visit` folder will contain `createForm.html` and `editForm.html`, named in anticipation that the `RestController` can be used. 
-
-:construction: (Note: more needs to be said (and figured out) about views like what displays after a successful add, edit etc. There will also be a "display list" type view of Visits (staff access only), but I need to build out the structure for that.)
 
 ### Controllers
 
@@ -206,9 +216,9 @@ For simple [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete)
 - `GET /:model/:id/edit`
 - `POST /:model/:id`
 
-:construction: More RESTful URLs will be added to the controller.
-
 The `RestController` can communicate with any model driven by the Sails ORM, using the [model API](https://sailsjs.com/documentation/reference/waterline-orm/models#?builtin-model-methods) and the application's helpers (see next section). The `RestController` expects to find a `views/pages` subfolder that is named for the model, containing `createForm.html` and/or `editForm.html` files (depending on which operations are supported.)
+
+Note: in development mode, Sails automatically provides handling of some request using [Blueprints](https://sailsjs.com/documentation/concepts/blueprints). This is a helpful set of features for developers. But be aware that Blueprints are disabled when an application goes into production mode.
 
 ### Helpers
 
@@ -221,7 +231,7 @@ The application's helpers are documented [here](https://dewv.github.io/nlcAttend
 * Use the present tense ("Add feature" not "Added feature")
 * Use the imperative mood ("Move cursor to..." not "Moves cursor to...")
 * Limit the first line to 72 characters or less
-* Reference issues and pull requests liberally after the first line
+* Reference issues and pull requests liberally after the first line. It is generally our practice that code-related Issues are never manually closed; they should close automatically when code is merged to the master branch from commit and/or pull request messages that refer to the Issue.
 
 ### JavaScript style checking
 
@@ -231,7 +241,7 @@ There are several ways that this tool is activated.
 
 1. It is the tool that produces the icons and associated messages that appear in the "gutter" of the source code editor, next to the line numbers.
 2. The terminal command `npm run lint` executes a script in `package.json` that runs the tool and reports any findings. This script runs the tool with its `--fix` flag, which will automatically fix some code issues. Be aware that this can cause otherwise unexpected changes when you run `git status`.
-3. The terminal command `npm test` executes a script in `package.json` that first runs the lint script just discussed, and then runs the mocha test script discussed elsewhere.
+3. The terminal command `npm test` executes a script in `package.json` that first runs the lint script just discussed, and then runs the mocha test and code coverage scripts discussed elsewhere.
 
 As discussed above, c9 has a problematic expectation for the location of the `.eslintrc` config file; we work around this with a symlink.
 
@@ -253,33 +263,34 @@ The bash command `mv` moves a file, which amounts to a rename when the same fold
 ### mocha style guide
 
 - Include thoughtfully-worded, well-structured mocha tests in the `test` folder.
-- Treat `describe` as a noun or situation.
-- Treat `it` as a statement about state or how an operation changes state.
+- Files that contain test code should be named to match the files that contain the code that they test. (Extensions may differ; all test code will be in `.js` files, but both `.js` and `.html` files will be tested.)
+- Use`describe` to identify the component under test.
+- Use one or more nested `context` blocks to categorize tests.
+- Use`it` to describe expected behavior, usually beginning with the word "should"
 
 #### Example
 
-```javascript
-TBD
-```
-
-### Documentation Styleguide
-
-* jsdoc, but how?
-* Use [Markdown](https://daringfireball.net/projects/markdown).
-* Reference methods and classes in markdown with the custom `{}` notation:
-    * Reference classes with `{ClassName}`
-    * Reference instance methods with `{ClassName::methodName}`
-    * Reference class methods with `{ClassName.methodName}`
-
-#### Example
+File `test/views/student/editForm.js` includes the following code to test the behavior of `views/pages/student/editForm.html`. (Note that the `pages` folder was dropped from the `test` file tree because we did not expect to test other `view` folder contents; however, this could change.)
 
 ```javascript
-/**
-*/
+describe("Student views", ...
+    context("The edit form", ...
+    	it("should include a text input to edit the last name", ...
+        it("should include select options to edit the fall sport", ...
 ```
 
-## Additional Notes
+### Documentation style guide
 
-### Issue and Pull Request Labels
+We use [jsdoc](https://usejsdoc.org/) to generate [our API documentation](https://dewv.github.io/nlcAttendance).
 
-:construction:
+This includes documentation for the Request, Response, Record, Model, and Controller concepts from Express/Sails.
+
+Each model file should document:
+
+1. the model itself, as a module implementing the [Model](https://dewv.github.io/nlcAttendance/docs/Model.html) interface, and
+2. a related record type, which implements the [Record](https://dewv.github.io/nlcAttendance/docs/Record.html) interface.
+
+Each controller file should document the controller as a module implementing the [Controller](https://dewv.github.io/nlcAttendance/docs/Controller.html) interface.
+
+Although Sails helpers are defined in module format, the framework essentially turns them into globally available functions. Accordingly, each helper file documents its helper from the caller's perspective, as if it were a global function.
+

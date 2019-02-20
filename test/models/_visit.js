@@ -21,15 +21,12 @@ module.exports = function(model, testData) {
         };
 
         let testVisit = {
-            visitLength: " ",
-            visitPurpose: "testing",
-            purposeAchived: "No",
+            visitPurpose: "testPurpose",
+            purposeAchieved: "Yes",
             usedTutor: true,
-            tutor: "math",
-            comment: "testing",
-            estimatedDuration: "",
+            tutor: "Math",
+            comment: "Test Comment",
         };
-
 
         // Before tests run ...
         before(async function() {
@@ -38,10 +35,54 @@ module.exports = function(model, testData) {
             await destroyTestData();
 
             // Associate, using the new IDs
-            testVisit.studentName = testData.associations.student.firstName + " " + testData.associations.student.lastName;
+            visitData.associations.name = testData.record.id;
 
+            testVisit.name = visitData.associations.name;
             // Create main test record, with associations in place
             visitData.record = await Visit.create(testVisit).fetch();
+        });
+
+        /**
+         * Tests the Visit Model, using the specified test data.
+         * @argument {string} model - The sailsjs model to be tested.
+         * @argument {Object[]} testData - Data record to be used for testing.
+         * @public
+         */
+        describe("Test for Visit Model", function() {
+
+            context("`Test the association of the student model for name attribute.", async function() {
+                it("Returns correct id number", async function() {
+                    let expected = visitData.record.name;
+                    let visitSample = await Visit.findOne(1);
+                    visitSample.should.not.be.an.Error();
+                    visitSample.should.be.an.Object();
+                    let result = visitSample.name;
+                    result.should.not.be.an.Error();
+                    result.should.be.an.Number();
+                    should.exist(result, "The record did not return anything.");
+
+                    result.should.equal(expected, "The name attribute is set to " + result + " but expected to be set to " + expected + ".");
+                });
+            });
+            context("`Test the beforeUpdate lifecycle callback,", async function() {
+                it("Attribute visitLength was calculated correctly", async function() {
+                    await sails.models["visit"].updateOne({ id: visitData.record.id }).set(visitData.record);
+                    visitData.record.checkOutTime = new Date();
+                    let visitSample = await sails.models["visit"].findOne({id: visitData.record.id});
+                    let result = visitSample.visitLength;
+                    let checkIn = new Date.getMinutes(visitData.record.checkInTime);
+                    let checkOut = new Date.getMinutes(visitData.record.checkOutTime);
+                    let expected = checkOut - checkIn;
+                    result.should.not.be.an.Error();
+                    result.should.be.an.Number();
+                    expected.should.not.be.an.Error();
+                    expected.should.be.an.Number();
+                    should.exist(result, "visitLength does not exist.");
+
+                    result.should.be.equal(expected, "After the record updated the visitLength attribute is " + result + ". We expected " + expected + ".");
+
+                });
+            });
         });
 
         // After tests run ...
@@ -49,7 +90,7 @@ module.exports = function(model, testData) {
 
         async function destroyTestData() {
             // Destroy main test record
-            await Visit.destroyOne({ username: testVisit.studentName });
+            await Visit.destroyOne({ id: 1 });
         }
     });
 };
