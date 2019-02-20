@@ -4,6 +4,7 @@
 
 "use strict";
 const helperIntegrationTests = require("./_helpers");
+const visitModelTest = require("./_visit");
 
 describe("Student model", function() {
     let testData = {
@@ -12,7 +13,7 @@ describe("Student model", function() {
     };
 
     let testStudent = {
-        username: "TESTSTUDENT@DEWV.EDU",
+        name: "TESTSTUDENT@DEWV.EDU",
         firstName: "TEST",
         lastName: "STUDENT",        
         academicRank: "Freshman",
@@ -51,10 +52,12 @@ describe("Student model", function() {
 
     // Run helper integration tests
     helperIntegrationTests("student", testData);
+    visitModelTest("student", testData);
+    
     
     async function destroyTestData() {
         // Destroy main test record
-        await Student.destroyOne({ username: testStudent.username });
+        await Student.destroyOne({ name: testStudent.name });
         
         // Destroy test records in associated model
         await FallSport.destroyOne({ name: testFallSport.name });

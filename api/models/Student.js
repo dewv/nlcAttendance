@@ -84,7 +84,7 @@ module.exports = {
 /**
  * A student profile record.
  * @typedef {Record} StudentRecord
- * @property {string} username - The student's email address, @dewv.edu.
+ * @property {string} name - The student's email address, @dewv.edu.
  * @property {string} firstName - The student's first name.
  * @property {string} lastName - The student's last name.
  * @property {academicRankDomain} academicRank - The student's academic rank.

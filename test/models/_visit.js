@@ -21,10 +21,9 @@ module.exports = function(model, testData) {
         };
 
         let testVisit = {
-            name: 1,
             visitPurpose: "testPurpose",
             purposeAchieved: "Yes",
-            usedTutor: "True",
+            usedTutor: true,
             tutor: "Math",
             comment: "Test Comment",
         };
@@ -37,8 +36,9 @@ module.exports = function(model, testData) {
             await destroyTestData();
 
             // Associate, using the new IDs
-            visitData.associations.student = sails.helpers.populateOne(model, testVisit.name);
-
+            visitData.associations.name = await sails.helpers.populateOne(model, 1);
+            
+            testVisit.name = visitData.associations.name;
             // Create main test record, with associations in place
             visitData.record = await Visit.create(testVisit).fetch();
         });
@@ -52,14 +52,14 @@ module.exports = function(model, testData) {
         describe("Test for Visit Model", function() {
 
             context("Test the association of the student model for name attribute.", async function() {
-                it("Returns correct Name.", async function() {
-                    let expected = testData.firstName + " " + testData.lastName;
-                    let visitSample = sails.helpers.populateOne(Visit, 1);
-                    visitSample.should.not.be.an.Error();
-                    visitSample.should.be.an.Object();
+                it("Returns correct Name", async function() {
+                    let expected = visitData.record.name.firstName + " " + visitData.record.name.lastName;
+                    let visitSample = await sails.helpers.populateOne("visit", 1);
+                    // visitSample.should.not.be.an.Error();
+                    // visitSample.should.be.an.Object();
                     let result = visitSample.name.firstName + " " + visitSample.name.lastName;
-                    result.should.not.be.an.Error();
-                    result.should.be.an.String();
+                    // result.should.not.be.an.Error();
+                    // result.should.be.an.String();
                     should.exits(result, "The record did not return anything.");
                     
                     result.should.equal(expected, "The populateOne call returned " + result + " but expected " + expected + ".");
@@ -72,12 +72,7 @@ module.exports = function(model, testData) {
 
         async function destroyTestData() {
             // Destroy main test record
-            await Visit.destroyOne({ name: testVisit.name });
-            await Visit.destroyOne({ name: testVisit.visitPurpose });
-            await Visit.destroyOne({ name: testVisit.purposeAchieved });
-            await Visit.destroyOne({ name: testVisit.usedTutor });
-            await Visit.destroyOne({ name: testVisit.tutor });
-            await Visit.destroyOne({ name: testVisit.comment });
+            await Visit.destroyOne({ id: 1});
         }
     });
 };
