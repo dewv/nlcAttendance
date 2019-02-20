@@ -1,33 +1,18 @@
 /**
- * Majors.js
- *
- * @description :: A model definition represents a database table/collection.
- * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
+ * Represents a set of academic major records. 
+ * @module 
+ * @implements Model
+ * @borrows MajorRecord as MajorRecord 
  */
-
 module.exports = {
 
     attributes: {
-
-        //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
-        //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
-        //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
         name: { type: "string", required: true, unique: true,},
-    
-        //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
-        //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
-        //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝
-        //n/a
-
-
-        //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
-        //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
-        //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-        //n/a
-
-    },
-
+    }
 };
 
-
-
+/**
+ * An academic major record.
+ * @typedef {Record} MajorRecord
+ * @property {string} name - The major's name.
+ */

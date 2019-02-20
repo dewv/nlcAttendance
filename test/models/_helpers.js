@@ -1,7 +1,7 @@
 /**
  * @module _helpers
  */
- 
+
 "use strict";
 const should = require("should");
 const config = require("../../config/models");
@@ -30,12 +30,13 @@ module.exports = function(modelName, testData) {
         });
 
         context("`getAssociationDomains` helper", function() {
-            it("should return a dictionary containing domain values for each associated sailsjs model", async function() {
+            it("should return a dictionary containing domain values for each appropriate model attribute", async function() {
                 let model = sails.models[modelName];
-                let result = await sails.helpers.getAssociationDomains(model);
+                let result = await sails.helpers.getDomains(model);
                 for (let property in model.attributes) {
-                    if (sails.helpers.isAssociation(model, property)) {
-                        should.exist(result[property], `The dictionary returned by \`getAssociationDomains\` has no ${property} property`);
+                    if (sails.helpers.isAssociation(model, property) ||
+                        (model.attributes[property].validations && model.attributes[property].validations.isIn)) {
+                        should.exist(result[property], `The dictionary returned by \`getDomains\` has no ${property} property`);
                     }
                 }
             });
