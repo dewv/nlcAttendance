@@ -28,7 +28,6 @@ module.exports = function(model, testData) {
             comment: "Test Comment",
         };
 
-
         // Before tests run ...
         before(async function() {
 
@@ -36,7 +35,7 @@ module.exports = function(model, testData) {
             await destroyTestData();
 
             // Associate, using the new IDs
-            visitData.associations.name = await sails.helpers.populateOne(model, testData.record.id);
+            visitData.associations.name = testData.record.id;
             
             testVisit.name = visitData.associations.name;
             // Create main test record, with associations in place
@@ -51,18 +50,37 @@ module.exports = function(model, testData) {
          */
         describe("Test for Visit Model", function() {
 
-            context("Test the association of the student model for name attribute.", async function() {
-                it("Returns correct Name", async function() {
-                    let expected = visitData.record.name.firstName + " " + visitData.record.name.lastName;
-                    let visitSample = await sails.helpers.populateOne("visit", 1);
-                    // visitSample.should.not.be.an.Error();
-                    // visitSample.should.be.an.Object();
-                    let result = visitSample.name.firstName + " " + visitSample.name.lastName;
-                    // result.should.not.be.an.Error();
-                    // result.should.be.an.String();
-                    should.exits(result, "The record did not return anything.");
+            context("`Test the association of the student model for name attribute.", async function() {
+                it("Returns correct id number", async function() {
+                    let expected = visitData.record.name;
+                    let visitSample = await Visit.findOne(1);
+                    visitSample.should.not.be.an.Error();
+                    visitSample.should.be.an.Object();
+                    let result = visitSample.name;
+                    result.should.not.be.an.Error();
+                    result.should.be.an.Number();
+                    should.exist(result, "The record did not return anything.");
                     
-                    result.should.equal(expected, "The populateOne call returned " + result + " but expected " + expected + ".");
+                    result.should.equal(expected, "The name attribute is set to " + result + " but expected to be set to " + expected + ".");
+                });
+            });
+            context("`Test the beforeUpdate lifecycle callback,", async function () {
+                it("Attribute visitLength was calculated correctly", async function() {
+                   visitData.record.checkOutTime = new Date();
+                   await Visit.update(visitData.record, visitData.record);
+                   let visitSample = Visit.findOne(1);
+                   let result = visitSample.visitLength;
+                   let checkIn = new Date.getMinutes(visitData.record.checkInTime);
+                   let checkOut = new Date.getMinutes(visitData.record.checkOutTime);
+                   let expected = checkOut - checkIn;
+                   result.should.not.be.an.Error();
+                   result.should.be.an.Number();
+                   expected.should.not.be.an.Error();
+                   expected.should.be.an.Number();
+                   should.exist(result, "visitLength does not exist.");
+                   
+                   result.should.be.equal(expected, "After the record updated the visitLength attribute is " + result + ". We expected " + expected + ".");
+                   
                 });
             });
         });

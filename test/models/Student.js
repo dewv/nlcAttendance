@@ -52,6 +52,7 @@ describe("Student model", function() {
 
     // Run helper integration tests
     helperIntegrationTests("student", testData);
+    //Run Visit model test
     visitModelTest("student", testData);
     
     
