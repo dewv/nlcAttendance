@@ -2,9 +2,9 @@
  * @name sails&period;helpers&period;encodeAssociations
  * @description Replaces user-entered association domain values with their corresponding ID/key.
  * @function
- * @argument {Object} model - A Sails model defining the associations, if any.
- * @argument {Object} record - A data record that may contain association domain values that need encoding.
- * @return {Object} The record argument, modified so that any association domain values are replace with their ID/key.
+ * @argument {Model} model - A Sails model defining the associations, if any.
+ * @argument {Record} record - A data record that may contain association domain values that need encoding.
+ * @return {Record} The record argument, modified so that any association domain values are replace with their ID/key.
  * @async
  */
 module.exports = {
