@@ -19,7 +19,8 @@
     "SpringSport": true,
     "Major": true,
     "Student": true,
-    "Visit": true
+    "Staff": true,
+    "Visit": true,
     // …and any others (e.g. `"Organization": true`)
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   },

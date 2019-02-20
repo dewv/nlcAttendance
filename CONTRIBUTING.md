@@ -160,13 +160,14 @@ Use `Ctrl-C` to terminate the application.
 
 ## Running tests
 
-There are three `package.json` scripts for checking code quality in the application.
+There are four `package.json` scripts for checking code quality in the application.
 
 - `npm run lint` will check the JavaScript code against the rules defined in `.eslintrc`, and fix some problems that it identifies.
+- `npm run htmlhint` will check the HTML content according to the rules defined in `.htmlhintrc`.
 - `npm run mocha` will run all automated test cases.
 - `npm run coverage` will check how much of the code is tested by the mocha process, enforcing a threshold of 95% or higher.
 
-All three of these scripts are run, in the order listed, when the command `npm test` is issued. Notice that this is a standard script, so the word `run` is not needed.
+All four of these scripts are run, in the order listed, when the command `npm test` is issued. Notice that this is a standard script, so the word `run` is not needed.
 
 It is important to run `npm test` and verify successful results before issuing a pull request.
 
@@ -241,7 +242,7 @@ There are several ways that this tool is activated.
 
 1. It is the tool that produces the icons and associated messages that appear in the "gutter" of the source code editor, next to the line numbers.
 2. The terminal command `npm run lint` executes a script in `package.json` that runs the tool and reports any findings. This script runs the tool with its `--fix` flag, which will automatically fix some code issues. Be aware that this can cause otherwise unexpected changes when you run `git status`.
-3. The terminal command `npm test` executes a script in `package.json` that first runs the lint script just discussed, and then runs the mocha test and code coverage scripts discussed elsewhere.
+3. The terminal command `npm test` executes a script in `package.json` that runs the lint script just discussed, along with other code quality scripts discussed elsewhere.
 
 As discussed above, c9 has a problematic expectation for the location of the `.eslintrc` config file; we work around this with a symlink.
 

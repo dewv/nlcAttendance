@@ -10,7 +10,8 @@ module.exports = {
         username: { type: "string", required: true, allowNull: false, unique: true },
         firstName: { type: "string", required: true, allowNull: false },
         lastName: { type: "string", required: true, allowNull: false },
-        isSlpInstructor: { type: "boolean", allowNull: "false", defaultsTo: false }
+        isSlpInstructor: { type: "boolean", allowNull: "false", defaultsTo: false },
+        forceUpdate: { type: "boolean", defaultsTo: true }
     },
 
 };
