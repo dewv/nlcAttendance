@@ -192,6 +192,8 @@ The following minor models exist only as "reference lists." Data for these model
 - FallSport: the set of Fall sports that can appear on a student profile
 - SpringSport: the set of Spring sports that can appear on a student profile
 
+Each major model should define a `createDevelopmentData` function that creates sample data for the model and possibly for associated minor models. The function should be called from `config/bootstrap.js` in order to populate the database at runtime. See the `Student` model for an example.
+
 ### Views
 
 Views present information to the user. For data entry/editing, this means an HTML form; for read-only displays it means some other HTML page.
