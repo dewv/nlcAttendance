@@ -13,7 +13,7 @@ describe("Student model", function() {
     };
 
     let testStudent = {
-        name: "TESTSTUDENT@DEWV.EDU",
+        username: "TESTSTUDENT@DEWV.EDU",
         firstName: "TEST",
         lastName: "STUDENT",        
         academicRank: "Freshman",
@@ -58,7 +58,7 @@ describe("Student model", function() {
     
     async function destroyTestData() {
         // Destroy main test record
-        await Student.destroyOne({ name: testStudent.name });
+        await Student.destroyOne({ username: testStudent.username });
         
         // Destroy test records in associated model
         await FallSport.destroyOne({ name: testFallSport.name });
