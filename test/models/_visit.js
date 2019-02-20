@@ -36,7 +36,7 @@ module.exports = function(model, testData) {
             await destroyTestData();
 
             // Associate, using the new IDs
-            visitData.associations.name = await sails.helpers.populateOne(model, 1);
+            visitData.associations.name = await sails.helpers.populateOne(model, testData.record.id);
             
             testVisit.name = visitData.associations.name;
             // Create main test record, with associations in place
