@@ -33,3 +33,19 @@ module.exports = {
     
 
 };
+
+
+/**
+ * A student visit record.
+ * @typedef {Record} VisitRecord
+ * @property {Student} name - The associated student record.
+ * @property {ref} checkInTime - A reference to createdAt formated in UTC.
+ * @property {ref} checkOutTime - A reference to updatedAt formated in UTC.
+ * @property {number} visitLength - The number of minutes the student was at the NLC. The difference between the checkOutTime and CheckInTime.
+ * @property {string} visitPurpose - The reason the student visited the NLC.
+ * @property {string} purposeAchieved - Did the student accomplish their goal this visit.
+ * @property {string} tutorCourses - The course of which the student used a tutor.
+ * @property {string} comment - Any comments the student may have about their visit.
+ * @property {boolean} needEstimate=false - Indicates if it is mandatory for the student to estimate the length of their last visit. 
+ * @property {number} estimatedDuration - The amount of time, in minutes, the student estimates they were at the NLC on their last visit.
+ */

@@ -67,7 +67,7 @@ module.exports = function(model, testData) {
             context("`Test the postPopulate function,", async function() {
                 it("Attribute visitLength was calculated correctly", async function() {
                     let visitTest = Visit.postPopulate(visitData.record);
-                    visitData.record.checkOutTime = new Date.now();
+                    visitData.record.checkOutTime = sails.helpers.getCurrentTime();
                     let result = visitTest.visitLength;
                     let checkIn = new Date.getMinutes(visitData.record.checkInTime);
                     let checkOut = new Date.getMinutes(visitData.record.checkOutTime);
