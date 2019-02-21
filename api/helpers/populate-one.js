@@ -2,9 +2,9 @@
  * @name sails&period;helpers&period;populateOne
  * @description Retrieves attributes and populates all associations for a specified ID.
  * @function
- * @argument {Object} model - A Sails model defining the attributes and associations.
+ * @argument {Model} model - A Sails model defining the attributes and associations.
  * @argument {number} id - The ID/key of the desired data record.
- * @return {Object} A data record with all associations populated.
+ * @return {Record} A data record with all associations populated.
  * @async
  */
 module.exports = {
@@ -35,12 +35,10 @@ module.exports = {
 
     fn: async function(inputs, exits) {
         let result = await inputs.model.findOne({ id: inputs.id });
-        if (result) {
-            for (let property in inputs.model.attributes) {
-                if (sails.helpers.isAssociation(inputs.model, property)) {
-                    let lookup = await sails.models[inputs.model.attributes[property].model].findOne({ id: result[property] });
-                    result[property] = lookup ? lookup : null;
-                }
+        for (let property in inputs.model.attributes) {
+            if (sails.helpers.isAssociation(inputs.model, property)) {
+                let lookup = await sails.models[inputs.model.attributes[property].model].findOne({ id: result[property] });
+                result[property] = lookup ? lookup : null;
             }
         }
 

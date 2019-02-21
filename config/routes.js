@@ -1,7 +1,7 @@
 let routes = {
     "/": "/student",
     
-    // "GET /login"
+    "GET /login": { view: "pages/login" },
     // "POST /login"    should redirect students to check in, staff to menu
     // "GET /logout"
     // "GET /staff/menu" 

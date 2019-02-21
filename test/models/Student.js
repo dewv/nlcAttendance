@@ -3,6 +3,7 @@
  */
 
 "use strict";
+const should = require("should");
 const helperIntegrationTests = require("./_helpers");
 
 describe("Student model", function() {
@@ -14,11 +15,11 @@ describe("Student model", function() {
     let testStudent = {
         username: "TESTSTUDENT@DEWV.EDU",
         firstName: "TEST",
-        lastName: "STUDENT",        
+        lastName: "STUDENT",
         academicRank: "Freshman",
         residentialStatus: "On campus"
     };
-    
+
     let testFallSport = { name: "TEST FALL SPORT" };
     let testSpringSport = { name: "TEST SPRING SPORT" };
     let testMajorOne = { name: "TEST MAJOR ONE" };
@@ -40,7 +41,7 @@ describe("Student model", function() {
         testStudent.fallSport = testData.associations.fallSport.id;
         testStudent.springSport = testData.associations.springSport.id;
         testStudent.majorOne = testData.associations.majorOne.id;
-        testStudent.majorTwo = testData.associations.majorTwo.id;
+        testStudent.majorTwo = null;
 
         // Create main test record, with associations in place
         testData.record = await Student.create(testStudent).fetch();
@@ -51,11 +52,27 @@ describe("Student model", function() {
 
     // Run helper integration tests
     helperIntegrationTests("student", testData);
-    
+
+    context("A data record returned by `create()`", function() {
+        it("should have a field for each model attribute", function() {
+            for (let property in testStudent) {
+                testData.record.should.have.property(property);
+            }
+
+            for (let property in testData.associations) {
+                testData.record.should.have.property(property);
+            }
+        });
+
+        it("should have correct default field values", function() {
+            testData.record.forceUpdate.should.be.true();
+        });
+    });
+
     async function destroyTestData() {
         // Destroy main test record
         await Student.destroyOne({ username: testStudent.username });
-        
+
         // Destroy test records in associated model
         await FallSport.destroyOne({ name: testFallSport.name });
         await SpringSport.destroyOne({ name: testSpringSport.name });
