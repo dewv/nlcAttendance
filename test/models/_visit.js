@@ -80,14 +80,14 @@ module.exports = function(model, testData) {
                     should.exist(result, "visitLength does not exist.");
                     result.should.be.equal(expected, "After the record updated the visitLength attribute is " + result + ". We expected " + expected + ".");
                 });
-                it("Attribute needEstimate is set to true when visitLength is longer that 5 hours.", async function() {
+                it("Attribute isLengthEstimated is set to true when visitLength is longer that 5 hours.", async function() {
                     visitData.record.checkInTime = "2018-02-20T01:00:00.000Z";
                     let visitTest = Visit.afterPopulateOne(visitData.record);
                     let result = visitTest.isLengthEstimated;
                     let expected = true;
                     result.should.not.be.an.Error();
                     expected.should.not.be.an.Error();
-                    result.should.be.equal(expected, "After the record updated the needEstimate attribute is " + result + ". We expected it to be " + expected + ".");
+                    result.should.be.equal(expected, "After the record updated the isLengthEstimated attribute is " + result + ". We expected it to be " + expected + ".");
                 });
             });
         });
