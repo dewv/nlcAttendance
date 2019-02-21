@@ -2,8 +2,8 @@
  * @name sails&period;helpers&period;isAssociation
  * @description Determines if a model property is an associated model.
  * @function
- * @argument {Object} model - The Sails model to check.
- * @argument {string} propertyName - The name of the model property to check.
+ * @argument {Model} model - The Sails model to check.
+ * @argument {propertyName - The name of the model property to check.
  * @return {boolean}
  */
 module.exports = {
@@ -41,8 +41,6 @@ module.exports = {
 
     fn: function (inputs, exits) {
         let property = inputs.model.attributes[inputs.propertyName];
-        if (typeof property === "undefined") return exits.success(false);
-        return exits.success(typeof property.model === "string");
+        return exits.success(typeof property !== "undefined" && typeof property.model === "string");
     }
 };
-

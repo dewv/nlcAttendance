@@ -1,7 +1,7 @@
 /**
  * @module _helpers
  */
- 
+
 "use strict";
 const should = require("should");
 const config = require("../../config/models");
@@ -12,12 +12,13 @@ const config = require("../../config/models");
  * @argument {Object[]} testData - Data record to be used for testing.
  * @public
  */
-module.exports = function(model, testData) {
+module.exports = function(modelName, testData) {
 
     describe("Standard tests of model, helpers integration", function() {
 
         context("`getDefaults` helper", async function() {
             it("should return a record with expected sailsjs model attributes", async function() {
+                let model = sails.models[modelName];
                 let result = sails.helpers.getDefaults(model);
                 result.should.not.be.an.Error();
                 result.should.be.an.Object();
@@ -29,11 +30,13 @@ module.exports = function(model, testData) {
         });
 
         context("`getAssociationDomains` helper", function() {
-            it("should return a dictionary containing domain values for each associated sailsjs model", async function() {
-                let result = await sails.helpers.getAssociationDomains(model);
+            it("should return a dictionary containing domain values for each appropriate model attribute", async function() {
+                let model = sails.models[modelName];
+                let result = await sails.helpers.getDomains(model);
                 for (let property in model.attributes) {
-                    if (sails.helpers.isAssociation(model, property)) {
-                        should.exist(result[property], `The dictionary returned by \`getAssociationDomains\` has no ${property} property`);
+                    if (sails.helpers.isAssociation(model, property) ||
+                        (model.attributes[property].validations && model.attributes[property].validations.isIn)) {
+                        should.exist(result[property], `The dictionary returned by \`getDomains\` has no ${property} property`);
                     }
                 }
             });
@@ -41,6 +44,7 @@ module.exports = function(model, testData) {
 
         context("`encodeAssociations` helper", async function() {
             it("should replace the specified record's domain values with keys for each associated sailsjs model", async function() {
+                let model = sails.models[modelName];
                 let record = sails.helpers.getDefaults(model);
                 for (let property in model.attributes) {
                     if (sails.helpers.isAssociation(model, property)) {
@@ -61,17 +65,18 @@ module.exports = function(model, testData) {
 
         context("`populateOne` helper", function() {
             it("should return a data record for the specified ID, with all associations populated", async function() {
+                let model = sails.models[modelName];
                 let id = testData.record.id;
-                let result = await sails.helpers.populateOne(sails.models[model], id);
+                let result = await sails.helpers.populateOne(model, id);
                 result.should.not.be.an.Error();
                 result.should.be.an.Object();
                 should.exist(result.id, "The record returned by `populateOne` has no `id` property");
                 result.id.should.be.a.Number();
                 result.id.should.equal(id, `The record returned by \`populateOne\` has \`id\` ${result.id} but should have \`id\` ${id}`);
                 for (let property in model.attributes) {
-                    should.exist(result[property], `The record returned by \`populateOne\` has no \`${property}\` property`);
+                    should(result[property]).not.be.undefined(); //result[property], `The record returned by \`populateOne\` has no \`${property}\` property`);
                     if (sails.helpers.isAssociation(model, property)) {
-                        result[property].should.be.an.Object();
+                        if (result[property] !== null) result[property].should.be.an.Object();
                         for (let associatedProperty in result[property]) {
                             result[property][associatedProperty].should.equal(testData.associations[property][associatedProperty]);
                         }
