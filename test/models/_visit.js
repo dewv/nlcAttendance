@@ -23,8 +23,7 @@ module.exports = function(model, testData) {
         let testVisit = {
             visitPurpose: "testPurpose",
             purposeAchieved: "Yes",
-            usedTutor: true,
-            tutor: "Math",
+            tutorCourses: "Math",
             comment: "Test Comment",
         };
 
@@ -66,7 +65,7 @@ module.exports = function(model, testData) {
             });
             context("`Test the postPopulate function,", async function() {
                 it("Attribute visitLength was calculated correctly", async function() {
-                    let visitTest = Visit.postPopulate(visitData.record);
+                    let visitTest = Visit.afterPopulateOne(visitData.record);
                     visitData.record.checkOutTime = sails.helpers.getCurrentTime();
                     let result = visitTest.visitLength;
                     let cI = new Date(visitData.record.checkInTime);
@@ -83,8 +82,8 @@ module.exports = function(model, testData) {
                 });
                 it("Attribute needEstimate is set to true when visitLength is longer that 5 hours.", async function() {
                     visitData.record.checkInTime = "2018-02-20T01:00:00.000Z";
-                    let visitTest = Visit.postPopulate(visitData.record);
-                    let result = visitTest.needEstimate;
+                    let visitTest = Visit.afterPopulateOne(visitData.record);
+                    let result = visitTest.isLengthEstimated;
                     let expected = true;
                     result.should.not.be.an.Error();
                     expected.should.not.be.an.Error();
