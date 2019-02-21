@@ -26,7 +26,7 @@ module.exports = {
     sync: true,
 
     fn: function () {
-        let time = new Date.now();
+        let time = Date.now();
         return time;
     }
 };

@@ -91,7 +91,7 @@ module.exports = function(modelName, testData) {
         context("`getCurrentTime helper", function() {
             it("should return the current synchronized time", async function() {
                 let result = sails.helpers.getCurrentTime();
-                let expected = new Date.now();
+                let expected = Date.now();
                 result.should.not.be.an.Error();
                 expected.should.not.be.an.Error();
                 should.exist(result, "The helper did not return anything");

@@ -69,17 +69,26 @@ module.exports = function(model, testData) {
                     let visitTest = Visit.postPopulate(visitData.record);
                     visitData.record.checkOutTime = sails.helpers.getCurrentTime();
                     let result = visitTest.visitLength;
-                    let checkIn = new Date.getMinutes(visitData.record.checkInTime);
-                    let checkOut = new Date.getMinutes(visitData.record.checkOutTime);
+                    let cI = new Date(visitData.record.checkInTime);
+                    let checkIn = cI.getMinutes();
+                    let cO = new Date(visitData.record.checkOutTime);
+                    let checkOut = cO.getMinutes();
                     let expected = checkOut - checkIn;
                     result.should.not.be.an.Error();
                     result.should.be.an.Number();
                     expected.should.not.be.an.Error();
                     expected.should.be.an.Number();
                     should.exist(result, "visitLength does not exist.");
-
                     result.should.be.equal(expected, "After the record updated the visitLength attribute is " + result + ". We expected " + expected + ".");
-
+                });
+                it("Attribute needEstimate is set to true when visitLength is longer that 5 hours.", async function() {
+                    visitData.record.checkInTime = "2018-02-20T01:00:00.000Z";
+                    let visitTest = Visit.postPopulate(visitData.record);
+                    let result = visitTest.needEstimate;
+                    let expected = true;
+                    result.should.not.be.an.Error();
+                    expected.should.not.be.an.Error();
+                    result.should.be.equal(expected, "After the record updated the needEstimate attribute is " + result + ". We expected it to be " + expected + ".");
                 });
             });
         });

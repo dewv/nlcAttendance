@@ -21,9 +21,10 @@ module.exports = {
     },
     
     postPopulate: function(visit) {
-        let checkInMins = new Date.getMinutes(visit.checkInTime);
-        let checkOutTime = sails.helpers.getCurrentTime();
-        let checkOutMins = new Date.getMinutes(checkOutTime);
+        let checkIn = new Date(visit.checkInTime);
+        let checkInMins = checkIn.getMinutes();
+        let checkOutTime = new Date(sails.helpers.getCurrentTime());
+        let checkOutMins = checkOutTime.getMinutes();
         visit.visitLength = checkOutMins - checkInMins;
         if (visit.visitLength > 300) {
             visit.needEstimate = true;
