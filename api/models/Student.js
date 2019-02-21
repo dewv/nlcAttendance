@@ -19,7 +19,7 @@ module.exports = {
         springSport: { model: "SpringSport" },
         forceUpdate: { type: "boolean", defaultsTo: true }
     },
-
+    
     /**
      * Populates the database with sample data for use in development environments.
      * @modifies Database contents.

@@ -42,6 +42,10 @@ module.exports = {
             }
         }
 
+        if (inputs.model.afterPopulateOne) {
+            await inputs.model.afterPopulateOne(result);
+        }
+        
         // Send back the result through the success exit.
         return exits.success(result);
     }
