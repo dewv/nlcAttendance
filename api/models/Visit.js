@@ -16,18 +16,17 @@ module.exports = {
         purposeAchieved: { type: "string", allowNull: true, isIn: ["Yes", "No", "Not sure"] },
         tutorCourses: { type: "string", required: false, allowNull: true },
         comment: { type: "string", allowNull: true },
-        needEstimate: { type: "boolean", allowNull: false, defaultsTo: false },
-        estimatedDuration: { type: "number", allowNull: true }
+        isLengthEstimated: { type: "boolean", allowNull: false, defaultsTo: false },
     },
     
-    postPopulate: function(visit) {
+    afterPopulateOne: function(visit) {
         let checkIn = new Date(visit.checkInTime);
         let checkInMins = checkIn.getMinutes();
         let checkOutTime = new Date(sails.helpers.getCurrentTime());
         let checkOutMins = checkOutTime.getMinutes();
         visit.visitLength = checkOutMins - checkInMins;
         if (visit.visitLength > 300) {
-            visit.needEstimate = true;
+            visit.isLengthEstimated = true;
         }
         return visit;
     },
