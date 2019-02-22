@@ -34,26 +34,11 @@ describe("Check In Views", function() {
 
             let checkFor = new ViewTests(result);
 
-            it("should include a text input to edit the first name", function(done) {
-                checkFor.formInputText("checkInTime", expectedData.checkInTime).should.be.true();
+            it("should include a text are for the goal/purpose for the visit", function(done) {
+                checkFor.formTextArea("visitPurpose", expectedData.visitPurpose).should.be.true();
                 done();
             });
-
-            it("should include a text input to edit the last name", function(done) {
-                checkFor.formInputText("lastName", expectedData.lastName).should.be.true();
-                done();
-            });
-
-            it("should include select options to edit the fall sport", function(done) {
-                checkFor.formSelectOption("fallSport", expectedData.fallSport.name).should.be.true();
-                done();
-            });
-
-            it("should include text area", function(done) {
-                checkFor.formSelectOption("springSport").should.be.true();
-                done();
-            });
-
+            
             it("should include a submit button to send the form", function(done) {
                 checkFor.formButton("submitButton").should.be.true();
                 done();
