@@ -8,6 +8,17 @@
  */
 
 /**
+ * Provides an opportunity for a model to customize a newly populated record.
+ * After populating a record, the <code><a href="global.html#sails.helpers.populateOne">populateOne</a></code> 
+ * function will call this function if the record's model has defined it.
+ * @function afterPopulateOne
+ * @argument {Record} record - The record that has just been populated.
+ * @memberof Model
+ * @async
+ * @public
+ */
+ 
+/**
  * A uniquely identifiable object that corresponds 1-to-1 with a physical database entry.
  * @interface Record
  * @see {@link https://sailsjs.com/documentation/concepts/models-and-orm/records|Sails Concepts}

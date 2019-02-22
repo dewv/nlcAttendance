@@ -3,7 +3,7 @@
  * @description Determines if a model property is an associated model.
  * @function
  * @argument {Model} model - The Sails model to check.
- * @argument {propertyName - The name of the model property to check.
+ * @argument {string} propertyName - The name of the model property to check.
  * @return {boolean}
  */
 module.exports = {
