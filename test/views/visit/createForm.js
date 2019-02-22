@@ -3,9 +3,9 @@ const ejs = require("ejs");
 const ViewTests = require("../Views");
 
 describe("Check In Views", function() {
-    const pathToView = "pages/views/editForm";
+    const pathToView = "pages/visit/createForm";
 
-    context("The edit form", async function(done) {
+    context("The create form", async function(done) {
 
         let expectedData = {
             name: {id: "1"},
