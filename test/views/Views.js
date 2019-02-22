@@ -32,7 +32,7 @@ class ViewTests {
      * @public
      */
     formTextArea(id, value) {
-        let results = this.$("visitPurpose#" + id);
+        let results = this.$("textarea#" + id);
         return (results.length == 1 && results.val() == value);
     }
 

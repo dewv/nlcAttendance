@@ -39,6 +39,24 @@ describe("Check In Views", function() {
                 done();
             });
             
+            it("should include a radio button for the question of goal/purpose accomplished", function(done) {
+                checkFor.formInputRadio("purposeAchieved").should.be.true();
+            }); 
+            
+            it("should include a radio button for the question Did you use a tutor?", function(done) {
+                checkFor.formInputRadio("usedTutuor").should.be.true();
+            });
+            
+            it("should include a text input to edit the tutor name", function(done) {
+                checkFor.formInputText("tutor", expectedData.tutor).should.be.true();
+                done();
+            });
+            
+            it("should include a text are for comments of the visit", function(done) {
+                checkFor.formTextArea("comment", expectedData.comment).should.be.true();
+                done();
+            });
+            
             it("should include a submit button to send the form", function(done) {
                 checkFor.formButton("submitButton").should.be.true();
                 done();
