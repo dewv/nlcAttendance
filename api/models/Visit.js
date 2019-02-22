@@ -46,6 +46,5 @@ module.exports = {
  * @property {string} purposeAchieved - Did the student accomplish their goal this visit.
  * @property {string} tutorCourses - The course of which the student used a tutor.
  * @property {string} comment - Any comments the student may have about their visit.
- * @property {boolean} needEstimate=false - Indicates if it is mandatory for the student to estimate the length of their last visit. 
- * @property {number} estimatedDuration - The amount of time, in minutes, the student estimates they were at the NLC on their last visit.
+ * @property {boolean} isLengthEstimated=false - Indicates if it is mandatory for the student to estimate the length of their last visit when the value is true. 
  */
