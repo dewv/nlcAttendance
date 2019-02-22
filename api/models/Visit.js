@@ -10,8 +10,8 @@ module.exports = {
     attributes: {
         name: { model: "Student" },
         checkInTime: { type: "ref", columnType: "timestamp", autoCreatedAt: true },
-        checkOutTime: { type: "ref", columnType: "timestamp", autoUpdatedAt: true },
-        visitLength: { type: "number", required: false, allowNull: true },
+        checkOutTime: { type: "ref", columnType: "timestamp", autoUpdatedAt: false},
+        visitLength: { type: "number", columnType: "time", required: false, allowNull: true },
         visitPurpose: { type: "string", required: true, allowNull: false },
         purposeAchieved: { type: "string", allowNull: true, isIn: ["Yes", "No", "Not sure"] },
         tutorCourses: { type: "string", required: false, allowNull: true },
@@ -21,11 +21,10 @@ module.exports = {
     
     afterPopulateOne: function(visit) {
         let checkIn = new Date(visit.checkInTime);
-        let checkInMins = checkIn.getMinutes();
         let checkOutTime = new Date(sails.helpers.getCurrentTime());
-        let checkOutMins = checkOutTime.getMinutes();
-        visit.visitLength = checkOutMins - checkInMins;
-        if (visit.visitLength > 300) {
+        visit.visitLength = checkOutTime.getTime() - checkIn.getTime();
+        console.log(visit.visitLength);
+        if (visit.visitLength > 20) {
             visit.isLengthEstimated = true;
         }
         return visit;

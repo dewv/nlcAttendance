@@ -4,7 +4,6 @@
 
 "use strict";
 const should = require("should");
-const config = require("../../config/models");
 
 /**
  * Tests the specified model's interaction with Student, using the specified test data.
@@ -69,9 +68,9 @@ module.exports = function(model, testData) {
                     visitData.record.checkOutTime = sails.helpers.getCurrentTime();
                     let result = visitTest.visitLength;
                     let cI = new Date(visitData.record.checkInTime);
-                    let checkIn = cI.getMinutes();
+                    let checkIn = cI.getTime();
                     let cO = new Date(visitData.record.checkOutTime);
-                    let checkOut = cO.getMinutes();
+                    let checkOut = cO.getTime();
                     let expected = checkOut - checkIn;
                     result.should.not.be.an.Error();
                     result.should.be.an.Number();
@@ -81,7 +80,7 @@ module.exports = function(model, testData) {
                     result.should.be.equal(expected, "After the record updated the visitLength attribute is " + result + ". We expected " + expected + ".");
                 });
                 it("Attribute isLengthEstimated is set to true when visitLength is longer that 5 hours.", async function() {
-                    visitData.record.checkInTime = "2018-02-20T01:00:00.000Z";
+                    //visitData.record.checkInTime = "2018-02-20T01:00:00.000Z";
                     let visitTest = Visit.afterPopulateOne(visitData.record);
                     let result = visitTest.isLengthEstimated;
                     let expected = true;
