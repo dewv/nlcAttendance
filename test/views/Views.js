@@ -33,7 +33,7 @@ class ViewTests {
      */
     formTextArea(id, value) {
         let results = this.$("textarea#" + id);
-        return (results.length == 1 && results.val() == value);
+        return (results.length === 1 && results.val() === value);
     }
 
     /** Returns true if the view contains one checked radio button with the specified ID; false otherwise. 
