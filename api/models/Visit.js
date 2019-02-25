@@ -23,7 +23,7 @@ module.exports = {
         let checkIn = new Date(visit.checkInTime);
         let checkOutTime = new Date(sails.helpers.getCurrentTime());
         visit.visitLength = checkOutTime.getTime() - checkIn.getTime();
-        console.log(visit.visitLength);
+        console.log(visit.visitLength = sails.helpers.convertToHours(visit.visitLength));
         if (visit.visitLength > 20) {
             visit.isLengthEstimated = true;
         }
