@@ -8,7 +8,7 @@
  */
 module.exports = {
     attributes: {
-        name: { type: "string", required: true, allowNull: false, unique: true, isEmail: true },
+        username: { type: "string", required: true, allowNull: false, unique: true, isEmail: true },
         firstName: { type: "string", required: true, allowNull: false },
         lastName: { type: "string", required: true, allowNull: false },
         academicRank: { type: "string", required: false, allowNull: true, isIn: ["Freshman", "Sophomore", "Junior", "Senior"] },
@@ -19,7 +19,7 @@ module.exports = {
         springSport: { model: "SpringSport" },
         forceUpdate: { type: "boolean", defaultsTo: true }
     },
-
+    
     /**
      * Populates the database with sample data for use in development environments.
      * @modifies Database contents.
@@ -56,7 +56,7 @@ module.exports = {
         // Students. All but first have associations populated.
         for (let i = 0; i < recordCount; i++) {
             await Student.create({
-                name: `USERNAME${i + 1}@DEWV.NET`,
+                username: `USERNAME${i + 1}@DEWV.NET`,
                 firstName: `FIRSTNAME${i + 1}`,
                 lastName: `LASTNAME${i + 1}`,
                 academicRank: i === 0 ? null : Student.attributes.academicRank.validations.isIn[i % Student.attributes.academicRank.validations.isIn.length],
@@ -84,7 +84,7 @@ module.exports = {
 /**
  * A student profile record.
  * @typedef {Record} StudentRecord
- * @property {string} name - The student's email address, @dewv.edu.
+ * @property {string} username - The student's email address, @dewv.edu.
  * @property {string} firstName - The student's first name.
  * @property {string} lastName - The student's last name.
  * @property {academicRankDomain} academicRank - The student's academic rank.

@@ -87,5 +87,16 @@ module.exports = function(modelName, testData) {
                 }
             });
         });
+        
+        context("`getCurrentTime helper", function() {
+            it("should return the current synchronized time", async function() {
+                let result = sails.helpers.getCurrentTime();
+                let expected = Date.now();
+                result.should.not.be.an.Error();
+                expected.should.not.be.an.Error();
+                should.exist(result, "The helper did not return anything");
+                result.should.equal(expected, "The helper returned " + result + " , while the test expected " + expected + ".");
+            });
+        });
     });
 };

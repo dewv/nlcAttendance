@@ -4,7 +4,6 @@
 
 "use strict";
 const should = require("should");
-const config = require("../../config/models");
 
 /**
  * Tests the specified model's interaction with Student, using the specified test data.
@@ -23,8 +22,7 @@ module.exports = function(model, testData) {
         let testVisit = {
             visitPurpose: "testPurpose",
             purposeAchieved: "Yes",
-            usedTutor: true,
-            tutor: "Math",
+            tutorCourses: "Math",
             comment: "Test Comment",
         };
 
@@ -64,23 +62,31 @@ module.exports = function(model, testData) {
                     result.should.equal(expected, "The name attribute is set to " + result + " but expected to be set to " + expected + ".");
                 });
             });
-            context("`Test the beforeUpdate lifecycle callback,", async function() {
+            context("`Test the postPopulate function,", async function() {
                 it("Attribute visitLength was calculated correctly", async function() {
-                    await sails.models["visit"].updateOne({ id: visitData.record.id }).set(visitData.record);
-                    visitData.record.checkOutTime = new Date();
-                    let visitSample = await sails.models["visit"].findOne({id: visitData.record.id});
-                    let result = visitSample.visitLength;
-                    let checkIn = new Date.getMinutes(visitData.record.checkInTime);
-                    let checkOut = new Date.getMinutes(visitData.record.checkOutTime);
+                    let visitTest = Visit.afterPopulateOne(visitData.record);
+                    visitData.record.checkOutTime = sails.helpers.getCurrentTime();
+                    let result = visitTest.visitLength;
+                    let cI = new Date(visitData.record.checkInTime);
+                    let checkIn = cI.getTime();
+                    let cO = new Date(visitData.record.checkOutTime);
+                    let checkOut = cO.getTime();
                     let expected = checkOut - checkIn;
                     result.should.not.be.an.Error();
                     result.should.be.an.Number();
                     expected.should.not.be.an.Error();
                     expected.should.be.an.Number();
                     should.exist(result, "visitLength does not exist.");
-
                     result.should.be.equal(expected, "After the record updated the visitLength attribute is " + result + ". We expected " + expected + ".");
-
+                });
+                it("Attribute isLengthEstimated is set to true when visitLength is longer that 5 hours.", async function() {
+                    //visitData.record.checkInTime = "2018-02-20T01:00:00.000Z";
+                    let visitTest = Visit.afterPopulateOne(visitData.record);
+                    let result = visitTest.isLengthEstimated;
+                    let expected = true;
+                    result.should.not.be.an.Error();
+                    expected.should.not.be.an.Error();
+                    result.should.be.equal(expected, "After the record updated the isLengthEstimated attribute is " + result + ". We expected it to be " + expected + ".");
                 });
             });
         });
