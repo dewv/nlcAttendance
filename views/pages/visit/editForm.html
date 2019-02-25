@@ -1,10 +1,10 @@
 <% var pageTitle = "Check Out - Naylor Learning Center"; %>
 
-<%- partial('./partials/logoutTimer.html') %>
+<%- include('./include/logoutTimer.html') %>
     
 <form method="POST" action="<%= action %>">
     
-    <<p>You checed in <%= formData.checkInTime %> 
+    <p>You checed in <%= formData.checkInTime %> </p>
     
     <% if (estimateDuration != 0) { %>
         <p>Please estimate the duration of your visit:&nbsp; 
@@ -22,22 +22,22 @@
     <br>
     <p>Did you accomplish the goal/purpose of your visit?</p>
 
-    <input type="radio" name="purposeAchived" value="Yes" /> Yes
-    <input type="radio" name="purposeAchived" value="No" /> No
-    <input type="radio" name="purposeAchived" value="NotSure" /> Not Sure
+    <input id="purposeAchivedY" type="radio" name="purposeAchived" value="Yes" /> Yes
+    <input id="purposeAchivedN" type="radio" name="purposeAchived" value="No" /> No
+    <input id="purposeAchivedNS" type="radio" name="purposeAchived" value="NotSure" /> Not Sure
     <br>
 
     <br>
     <p>Did you use a tutor?</p>
-    <input type="radio" name="usedTutor" value="true" /> Yes
-    <input type="radio" name="usedTutor" value="false" /> No
+    <input id="usedTutuorY" type="radio" name="usedTutor" value="true" /> Yes
+    <input id="usedTutuorN" type="radio" name="usedTutor" value="false" /> No
     <br>
-    <p>If yes, list the courses: </p>
+    <p>If yes, list the Tutor: </p>
     <input id="tutor" type="text" name="tutor" maxlength="255"/>
     
     <br>
     <p>Comments:</p>
-    <textarea rows="4" cols="75" placeholder="Description"></textarea>
+    <!--<textarea id="comment" name="comment"rows="4" cols="75" placeholder="Description"></textarea>-->
     <br>
     
     <br>

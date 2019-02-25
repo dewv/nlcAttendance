@@ -3,9 +3,9 @@ const ejs = require("ejs");
 const ViewTests = require("../Views");
 
 describe("Check In Views", function() {
-    const pathToView = "pages/views/editForm";
+    const pathToView = "pages/visit/createForm";
 
-    context("The edit form", async function(done) {
+    context("The create form", async function(done) {
 
         let expectedData = {
             name: {id: "1"},
@@ -34,26 +34,8 @@ describe("Check In Views", function() {
 
             let checkFor = new ViewTests(result);
 
-            it("should include a text are for goal/purpose for the visit", function(done) {
+            it("should include a text are for the goal/purpose for the visit", function(done) {
                 checkFor.formTextArea("visitPurpose", expectedData.visitPurpose).should.be.true();
-                done();
-            });
-            
-            it("should include a radio button for the question of goal/purpose accomplished", function(done) {
-                checkFor.formInputRadio("purposeAchieved").should.be.true();
-            }); 
-            
-            it("should include a radio button for the question Did you use a tutor?", function(done) {
-                checkFor.formInputRadio("usedTutuor").should.be.true();
-            });
-            
-            it("should include a text input to edit the tutor name", function(done) {
-                checkFor.formInputText("tutor", expectedData.tutor).should.be.true();
-                done();
-            });
-            
-            it("should include a text are for comments of the visit", function(done) {
-                checkFor.formTextArea("comment", expectedData.comment).should.be.true();
                 done();
             });
             

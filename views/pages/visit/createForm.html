@@ -1,16 +1,16 @@
 <% var pageTitle = "Check In - Naylor Learning Center"; %>
 
-<%- partial('./partials/logoutTimer.html') %>
+<%- include('./include/logoutTimer.html') %>
 
 <script src="/javascripts/formCheck.js"></script>
 
 <form action="<% action %>" method="post">
     
-    <br> What is your goal/purpose for this visit?
-    <a target="_blank" href="#" title="What do you hope to accomplish today?"> </a>
-    <br>
+    <br> 
     
-    <textarea name="purpose"  rows="10" cols="40" autofocus maxlength="255" placeholder="Description" required></textarea>
+    <p id="visitPurposeQuestion">What is your goal/purpose for this visit?</p>
+
+    <textarea id="visitPurpose" name="visitPurpose"  rows="10" cols="40" autofocus maxlength="255" placeholder="Description" required></textarea>
     <br>
     <br>
     
