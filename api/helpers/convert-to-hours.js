@@ -10,7 +10,7 @@ module.exports = {
     friendlyName: "Is association",
 
 
-    description: "Returns the current syncronized time.",
+    description: "Returns the time converted to hours rounded to nearest quarter hour.",
 
 
     inputs: {
@@ -32,8 +32,10 @@ module.exports = {
     sync: true,
 
     fn: function(inputs) {
-        let rawHours = inputs.time / (3.6 * 10^6);
+        let rawHours = inputs.time / 3600000;
+        console.log(rawHours);
         let hours = (Math.round(rawHours * 4) / 4).toFixed(2);
+        console.log(hours);
         return hours;
     }
 };
