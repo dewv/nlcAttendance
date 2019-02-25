@@ -1,3 +1,21 @@
-<!--I know I'm over complicating this, but there's a few ideas for verbosity.-->
-<!--For instance, it would be keen to have some input checking here and since sails auto-uses ejs inside these html files
-    it would be better to `accept user input; check input; get table from sails;
+<!--For ease of use for the teachers who view this data, I've found the sails method that does sql queries and will make a method or two that allows them to sort the data. 
+This "sort" method will also be the basis for the initial data load as well-->
+<!--https://sailsjs.com/documentation/reference/waterline-orm/datastores/send-native-query
+    https://ejs.co/-->
+
+<body>
+    <form method="POST" action="TBD">
+    <label for="query" value="Input">Input</label>
+    <input id="query" type="text">
+    </form>
+    <!-- load table from controller -->
+</body>
+
+
+<!-- 
+    This will be moved to a controller to follow the RESTful API better.
+    <script> 
+    var RETURN_SQL_TABLE =  `SELECT $1 FROM visit`
+    var tableRequested = await sails.sendNativeQuery(RETURN_SQL_TABLE, query)
+     </script>
+-->
