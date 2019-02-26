@@ -11,20 +11,8 @@ module.exports = {
      * @public
      * @async
      */
-    createFormRequested: async function(request, response) {
-        let model = sails.models[request.params.model];
-        if (!model) return response.notFound();
-        let domains = await sails.helpers.getDomains(model);
-        let ejsData = {
-            formData: await sails.helpers.getDefaults(model),
-            action: "/" + request.params.model
-        };
-
-        for (let domain in domains) {
-            ejsData[domain] = await sails.helpers.generateHtmlSelect(domain, domains[domain]);
-        }
-        console.log(JSON.stringify(ejsData));
-        return sails.helpers.responseViewSafely(response, `pages/${request.params.model}/createForm`, ejsData);
+    loginFormRequested: async function(request, response) {
+        return sails.helpers.responseViewSafely(response, "pages/login");
     },
 
     /**
@@ -34,10 +22,37 @@ module.exports = {
      * @public
      * @async
      */
-    createFormSubmitted: async function(request, response) {
-        let encodedData = await sails.helpers.encodeAssociations(sails.models[request.params.model], request.body);
-        await sails.models[request.params.model].create(encodedData);
-        return response.redirect(`/${request.params.model}`);
+    loginFormSubmitted: async function(request, response) {
+        let authenticated = false;
+        let ldapData = {};
+
+        if (request.app.get("env") === "production") {
+            // TODO real LDAP authentication
+        }
+        else if (request.body.password === "student" || request.body.password === "staff") {
+            // simulate authentication in dev environment 
+            authenticated = true;
+            request.session.role = request.body.password;
+            ldapData.username = request.body.username;
+            ldapData.firstName = "First";
+            ldapData.lastName = "Last";
+        }
+
+        if (!authenticated) return response.redirect("/login");
+
+        request.session.userProfile = await sails.models[request.session.role].findOrCreate(ldapData, ldapData);
+        request.session.save();
+        
+        if (request.session.role === "student") {
+            return response.redirect(`/student/${request.session.userProfile.id}/edit`); //("/visit/new");
+        }
+        
+        return response.redirect("/staff/menu");
+    },
+    
+    logout: function(request, response) {
+        request.session.destroy();
+        return response.redirect("/login");
     },
 
     /**

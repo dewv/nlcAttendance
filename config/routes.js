@@ -1,9 +1,9 @@
 let routes = {
     "/": "/student",
     
-    "GET /login": { view: "pages/login" },
-    // "POST /login"    should redirect students to check in, staff to menu
-    // "GET /logout"
+    "GET /login": "AuthController.loginFormRequested",
+    "POST /login": "AuthController.loginFormSubmitted",
+    "GET /logout": "AuthController.logout",
     // "GET /staff/menu" 
     
     "GET /:model/new": "RestController.createFormRequested",
