@@ -87,7 +87,7 @@ module.exports = function(modelName, testData) {
                 }
             });
         });
-        
+
         context("`getCurrentTime helper", function() {
             it("should return the current synchronized time", async function() {
                 let result = sails.helpers.getCurrentTime();
@@ -98,15 +98,17 @@ module.exports = function(modelName, testData) {
                 result.should.equal(expected, "The helper returned " + result + " , while the test expected " + expected + ".");
             });
         });
-        
         context("`convertToHours helper", function() {
-            it("should return the current synchronized time", async function() {
-                let result = sails.helpers.getCurrentTime();
-                let expected = Date.now();
-                result.should.not.be.an.Error();
-                expected.should.not.be.an.Error();
-                should.exist(result, "The helper did not return anything");
-                result.should.equal(expected, "The helper returned " + result + " , while the test expected " + expected + ".");
+            it("should return the number of hours to the nearest quarter hour", async function() {
+                for (let i = 6000000; i < 10000000; i = i + 1000000) {
+                    let result = sails.helpers.convertToHours(i);
+                    let time = i / 3600000;
+                    let expected = (Math.round(time * 4) / 4).toFixed(2);
+                    result.should.not.be.an.Error();
+                    expected.should.not.be.an.Error();
+                    should.exist(result, "The helper did not return anything");
+                    result.should.equal(expected, "The helper returned " + result + " , while the test expected " + expected + ".");
+                }
             });
         });
     });

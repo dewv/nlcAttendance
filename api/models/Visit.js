@@ -11,7 +11,7 @@ module.exports = {
         name: { model: "Student" },
         checkInTime: { type: "ref", columnType: "timestamp", autoCreatedAt: true },
         checkOutTime: { type: "ref", columnType: "timestamp", autoUpdatedAt: false },
-        visitLength: { type: "number", columnType: "time", required: false, allowNull: true },
+        visitLength: { type: "number", required: false, allowNull: true },
         visitPurpose: { type: "string", required: true, allowNull: false },
         purposeAchieved: { type: "string", allowNull: true, isIn: ["Yes", "No", "Not sure"] },
         tutorCourses: { type: "string", required: false, allowNull: true },
@@ -22,20 +22,18 @@ module.exports = {
     afterPopulateOne: function(visit) {
         let checkIn = new Date(visit.checkInTime);
         let checkOutTime;
-        if (visit.checkOutTime = "0000-00-00 00:00:00") {
+        if (visit.checkOutTime === "0000-00-00 00:00:00") {
             checkOutTime = new Date(sails.helpers.getCurrentTime());
         } else {
             checkOutTime = new Date(visit.checkOutTime);
         }
         visit.visitLength = checkOutTime.getTime() - checkIn.getTime();
         visit.visitLength = sails.helpers.convertToHours(visit.visitLength);
-
         if (visit.visitLength >= 5) {
             visit.isLengthEstimated = true;
         }
         return visit;
     },
-
 
 };
 
@@ -45,8 +43,8 @@ module.exports = {
  * @typedef {Record} VisitRecord
  * @property {Student} name - The associated student record.
  * @property {ref} checkInTime - A reference to createdAt formated in UTC.
- * @property {ref} checkOutTime - A reference to updatedAt formated in UTC.
- * @property {number} visitLength - The number of minutes the student was at the NLC. The difference between the checkOutTime and CheckInTime.
+ * @property {ref} checkOutTime - A timestamp in UTC used to calculate visitLength, defaults to '0000-00-00 00:00:00'.
+ * @property {number} visitLength - The number of hours, to the nearest quarter hour, the student was at the NLC. The difference between the checkOutTime and CheckInTime.
  * @property {string} visitPurpose - The reason the student visited the NLC.
  * @property {string} purposeAchieved - Did the student accomplish their goal this visit.
  * @property {string} tutorCourses - The course of which the student used a tutor.

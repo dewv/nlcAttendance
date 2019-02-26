@@ -1,6 +1,6 @@
 /**
  * @name sails&period;helpers&period;convertToHours
- * @description Returns the current syncronized time.
+ * @description Returns the number of hours rounded to the nearest quarter hour based on milliseconds.
  * @function
  * @return {object}
  */
@@ -15,7 +15,7 @@ module.exports = {
 
     inputs: {
         time: {
-            description: "A epoch number.",
+            description: "A epoch number in milliseconds.",
             type: "number",
             required: true,
         },
@@ -33,9 +33,7 @@ module.exports = {
 
     fn: function(inputs) {
         let rawHours = inputs.time / 3600000;
-        console.log(rawHours);
         let hours = (Math.round(rawHours * 4) / 4).toFixed(2);
-        console.log(hours);
         return hours;
     }
 };

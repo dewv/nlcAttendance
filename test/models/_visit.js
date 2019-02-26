@@ -70,11 +70,8 @@ module.exports = function(model, testData) {
                     let result = visitTest.visitLength;
                     let cI = new Date(visitData.record.checkInTime);
                     let cO = new Date(visitData.record.checkOutTime);
-                    console.log(cI);
-                    console.log(cO);
                     let dif = cO.getTime() - cI.getTime();
                     let expected = sails.helpers.convertToHours(dif);
-                    console.log(expected);
                     should.exist(result, "visitLength does not exist.");
                     result.should.be.equal(expected, "After the record updated the visitLength attribute is " + result + ". We expected " + expected + ".");
                 });
