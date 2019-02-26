@@ -64,23 +64,20 @@ module.exports = function(model, testData) {
             });
             context("`Test the postPopulate function,", async function() {
                 it("Attribute visitLength was calculated correctly", async function() {
+                    visitData.record.checkInTime = "2019-02-25T15:30:00.000Z";
+                    visitData.record.checkOutTime = "2019-02-25T16:30:00.000Z";
                     let visitTest = Visit.afterPopulateOne(visitData.record);
-                    visitData.record.checkOutTime = sails.helpers.getCurrentTime();
                     let result = visitTest.visitLength;
                     let cI = new Date(visitData.record.checkInTime);
-                    let checkIn = cI.getTime();
                     let cO = new Date(visitData.record.checkOutTime);
-                    let checkOut = cO.getTime();
-                    let expected = checkOut - checkIn;
-                    result.should.not.be.an.Error();
-                    result.should.be.an.Number();
-                    expected.should.not.be.an.Error();
-                    expected.should.be.an.Number();
+                    let dif = cO.getTime() - cI.getTime();
+                    let expected = sails.helpers.convertToHours(dif);
                     should.exist(result, "visitLength does not exist.");
                     result.should.be.equal(expected, "After the record updated the visitLength attribute is " + result + ". We expected " + expected + ".");
                 });
                 it("Attribute isLengthEstimated is set to true when visitLength is longer that 5 hours.", async function() {
-                    //visitData.record.checkInTime = "2018-02-20T01:00:00.000Z";
+                    visitData.record.checkInTime = "2019-02-25T15:30:00.000Z";
+                    visitData.record.checkOutTime = "2019-02-25T21:30:00.000Z";
                     let visitTest = Visit.afterPopulateOne(visitData.record);
                     let result = visitTest.isLengthEstimated;
                     let expected = true;

@@ -7,7 +7,7 @@
 module.exports = {
 
 
-    friendlyName: "Is association",
+    friendlyName: "get Time",
 
 
     description: "Returns the current syncronized time.",
