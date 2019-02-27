@@ -2,7 +2,8 @@
  * @name sails&period;helpers&period;convertToHours
  * @description Returns the number of hours rounded to the nearest quarter hour based on milliseconds.
  * @function
- * @return {object}
+ * @arguement {number} The number of milliseconds.
+ * @return {number} The converted number, milliseconds to hours.
  */
 module.exports = {
 
