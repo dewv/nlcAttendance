@@ -2,19 +2,19 @@
 <%- include('../include/logoutTimer.html') %>-->
     
 <form method="POST" action="<%= action %>">
-<!--    
-    <p>You checed in <%= formData.checkInTime %> </p>
     
-    <% if (estimateDuration != 0) { %>
-        <p>Please estimate the duration of your visit:&nbsp; 
-            <select name="estimatedDuration" required>
+    <p>You check in <%= formData.checkInTime %> </p>
+    
+    <% if (isLengthEstimated) { %>
+        <p>Please estimate the duration of your visit to the nearest quarter hour:&nbsp; 
+            <select id="visitLength" name="visitLength" required>
                 <% for (var i = 1; i <= 32; i++) { %>
                     <option value="<%= i  %>"><%=i * 0.25%></option>
                 <% } %>
             </select>&nbsp; hour(s).
         </p>
     <% } %>
-    -->
+
    <!-- 
     <p>The purpose of your visit was: <%=formData.visitPurpose%></p>
     <textarea rows="4" cols="75" disabled><%= formData.visitPurpose %></textarea>
@@ -27,11 +27,7 @@
     </div>
     <br>
     
-    <div>
-      <label for="usedTutuor">Did you use a tutor?</label>
-      <%- usedTutuor %>
-    </div>
-    <br>
+    <!--TODO radio butoon for a tutor used-->
     
     <div>
       <label for="tutor" value="tutor">If yes, list the Tutor:</label>

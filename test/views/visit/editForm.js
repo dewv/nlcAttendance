@@ -14,11 +14,9 @@ describe("Check-Out Views", function() {
             visitLength: null,
             visitPurpose: "Study",
             purposeAchieved: "NotSure",
-            usedTutor: true,
-            tutor: "DR. Help",
+            tutorCourses: "math",
             comment: "Very good",
-            needEstimate: false,
-            estimatedDuration: null,
+            isLengthEstimated: false,
         };
 
         let ejsData = {
