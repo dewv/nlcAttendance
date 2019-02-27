@@ -1,5 +1,5 @@
 /**
- * @module _visit
+ * @module Visit
  */
 
 "use strict";
@@ -62,7 +62,7 @@ module.exports = function(model, testData) {
                     result.should.equal(expected, "The name attribute is set to " + result + " but expected to be set to " + expected + ".");
                 });
             });
-            context("`Test the postPopulate function,", async function() {
+            context("`Test the afterPopulateOne function,", async function() {
                 it("Attribute visitLength was calculated correctly", async function() {
                     visitData.record.checkInTime = "2019-02-25T15:30:00.000Z";
                     visitData.record.checkOutTime = "2019-02-25T16:30:00.000Z";

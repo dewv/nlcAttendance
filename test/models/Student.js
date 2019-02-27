@@ -5,7 +5,7 @@
 "use strict";
 const should = require("should");
 const helperIntegrationTests = require("./_helpers");
-const visitModelTest = require("./_visit");
+const visitModelTest = require("./Visit");
 
 describe("Student model", function() {
     let testData = {
