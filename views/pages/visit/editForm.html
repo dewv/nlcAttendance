@@ -19,25 +19,29 @@
     <p>The purpose of your visit was: <%=formData.visitPurpose%></p>
     <textarea rows="4" cols="75" disabled><%= formData.visitPurpose %></textarea>
     <br>-->
-    <p>Did you accomplish the goal/purpose of your visit?</p>
+ 
 
-    <input id="purposeAchivedY" type="radio" name="purposeAchived" value="Yes" /> Yes
-    <input id="purposeAchivedN" type="radio" name="purposeAchived" value="No" /> No
-    <input id="purposeAchivedNS" type="radio" name="purposeAchived" value="NotSure" /> Not Sure
+    <div>
+      <label for="purposeAchieved">Did you accomplish the goal/purpose of your visit?</label>
+      <%- purposeAchieved %>
+    </div>
     <br>
-
-    <br>
-    <p>Did you use a tutor?</p>
-    <input id="usedTutuorY" type="radio" name="usedTutor" value="true" /> Yes
-    <input id="usedTutuorN" type="radio" name="usedTutor" value="false" /> No
-    <br>
-    <p>If yes, list the Tutor: </p>
-    <input id="tutor" type="text" name="tutor" maxlength="255"/>
     
+    <div>
+      <label for="usedTutuor">Did you use a tutor?</label>
+      <%- usedTutuor %>
+    </div>
     <br>
+    
+    <div>
+      <label for="tutor" value="tutor">If yes, list the Tutor:</label>
+      <input id="tutor" name="tutor" type="text" autofocus maxlength="255" required value="<%= formData.tutor %>"> 
+    </div>
+    <br>
+   <!-- 
     <p>Comments:</p>
-    <!--<textarea id="comment" name="comment"rows="4" cols="75" placeholder="Description"></textarea>-->
-    <br>
+    <textarea id="comment" name="comment"rows="4" cols="75" placeholder="Description"></textarea>
+    <br>-->
     
     <br>
     <button type="submit">Submit</button>

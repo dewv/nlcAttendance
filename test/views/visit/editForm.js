@@ -34,11 +34,6 @@ describe("Check-Out Views", function() {
 
             let checkFor = new ViewTests(result);
 
-            it("should include a text are for goal/purpose for the visit", function(done) {
-                checkFor.formTextArea("visitPurpose", expectedData.visitPurpose).should.be.true();
-                done();
-            });
-            
             it("should include a radio button for the question of goal/purpose accomplished", function(done) {
                 checkFor.formInputRadio("purposeAchieved").should.be.true();
             }); 
