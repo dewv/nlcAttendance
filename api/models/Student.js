@@ -20,6 +20,17 @@ module.exports = {
         forceUpdate: { type: "boolean", defaultsTo: true }
     },
     
+    /** Indicates which model attributes have defined domains.
+     */
+    domainDefined: {
+        academicRank: true,
+        majorOne: true,
+        majorTwo: true,
+        residentialStatus: true,
+        fallSport: true,
+        springSport: true
+    },
+
     /**
      * Populates the database with sample data for use in development environments.
      * @modifies Database contents.
