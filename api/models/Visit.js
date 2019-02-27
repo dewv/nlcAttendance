@@ -18,6 +18,12 @@ module.exports = {
         comment: { type: "string", allowNull: true },
         isLengthEstimated: { type: "boolean", allowNull: false, defaultsTo: false },
     },
+    
+    /** Indicates which model attributes have defined domains.
+     */
+    domainDefined: {
+        purposeAchieved: true
+    },
 
     afterPopulateOne: function(visit) {
         let checkIn = new Date(visit.checkInTime);

@@ -33,10 +33,11 @@ module.exports = function(modelName, testData) {
             it("should return a dictionary containing domain values for each appropriate model attribute", async function() {
                 let model = sails.models[modelName];
                 let result = await sails.helpers.getDomains(model);
-                for (let property in model.attributes) {
-                    if (sails.helpers.isAssociation(model, property) ||
-                        (model.attributes[property].validations && model.attributes[property].validations.isIn)) {
-                        should.exist(result[property], `The dictionary returned by \`getDomains\` has no ${property} property`);
+                if (model.generateHtmlSelect) {
+                    for (let property in model.generateHtmlSelect) {
+                        if (model.generateHtmlSelect[property]) {
+                            should.exist(result[property], `The dictionary returned by \`getDomains\` has no ${property} property`);
+                        }
                     }
                 }
             });
