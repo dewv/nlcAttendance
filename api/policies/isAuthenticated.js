@@ -1,6 +1,6 @@
 module.exports = async function(request, response, proceed) {
 
-    if (request.session && request.session.userProfile) {
+    if (request.session && request.session.role) {
         return proceed();
     }
 

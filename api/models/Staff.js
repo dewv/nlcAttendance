@@ -14,6 +14,10 @@ module.exports = {
         forceUpdate: { type: "boolean", defaultsTo: true }
     },
 
+    beforeUpdate: async function(valuesToSet, proceed) {
+        valuesToSet.forceUpdate = false;
+        return proceed();
+    }
 };
 
 /**

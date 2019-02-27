@@ -4,24 +4,39 @@ module.exports = async function(request, response, proceed) {
     // The question here is: do certain data circumstances dictate redirecting the user?
 
     // A profile update may be required before the user can take any other action.
-    let profileUrl = `/${request.session.role}/${request.session.userProfile.id}/edit`;
-    if (request.session.userProfile.forceUpdate && request.url !== profileUrl) {
-        return response.redirect(profileUrl);
+    let profileUrl = `/${request.session.role}/${request.session.userProfile.id}`;
+    let profileEditUrl = `${profileUrl}/edit`;
+    if (request.url === profileUrl || request.url === profileEditUrl) {
+        return proceed();
+    }
+    
+    if (request.session.userProfile.forceUpdate) {
+        sails.log.debug("Redirecting to user profile")
+        return response.redirect(`${profileEditUrl}`);
     }
 
     if (request.session.role === "student") {
         let checkInUrl = "/visit/new";
         let checkOutUrl = `/visit/${request.session.userProfile.visit.id}/edit`;
-        let nowCheckedOut = request.session.userProfile.visit.checkOutTime === null;
+        let nowCheckedIn = request.session.userProfile.visit.checkOutTime === null;
 
-        if (request.url === checkInUrl && !nowCheckedOut) {
-            // Student cannot check in when already checked in.
-            return response.redirect(checkOutUrl);
+        if (nowCheckedIn) {
+            if (request.url === checkOutUrl) {
+                return proceed();
+            }
+            else {
+                sails.log.debug("Redirecting to check out")
+                return response.redirect(`${checkOutUrl}`);
+            }
         }
-
-        if (request.url === checkOutUrl && nowCheckedOut) {
-            // Student cannot check out when already checked out.
-            return response.redirect(checkInUrl);
+        else {
+            if (request.url === checkInUrl) {
+                return proceed();
+            }
+            else {
+                sails.log.debug("Redirecting to check in")
+                return response.redirect(`${checkInUrl}`);
+            }
         }
     }
 

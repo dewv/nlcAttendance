@@ -1,7 +1,23 @@
 module.exports = async function(request, response, proceed) {
 
     let model = request.params.model;
-    let profileUrl = `/${request.session.role}/${request.session.userProfile.id}`;
+    let profileUrl = `/${request.session.role}/${request.session.userId}`;
+    request.session.userProfile = await sails.helpers.populateOne(sails.models[request.session.role], request.session.userId);
+    if (request.session.role === "student") {
+        // TODO this is a temporary placeholder record; need to fetch real one
+        request.session.userProfile.visit = {
+            id: 1,
+            checkInTime: new Date("2019-02-26T03:24:00"),
+            checkOutTime: null, // new Date("2019-02-26T04:24:00"), 
+            visitLength: null,
+            visitPurpose: null,
+            purposeAchieved: null,
+            tutorCourses: null,
+            comment: null,
+            isLengthEstimated: false
+        };
+        sails.log.debug("set visit")
+    }
 
     if (request.url === profileUrl ||
         request.url === `${profileUrl}/edit`) {
@@ -30,6 +46,9 @@ module.exports = async function(request, response, proceed) {
             }
         }
     }
-
+    else if (request.url === "/default") {
+        return proceed();
+    }
+sails.log.debug("default to forbid")
     return response.forbidden();
 };

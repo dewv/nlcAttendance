@@ -83,6 +83,6 @@ module.exports = {
     editFormSubmitted: async function(request, response) {
         let encodedData = await sails.helpers.encodeAssociations(sails.models[request.params.model], request.body);
         await sails.models[request.params.model].updateOne({ id: request.params.id }).set(encodedData);
-        return response.redirect(`/${request.params.model}/${request.params.id}`);
+        return response.redirect("/default");
     }
 };

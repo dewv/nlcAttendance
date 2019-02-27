@@ -19,6 +19,11 @@ module.exports = {
         springSport: { model: "SpringSport" },
         forceUpdate: { type: "boolean", defaultsTo: true }
     },
+    
+    beforeUpdate: async function(valuesToSet, proceed) {
+        valuesToSet.forceUpdate = false;
+        return proceed();
+    },
 
     /**
      * Populates the database with sample data for use in development environments.
