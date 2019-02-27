@@ -2,8 +2,8 @@ require("should");
 const ejs = require("ejs");
 const ViewTests = require("../Views");
 
-describe("Check In Views", function() {
-    const pathToView = "pages/views/editForm";
+describe("Check-Out Views", function() {
+    const pathToView = "pages/visit/editForm";
 
     context("The edit form", async function(done) {
 

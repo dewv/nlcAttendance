@@ -1,9 +1,8 @@
-<% var pageTitle = "Check Out - Naylor Learning Center"; %>
-
-<%- include('./include/logoutTimer.html') %>
+<!--
+<%- include('../include/logoutTimer.html') %>-->
     
 <form method="POST" action="<%= action %>">
-    
+<!--    
     <p>You checed in <%= formData.checkInTime %> </p>
     
     <% if (estimateDuration != 0) { %>
@@ -15,11 +14,11 @@
             </select>&nbsp; hour(s).
         </p>
     <% } %>
-    
-    
+    -->
+   <!-- 
     <p>The purpose of your visit was: <%=formData.visitPurpose%></p>
     <textarea rows="4" cols="75" disabled><%= formData.visitPurpose %></textarea>
-    <br>
+    <br>-->
     <p>Did you accomplish the goal/purpose of your visit?</p>
 
     <input id="purposeAchivedY" type="radio" name="purposeAchived" value="Yes" /> Yes
