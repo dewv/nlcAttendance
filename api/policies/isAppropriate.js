@@ -9,7 +9,7 @@ module.exports = async function(request, response, proceed) {
     if (request.url === profileUrl || request.url === profileEditUrl) {
         return proceed();
     }
-    
+
     if (request.session.userProfile.forceUpdate) {
         sails.log.debug("Redirecting to user profile")
         return response.redirect(`${profileEditUrl}`);
@@ -38,6 +38,9 @@ module.exports = async function(request, response, proceed) {
                 return response.redirect(`${checkInUrl}`);
             }
         }
+    }
+    else if (request.session.role === "staff" && request.url === "/default") {
+        return response.redirect("/staff/menu");
     }
 
     return proceed();
