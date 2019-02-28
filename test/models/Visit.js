@@ -63,6 +63,22 @@ module.exports = function(model, testData) {
                 });
             });
             context("`Test the afterPopulateOne function,", async function() {
+                it("checkOutTime gets set to current time", async function() {
+                    visitData.record.checkOutTime = "0000-00-00 00:00:00";
+                    let visitTest = Visit.afterPopulateOne(visitData.record);
+                    let eT = new Date(sails.helpers.getCurrentTime());
+                    eT = eT.getTime();
+                    let tT = visitTest.checkOutTime.getTime();
+                    let expected = eT - tT;
+                    let result;
+                    if(expected <= 1000) {
+                        result = expected;
+                    } else {
+                        result = tT;
+                    }
+                    
+                    result.should.be.equal(expected, "After the record updated the checkOutTime attribute is " + result + ". We expected " + eT + ".");
+                });
                 it("Attribute visitLength was calculated correctly", async function() {
                     visitData.record.checkInTime = "2019-02-25T15:30:00.000Z";
                     visitData.record.checkOutTime = "2019-02-25T16:30:00.000Z";
