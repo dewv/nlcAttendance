@@ -1,20 +1,16 @@
 let routes = {
-    "/": "/login",
-    
     "GET /login": "AuthController.loginFormRequested",
     "POST /login": "AuthController.loginFormSubmitted",
     "GET /logout": "AuthController.logout",
     
-    "GET /staff/menu": "StaffController.menu", 
-    "GET /visit/spreadsheet": "", 
-    "GET /browser/new": "", 
-    "POST /browser": "", 
+    "GET /": "MiscController.get",
+    "GET /staffmenu": "MiscController.get",
+    "GET /browser": "MiscController.get",
+    "GET /default": "MiscController.get",
     
-    "GET /visit": "RestController.listRequested", 
-    "GET /default": "RestController.createFormRequested", // TODO ? function won't be called cause of policies?
+    "GET /:model": "RestController.listRequested", 
     "GET /:model/new": "RestController.createFormRequested",
     "POST /:model": "RestController.createFormSubmitted",
-    
     "GET /:model/:id/edit": "RestController.editFormRequested",
     "POST /:model/:id": "RestController.editFormSubmitted"
 };

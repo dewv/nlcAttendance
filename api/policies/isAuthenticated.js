@@ -4,6 +4,7 @@ module.exports = async function(request, response, proceed) {
         return proceed();
     }
 
-    sails.log.debug("request forbidden by policy isAuthenticated");
-    return response.forbidden();
+    return response.redirect("/login");
+    // sails.log.debug("request forbidden by policy isAuthenticated");
+    // return response.forbidden();
 };

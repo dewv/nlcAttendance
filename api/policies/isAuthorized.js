@@ -18,42 +18,42 @@ module.exports = async function(request, response, proceed) {
             comment: null,
             isLengthEstimated: false
         };
-        sails.log.debug("set visit")
+        sails.log.debug("set visit");
     }
 
-    if (request.url === "/default") {
+    if (request.path === "/") {
         return proceed();
     }
     
-    if (request.url === profileUrl ||
-        request.url === `${profileUrl}/edit`) {
+    if (request.path === profileUrl ||
+        request.path === `${profileUrl}/edit`) {
         // Users are authorized to access their own profile ...
         return proceed();
     }
 
     if (request.session.role === "student" && model === "visit") {
         let visitUrl = `/${model}/${request.session.userProfile.visit.id}`;
-        if (request.url === visitUrl ||
-            request.url === `${visitUrl}/edit`) {
+        if (request.path === visitUrl ||
+            request.path === `${visitUrl}/edit`) {
             // Students are authorized to edit their own most recent visit record ...
             return proceed();
         }
-        else if (request.url === "/visit/new") {
+        else if (request.path === "/visit/new") {
             // ... or to create a new visit record ...
             return proceed();
         }
     }
 
     if (request.session.role === "staff") {
-        if (request.url === "/staff/menu" ||
-            request.url === "/visit" || // view visits
-            request.url === "/visit/spreadsheet" || // view visits spreadsheet dump
-            request.url === "/visit/browser") { // register browser to track visits
+        if (request.path === "/staffmenu" ||
+            request.path === "/visit" || // view visits
+            request.path === "/visit/spreadsheet" || // view visits spreadsheet dump
+            request.path === "/browser") { // register browser to track visits
             return proceed();
         }
     }
 
-    sails.log.debug("default to forbid for " + request.url)
-    sails.log.debug(`role: ${request.session.role}`)
+    sails.log.debug("default to forbid for " + request.path);
+    sails.log.debug(`role: ${request.session.role}`);
     return response.forbidden();
 };

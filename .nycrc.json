@@ -7,7 +7,7 @@
     "branches": 95,
     "exclude": [
         "test/**/*.js",
-        "api/controllers/RestController.js"
+        "api/controllers/*.js"
     ],
     "reporter": [
         "lcov"
