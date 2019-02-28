@@ -30,6 +30,7 @@ module.exports = {
         let checkOutTime;
         if (visit.checkOutTime === "0000-00-00 00:00:00") {
             checkOutTime = new Date(sails.helpers.getCurrentTime());
+            visit.checkOutTime = checkOutTime;
         } else {
             checkOutTime = new Date(visit.checkOutTime);
         }
