@@ -64,7 +64,6 @@ module.exports = function(model, testData) {
             });
             context("`Test the afterPopulateOne function,", async function() {
                 it("checkOutTime gets set to current time", async function() {
-                    visitData.record.checkOutTime = "0000-00-00 00:00:00";
                     let visitTest = Visit.afterPopulateOne(visitData.record);
                     let eT = new Date(sails.helpers.getCurrentTime());
                     eT = eT.getTime();
