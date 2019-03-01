@@ -4,6 +4,7 @@
 
 "use strict";
 const should = require("should");
+const helperIntegrationTests = require("./_helpers");
 
 /**
  * Tests the specified model's interaction with Student, using the specified test data.
@@ -40,6 +41,9 @@ module.exports = function(model, testData) {
             visitData.record = await Visit.create(testVisit).fetch();
         });
 
+        // Run helper integration tests
+        //helperIntegrationTests("visit", visitData);
+
         /**
          * Tests the Visit Model, using the specified test data.
          * @argument {string} model - The sailsjs model to be tested.
@@ -70,12 +74,13 @@ module.exports = function(model, testData) {
                     let tT = visitTest.checkOutTime.getTime();
                     let expected = eT - tT;
                     let result;
-                    if(expected <= 1000) {
+                    if (expected <= 1000) {
                         result = expected;
-                    } else {
+                    }
+                    else {
                         result = tT;
                     }
-                    
+
                     result.should.be.equal(expected, "After the record updated the checkOutTime attribute is " + result + ". We expected " + eT + ".");
                 });
                 it("Attribute visitLength was calculated correctly", async function() {

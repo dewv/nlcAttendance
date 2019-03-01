@@ -24,7 +24,13 @@ module.exports = {
     domainDefined: {
         purposeAchieved: true
     },
-
+    
+    /**
+     * Calculates the checkOutTime and then visitLength setting a flag if the visitLength is greater than 5 when a Visit record is passed through the populateOne helper.
+     * @modifies Database contents.
+     * 
+     * Note global: PopulateOne checks if a function named afterPopulateOne is defined in the model of any record. The definition is model specific and runs when the record is passed through the populateOne helper.
+     */
     afterPopulateOne: function(visit) {
         let checkIn = new Date(visit.checkInTime);
         let checkOutTime;
