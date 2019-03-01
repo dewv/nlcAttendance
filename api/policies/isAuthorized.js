@@ -1,4 +1,16 @@
-module.exports = async function(request, response, proceed) {
+/**
+ * @module
+ */
+ 
+/**
+ * Enforces authorization rules. 
+ * @function isAuthorized
+ * @argument {external:Request} request - The HTTP request. 
+ * @argument {external:Response} response - The HTTP response. 
+ * @argument {function} proceed - The callback to indicate that the request should go through. 
+ * @modifies The response, when the user's request is not authorized.
+ * @async
+ */module.exports = async function(request, response, proceed) {
 
     let model = request.params.model;
     let profileUrl = `/${request.session.role}/${request.session.userId}`;
