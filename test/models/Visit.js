@@ -12,7 +12,7 @@ const helperIntegrationTests = require("./_helpers");
  * @argument {Object[]} testData - Data record to be used for testing.
  * @public
  */
-module.exports = function(model, testData) {
+module.exports = function(testData) {
 
     describe("Visit model", function() {
         let visitData = {
@@ -42,7 +42,7 @@ module.exports = function(model, testData) {
         });
 
         // Run helper integration tests
-        //helperIntegrationTests("visit", visitData);
+        helperIntegrationTests("visit", visitData);
 
         /**
          * Tests the Visit Model, using the specified test data.

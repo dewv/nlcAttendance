@@ -55,7 +55,7 @@ describe("Student model", function() {
     helperIntegrationTests("student", testData);
     
     //Run Visit model test
-    visitModelTest("student", testData);
+    visitModelTest(testData);
 
     context("A data record returned by `create()`", function() {
         it("should have a field for each model attribute", function() {
