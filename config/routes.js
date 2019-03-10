@@ -1,9 +1,16 @@
 let routes = {
-    "/": "/student",
+    "GET /login": "AuthController.loginFormRequested",
+    "POST /login": "AuthController.loginFormSubmitted",
+    "GET /logout": "AuthController.logout",
     
+    "GET /": "MiscController.get",
+    "GET /staffmenu": "MiscController.get",
+    "GET /browser": "MiscController.get",
+    "GET /default": "MiscController.get",
+    
+    "GET /:model": "RestController.listRequested", 
     "GET /:model/new": "RestController.createFormRequested",
     "POST /:model": "RestController.createFormSubmitted",
-    
     "GET /:model/:id/edit": "RestController.editFormRequested",
     "POST /:model/:id": "RestController.editFormSubmitted"
 };
