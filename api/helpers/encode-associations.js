@@ -34,7 +34,8 @@ module.exports = {
 
     fn: async function(inputs, exits) {
         for (let property in inputs.model.attributes) {
-            if (sails.helpers.isAssociation(inputs.model, property)) {
+            if (sails.helpers.isAssociation(inputs.model, property) &&
+                inputs.record[property]) {
                 let lookup = await sails.models[inputs.model.attributes[property].model].findOne({ name: inputs.record[property] });
                 inputs.record[property] = lookup ? lookup.id : /* istanbul ignore next */ null;
             }

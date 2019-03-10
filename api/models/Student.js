@@ -25,6 +25,8 @@ module.exports = {
         return proceed();
     },
 
+    testRecords: [],
+    
     /**
      * Populates the database with sample data for use in development environments.
      * @modifies Database contents.
@@ -60,7 +62,7 @@ module.exports = {
 
         // Students. All but first have associations populated.
         for (let i = 0; i < recordCount; i++) {
-            await Student.create({
+            this.testRecords.push(await Student.create({
                 username: `USERNAME${i + 1}@DEWV.NET`,
                 firstName: `FIRSTNAME${i + 1}`,
                 lastName: `LASTNAME${i + 1}`,
@@ -71,7 +73,7 @@ module.exports = {
                 fallSport: i === 0 ? null : ids.fallSport[i],
                 springSport: i === 0 ? null : ids.springSport[i],
                 forceUpdate: Student.attributes.forceUpdate.defaultsTo
-            });
+            }).fetch());
         }
     }
 };

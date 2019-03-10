@@ -20,12 +20,14 @@
     "mock-express-response": "^0.2.2",
     "mysql": "^2.16.0",
     "nyc": "^13.3.0",
+    "request-promise": "^4.2.4",
     "sails": "^1.1.0",
     "sails-hook-grunt": "^3.1.0",
     "sails-hook-orm": "^2.1.1",
     "sails-hook-sockets": "^1.5.5",
     "sails-mysql": "^1.0.1",
-    "should": "^13.2.3"
+    "should": "^13.2.3",
+    "supertest-session": "^3.3.0"
   },
   "devDependencies": {
     "@sailshq/eslint": "^4.19.3"

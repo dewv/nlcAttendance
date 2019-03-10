@@ -22,6 +22,9 @@ let getUrls = [
     "/browser"
 ];
 
+// This is valid test login credentials.
+// POSTing to login URL will successfully authenticate.
+// For all other POSTs it's just arbitrary payload.
 let postData = querystring.stringify({
     "username": "TESTUSER@DEWV.NET",
     "password": "student"

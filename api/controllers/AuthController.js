@@ -40,9 +40,9 @@ module.exports = {
 
         if (!authenticated) return response.redirect("/login");
 
-        let userProfile = await sails.models[request.session.role].findOrCreate(ldapData, ldapData);
+        let userProfile = await sails.models[request.session.role].findOrCreate({ username: request.body.username }, ldapData);
         request.session.userId = userProfile.id;
-
+        
         return response.redirect("/");
     },
 
