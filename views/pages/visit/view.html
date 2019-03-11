@@ -4,20 +4,19 @@ This "sort" method will also be the basis for the initial data load as well-->
     https://ejs.co/-->
 
 <body>
-    <form method="POST" action= "<%= action %>">
     <label for="query" value="Input">Input</label>
     <input id="query" type="text">
-    </form>
-    <!-- load table from controller -->
+    <script>
+        let SqlQuery = document.getElementById("query");
+        var RETURN_SQL_TABLE =  `SELECT * FROM visit`;
+        var tableRequested = await sails.sendNativeQuery(RETURN_SQL_TABLE, SqlQuery);
+        console.log(tableRequested);
+        
+        input.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+        event.preventDefault();
+        document.getElementById("submit").click();
+        }
+        });
+    </script>
 </body>
-
-
- 
-    <!--This will be moved to a controller to follow the mvc better.
-    <script> 
-    var RETURN_SQL_TABLE =  `SELECT * FROM visit`;
-    var tableRequested = await sails.sendNativeQuery(RETURN_SQL_TABLE, query);
-    console.log(tableRequested);
-     </script>
-     -->
-
