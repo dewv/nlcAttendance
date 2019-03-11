@@ -85,12 +85,4 @@ module.exports = {
         return response.redirect(`/${request.params.model}/${request.params.id}`);
     },
     
-    returnVisitView: async function(request, response) {
-        
-    },
-    
-    visitExport: async function(request, response) {
-        
-        
-    }
 };
