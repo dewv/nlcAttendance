@@ -1,11 +1,12 @@
 <% try { %>
-<%- include('../include/logoutTimer.html') %>
+
 
 <form method="POST" action="<%= action %>">
 
     <p>You check in </p> <%= formData.checkInTime %>
-    
-    <% if (isLengthEstimated) { %>
+
+  
+    <% if (formData.isLengthEstimated) { %>
         <p>Please estimate the duration of your visit to the nearest quarter hour:&nbsp; 
             <select id="visitLength" name="visitLength" required>
                 <% for (var i = 1; i <= 32; i++) { %>
@@ -14,7 +15,6 @@
             </select>&nbsp; hour(s).
         </p>
     <% } %>
-
  
     <p>The purpose of your visit was: </p> <%= formData.visitPurpose%>
     <textarea rows="4" cols="75" disabled><%= formData.visitPurpose %></textarea>
@@ -23,7 +23,7 @@
 
     <div>
       <label for="purposeAchieved">Did you accomplish the goal/purpose of your visit?</label>
-      <%- purposeAchieved %>
+      <%- formData.purposeAchieved %>
     </div>
     <br>
     

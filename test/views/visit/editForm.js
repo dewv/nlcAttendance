@@ -41,12 +41,12 @@ describe("Check-Out Views", function() {
 
 
 
-            it.skip("should include a text are for comments of the visit", function(done) {
+            it("should include a text are for comments of the visit", function(done) {
                 checkFor.formTextArea("comment", expectedData.comment).should.be.true();
                 done();
             });
 
-            it.skip("should include a text input to edit the tutor Courses", function(done) {
+            it("should include a text input to edit the tutor Courses", function(done) {
                 checkFor.formInputText("tutorCourses", expectedData.tutorCourses).should.be.true();
                 done();
             });
