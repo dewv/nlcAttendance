@@ -13,7 +13,7 @@ describe("Check-Out Views", function() {
             checkOutTime: "2019-02-20T15:11:50.000Z",
             visitLength: null,
             visitPurpose: "Study",
-            purposeAchieved: "NotSure",
+            purposeAchieved: "Not Sure",
             tutorCourses: "math",
             comment: "Very good",
             isLengthEstimated: false,
@@ -31,8 +31,8 @@ describe("Check-Out Views", function() {
             console.log(result);
             let checkFor = new ViewTests(result);
 
-            it.skip("should include a radio button for the question of goal/purpose accomplished", function(done) {
-                checkFor.formInputRadio("purposeAchieved").should.be.true();
+            it("should include select options to edit the question of goal/purpose accomplished", function(done) {
+                checkFor.formSelectOption("purposeAchieved").should.be.true();
             });
 
             it.skip("should include a radio button for the question Did you use a tutor?", function(done) {
@@ -41,7 +41,7 @@ describe("Check-Out Views", function() {
 
 
 
-            it("should include a text are for comments of the visit", function(done) {
+            it.skip("should include a text are for comments of the visit", function(done) {
                 checkFor.formTextArea("comment", expectedData.comment).should.be.true();
                 done();
             });
