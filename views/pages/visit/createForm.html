@@ -1,4 +1,4 @@
-
+<% try { %>
 <!--<%- include('./include/logoutTimer.html') %>-->
 
 <script src="/javascripts/formCheck.js"></script>
@@ -13,6 +13,6 @@
     <br>
     <br>
     
-    <input type="submit" value="Submit">
+    <button id="submitButton" type="submit">Submit</button>
 </form>
-
+<% } catch(error) { console.log(`EJS rendering error: ${error}`); }; %>

@@ -35,12 +35,6 @@ describe("Check-Out Views", function() {
                 checkFor.formSelectOption("purposeAchieved").should.be.true();
             });
 
-            it.skip("should include a radio button for the question Did you use a tutor?", function(done) {
-                checkFor.formInputRadio("usedTutuor").should.be.true();
-            });
-
-
-
             it.skip("should include a text are for comments of the visit", function(done) {
                 checkFor.formTextArea("comment", expectedData.comment).should.be.true();
                 done();

@@ -3,7 +3,7 @@
 
 <form method="POST" action="<%= action %>">
 
-    <p>You check in </p> <%= formData.checkInTime %>
+    <p>You check in </p>&nbsp; <%= formData.checkInTime %> <br>
 
   
     <% if (formData.isLengthEstimated) { %>
@@ -15,6 +15,8 @@
             </select>&nbsp; hour(s).
         </p>
     <% } %>
+    
+    <br>
  
     <p>The purpose of your visit was: </p> <%= formData.visitPurpose%>
     <textarea rows="4" cols="75" disabled><%= formData.visitPurpose %></textarea>
@@ -22,13 +24,19 @@
  
 
     <div>
-      <label id="purposeAchieved" for="purposeAchieved">Did you accomplish the goal/purpose of your visit?</label>
+      <label for="purposeAchieved">Did you accomplish the goal/purpose of your visit?</label>
       <%- formData.purposeAchieved %>
     </div>
     <br>
     
 
-    <!--TODO radio butoon for a tutor used-->
+
+    <div>
+        <p>Did you used a Tutor?</p>
+        <input type="radio" value="Yes" name="usedTutor"> Yes <br>
+        <input type="radio" value="No" name="usedTutor"> No <br>
+    </div>
+    <br>
 
     <div>
         <label for="tutorCourses" value="tutorCourses">If yes, list the Courses:</label>
