@@ -197,7 +197,9 @@ Each major model should define a `createDevelopmentData` function that creates s
 
 ### Views
 
-Views present information to the user. For data entry/editing, this means an HTML form; for read-only displays it means some other HTML page.
+Views present information to the user. For data entry/editing, this means an HTML form; for read-only displays it means some other HTML content.
+
+Views are files containing HTML, but they do not define complete HTML pages. EJS embeds all view files within the `views/layouts/layout.html` file, which defines standard content for the top and bottom of all the app's HTML pages.
 
 The Student and Staff components use a "find or create" approach. This means that there is no user interface for creating a new user profile (whether Student or Staff). Instead, the username presented at login is used to search for an existing record. If none is found (which implies it is the user's first login to the application), then a record is created. With this approach, it is feasible to provide an "edit only" user interface.
 
