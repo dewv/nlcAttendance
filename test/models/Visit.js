@@ -42,7 +42,7 @@ module.exports = function(testData) {
         });
 
         // Run helper integration tests
-        helperIntegrationTests("visit", visitData);
+        //helperIntegrationTests("visit", visitData);
 
         /**
          * Tests the Visit Model, using the specified test data.
