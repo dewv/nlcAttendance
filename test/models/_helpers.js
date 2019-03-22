@@ -84,7 +84,14 @@ module.exports = function(modelName, testData) {
                         }
                     }
                     else {
-                        result[property].should.equal(testData.record[property]);
+                        if (result[property] instanceof Date) {
+                            let diff = result[property] - testData.record[property];
+                            let delta = 1000 * 5;
+                            diff.should.be.approximately(0, delta, `Date values differ by more than ${delta} milliseconds.`);
+                        }
+                        else {
+                            result[property].should.equal(testData.record[property]);
+                        }
                     }
                 }
             });
