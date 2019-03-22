@@ -36,7 +36,13 @@ module.exports = {
         for (let property in inputs.model.attributes) {
             if (sails.helpers.isAssociation(inputs.model, property) &&
                 inputs.record[property]) {
-                let lookup = await sails.models[inputs.model.attributes[property].model].findOne({ name: inputs.record[property] });
+                let lookup = null;
+                let candidateKey = sails.models[inputs.model.attributes[property].model].candidateKey;
+                if (candidateKey) {
+                    let criteria = {};
+                    criteria[candidateKey] = inputs.record[property];
+                    lookup = await sails.models[inputs.model.attributes[property].model].findOne(criteria);
+                }
                 inputs.record[property] = lookup ? lookup.id : /* istanbul ignore next */ null;
             }
         }
