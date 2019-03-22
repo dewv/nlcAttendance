@@ -2,7 +2,7 @@ require("should");
 const ejs = require("ejs");
 const ViewTests = require("../Views");
 
-describe("Check-In Views", function() {
+describe("Visit Views", function() {
     const pathToView = "pages/visit/createForm";
 
     context("The create form", async function(done) {
@@ -34,7 +34,7 @@ describe("Check-In Views", function() {
 
             let checkFor = new ViewTests(result);
 
-            it.skip("should include a text are for the goal/purpose for the visit", function(done) {
+            it("should include a text are for the goal/purpose for the visit", function(done) {
                 checkFor.formTextArea("visitPurpose", expectedData.visitPurpose).should.be.true();
                 done();
             });

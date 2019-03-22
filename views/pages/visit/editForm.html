@@ -18,9 +18,7 @@
     
     <br>
  
-    <p>The purpose of your visit was: </p> <%= formData.visitPurpose%>
-    <textarea rows="4" cols="75" disabled><%= formData.visitPurpose %></textarea>
-    <br>
+    <p>The purpose of your visit was: </p>&nbsp; <%= formData.visitPurpose%>
  
 
     <div>
@@ -45,7 +43,7 @@
     <br>
 
     <p>Comments:</p>
-    <textarea rows="4" cols="75" id="comment"></textarea>
+    <textarea rows="4" cols="75" id="comment" required value="<%= formData.comment %>"></textarea>
     <br>
 
     <br>

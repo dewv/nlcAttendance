@@ -2,7 +2,7 @@ require("should");
 const ejs = require("ejs");
 const ViewTests = require("../Views");
 
-describe("Check-Out Views", function() {
+describe("Visit Views", function() {
     const pathToView = "pages/visit/editForm";
 
     context("The edit form", async function(done) {
@@ -35,7 +35,7 @@ describe("Check-Out Views", function() {
                 checkFor.formSelectOption("purposeAchieved").should.be.true();
             });
 
-            it.skip("should include a text are for comments of the visit", function(done) {
+            it("should include a text are for comments of the visit", function(done) {
                 checkFor.formTextArea("comment", expectedData.comment).should.be.true();
                 done();
             });
