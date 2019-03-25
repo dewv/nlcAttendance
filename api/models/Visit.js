@@ -10,7 +10,7 @@ module.exports = {
     attributes: {
         name: { model: "Student" },
         checkInTime: { type: "ref", columnType: "timestamp", autoCreatedAt: true },
-        checkOutTime: { type: "ref", columnType: "timestamp", defaultsTo: "0000-00-00 00:00:00"},
+        checkOutTime: { type: "ref", columnType: "timestamp", defaultsTo: "0000-00-00 00:00:00" },
         visitLength: { type: "number", required: false, allowNull: true },
         visitPurpose: { type: "string", required: true, allowNull: false },
         purposeAchieved: { type: "string", allowNull: true, isIn: ["Yes", "No", "Not sure"] },
@@ -18,20 +18,27 @@ module.exports = {
         comment: { type: "string", allowNull: true },
         isLengthEstimated: { type: "boolean", allowNull: false, defaultsTo: false },
     },
-    
+
     /** Indicates which model attributes have defined domains.
      */
     domainDefined: {
         purposeAchieved: true
     },
 
+    /**
+     * Calculates the checkOutTime and then visitLength setting a flag if the visitLength is greater than 5 when a Visit record is passed through the populateOne helper.
+     * @modifies Database contents.
+     * 
+     * Note global: PopulateOne checks if a function named afterPopulateOne is defined in the model of any record. The definition is model specific and runs when the record is passed through the populateOne helper.
+     */
     afterPopulateOne: function(visit) {
         let checkIn = new Date(visit.checkInTime);
         let checkOutTime;
         if (visit.checkOutTime === "0000-00-00 00:00:00") {
             checkOutTime = new Date(sails.helpers.getCurrentTime());
             visit.checkOutTime = checkOutTime;
-        } else {
+        }
+        else {
             checkOutTime = new Date(visit.checkOutTime);
         }
         visit.visitLength = checkOutTime.getTime() - checkIn.getTime();
@@ -42,6 +49,50 @@ module.exports = {
         return visit;
     },
 
+    testRecords: [],
+
+    /**
+     * Populates the database with test data for use in development environments.
+     * @modifies Database contents.
+     * 
+     * Note convention: sample data is ALL CAPS, using .net rather than .edu domain
+     */
+    createTestData: async function() {
+        const oneDay = 24 * 60 * 60 * 1000; 
+        
+        // First student has NO associated visits.
+
+        // All remaining students have old closed visits.
+        for (let iStudent = 1; iStudent < Student.testRecords.length; iStudent++) {
+            for (let iVisit = 1; iVisit <= iStudent; iVisit++) {
+                let record = {
+                    name: Student.testRecords[iStudent].id,
+                    checkInTime: `2018-${iVisit}-${iVisit} ${iVisit}:${iVisit}:${iVisit}`,
+                    checkOutTime: `2018-${iVisit}-${iVisit} ${2 * iVisit}:${iVisit}:${iVisit}`,
+                    visitLength: iVisit,
+                    visitPurpose: `OLD CLOSED VISIT`,
+                    purposeAchieved: Visit.attributes.purposeAchieved.validations.isIn[iVisit % Visit.attributes.purposeAchieved.validations.isIn.length],
+                    tutorCourses: `TUTOR COURSES ${iVisit}`,
+                    comment: `COMMENT ${iVisit}`,
+                    isLengthEstimated: false
+                };
+                this.testRecords.push(await Visit.create(record).fetch());
+            }
+
+            // Second student has closed visits only.
+            if (iStudent === 1) continue;
+
+            // Third student has a visit opened yesterday, and
+            // all others have a visit opened today.
+            let record = {
+                name: Student.testRecords[iStudent].id,
+                checkInTime: new Date(sails.helpers.getCurrentTime() - (iStudent === 2 ? oneDay : 0)),
+                visitPurpose: "VISIT OPENED " + (iStudent === 2 ? "YESTERDAY" : "TODAY")
+            };
+            this.testRecords.push(await Visit.create(record).fetch());
+        }
+    } 
+    
 };
 
 

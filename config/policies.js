@@ -17,6 +17,21 @@ module.exports.policies = {
      *                                                                          *
      ***************************************************************************/
 
-    // '*': true,
+
+    "*": ["isAuthenticated", "isAuthorized", "isAppropriate"],
+
+    AuthController: {
+        "*": true
+    },
+
+    // RestController: {
+    // "*": ["isAuthenticated", "isAuthorized", "isAppropriate"],
+    // "createFormRequested": ["isAuthenticated", "isAuthorized", "isAppropriate"],
+    // "createFormSubmitted": ["isAuthenticated", "isAuthorized", "isAppropriate"],
+
+    // "editFormRequested": ["isAuthenticated", "isAuthorized", "isAppropriate"],
+    // "editFormSubmitted": ["isAuthenticated", "isAuthorized", "isAppropriate"],
+
+    // }
 
 };

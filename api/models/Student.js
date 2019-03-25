@@ -20,7 +20,18 @@ module.exports = {
         forceUpdate: { type: "boolean", defaultsTo: true }
     },
     
-    /** Indicates which model attributes have defined domains.
+    /**
+     * A required, unique model attribute that has real-world meaning (as opposed to `id`).
+     */
+    candidateKey: "username",
+    
+    beforeUpdate: async function(valuesToSet, proceed) {
+        valuesToSet.forceUpdate = false;
+        return proceed();
+    },
+    
+    /** 
+     * Indicates which model attributes have defined domains.
      */
     domainDefined: {
         academicRank: true,
@@ -31,13 +42,15 @@ module.exports = {
         springSport: true
     },
 
+    testRecords: [],
+    
     /**
-     * Populates the database with sample data for use in development environments.
+     * Populates the database with test data for use in development environments.
      * @modifies Database contents.
      * 
      * Note convention: sample data is ALL CAPS, using .net rather than .edu domain
      */
-    createDevelopmentData: async function() {
+    createTestData: async function() {
         let recordCount = 5;
 
         // Associations
@@ -66,7 +79,7 @@ module.exports = {
 
         // Students. All but first have associations populated.
         for (let i = 0; i < recordCount; i++) {
-            await Student.create({
+            this.testRecords.push(await Student.create({
                 username: `USERNAME${i + 1}@DEWV.NET`,
                 firstName: `FIRSTNAME${i + 1}`,
                 lastName: `LASTNAME${i + 1}`,
@@ -77,7 +90,7 @@ module.exports = {
                 fallSport: i === 0 ? null : ids.fallSport[i],
                 springSport: i === 0 ? null : ids.springSport[i],
                 forceUpdate: Student.attributes.forceUpdate.defaultsTo
-            });
+            }).fetch());
         }
     }
 };

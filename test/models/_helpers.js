@@ -2,7 +2,7 @@
  * @module _helpers
  */
 
-"use strict";
+//"use strict";
 const should = require("should");
 const config = require("../../config/models");
 
@@ -24,7 +24,7 @@ module.exports = function(modelName, testData) {
                 result.should.be.an.Object();
                 for (let property in model.attributes) {
                     if (config.models.attributes[property]) continue; // skip base attributes
-                    should.exist(result[property], `The record returned by \`getDefaults\` has no ${property} property`);
+                    should.notEqual(typeof result[property], "undefined", `The record returned by \`getDefaults\` has no ${property} property`);
                 }
             });
         });
@@ -49,8 +49,9 @@ module.exports = function(modelName, testData) {
                 let record = sails.helpers.getDefaults(model);
                 for (let property in model.attributes) {
                     if (sails.helpers.isAssociation(model, property)) {
-                        should.exist(testData.associations[property].name, "This test code depends on each association having a `name` property, but found none in " + property + ": " + JSON.stringify(testData.associations[property]));
-                        record[property] = testData.associations[property].name;
+                        should.exist(sails.models[model.attributes[property].model].candidateKey, `This test code depends on each association defining a candidate key, but none found for association \`${property}\``);
+                        record[property] = testData.associations[property][sails.models[model.attributes[property].model].candidateKey];
+                        // record[property] = testData.associations[property][testData.associations[property].candidateKey];
                     }
                 }
 
@@ -83,7 +84,14 @@ module.exports = function(modelName, testData) {
                         }
                     }
                     else {
-                        result[property].should.equal(testData.record[property]);
+                        if (result[property] instanceof Date) {
+                            let diff = result[property] - testData.record[property];
+                            let delta = 1000 * 5;
+                            diff.should.be.approximately(0, delta, `Date values differ by more than ${delta} milliseconds.`);
+                        }
+                        else {
+                            result[property].should.equal(testData.record[property]);
+                        }
                     }
                 }
             });
@@ -104,7 +112,7 @@ module.exports = function(modelName, testData) {
                 for (let i = 6000000; i < 10000000; i = i + 1000000) {
                     let result = sails.helpers.convertToHours(i);
                     let time = i / 3600000;
-                    let expected = (Math.round(time * 4) / 4).toFixed(2);
+                    let expected = parseFloat((Math.round(time * 4) / 4).toFixed(2));
                     result.should.not.be.an.Error();
                     expected.should.not.be.an.Error();
                     should.exist(result, "The helper did not return anything");

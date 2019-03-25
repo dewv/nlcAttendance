@@ -5,6 +5,20 @@
  */
 module.exports = {
     /**
+     * Handles request to display a list of data records.
+     * @argument {external:Request} request -  The HTTP request.
+     * @argument {external:Response} response - The HTTP response.
+     * @public
+     * @async
+     */
+    listRequested: async function(request, response) {
+        let model = sails.models[request.params.model];
+        if (!model) return response.notFound();
+        let records = await model.find();
+        return sails.helpers.responseViewSafely(response, `pages/${request.params.model}/index`, { records: records });
+    },
+
+    /**
      * Handles request to display a form for entering a new data record.
      * @argument {external:Request} request -  The HTTP request.
      * @argument {external:Response} response - The HTTP response.
@@ -13,6 +27,7 @@ module.exports = {
      */
     createFormRequested: async function(request, response) {
         let model = sails.models[request.params.model];
+        if (!model) return response.notFound();
         let domains = await sails.helpers.getDomains(model);
         let ejsData = {
             formData: await sails.helpers.getDefaults(model),
@@ -22,7 +37,7 @@ module.exports = {
         for (let domain in domains) {
             ejsData[domain] = await sails.helpers.generateHtmlSelect(domain, domains[domain]);
         }
-        console.log(JSON.stringify(ejsData));
+        
         return sails.helpers.responseViewSafely(response, `pages/${request.params.model}/createForm`, ejsData);
     },
 
@@ -82,6 +97,6 @@ module.exports = {
     editFormSubmitted: async function(request, response) {
         let encodedData = await sails.helpers.encodeAssociations(sails.models[request.params.model], request.body);
         await sails.models[request.params.model].updateOne({ id: request.params.id }).set(encodedData);
-        return response.redirect(`/${request.params.model}/${request.params.id}`);
+        return response.redirect("/");
     }
 };

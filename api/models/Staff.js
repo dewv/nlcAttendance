@@ -13,7 +13,13 @@ module.exports = {
         isSlpInstructor: { type: "boolean", allowNull: "false", defaultsTo: false },
         forceUpdate: { type: "boolean", defaultsTo: true }
     },
+    
+    candidateKey: "username",
 
+    beforeUpdate: async function(valuesToSet, proceed) {
+        valuesToSet.forceUpdate = false;
+        return proceed();
+    }
 };
 
 /**

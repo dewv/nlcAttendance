@@ -32,9 +32,9 @@ module.exports = {
 
     sync: true,
 
-    fn: function(inputs) {
+    fn: function(inputs, exits) {
         let rawHours = inputs.time / 3600000;
-        let hours = (Math.round(rawHours * 4) / 4).toFixed(2);
-        return hours;
+        let hours = parseFloat((Math.round(rawHours * 4) / 4).toFixed(2));
+        return exits.success(hours);
     }
 };
