@@ -35,7 +35,7 @@ describe("Visit Views", function() {
                 checkFor.formSelectOption("purposeAchieved").should.be.true();
             });
 
-            it("should include a text are for comments of the visit", function(done) {
+            it("should include a text area for comments of the visit", function(done) {
                 checkFor.formTextArea("comment", expectedData.comment).should.be.true();
                 done();
             });
