@@ -22,7 +22,7 @@ describe("Visit Views", function() {
         let ejsData = {
             formData: expectedData,
             action: "/visit",
-        }
+        };
         // Generate the view
         ejs.renderFile("views/" + pathToView + ".html", ejsData, function(error, result) {
             if (error) {
