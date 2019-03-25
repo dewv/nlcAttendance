@@ -21,25 +21,8 @@ describe("Visit model", function() {
         record: {}
     };
 
-    // let testVisit = {
-    //     visitPurpose: "testPurpose",
-    //     purposeAchieved: "Yes",
-    //     tutorCourses: "Math",
-    //     comment: "Test Comment",
-    // };
-
-    // Before tests run ...
     before(async function() {
 
-        // Destroy any old test data that might be haning around
-        // await destroyTestData();
-
-        // Associate, using the new IDs
-        // testData.associations.name = testData.record.id;
-
-        // testVisit.name = testData.associations.name;
-        // Create main test record, with associations in place
-        // testData.record = await Visit.create(testVisit).fetch();
         testData.record = Visit.testRecords[0];
         testData.associations.name = await Student.findOne({ id: testData.record.name });
     });
@@ -111,14 +94,7 @@ describe("Visit model", function() {
         });
     });
 
-    // After tests run ...
-    // after(destroyTestData);
-
-    // async function destroyTestData() {
-    //     // Destroy main test record
-    //     await Visit.destroyOne({ id: 1 });
-    // }
+    
 });
-// };
 
 /*global Visit*/
