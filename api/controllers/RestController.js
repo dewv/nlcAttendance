@@ -85,4 +85,22 @@ module.exports = {
         return response.redirect(`/${request.params.model}/${request.params.id}`);
     },
     
+    visitView: async function(request, response) {
+        let model = sails.models[Visit];
+        let ejsData = {
+            action: `/visit/view`
+            //action: `/${request.params.model}/${request.params.id}`
+        };
+        //let Query = await Student.find({id: document.getElementById(query)});
+        //return res.json(Query);
+        return await sails.helpers.responseViewSafely(response, `pages/visit/view`, ejsData);
+    },
+    
+    updateView: async function(request, response) {
+        let model = sails.models[Visit];
+        let ejsData = {
+            action: `/visit/view`
+        };
+        return await sails.helpers.responseViewSafely(response, `pages/visit/view`, ejsData);
+    }
 };

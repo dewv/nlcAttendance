@@ -1,22 +1,25 @@
-<!--For ease of use for the teachers who view this data, I've found the sails method that does sql queries and will make a method or two that allows them to sort the data. 
-This "sort" method will also be the basis for the initial data load as well-->
-<!--https://sailsjs.com/documentation/reference/waterline-orm/datastores/send-native-query
-    https://ejs.co/-->
 
-<body>
-    <label for="query" value="Input">Input</label>
-    <input id="query" type="text">
-    <script>
-        let SqlQuery = document.getElementById("query");
-        var RETURN_SQL_TABLE =  `SELECT * FROM visit`;
-        var tableRequested = await sails.sendNativeQuery(RETURN_SQL_TABLE, SqlQuery);
-        console.log(tableRequested);
-        
-        input.addEventListener("keyup", function(event) {
+<script>
+    var query = document.getElementById("query");
+    query.addEventListener("keyup", function(event) {
         if (event.keyCode === 13) {
-        event.preventDefault();
+        //event.preventDefault();
         document.getElementById("submit").click();
         }
         });
+</script>
+<form method="POST" action="<%= action %>">
+<body>
+    <label for="query" value="Input">Search for student</label>
+    <input id="query" type="text">
+    
+    <script>
+    function queryFunction(){
+       
+    }
     </script>
+    
+    <input Id="submit" type="submit" value="Submit">
+    <!-- <button Id="submit" onclick="queryFunction()">Submit</button> -->
 </body>
+</form>

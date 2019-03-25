@@ -5,7 +5,11 @@ let routes = {
     "POST /:model": "RestController.createFormSubmitted",
     
     "GET /:model/:id/edit": "RestController.editFormRequested",
-    "POST /:model/:id": "RestController.editFormSubmitted"
+    "POST /:model/:id": "RestController.editFormSubmitted",
+    
+    "/visit/view": "RestController.visitView",
+    "POST /visit/view": "RestController.updateView"
+                    
     
 };
 
