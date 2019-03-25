@@ -91,7 +91,8 @@ module.exports = {
             };
             this.testRecords.push(await Visit.create(record).fetch());
         }
-    }
+    } 
+    
 };
 
 

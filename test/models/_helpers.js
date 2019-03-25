@@ -112,7 +112,7 @@ module.exports = function(modelName, testData) {
                 for (let i = 6000000; i < 10000000; i = i + 1000000) {
                     let result = sails.helpers.convertToHours(i);
                     let time = i / 3600000;
-                    let expected = (Math.round(time * 4) / 4).toFixed(2);
+                    let expected = parseFloat((Math.round(time * 4) / 4).toFixed(2));
                     result.should.not.be.an.Error();
                     expected.should.not.be.an.Error();
                     should.exist(result, "The helper did not return anything");

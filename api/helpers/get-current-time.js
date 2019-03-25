@@ -25,8 +25,8 @@ module.exports = {
   
     sync: true,
 
-    fn: function () {
+    fn: function (inputs, exits) {
         let time = Date.now();
-        return time;
+        return exits.success(time);
     }
 };

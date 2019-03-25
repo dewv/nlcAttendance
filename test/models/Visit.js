@@ -54,6 +54,8 @@ describe("Visit model", function() {
         });
         context("`Test the afterPopulateOne function,", async function() {
             it("checkOutTime gets set to current time", async function() {
+                testData.record = Visit.testRecords[3];
+                testData.associations.name = await Student.findOne({ id: testData.record.name });
                 let visitTest = Visit.afterPopulateOne(testData.record);
                 let eT = new Date(sails.helpers.getCurrentTime());
                 eT = eT.getTime();
@@ -69,7 +71,7 @@ describe("Visit model", function() {
 
                 result.should.be.equal(expected, "After the record updated the checkOutTime attribute is " + result + ". We expected " + eT + ".");
             });
-            it("Attribute visitLength was calculated correctly", async function() {
+            it("Attribute visitLength should be calculated correctly", async function() {
                 testData.record.checkInTime = "2019-02-25T15:30:00.000Z";
                 testData.record.checkOutTime = "2019-02-25T16:30:00.000Z";
                 let visitTest = Visit.afterPopulateOne(testData.record);
