@@ -25,10 +25,10 @@ module.exports = async function(request, response, proceed) {
             user: "root",
             database: "nlcAttendance",
         });
-        let visit = {};
-        con.connect(function(err) {
+        let visit = null;
+        con.connect( function(err, visit) {
             if (err) throw err;
-            con.query("SELECT * FROM visit WHERE name = " + request.session.userId + ";", function(err, result, fields) {
+            con.query("SELECT * FROM visit WHERE name = " + request.session.userId + ";", function(err, result, fields, visit) {
                 if (err) throw err;
                 console.log(result);
                 if (result.length > 1) {
@@ -70,10 +70,10 @@ module.exports = async function(request, response, proceed) {
                 console.log("MOST RECENT " + visit.checkInTime); //visit is not being updated outside of the query.
                 return visit;
             });
-            console.log("MOST RECENT 2" + visit.checkInTime);
+            console.log("MOST RECENT 2 " + visit.checkInTime);
             //visit is undefined here 
         });
-        console.log("MOST RECENT 3" + visit.checkInTime);
+        console.log("MOST RECENT 3 " + visit.checkInTime);
         request.session.userProfile.visit = {
             id: visit.id, //visit is undefined here
             checkInTime: visit.checkInTime,
@@ -84,7 +84,7 @@ module.exports = async function(request, response, proceed) {
             tutorCourses: visit.tutorCourses,
             comment: visit.comment,
             isLengthEstimated: visit.isLengthEstimated,
-
+            
         };
         sails.log.debug("set visit");
     }
