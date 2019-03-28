@@ -17,73 +17,20 @@ module.exports = async function(request, response, proceed) {
     let profileUrl = `/${request.session.role}/${request.session.userId}`;
 
     request.session.userProfile = await sails.helpers.populateOne(sails.models[request.session.role], request.session.userId);
-
+    
     if (request.session.role === "student") {
-        // TODO this is a temporary placeholder record; need to fetch real one
-        let con = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            database: "nlcAttendance",
-        });
-        let visit = null;
-        con.connect( function(err, visit) {
-            if (err) throw err;
-            con.query("SELECT * FROM visit WHERE name = " + request.session.userId + ";", function(err, result, fields, visit) {
-                if (err) throw err;
-                console.log(result);
-                if (result.length > 1) {
-                    for (let i = 0; i < result.length; i++) {
-
-                        if (!visit) {
-                            let a = result[i];
-                            let b = result[i + 1];
-                            a = new Date(a.checkInTime);
-                            a = a.getTime();
-                            b = new Date(b.checkInTime);
-                            b = b.getTime();
-                            if (a > b) {
-                                visit = result[i];
-                            }
-                            else {
-                                visit = result[i + 1];
-                            }
-                            i++;
-                        }
-                        else {
-                            let a = result[i];
-                            a = new Date(a.checkInTime);
-                            a = a.getTime();
-                            let b = new Date(visit.checkInTime);
-                            b = b.getTime();
-                            if (b <= a) {
-                                visit = result[i];
-                            }
-                        }
-                    }
-                }
-                else if (result.length === 1) {
-                    visit = result[0];
-                }
-                else if (result.length === 0) {
-                    visit = null;
-                }
-                console.log("MOST RECENT " + visit.checkInTime); //visit is not being updated outside of the query.
-                return visit;
-            });
-            console.log("MOST RECENT 2 " + visit.checkInTime);
-            //visit is undefined here 
-        });
-        console.log("MOST RECENT 3 " + visit.checkInTime);
+        let visit = await Visit.find({ where: { name: request.session.userProfile.id }, limit: 1, sort: "checkInTime DESC"});
+        
         request.session.userProfile.visit = {
-            id: visit.id, //visit is undefined here
-            checkInTime: visit.checkInTime,
-            checkOutTime: visit.checkOutTime, // new Date("2019-02-26T04:24:00"), 
-            visitLength: visit.visitLength,
-            visitPurpose: visit.visitPurpose,
-            purposeAchieved: visit.purposeAchieved,
-            tutorCourses: visit.tutorCourses,
-            comment: visit.comment,
-            isLengthEstimated: visit.isLengthEstimated,
+            id: visit[0].id,
+            checkInTime: visit[0].checkInTime,
+            checkOutTime: visit[0].checkOutTime, // new Date("2019-02-26T04:24:00"), 
+            visitLength: visit[0].visitLength,
+            visitPurpose: visit[0].visitPurpose,
+            purposeAchieved: visit[0].purposeAchieved,
+            tutorCourses: visit[0].tutorCourses,
+            comment: visit[0].comment,
+            isLengthEstimated: visit[0].isLengthEstimated,
             
         };
         sails.log.debug("set visit");

@@ -16,7 +16,7 @@ module.exports = {
         purposeAchieved: { type: "string", allowNull: true, isIn: ["Yes", "No", "Not sure"] },
         tutorCourses: { type: "string", required: false, allowNull: true },
         comment: { type: "string", allowNull: true },
-        isLengthEstimated: { type: "boolean", allowNull: false, defaultsTo: false },
+        isLengthEstimated: { type: "boolean", allowNull: false, defaultsTo: false }, 
     },
 
     /** Indicates which model attributes have defined domains.
