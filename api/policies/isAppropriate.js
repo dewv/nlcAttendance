@@ -31,7 +31,7 @@ module.exports = async function(request, response, proceed) {
         // they are sent to Check In or Check Out, as appropriate.
         let checkInUrl = "/visit/new";
         let checkOutUrl = `/visit/${request.session.userProfile.visit.id}/edit`;
-        let nowCheckedIn = request.session.userProfile.visit.checkOutTime === "0000-00-00 00:00:00";
+        let nowCheckedIn = request.session.userProfile.visit.checkOutTime === null;
 
         if (nowCheckedIn) {
             if (request.path === checkOutUrl) {

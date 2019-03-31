@@ -1,7 +1,6 @@
 /**
  * @module
  */
-const mysql = require("mysql");
 /**
  * Enforces authorization rules. 
  * @function isAuthorized
@@ -24,7 +23,7 @@ module.exports = async function(request, response, proceed) {
         request.session.userProfile.visit = {
             id: visit[0].id,
             checkInTime: visit[0].checkInTime,
-            checkOutTime: visit[0].checkOutTime, // new Date("2019-02-26T04:24:00"), 
+            checkOutTime: visit[0].checkOutTime, 
             visitLength: visit[0].visitLength,
             visitPurpose: visit[0].visitPurpose,
             purposeAchieved: visit[0].purposeAchieved,

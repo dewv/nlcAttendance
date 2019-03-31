@@ -54,12 +54,11 @@ describe("Visit model", function() {
         });
         context("`Test the afterPopulateOne function,", async function() {
             it("checkOutTime gets set to current time", async function() {
-                testData.record = Visit.testRecords[3];
+                testData.record.checkOutTime = null;
                 testData.associations.name = await Student.findOne({ id: testData.record.name });
                 let visitTest = Visit.afterPopulateOne(testData.record);
-                let eT = new Date(sails.helpers.getCurrentTime());
-                eT = eT.getTime();
-                let tT = visitTest.checkOutTime.getTime();
+                let eT = (new Date(sails.helpers.getCurrentTime())).getTime();
+                let tT = (new Date(visitTest.checkOutTime)).getTime();
                 let expected = eT - tT;
                 let result;
                 if (expected <= 1000) {

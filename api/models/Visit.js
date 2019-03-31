@@ -9,8 +9,8 @@ module.exports = {
 
     attributes: {
         name: { model: "Student" },
-        checkInTime: { type: "ref", columnType: "timestamp", autoCreatedAt: true },
-        checkOutTime: { type: "ref", columnType: "timestamp", defaultsTo: "0000-00-00 00:00:00" },
+        checkInTime: { type: "string", columnType: "datetime", autoCreatedAt: true },
+        checkOutTime: { type: "string", allowNull: true, columnType: "datetime",  },
         visitLength: { type: "number", required: false, allowNull: true },
         visitPurpose: { type: "string", required: true, allowNull: false },
         purposeAchieved: { type: "string", allowNull: true, isIn: ["Yes", "No", "Not sure"] },
@@ -34,9 +34,9 @@ module.exports = {
     afterPopulateOne: function(visit) {
         let checkIn = new Date(visit.checkInTime);
         let checkOutTime;
-        if (visit.checkOutTime === "0000-00-00 00:00:00") {
+        if (visit.checkOutTime === null) {
             checkOutTime = new Date(sails.helpers.getCurrentTime());
-            visit.checkOutTime = checkOutTime;
+            visit.checkOutTime = checkOutTime.getTime();
         }
         else {
             checkOutTime = new Date(visit.checkOutTime);
@@ -76,6 +76,7 @@ module.exports = {
                     comment: `COMMENT ${iVisit}`,
                     isLengthEstimated: false
                 };
+                console.log(record.checkInTime + " " + record.checkOutTime);
                 this.testRecords.push(await Visit.create(record).fetch());
             }
 
