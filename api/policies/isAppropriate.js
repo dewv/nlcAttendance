@@ -1,7 +1,7 @@
 /**
  * @module
  */
- 
+
 /**
  * Implements "workflow" business rules. 
  * This policy assumes that the user is authenticated, and authorized to make the pending request. 
@@ -28,20 +28,9 @@ module.exports = async function(request, response, proceed) {
     if (request.session.role === "student") {
         // The app always determines student destination.
         // If not forced to update user profile by logic above,
-        // they are sent to Check In or Check Out, as appropriate.
+        // they are sent to Check In or Check Out, as appropriate
         let checkInUrl = "/visit/new";
-        let checkOutUrl = `/visit/${request.session.userProfile.visit.id}/edit`;
-        let nowCheckedIn = request.session.userProfile.visit.checkOutTime === null;
-
-        if (nowCheckedIn) {
-            if (request.path === checkOutUrl) {
-                return proceed();
-            }
-            else {
-                return response.redirect(`${checkOutUrl}`);
-            }
-        }
-        else {
+        if (!request.session.userProfile.visit) {
             if (request.path === checkInUrl) {
                 return proceed();
             }
@@ -49,6 +38,19 @@ module.exports = async function(request, response, proceed) {
                 return response.redirect(`${checkInUrl}`);
             }
         }
+        else {
+            let checkOutUrl = `/visit/${request.session.userProfile.visit.id}/edit`;
+            let nowCheckedIn = request.session.userProfile.visit.checkOutTime === null;
+            if (nowCheckedIn) {
+                if (request.path === checkOutUrl) {
+                    return proceed();
+                }
+                else {
+                    return response.redirect(`${checkOutUrl}`);
+                }
+            }
+        }
+
     }
     else if (request.session.role === "staff" && request.path === "/") {
         // Path / is a default; menu is the default page for staff users.

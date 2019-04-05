@@ -16,22 +16,22 @@ module.exports = async function(request, response, proceed) {
     let profileUrl = `/${request.session.role}/${request.session.userId}`;
 
     request.session.userProfile = await sails.helpers.populateOne(sails.models[request.session.role], request.session.userId);
-    
+
     if (request.session.role === "student") {
-        let visit = await Visit.find({ where: { name: request.session.userProfile.id }, limit: 1, sort: "checkInTime DESC"});
-        
-        request.session.userProfile.visit = {
-            id: visit[0].id,
-            checkInTime: visit[0].checkInTime,
-            checkOutTime: visit[0].checkOutTime, 
-            visitLength: visit[0].visitLength,
-            visitPurpose: visit[0].visitPurpose,
-            purposeAchieved: visit[0].purposeAchieved,
-            tutorCourses: visit[0].tutorCourses,
-            comment: visit[0].comment,
-            isLengthEstimated: visit[0].isLengthEstimated,
-            
-        };
+        let visit = await Visit.find({ where: { name: request.session.userProfile.id }, limit: 1, sort: "checkInTime DESC" });
+        if (visit.id) {
+            request.session.userProfile.visit = {
+                id: visit[0].id,
+                checkInTime: visit[0].checkInTime,
+                checkOutTime: visit[0].checkOutTime,
+                visitLength: visit[0].visitLength,
+                visitPurpose: visit[0].visitPurpose,
+                purposeAchieved: visit[0].purposeAchieved,
+                tutorCourses: visit[0].tutorCourses,
+                comment: visit[0].comment,
+                isLengthEstimated: visit[0].isLengthEstimated,
+            };
+        }
         sails.log.debug("set visit");
     }
 
@@ -46,16 +46,16 @@ module.exports = async function(request, response, proceed) {
     }
 
     if (request.session.role === "student" && model === "visit") {
-        let visitUrl = `/${model}/${request.session.userProfile.visit.id}`;
-        if (request.path === visitUrl ||
+        if (request.path === "/visit/new") {
+            // ... or to create a new visit record ...
+            return proceed();
+        }
+        else if (request.path === `/${model}/${request.session.userProfile.visit.id}` ||
             request.path === `${visitUrl}/edit`) {
             // Students are authorized to edit their own most recent visit record ...
             return proceed();
         }
-        else if (request.path === "/visit/new") {
-            // ... or to create a new visit record ...
-            return proceed();
-        }
+         
     }
 
     if (request.session.role === "staff") {

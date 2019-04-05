@@ -46,7 +46,6 @@ describe("Visit model", function() {
                 visitSample.should.be.an.Object();
                 let result = visitSample.name;
                 result.should.not.be.an.Error();
-                result.should.be.an.Number();
                 should.exist(result, "The record did not return anything.");
 
                 result.should.equal(expected, "The name attribute is set to " + result + " but expected to be set to " + expected + ".");
