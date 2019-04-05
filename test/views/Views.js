@@ -33,7 +33,9 @@ class ViewTests {
      */
     formTextArea(id, value) {
         let results = this.$("textarea#" + id);
-        return (results.length === 1 && results.val() === value);
+        console.log(results[0]);
+        return (results.length === 1 && results[0].attribs.value === value);
+        
     }
 
     /** Returns true if the view contains one checked radio button with the specified ID; false otherwise. 
@@ -55,7 +57,11 @@ class ViewTests {
     formSelectOption(id, value) {
         let selector = `select#${id}`;
         if (value) selector += ` > option[value="${value}"]`;
+        
         let results = this.$(selector);
+       /* console.log(selector);
+        console.log(results.length);
+        console.log(results.prop("selected"));*/
         return (results.length === 1 && (results.prop("selected") || typeof value === "undefined"));
     }
 
