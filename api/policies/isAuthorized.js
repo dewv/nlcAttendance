@@ -54,7 +54,11 @@ module.exports = async function(request, response, proceed) {
             }
         }
         else if (request.path === "/visit/new") {
-            // ... or to create a new visit record ...
+            // ... or to get the form to create a new visit record ...
+            return proceed();
+        }
+        else if (request.path === "/visit" && request.method === "POST") {
+            // ... or to submit the form to create a new visit record ...
             return proceed();
         }
 
