@@ -46,7 +46,7 @@ module.exports = async function(request, response, proceed) {
     }
 
     if (request.session.role === "student" && model === "visit") {
-        if (request.session.userProfile.visit) {
+        if (request.session.userProfile.visit.checkOutTime === null) {
             if (request.path === `/${model}/${request.session.userProfile.visit.id}` ||
                 request.path === `/${model}/${request.session.userProfile.visit.id}/edit`) {
                 // Students are authorized to edit their own most recent visit record ...
