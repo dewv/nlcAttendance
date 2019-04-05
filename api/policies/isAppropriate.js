@@ -28,17 +28,9 @@ module.exports = async function(request, response, proceed) {
     if (request.session.role === "student") {
         // The app always determines student destination.
         // If not forced to update user profile by logic above,
-        // they are sent to Check In or Check Out, as appropriate
+        // they are sent to Check In or Check Out, as appropriate.
         let checkInUrl = "/visit/new";
-        if (!request.session.userProfile.visit) {
-            if (request.path === checkInUrl) {
-                return proceed();
-            }
-            else {
-                return response.redirect(`${checkInUrl}`);
-            }
-        }
-        else {
+        if (request.session.userProfile.visit) {
             let checkOutUrl = `/visit/${request.session.userProfile.visit.id}/edit`;
             let nowCheckedIn = request.session.userProfile.visit.checkOutTime === null;
             if (nowCheckedIn) {
@@ -49,7 +41,26 @@ module.exports = async function(request, response, proceed) {
                     return response.redirect(`${checkOutUrl}`);
                 }
             }
+            else {
+                if (request.path === checkInUrl) {
+                    return proceed();
+                }
+                else {
+                    return response.redirect(`${checkInUrl}`);
+                }
+            }
         }
+        else {
+            if (request.path === checkInUrl) {
+                return proceed();
+            }
+            else {
+                return response.redirect(`${checkInUrl}`);
+            }
+        }
+
+
+
 
     }
     else if (request.session.role === "staff" && request.path === "/") {

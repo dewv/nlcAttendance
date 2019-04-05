@@ -19,7 +19,7 @@ module.exports = async function(request, response, proceed) {
 
     if (request.session.role === "student") {
         let visit = await Visit.find({ where: { name: request.session.userProfile.id }, limit: 1, sort: "checkInTime DESC" });
-        if (visit.id) {
+        if (visit[0]) {
             request.session.userProfile.visit = {
                 id: visit[0].id,
                 checkInTime: visit[0].checkInTime,
@@ -32,7 +32,7 @@ module.exports = async function(request, response, proceed) {
                 isLengthEstimated: visit[0].isLengthEstimated,
             };
         }
-        sails.log.debug("set visit");
+        sails.log.debug("set visit " + request.session.userProfile.visit);
     }
 
     if (request.path === "/") {
@@ -46,16 +46,18 @@ module.exports = async function(request, response, proceed) {
     }
 
     if (request.session.role === "student" && model === "visit") {
-        if (request.path === "/visit/new") {
+        if (request.session.userProfile.visit) {
+            if (request.path === `/${model}/${request.session.userProfile.visit.id}` ||
+                request.path === `/${model}/${request.session.userProfile.visit.id}/edit`) {
+                // Students are authorized to edit their own most recent visit record ...
+                return proceed();
+            }
+        }
+        else if (request.path === "/visit/new") {
             // ... or to create a new visit record ...
             return proceed();
         }
-        else if (request.path === `/${model}/${request.session.userProfile.visit.id}` ||
-            request.path === `${visitUrl}/edit`) {
-            // Students are authorized to edit their own most recent visit record ...
-            return proceed();
-        }
-         
+
     }
 
     if (request.session.role === "staff") {
