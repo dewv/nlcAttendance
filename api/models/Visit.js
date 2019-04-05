@@ -10,7 +10,7 @@ module.exports = {
     attributes: {
         name: { model: "Student" },
         checkInTime: { type: "string", columnType: "datetime", autoCreatedAt: true },
-        checkOutTime: { type: "string", allowNull: true, columnType: "datetime",  },
+        checkOutTime: { type: "string", columnType: "datetime", allowNull: true },
         visitLength: { type: "number", required: false, allowNull: true },
         visitPurpose: { type: "string", required: true, allowNull: false },
         purposeAchieved: { type: "string", allowNull: true, isIn: ["Yes", "No", "Not sure"] },
@@ -32,16 +32,12 @@ module.exports = {
      * Note global: PopulateOne checks if a function named afterPopulateOne is defined in the model of any record. The definition is model specific and runs when the record is passed through the populateOne helper.
      */
     afterPopulateOne: function(visit) {
-        let checkIn = new Date(visit.checkInTime);
         let checkOutTime;
         if (visit.checkOutTime === null) {
             checkOutTime = new Date(sails.helpers.getCurrentTime());
             visit.checkOutTime = checkOutTime.getTime();
         }
-        else {
-            checkOutTime = new Date(visit.checkOutTime);
-        }
-        visit.visitLength = checkOutTime.getTime() - checkIn.getTime();
+        visit.visitLength = ((new Date(visit.checkOutTime)).getTime()) - ((new Date(visit.checkInTime)).getTime());
         visit.visitLength = sails.helpers.convertToHours(visit.visitLength);
         if (visit.visitLength >= 5) {
             visit.isLengthEstimated = true;
