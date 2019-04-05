@@ -13,7 +13,7 @@ describe("Visit Views", function() {
             checkOutTime: "2019-02-20T15:11:50.000Z",
             visitLength: null,
             visitPurpose: "Study",
-            purposeAchieved: "Not Sure",
+            purposeAchieved: "No",
             tutorCourses: "math",
             comment: "Very good",
             isLengthEstimated: false,
@@ -32,7 +32,7 @@ describe("Visit Views", function() {
             let checkFor = new ViewTests(result);
 
             it("should include select options to edit the question of goal/purpose accomplished", function(done) {
-                checkFor.formSelectOption("purposeAchieved").should.be.true();
+                checkFor.formSelectOption("purposeAchieved", expectedData.purposeAchieved).should.be.true();
             });
 
             it("should include a text area for comments of the visit", function(done) {
