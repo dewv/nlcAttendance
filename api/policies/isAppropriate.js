@@ -45,6 +45,11 @@ module.exports = async function(request, response, proceed) {
                 if (request.path === checkInUrl) {
                     return proceed();
                 }
+                else if (request.method === "POST" && request.path === "/visit") {
+                    request.body.name = request.session.username;
+                    sails.log.debug(`id: ${request.body.name}`)
+                    return proceed();
+                }
                 else {
                     return response.redirect(`${checkInUrl}`);
                 }
