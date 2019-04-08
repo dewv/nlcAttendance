@@ -33,7 +33,6 @@ class ViewTests {
      */
     formTextArea(id, value) {
         let results = this.$("textarea#" + id);
-        console.log(results[0]);
         return (results.length === 1 && results[0].attribs.value === value);
         
     }
@@ -57,11 +56,13 @@ class ViewTests {
     formSelectOption(id, value) {
         let selector = `select#${id}`;
         if (value) selector += ` > option[value="${value}"]`;
-        
         let results = this.$(selector);
-       /* console.log(selector);
+        
+
         console.log(results.length);
-        console.log(results.prop("selected"));*/
+        console.log(results.prop("selected"));
+        console.log(value);
+        
         return (results.length === 1 && (results.prop("selected") || typeof value === "undefined"));
     }
 
