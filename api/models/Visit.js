@@ -32,7 +32,6 @@ module.exports = {
      * Note global: PopulateOne checks if a function named afterPopulateOne is defined in the model of any record. The definition is model specific and runs when the record is passed through the populateOne helper.
      */
     afterPopulateOne: function(visit) {
-        let checkOutTime;
         if (visit.checkOutTime === null) {
             visit.checkOutTime = new Date(sails.helpers.getCurrentTime());
         }
