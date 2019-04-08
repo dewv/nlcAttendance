@@ -34,14 +34,14 @@ module.exports = {
     afterPopulateOne: function(visit) {
         let checkOutTime;
         if (visit.checkOutTime === null) {
-            checkOutTime = new Date(sails.helpers.getCurrentTime());
-            visit.checkOutTime = checkOutTime.getTime();
+            visit.checkOutTime = new Date(sails.helpers.getCurrentTime());
         }
         visit.visitLength = ((new Date(visit.checkOutTime)).getTime()) - ((new Date(visit.checkInTime)).getTime());
         visit.visitLength = sails.helpers.convertToHours(visit.visitLength);
         if (visit.visitLength >= 5) {
             visit.isLengthEstimated = true;
         }
+        console.log(visit);
         return visit;
     },
 
