@@ -63,8 +63,8 @@ module.exports = {
             for (let iVisit = 1; iVisit <= iStudent; iVisit++) {
                 let record = {
                     name: Student.testRecords[iStudent].id,
-                    checkInTime: `2018-${iVisit}-${iVisit} ${iVisit}:${iVisit}:${iVisit}`,
-                    checkOutTime: `2018-${iVisit}-${iVisit} ${2 * iVisit}:${iVisit}:${iVisit}`,
+                    checkInTime: new Date(`2018-${iVisit}-${iVisit} ${iVisit}:${iVisit}:${iVisit}`),
+                    checkOutTime: new Date(`2018-${iVisit}-${iVisit} ${2 * iVisit}:${iVisit}:${iVisit}`),
                     visitLength: iVisit,
                     visitPurpose: `OLD CLOSED VISIT`,
                     purposeAchieved: Visit.attributes.purposeAchieved.validations.isIn[iVisit % Visit.attributes.purposeAchieved.validations.isIn.length],

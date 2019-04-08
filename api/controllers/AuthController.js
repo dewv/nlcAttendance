@@ -42,6 +42,8 @@ module.exports = {
 
         let userProfile = await sails.models[request.session.role].findOrCreate({ username: request.body.username }, ldapData);
         request.session.userId = userProfile.id;
+        request.session.username = userProfile.username;
+        request.session.save();
         
         return response.redirect("/");
     },

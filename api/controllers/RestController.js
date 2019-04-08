@@ -26,6 +26,7 @@ module.exports = {
      * @async
      */
     createFormRequested: async function(request, response) {
+        sails.log.debug('cfr')
         let model = sails.models[request.params.model];
         if (!model) return response.notFound();
         let domains = await sails.helpers.getDomains(model);
@@ -51,7 +52,7 @@ module.exports = {
     createFormSubmitted: async function(request, response) {
         let encodedData = await sails.helpers.encodeAssociations(sails.models[request.params.model], request.body);
         await sails.models[request.params.model].create(encodedData);
-        return response.redirect(`/${request.params.model}`);
+        return response.redirect("/");
     },
 
     /**
