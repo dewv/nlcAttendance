@@ -97,6 +97,7 @@ module.exports = {
         console.log(model);
         let ejsData = {
             action: `/${request.params.model}/view`,
+            //this might need adjusted
             Query: await sails.models[request.params.model].find(request.body)
         };
         return await sails.helpers.responseViewSafely(response, `pages/visit/appendView`, ejsData);
