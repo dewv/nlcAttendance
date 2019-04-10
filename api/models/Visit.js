@@ -40,7 +40,6 @@ module.exports = {
         if (visit.visitLength >= 5) {
             visit.isLengthEstimated = true;
         }
-        console.log(visit);
         return visit;
     },
 
