@@ -21,6 +21,7 @@ describe("Visit Views", function() {
 
         let ejsData = {
             formData: expectedData,
+            purposeAchieved: `<select id="purposeAchieved"><option value="Yes">Yes</option> <option value="No" selected>No</option> <option value="Not sure">Not sure</option> </select>`,
             action: "/visit",
         };
         // Generate the view
@@ -33,15 +34,16 @@ describe("Visit Views", function() {
 
             it("should include select options to edit the question of goal/purpose accomplished", function(done) {
                 checkFor.formSelectOption("purposeAchieved", expectedData.purposeAchieved).should.be.true();
+                done();
+            });
+            
+            it("should include a text input to edit the tutor Courses", function(done) {
+                checkFor.formInputText("tutorCourses", expectedData.tutorCourses).should.be.true();
+                done();
             });
 
             it("should include a text area for comments of the visit", function(done) {
                 checkFor.formTextArea("comment", expectedData.comment).should.be.true();
-                done();
-            });
-
-            it("should include a text input to edit the tutor Courses", function(done) {
-                checkFor.formInputText("tutorCourses", expectedData.tutorCourses).should.be.true();
                 done();
             });
 

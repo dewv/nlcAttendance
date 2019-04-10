@@ -57,12 +57,6 @@ class ViewTests {
         let selector = `select#${id}`;
         if (value) selector += ` > option[value="${value}"]`;
         let results = this.$(selector);
-        
-
-        console.log(results.length);
-        console.log(results.prop("selected"));
-        console.log(value);
-        
         return (results.length === 1 && (results.prop("selected") || typeof value === "undefined"));
     }
 
