@@ -1,25 +1,18 @@
-
+<!-- allow enter key to submit data -->
 <script>
     var query = document.getElementById("query");
     query.addEventListener("keyup", function(event) {
         if (event.keyCode === 13) {
-        //event.preventDefault();
+
         document.getElementById("submit").click();
         }
         });
 </script>
+<!-- data text box -->
 <form method="POST" action="<%= action %>">
 <body>
     <label for="query" value="Input">Search for student</label>
     <input id="query" type="text">
-    
-    <script>
-    function queryFunction(){
-       
-    }
-    </script>
-    
     <input Id="submit" type="submit" value="Submit">
-    <!-- <button Id="submit" onclick="queryFunction()">Submit</button> -->
 </body>
 </form>
