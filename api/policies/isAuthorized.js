@@ -31,6 +31,7 @@ module.exports = async function(request, response, proceed) {
                 comment: visit[0].comment,
                 isLengthEstimated: visit[0].isLengthEstimated,
             };
+            request.session.userProfile.visit.checkedIn = request.session.userProfile.visit.checkOutTime === null;
         }
         sails.log.debug("set visit " + request.session.userProfile.visit);
     }
@@ -46,7 +47,7 @@ module.exports = async function(request, response, proceed) {
     }
 
     if (request.session.role === "student" && model === "visit") {
-        if (request.session.userProfile.visit.checkOutTime === null) {
+        if (request.session.userProfile.visit.checkedIn) {
             if (request.path === `/${model}/${request.session.userProfile.visit.id}` ||
                 request.path === `/${model}/${request.session.userProfile.visit.id}/edit`) {
                 // Students are authorized to edit their own most recent visit record ...
@@ -61,6 +62,10 @@ module.exports = async function(request, response, proceed) {
             // ... or to submit the form to create a new visit record ...
             return proceed();
         }
+        else if (request.path === `/${model}/${request.session.userProfile.visit.id}` && request.method === "POST") {
+            // ... or to submit the form to create a new visit record ...
+            return proceed();
+        } 
 
     }
 

@@ -26,7 +26,7 @@ module.exports = {
      * @async
      */
     createFormRequested: async function(request, response) {
-        sails.log.debug('cfr')
+        sails.log.debug("cfr");
         let model = sails.models[request.params.model];
         if (!model) return response.notFound();
         let domains = await sails.helpers.getDomains(model);
@@ -50,6 +50,7 @@ module.exports = {
      * @async
      */
     createFormSubmitted: async function(request, response) {
+        sails.log.debug("cfs");
         let encodedData = await sails.helpers.encodeAssociations(sails.models[request.params.model], request.body);
         await sails.models[request.params.model].create(encodedData);
         return response.redirect("/");
@@ -63,6 +64,7 @@ module.exports = {
      * @async
      */
     editFormRequested: async function(request, response) {
+        sails.log.debug("efr");
         let model = sails.models[request.params.model];
         let recordToUpdate = await sails.helpers.populateOne(model, request.params.id);
         if (!recordToUpdate) return response.notFound();
@@ -96,6 +98,7 @@ module.exports = {
      * @async
      */
     editFormSubmitted: async function(request, response) {
+        sails.log.debug("efs");
         let encodedData = await sails.helpers.encodeAssociations(sails.models[request.params.model], request.body);
         await sails.models[request.params.model].updateOne({ id: request.params.id }).set(encodedData);
         return response.redirect("/");
