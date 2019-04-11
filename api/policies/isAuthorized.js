@@ -33,7 +33,7 @@ module.exports = async function(request, response, proceed) {
             };
             request.session.userProfile.visit.checkedIn = request.session.userProfile.visit.checkOutTime === null;
         }
-        sails.log.debug("set visit " + request.session.userProfile.visit);
+        sails.log.debug("set visit " + JSON.stringify(request.session.userProfile.visit));
     }
 
     if (request.path === "/") {
