@@ -44,7 +44,13 @@ module.exports = {
         sails.log.debug("afterPopulateOne " + JSON.stringify(visit));
         return visit;
     },
-
+    
+    /**
+     * Takes data passed from encodeAssociations, modifies it as needed and returns that data back to the encodeAssociations helper.
+     * @modifies Database contents.
+     * 
+     * Note global: EncodeAssociations checks if a function named afterEncodeAssociations is defined in the model of any record. The definition is model specific and runs when the record is passed through the encodeAssociations helper.
+     */
     afterEncodeAssociations: async function(visit) {
         if (visit.purposeAchieved) {
             visit.checkOutTime = new Date(sails.helpers.getCurrentTime());
