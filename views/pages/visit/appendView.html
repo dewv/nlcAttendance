@@ -1,0 +1,80 @@
+<!-- allow ender key to submit data -->
+<script>
+    var query = document.getElementById("query");
+    query.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+        document.getElementById("submit").click();
+        }
+        });
+</script>
+
+<!-- include text box for data -->
+<form method="POST" action="<%= action %>">
+<body>
+    <label for="query" value="Input">Search for student</label>
+    <input id="query" type="text">
+    <input id="submit" type="submit" value="Submit">
+</body>
+</form>
+
+<!-- Populate table -->
+<body>
+        <table>
+        <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Check In</th>
+            <th>Check Out</th>
+            <th>Visit Length</th>
+            <th>Check Out estimated?</th>
+            <th>Purpose of Visit</th>
+            <th>Purpose Achieved?</th>
+            <th>Comments</th>
+            <th>SLP Instructor</th>
+            <th>Tutoring</th>
+
+        </tr>
+        <% Query.forEach(function(visit) { %>
+            <tr>
+                <td>
+                    <%= visit.id %>
+                </td>
+                <td>
+                    <%= visit.firstName %>
+                </td>
+                <td>
+                    <%= visit.lastName %>
+                </td>
+                <td>
+                    <%= visit.checkIn %>
+                </td>
+                <td>
+                    <%= visit.checkOut %>
+                </td>
+                <td>
+                    <%= visit.visitLength %>
+                </td>
+                <td>
+                    <%= visit.checkOutEstimated %>
+                </td>
+                <td>
+                    <%= visit.purposeOfVisit %>
+                </td>
+                <td>
+                    <%= visit.purposeAchieved %>
+                </td>
+                <td>
+                    <%= visit.comments %>
+                </td>
+                <td>
+                    <%=visit.slpInstructor %>
+                </td>
+                <td>
+                    <%= visit.tutoring %>
+                </td>
+
+            </tr>
+            <% }); %>
+    </table>
+</body>

@@ -83,5 +83,23 @@ module.exports = {
         let encodedData = await sails.helpers.encodeAssociations(sails.models[request.params.model], request.body);
         await sails.models[request.params.model].updateOne({ id: request.params.id }).set(encodedData);
         return response.redirect(`/${request.params.model}/${request.params.id}`);
+    },
+    
+    visitView: async function(request, response) {
+        let ejsData = {
+            action: `/${request.params.model}/view`
+        };
+        return await sails.helpers.responseViewSafely(response, `pages/visit/view`, ejsData);
+    },
+    
+    updateView: async function(request, response) {
+        let model = sails.models[request.params.model];
+        console.log(model);
+        let ejsData = {
+            action: `/${request.params.model}/view`,
+            //this might need adjusted
+            Query: await sails.models[request.params.model].find(request.body)
+        };
+        return await sails.helpers.responseViewSafely(response, `pages/visit/appendView`, ejsData);
     }
 };
