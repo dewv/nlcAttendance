@@ -49,6 +49,26 @@ describe("Student views", function() {
                 checkFor.formInputText("lastName", expectedData.lastName).should.be.true();
                 done();
             });
+            
+            it("should include select options to edit the academic rank", function(done) {
+                checkFor.formSelectOption("academicRank").should.be.true();
+                done();
+            });
+            
+            it("should include select options to edit the residential status", function(done) {
+                checkFor.formSelectOption("residentialStatus").should.be.true();
+                done();
+            });
+            
+            it("should include select options to edit the Major One", function(done) {
+                checkFor.formSelectOption("majorOne").should.be.true();
+                done();
+            });
+            
+            it("should include select options to edit the major Two", function(done) {
+                checkFor.formSelectOption("majorTwo").should.be.true();
+                done();
+            });
 
             it("should include select options to edit the fall sport", function(done) {
                 checkFor.formSelectOption("fallSport", expectedData.fallSport.name).should.be.true();
