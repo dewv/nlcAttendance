@@ -46,6 +46,10 @@ module.exports = {
                 inputs.record[property] = lookup ? lookup.id : /* istanbul ignore next */ null;
             }
         }
+        
+        if (inputs.model.afterEncodeAssociations) { //TEMP ADDITION
+            await inputs.model.afterEncodeAssociations(inputs.record);
+        }
 
         // Send back the result through the success exit.
         return exits.success(inputs.record);

@@ -14,62 +14,67 @@
  * @async
  */
 module.exports = async function(request, response, proceed) {
-    // A profile update may be required before the user can take any other action.
     let profileUrl = `/${request.session.role}/${request.session.userProfile.id}`;
     let profileEditUrl = `${profileUrl}/edit`;
+
+    // A user may always update their profile.
     if (request.path === profileUrl || request.path === profileEditUrl) {
         return proceed();
     }
 
+    // A profile update may be required before the user can take any other action.
     if (request.session.userProfile.forceUpdate) {
         return response.redirect(`${profileEditUrl}`);
     }
 
     if (request.session.role === "student") {
         // The app always determines student destination.
-        // If not forced to update user profile by logic above,
-        // they are sent to Check In or Check Out, as appropriate.
+        // If not sent to update user profile by logic above,
+        // they must Check In or Check Out, as appropriate.
+
         let checkInUrl = "/visit/new";
-        if (request.session.userProfile.visit) {
-            let checkOutUrl = `/visit/${request.session.userProfile.visit.id}/edit`;
-            let nowCheckedIn = request.session.userProfile.visit.checkOutTime === null;
-            if (nowCheckedIn) {
-                if (request.path === checkOutUrl) {
-                    return proceed();
-                }
-                else {
-                    return response.redirect(`${checkOutUrl}`);
-                }
-            }
-            else {
-                if (request.path === checkInUrl) {
-                    return proceed();
-                }
-                else if (request.method === "POST" && request.path === "/visit") {
-                    request.body.name = request.session.username;
-                    sails.log.debug(`id: ${request.body.name}`);
-                    return proceed();
-                }
-                else {
-                    return response.redirect(`${checkInUrl}`);
-                }
-            }
+
+        // A student with no records must Check In
+        if (!request.session.userProfile.visit) {
+            if (request.path === checkInUrl) return proceed();
+            return response.redirect(`${checkInUrl}`);
         }
-        else {
-            if (request.path === checkInUrl) {
+
+        // Proper destination is determined by most recent visit record.
+        let checkOutUrl = `/visit/${request.session.userProfile.visit.id}/edit`;
+        let nowCheckedIn = request.session.userProfile.visit.checkOutTime === null;
+
+        if (nowCheckedIn) {
+            // Allow them to access check out form.
+            if (request.path === checkOutUrl) return proceed();
+
+            // Allow them to submit check out form.
+            if (request.method === "POST" && request.path === `/visit/${request.session.userProfile.visit.id}`) {
+                request.body.name = request.session.username; // TODO this is a kludge to make POST work
                 return proceed();
             }
-            else {
-                return response.redirect(`${checkInUrl}`);
-            }
+
+            // Redirect any other request to check out form.
+            return response.redirect(`${checkOutUrl}`);
         }
+        else {
+            // Allow them to access check in form.
+            if (request.path === checkInUrl) return proceed();
 
+            // Allow them to submit check in form.
+            if (request.method === "POST" && request.url === "/visit") {
+                request.body.name = request.session.username; // TODO this is a kludge to make POST work
+                return proceed();
+            }
 
-
-
+            // Redirect any other request to check in form.
+            return response.redirect(`${checkInUrl}`);
+        }
     }
-    else if (request.session.role === "staff" && request.path === "/") {
-        // Path / is a default; menu is the default page for staff users.
+
+    if (request.session.role === "staff" && request.path === "/") {
+        // Controllers will redirect to / in order to allow policies to determine destination.
+        // Staff are sent to a menu by default.
         return response.redirect("/staffmenu");
     }
 

@@ -43,6 +43,19 @@ module.exports = {
         sails.log.debug(visit);
         return visit;
     },
+    
+    afterEncodeAssociations: function(visit) { //TEMP ADDITION
+        if (visit.checkOutTime === null) {
+            visit.checkOutTime = new Date(sails.helpers.getCurrentTime());
+        }
+        visit.visitLength = ((new Date(visit.checkOutTime)).getTime()) - ((new Date(visit.checkInTime)).getTime());
+        visit.visitLength = sails.helpers.convertToHours(visit.visitLength);
+        if (visit.visitLength >= 5) {
+            visit.isLengthEstimated = true;
+        }
+        sails.log.debug(visit);
+        return visit;
+    },
 
     testRecords: [],
 
