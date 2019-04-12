@@ -16,7 +16,6 @@ describe("Staff model", function() {
         firstName: "TEST",
         lastName: "STAFF",  
         isSlpInstructor: true,
-        forceUpdate: true,
     };
     
     // Before tests run ...
@@ -37,6 +36,13 @@ describe("Staff model", function() {
 
     // Run helper integration tests
     helperIntegrationTests("staff", testData);
+    
+    context("A data record returned by `create()`", function() {
+
+        it("should have correct default field values", function() {
+            testData.record.forceUpdate.should.be.true();
+        });
+    });
     
     async function destroyTestData() {
         // Destroy main test record

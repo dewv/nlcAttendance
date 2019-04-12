@@ -18,13 +18,20 @@ describe("Visit model", function() {
     // let testData = {
     let testData = {
         associations: {},
-        record: {}
+        record: {},
+        checkInForm: {},
+        checkOutFormNL: {},
+        checkOutFormLE: {},
     };
 
     before(async function() {
 
-        testData.record = Visit.testRecords[0];
+        testData.record = Visit.testRecords[2];
         testData.associations.name = await Student.findOne({ id: testData.record.name });
+        testData.checkInForm = { visitPurpose: "test" };
+        testData.checkOutFormNL = { purposeAchieved:"Yes", usedTutor:"Yes", tutorCourses:"test", comment:"test comment", name:3 };
+        testData.checkOutFormLE = { purposeAchieved:"Yes", visitLength:"1.25", usedTutor:"Yes", tutorCourses:"test", comment:"test comment", name:3 };
+        
     });
 
     // Run helper integration tests
@@ -41,7 +48,7 @@ describe("Visit model", function() {
         context("`Test the association of the student model for name attribute.", async function() {
             it("Returns correct id number", async function() {
                 let expected = testData.record.name;
-                let visitSample = await Visit.findOne(1);
+                let visitSample = await Visit.findOne(3);
                 visitSample.should.not.be.an.Error();
                 visitSample.should.be.an.Object();
                 let result = visitSample.name;
@@ -52,23 +59,6 @@ describe("Visit model", function() {
             });
         });
         context("`Test the afterPopulateOne function,", async function() {
-            it("checkOutTime gets set to current time", async function() {
-                testData.record.checkOutTime = null;
-                testData.associations.name = await Student.findOne({ id: testData.record.name });
-                let visitTest = Visit.afterPopulateOne(testData.record);
-                let eT = (new Date(sails.helpers.getCurrentTime())).getTime();
-                let tT = (new Date(visitTest.checkOutTime)).getTime();
-                let expected = eT - tT;
-                let result;
-                if (expected <= 1000) {
-                    result = expected;
-                }
-                else {
-                    result = tT;
-                }
-
-                result.should.be.equal(expected, "After the record updated the checkOutTime attribute is " + result + ". We expected " + eT + ".");
-            });
             it("Attribute visitLength should be calculated correctly", async function() {
                 testData.record.checkInTime = "2019-02-25T15:30:00.000Z";
                 testData.record.checkOutTime = "2019-02-25T16:30:00.000Z";
@@ -81,9 +71,9 @@ describe("Visit model", function() {
                 should.exist(result, "visitLength does not exist.");
                 result.should.be.equal(expected, "After the record updated the visitLength attribute is " + result + ". We expected " + expected + ".");
             });
-            it("Attribute isLengthEstimated is set to true when visitLength is longer that 5 hours.", async function() {
-                testData.record.checkInTime = "2019-02-25T15:30:00.000Z";
-                testData.record.checkOutTime = "2019-02-25T21:30:00.000Z";
+            it("Attribute isLengthEstimated is set to true when visitLength is longer that 8 hours.", async function() {
+                testData.record.checkInTime = "2019-02-25T10:30:00.000Z";
+                testData.record.checkOutTime = "2019-02-25T20:30:00.000Z";
                 let visitTest = Visit.afterPopulateOne(testData.record);
                 let result = visitTest.isLengthEstimated;
                 let expected = true;
@@ -92,9 +82,46 @@ describe("Visit model", function() {
                 result.should.be.equal(expected, "After the record updated the isLengthEstimated attribute is " + result + ". We expected it to be " + expected + ".");
             });
         });
+        context("`Test the afterEncodeAssociations function,", async function() {
+            it("checkOutTime gets set to current time when checkOutFrom is submitted", async function() {
+                let checkOutTest = await Visit.afterEncodeAssociations(testData.checkOutFormNL);
+                let eT = (new Date(sails.helpers.getCurrentTime())).getTime();
+                let tT = (new Date(checkOutTest.checkOutTime)).getTime();
+                let expected = eT - tT;
+                let result;
+                if (expected <= 1000) {
+                    result = expected;
+                }
+                else {
+                    result = tT;
+                }
+
+                result.should.be.equal(expected, "After the record updated the checkOutTime attribute is " + result + ". We expected " + eT + ".");
+            });
+            it("Attribute visitLength should be calculated correctly when checkOutFrom is submitted", async function() {
+                let checkOutTest = await Visit.afterEncodeAssociations(testData.checkOutFormNL);
+                let result = checkOutTest.visitLength;
+                let expected = 24;
+                should.exist(result, "visitLength does not exist.");
+                result.should.be.equal(expected, "After the record updated the visitLength attribute is " + result + ". We expected " + expected + ".");
+            });
+            it("Attribute isLengthEstimated is set to true when the system doesnt calculate the visitLength when checkOutFrom is submitted", async function() {
+                let checkOutTest = await Visit.afterEncodeAssociations(testData.checkOutFormLE);
+                let result = checkOutTest.isLengthEstimated;
+                let expected = true;
+                should.exist(result, "isLengthEstimated does not exist.");
+                result.should.be.equal(expected, "After the record updated the isLengthEstimated attribute is " + result + ". We expected " + expected + ".");
+            });
+            it("Nothing should change when checkInFrom is submitted", async function() {
+                let checkInTest = await Visit.afterEncodeAssociations(testData.checkInForm);
+                let result = checkInTest;
+                let expected = testData.checkInForm;
+                result.should.be.equal(expected, "After the function ran the data is " + result + ". We expected " + expected + ".");
+            });
+        });
     });
 
-    
+
 });
 
 /*global Visit*/

@@ -26,7 +26,7 @@ module.exports = {
     },
 
     /**
-     * Calculates the checkOutTime and then visitLength setting a flag if the visitLength is greater than 5 when a Visit record is passed through the populateOne helper.
+     * Calculates the checkOutTime and then visitLength setting a flag if the visitLength is greater than 8 when a Visit record is passed through the populateOne helper.
      * @modifies Database contents.
      * 
      * Note global: PopulateOne checks if a function named afterPopulateOne is defined in the model of any record. The definition is model specific and runs when the record is passed through the populateOne helper.
@@ -38,15 +38,14 @@ module.exports = {
         }
         visit.visitLength = ((new Date(checkOutTime)).getTime()) - ((new Date(visit.checkInTime)).getTime());
         visit.visitLength = sails.helpers.convertToHours(visit.visitLength);
-        if (visit.visitLength >= 5) {
+        if (visit.visitLength > 8) {
             visit.isLengthEstimated = true;
         }
         sails.log.debug("afterPopulateOne " + JSON.stringify(visit));
         return visit;
     },
 
-    afterEncodeAssociations: async function(visit) { //TEMP ADDITION
-        sails.log.debug("afterEncodeAssociations 1 " + JSON.stringify(visit));
+    afterEncodeAssociations: async function(visit) {
         if (visit.purposeAchieved) {
             visit.checkOutTime = new Date(sails.helpers.getCurrentTime());
             if (!visit.visitLength) {
@@ -58,7 +57,6 @@ module.exports = {
                 visit.isLengthEstimated = true;
             }
         }
-        sails.log.debug("afterEncodeAssociations 2 " + JSON.stringify(visit));
         return visit;
     },
 
