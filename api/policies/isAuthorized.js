@@ -32,8 +32,9 @@ module.exports = async function(request, response, proceed) {
                 isLengthEstimated: visit[0].isLengthEstimated,
             };
             request.session.userProfile.visit.checkedIn = request.session.userProfile.visit.checkOutTime === null;
+            request.session.save();
         }
-        sails.log.debug("set visit " + request.session.userProfile.visit);
+        sails.log.debug("set visit " + request.session.userProfile.visit.id);
     }
 
     if (request.path === "/") {

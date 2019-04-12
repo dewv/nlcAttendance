@@ -40,6 +40,7 @@ module.exports = {
         if (visit.visitLength >= 5) {
             visit.isLengthEstimated = true;
         }
+        sails.log.debug(visit);
         return visit;
     },
 
