@@ -16,7 +16,7 @@ module.exports = {
         purposeAchieved: { type: "string", allowNull: true, isIn: ["Yes", "No", "Not sure"] },
         tutorCourses: { type: "string", required: false, allowNull: true },
         comment: { type: "string", allowNull: true },
-        isLengthEstimated: { type: "boolean", allowNull: false, defaultsTo: false }, 
+        isLengthEstimated: { type: "boolean", allowNull: false, defaultsTo: false },
     },
 
     /** Indicates which model attributes have defined domains.
@@ -32,28 +32,33 @@ module.exports = {
      * Note global: PopulateOne checks if a function named afterPopulateOne is defined in the model of any record. The definition is model specific and runs when the record is passed through the populateOne helper.
      */
     afterPopulateOne: function(visit) {
-        if (visit.checkOutTime === null) {
-            visit.checkOutTime = new Date(sails.helpers.getCurrentTime());
+        let checkOutTime = visit.checkOutTime;
+        if (checkOutTime === null) {
+            checkOutTime = new Date(sails.helpers.getCurrentTime());
         }
-        visit.visitLength = ((new Date(visit.checkOutTime)).getTime()) - ((new Date(visit.checkInTime)).getTime());
+        visit.visitLength = ((new Date(checkOutTime)).getTime()) - ((new Date(visit.checkInTime)).getTime());
         visit.visitLength = sails.helpers.convertToHours(visit.visitLength);
         if (visit.visitLength >= 5) {
             visit.isLengthEstimated = true;
         }
-        sails.log.debug(visit);
+        sails.log.debug("afterPopulateOne " + JSON.stringify(visit));
         return visit;
     },
-    
-    afterEncodeAssociations: function(visit) { //TEMP ADDITION
-        if (visit.checkOutTime === null) {
+
+    afterEncodeAssociations: async function(visit) { //TEMP ADDITION
+        sails.log.debug("afterEncodeAssociations 1 " + JSON.stringify(visit));
+        if (visit.purposeAchieved) {
             visit.checkOutTime = new Date(sails.helpers.getCurrentTime());
+            if (!visit.visitLength) {
+                let current = await Visit.find({ where: { name: visit.name }, limit: 1, sort: "checkInTime DESC" });
+                visit.checkInTime = current[0].checkInTime;
+                visit.visitLength = ((new Date(visit.checkOutTime)).getTime()) - ((new Date(visit.checkInTime)).getTime());
+                visit.visitLength = sails.helpers.convertToHours(visit.visitLength);
+            } else {
+                visit.isLengthEstimated = true;
+            }
         }
-        visit.visitLength = ((new Date(visit.checkOutTime)).getTime()) - ((new Date(visit.checkInTime)).getTime());
-        visit.visitLength = sails.helpers.convertToHours(visit.visitLength);
-        if (visit.visitLength >= 5) {
-            visit.isLengthEstimated = true;
-        }
-        sails.log.debug(visit);
+        sails.log.debug("afterEncodeAssociations 2 " + JSON.stringify(visit));
         return visit;
     },
 
@@ -66,8 +71,8 @@ module.exports = {
      * Note convention: sample data is ALL CAPS, using .net rather than .edu domain
      */
     createTestData: async function() {
-        const oneDay = 24 * 60 * 60 * 1000; 
-        
+        const oneDay = 24 * 60 * 60 * 1000;
+
         // First student has NO associated visits.
 
         // All remaining students have old closed visits.
@@ -100,8 +105,8 @@ module.exports = {
             };
             this.testRecords.push(await Visit.create(record).fetch());
         }
-    } 
-    
+    }
+
 };
 
 

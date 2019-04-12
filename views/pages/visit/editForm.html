@@ -3,14 +3,14 @@
 
 <form method="POST" action="<%= action %>">
 
-    <p>You check in </p>&nbsp; <%= formData.checkInTime %> <br>
+    <p>You checked in at </p>&nbsp; <%= formData.checkInTime %> <br>
 
   
     <% if (formData.isLengthEstimated) { %>
         <p>Please estimate the duration of your visit to the nearest quarter hour:&nbsp; 
             <select id="visitLength" name="visitLength" required>
                 <% for (var i = 1; i <= 32; i++) { %>
-                    <option value="<%= i  %>"><%=i * 0.25%></option>
+                    <option value="<%=i * 0.25%>"><%=i * 0.25%></option>
                 <% } %>
             </select>&nbsp; hour(s).
         </p>
@@ -18,7 +18,7 @@
     
     <br>
  
-    <p>The purpose of your visit was: </p>&nbsp; <%= formData.visitPurpose%>
+    <p>The purpose of your visit was: </p>&nbsp; <%= formData.visitPurpose%> <br>
  
 
     <div>
@@ -43,9 +43,11 @@
         <input id="tutorCourses" name="tutorCourses" type="text" autofocus maxlength="255" required value="<%= formData.tutorCourses %>">
     </div>
     <br>
-
-    <p>Comments:</p>
-    <textarea rows="4" cols="75" id="comment" required value="<%= formData.comment %>"></textarea>
+    
+    <div>
+        <p>Comments:</p>
+        <textarea id="comment" name="comment" rows="4" cols="75" required value="<%= formData.comment %>"></textarea>
+    </div>
     <br>
 
     <br>
