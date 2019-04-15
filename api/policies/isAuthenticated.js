@@ -12,6 +12,10 @@
  * @async
  */
 module.exports = async function(request, response, proceed) {
+    if (request.params.model === "controller") {
+        return proceed();
+    }
+    
     if (request.session && request.session.role) {
         return proceed();
     }

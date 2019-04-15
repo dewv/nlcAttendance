@@ -13,6 +13,9 @@
 module.exports = async function(request, response, proceed) {
 
     let model = request.params.model;
+    
+    if (model === "controller") return proceed();
+    
     let profileUrl = `/${request.session.role}/${request.session.userId}`;
 
     request.session.userProfile = await sails.helpers.populateOne(sails.models[request.session.role], request.session.userId);
@@ -32,7 +35,6 @@ module.exports = async function(request, response, proceed) {
                 isLengthEstimated: visit[0].isLengthEstimated,
             };
             request.session.userProfile.visit.checkedIn = request.session.userProfile.visit.checkOutTime === null;
-            request.session.save();
         }
         sails.log.debug("set visit " + JSON.stringify(request.session.userProfile.visit));
     }

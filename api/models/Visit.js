@@ -6,6 +6,8 @@
  */
 
 module.exports = {
+    
+    schema: false,
 
     attributes: {
         name: { model: "Student" },

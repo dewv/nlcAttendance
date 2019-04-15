@@ -20,7 +20,7 @@ function authenticateAs(role, callback) {
             "Content-Length": Buffer.byteLength(credentials)
         }
     };
-    
+
     let request = http.request(options, function(response) {
         callback(response.headers["set-cookie"]);
     });
@@ -68,32 +68,75 @@ describe("`isAuthorized` policy", function() {
                 done();
             });
         });
-        
+
         it("should authorize requests to update their own profile", function(done) {
             isRequestAuthorized("POST", "/student/1", studentSession, function(authorized) {
                 authorized.should.be.true();
                 done();
             });
         });
+
+        it("should forbid requests to load other user profiles in the edit form");
+
+        it("should forbid requests to update other user profiles");
+
+        it("should authorize requests to load the visit create form");
+
+        it("should authorize requests to submit the visit create form");
+
+        it("should authorize requests to load their own most recent visit in the edit form");
+
+        it("should authorize requests to update their own most recent visit");
+
+        it("should forbid requests to load their older visits in the edit form");
+
+        it("should forbid requests to update their older visits");
+
+        it("should forbid requests to load other user's visits in the edit form");
+
+        it("should forbid requests to update other user's visits");
+
+        it("should forbid requests to get the staff menu");
+
+        it("should forbid requests to view all visit records");
+
+        it("should forbid requests to load the browser registration form");
+
+        it("should forbid requests to submit the browser registration form");
     });
 
-    context("when user is authenticated staff", function() {
-        it("should authorize staff to edit their own user profile", function() {
-            // (await isRequestAuthorized("GET", "/student/0/edit")).should.be.true();
-            // (await isRequestAuthorized("POST", "/student/0")).should.be.true();
+    context("when the user is authenticated staff", function() {
+        let staffSession = undefined;
+
+        before(function(done) {
+            authenticateAs("staff", function(cookie) {
+                staffSession = cookie;
+                done();
+            });
         });
+
+        it("should authorize requests to load their own profile in the edit form");
+
+        it("should authorize requests to update their own profile");
+
+        it("should forbid requests to load other user profiles in the edit form");
+
+        it("should forbid requests to update other user profiles");
+
+        it("should authorize requests to get the staff menu");
+
+        it("should authorize requests to view all visit records");
+
+        it("should authorize requests to load the browser registration form");
+
+        it("should authorize requests to submit the browser registration form");
+
+        it("should forbid requests to load the visit create form");
+
+        it("should forbid requests to submit the visit create form");
+
+        it("should forbid requests to load the visit edit form");
+
+        it("should forbid requests to update visits");
     });
-
-
-    it("should forbid all other requests for user profiles", function() {});
-    it("should authorize students to create a visit record", function() {});
-    it("should authorize students to edit their own most recent visit record", function() {});
-    it("should authorize staff to view all visit records", function() {});
-    it("should forbid all other requests for visit records", function() {});
-
-    it("should authorize staff to get staff menu", function() {});
-    it("should forbid students to get staff menu", function() {});
-
-    it("should authorize staff to register the browser", function() {});
-    it("should forbid students to register the browser", function() {});
 });

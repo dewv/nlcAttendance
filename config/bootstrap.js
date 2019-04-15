@@ -14,5 +14,6 @@ module.exports.bootstrap = async function() {
 
     // By convention, this is a good place to set up fake data during development.
     await Student.createTestData();
+    await Staff.createTestData();
     await Visit.createTestData();
 };

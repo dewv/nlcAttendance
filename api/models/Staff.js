@@ -13,12 +13,38 @@ module.exports = {
         isSlpInstructor: { type: "boolean", allowNull: "false", defaultsTo: false },
         forceUpdate: { type: "boolean", defaultsTo: true }
     },
-    
+
     candidateKey: "username",
 
     beforeUpdate: async function(valuesToSet, proceed) {
         valuesToSet.forceUpdate = false;
         return proceed();
+    },
+
+    domainDefined: {
+        isSlpInstructor: true // TODO is this needed?
+    },
+    
+    testRecords: [],
+
+    /**
+     * Populates the database with test data for use in development environments.
+     * @modifies Database contents.
+     * 
+     * Note convention: sample data is ALL CAPS, using .net rather than .edu domain
+     */
+    createTestData: async function() {
+        let recordCount = 5;
+
+        for (let i = 0; i < recordCount; i++) {
+            this.testRecords.push(await Staff.create({
+                username: `STAFFUSERNAME${i + 1}@DEWV.NET`,
+                firstName: `STAFFFIRSTNAME${i + 1}`,
+                lastName: `STAFFLASTNAME${i + 1}`,
+                isSlpInstructor: i % 2 === 0,
+                forceUpdate: Staff.attributes.forceUpdate.defaultsTo
+            }).fetch());
+        }
     }
 };
 

@@ -14,6 +14,8 @@
  * @async
  */
 module.exports = async function(request, response, proceed) {
+    if (request.params.model === "controller") return proceed();
+    
     let profileUrl = `/${request.session.role}/${request.session.userProfile.id}`;
     let profileEditUrl = `${profileUrl}/edit`;
 

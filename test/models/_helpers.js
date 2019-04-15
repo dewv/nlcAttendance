@@ -2,7 +2,6 @@
  * @module _helpers
  */
 
-//"use strict";
 const should = require("should");
 const config = require("../../config/models");
 
@@ -14,7 +13,7 @@ const config = require("../../config/models");
  */
 module.exports = function(modelName, testData) {
 
-    describe("Standard tests of model, helpers integration", function() {
+    describe("Standard tests of model, helpers integration", async function() {
 
         context("`getDefaults` helper", async function() {
             it("should return a record with expected sailsjs model attributes", async function() {
@@ -29,7 +28,7 @@ module.exports = function(modelName, testData) {
             });
         });
 
-        context("`getAssociationDomains` helper", function() {
+        context("`getAssociationDomains` helper", async function() {
             it("should return a dictionary containing domain values for each appropriate model attribute", async function() {
                 let model = sails.models[modelName];
                 let result = await sails.helpers.getDomains(model);
@@ -65,7 +64,7 @@ module.exports = function(modelName, testData) {
             });
         });
 
-        context("`populateOne` helper", function() {
+        context("`populateOne` helper", async function() {
             it("should return a data record for the specified ID, with all associations populated", async function() {
                 let model = sails.models[modelName];
                 let id = testData.record.id;
@@ -97,7 +96,7 @@ module.exports = function(modelName, testData) {
             });
         });
 
-        context("`getCurrentTime helper", function() {
+        context("`getCurrentTime` helper", async function() {
             it("should return the current synchronized time", async function() {
                 let result = sails.helpers.getCurrentTime();
                 let expected = Date.now();
@@ -107,8 +106,9 @@ module.exports = function(modelName, testData) {
                 result.should.equal(expected, "The helper returned " + result + " , while the test expected " + expected + ".");
             });
         });
-        context("`convertToHours helper", function() {
-            it("should return the number of hours to the nearest quarter hour", async function() {
+        
+        context("`convertToHours` helper", async function() {
+            it("should return the number of hours, to the nearest quarter hour", async function() {
                 for (let i = 6000000; i < 10000000; i = i + 1000000) {
                     let result = sails.helpers.convertToHours(i);
                     let time = i / 3600000;

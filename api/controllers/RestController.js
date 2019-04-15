@@ -12,6 +12,7 @@ module.exports = {
      * @async
      */
     listRequested: async function(request, response) {
+        if (request.params.model === "controller") return response.cookie("RestController", "listRequested").end();
         let model = sails.models[request.params.model];
         if (!model) return response.notFound();
         let records = await model.find();
@@ -26,7 +27,7 @@ module.exports = {
      * @async
      */
     createFormRequested: async function(request, response) {
-        sails.log.debug("cfr");
+        if (request.params.model === "controller") return response.cookie("RestController", "createFormRequested").end();
         let model = sails.models[request.params.model];
         if (!model) return response.notFound();
         let domains = await sails.helpers.getDomains(model);
@@ -38,7 +39,7 @@ module.exports = {
         for (let domain in domains) {
             ejsData[domain] = await sails.helpers.generateHtmlSelect(domain, domains[domain]);
         }
-        
+
         return sails.helpers.responseViewSafely(response, `pages/${request.params.model}/createForm`, ejsData);
     },
 
@@ -50,7 +51,7 @@ module.exports = {
      * @async
      */
     createFormSubmitted: async function(request, response) {
-        sails.log.debug("cfs");
+        if (request.params.model === "controller") return response.cookie("RestController", "createFormSubmitted").end();
         let encodedData = await sails.helpers.encodeAssociations(sails.models[request.params.model], request.body);
         await sails.models[request.params.model].create(encodedData);
         return response.redirect("/");
@@ -64,7 +65,7 @@ module.exports = {
      * @async
      */
     editFormRequested: async function(request, response) {
-        sails.log.debug("efr");
+        if (request.params.model === "controller") return response.cookie("RestController", "editFormRequested").end();
         let model = sails.models[request.params.model];
         let recordToUpdate = await sails.helpers.populateOne(model, request.params.id);
         if (!recordToUpdate) return response.notFound();
@@ -98,7 +99,7 @@ module.exports = {
      * @async
      */
     editFormSubmitted: async function(request, response) {
-        sails.log.debug("efs");
+        if (request.params.model === "controller") return response.cookie("RestController", "editFormSubmitted").end();
         let encodedData = await sails.helpers.encodeAssociations(sails.models[request.params.model], request.body);
         await sails.models[request.params.model].updateOne({ id: request.params.id }).set(encodedData);
         return response.redirect("/");
