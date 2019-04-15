@@ -47,7 +47,7 @@ module.exports = {
             }
         }
         
-        if (inputs.model.afterEncodeAssociations) { //TEMP ADDITION
+        if (inputs.model.afterEncodeAssociations) {
             await inputs.model.afterEncodeAssociations(inputs.record);
         }
 

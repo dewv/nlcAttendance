@@ -32,19 +32,14 @@ module.exports = {
      * Note global: PopulateOne checks if a function named afterPopulateOne is defined in the model of any record. The definition is model specific and runs when the record is passed through the populateOne helper.
      */
     afterPopulateOne: function(visit) {
-        let checkOutTime = visit.checkOutTime;
-        if (checkOutTime === null) {
-            checkOutTime = new Date(sails.helpers.getCurrentTime());
-        }
-        visit.visitLength = ((new Date(checkOutTime)).getTime()) - ((new Date(visit.checkInTime)).getTime());
+        if (visit.checkOutTime === null) visit.checkOutTime = new Date(sails.helpers.getCurrentTime());
+        visit.visitLength = ((new Date(visit.checkOutTime)).getTime()) - ((new Date(visit.checkInTime)).getTime());
         visit.visitLength = sails.helpers.convertToHours(visit.visitLength);
-        if (visit.visitLength > 8) {
-            visit.isLengthEstimated = true;
-        }
+        if (visit.visitLength > 8) visit.isLengthEstimated = true;
         sails.log.debug("afterPopulateOne " + JSON.stringify(visit));
         return visit;
     },
-    
+
     /**
      * Takes data passed from encodeAssociations, modifies it as needed and returns that data back to the encodeAssociations helper.
      * @modifies Database contents.
@@ -59,7 +54,8 @@ module.exports = {
                 visit.checkInTime = current[0].checkInTime;
                 visit.visitLength = ((new Date(visit.checkOutTime)).getTime()) - ((new Date(visit.checkInTime)).getTime());
                 visit.visitLength = sails.helpers.convertToHours(visit.visitLength);
-            } else {
+            }
+            else {
                 visit.isLengthEstimated = true;
             }
         }
