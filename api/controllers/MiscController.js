@@ -14,6 +14,6 @@ module.exports = {
      * @async
      */
     get: async function(request, response) {
-        return sails.helpers.responseViewSafely(response, `pages/misc${request.path}`);
+        return sails.helpers.responseViewSafely(request, response, `pages/misc${request.path}`);
     }
 };

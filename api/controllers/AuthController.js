@@ -12,7 +12,7 @@ module.exports = {
      * @async
      */
     loginFormRequested: async function(request, response) {
-        return sails.helpers.responseViewSafely(response, "pages/login");
+        return sails.helpers.responseViewSafely(request, response, "pages/login");
     },
 
     /**
@@ -51,5 +51,5 @@ module.exports = {
     logout: function(request, response) {
         request.session.destroy();
         return response.redirect("/login");
-    },
+    }
 };

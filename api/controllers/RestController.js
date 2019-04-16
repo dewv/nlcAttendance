@@ -16,7 +16,8 @@ module.exports = {
         let model = sails.models[request.params.model];
         if (!model) return response.notFound();
         let records = await model.find();
-        return sails.helpers.responseViewSafely(response, `pages/${request.params.model}/index`, { records: records });
+        clearRestCookies(response);
+        return sails.helpers.responseViewSafely(request, response, `pages/${request.params.model}/index`, { records: records });
     },
 
     /**
@@ -40,7 +41,8 @@ module.exports = {
             ejsData[domain] = await sails.helpers.generateHtmlSelect(domain, domains[domain]);
         }
 
-        return sails.helpers.responseViewSafely(response, `pages/${request.params.model}/createForm`, ejsData);
+        clearRestCookies(response);
+        return sails.helpers.responseViewSafely(request, response, `pages/${request.params.model}/createForm`, ejsData);
     },
 
     /**
@@ -54,6 +56,8 @@ module.exports = {
         if (request.params.model === "controller") return response.cookie("RestController", "createFormSubmitted").end();
         let encodedData = await sails.helpers.encodeAssociations(sails.models[request.params.model], request.body);
         await sails.models[request.params.model].create(encodedData);
+        response.cookie("restAction", "create");
+        response.cookie("restModel", request.params.model);
         return response.redirect("/");
     },
 
@@ -88,7 +92,8 @@ module.exports = {
             ejsData[domain] = await sails.helpers.generateHtmlSelect(domain, domains[domain], selected);
         }
 
-        return await sails.helpers.responseViewSafely(response, `pages/${request.params.model}/editForm`, ejsData);
+        clearRestCookies(response);
+        return await sails.helpers.responseViewSafely(request, response, `pages/${request.params.model}/editForm`, ejsData);
     },
 
     /**
@@ -102,6 +107,13 @@ module.exports = {
         if (request.params.model === "controller") return response.cookie("RestController", "editFormSubmitted").end();
         let encodedData = await sails.helpers.encodeAssociations(sails.models[request.params.model], request.body);
         await sails.models[request.params.model].updateOne({ id: request.params.id }).set(encodedData);
+        response.cookie("restAction", "edit");
+        response.cookie("restModel", request.params.model);
         return response.redirect("/");
     }
 };
+
+function clearRestCookies(response) {
+    response.clearCookie("restAction");
+    response.clearCookie("restModel");
+}

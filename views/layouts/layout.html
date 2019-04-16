@@ -48,6 +48,10 @@
 </head>
 
 <body>
+  <% if (typeof banner !== "undefined") { %>
+    <p><%= banner %></p>
+  <% } %>
+
   <%- body %>
 
 

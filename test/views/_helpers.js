@@ -3,7 +3,8 @@
  */
 
 "use strict";
-const should = require("should");
+require("should");
+const MockExpressRequest = require("mock-express-request");
 const MockExpressResponse = require("mock-express-response");
 
 /**
@@ -31,6 +32,8 @@ module.exports = function() {
         });
         
         context("`responseViewSafely` helper", async function() {
+            let request = new MockExpressRequest();
+            request.cookies = {};
             let response = new MockExpressResponse();
             let success = false;
             response.notFound = function() {
@@ -38,7 +41,7 @@ module.exports = function() {
             };
 
             it("should call `response.notFound()` when a non-existent file is requested", async function() {
-                await sails.helpers.responseViewSafely(response, "PATH_OF_A_NONEXISTENT_FILE");
+                await sails.helpers.responseViewSafely(request, response, "PATH_OF_A_NONEXISTENT_FILE");
                 (success).should.be.true();
             });
         });

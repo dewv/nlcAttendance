@@ -26,7 +26,7 @@ module.exports = async function(request, response, proceed) {
 
     // A profile update may be required before the user can take any other action.
     if (request.session.userProfile.forceUpdate) {
-        return response.redirect(`${profileEditUrl}`);
+        return response.redirect(profileEditUrl);
     }
 
     if (request.session.role === "student") {
@@ -39,7 +39,7 @@ module.exports = async function(request, response, proceed) {
         // A student with no records must Check In
         if (!request.session.userProfile.visit) {
             if (request.path === checkInUrl) return proceed();
-            return response.redirect(`${checkInUrl}`);
+            return response.redirect(checkInUrl);
         }
 
         // Proper destination is determined by most recent visit record.
@@ -57,7 +57,7 @@ module.exports = async function(request, response, proceed) {
             }
 
             // Redirect any other request to check out form.
-            return response.redirect(`${checkOutUrl}`);
+            return response.redirect(checkOutUrl);
         }
         else {
             // Allow them to access check in form.
@@ -70,7 +70,7 @@ module.exports = async function(request, response, proceed) {
             }
 
             // Redirect any other request to check in form.
-            return response.redirect(`${checkInUrl}`);
+            return response.redirect(checkInUrl);
         }
     }
 
