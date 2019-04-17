@@ -16,6 +16,7 @@ module.exports = {
         visitLength: { type: "number", required: false, allowNull: true },
         visitPurpose: { type: "string", required: true, allowNull: false },
         purposeAchieved: { type: "string", allowNull: true, isIn: ["Yes", "No", "Not sure"] },
+        usedTutor: { type: "string", defaultsTo: "No" },
         tutorCourses: { type: "string", required: false, allowNull: true },
         comment: { type: "string", allowNull: true },
         isLengthEstimated: { type: "boolean", allowNull: false, defaultsTo: false },
