@@ -53,19 +53,19 @@ function isRedirect(method, requestPath, redirectPath, sessionCookie, callback) 
 
 describe("`isAppropriate` policy", function() {
     context("when the user is an authenticated student", function() {
-        let student= undefined;
+        let student = undefined;
         let studentSession = undefined;
 
         context("with the mandatory profile update flag set", function() {
-            
+
             before(function(done) {
-                authenticateAs("student", 0, function(studentRecord, cookie) {
+                authenticateAs("student", 1, function(studentRecord, cookie) {
                     student = studentRecord;
                     studentSession = cookie;
                     done();
                 });
             });
-            
+
             it("should redirect requests to their own profile edit form", function(done) {
                 isRedirect("GET", "/", `/student/${student.id}/edit`, studentSession, function(redirected) {
                     redirected.should.be.true();
@@ -75,28 +75,94 @@ describe("`isAppropriate` policy", function() {
         });
 
         context("who is checked out", function() {
-            it("should NOT redirect requests to their own profile edit form");
 
-            it("should redirect all other requests to the visit create form");
+            before(function(done) {
+                authenticateAs("student", 0, function(studentRecord, cookie) {
+                    student = studentRecord;
+                    studentSession = cookie;
+                    done();
+                });
+            });
+
+            it("should NOT redirect requests to their own profile edit form", function(done) {
+                isRedirect("GET", `/student/${student.id}/edit`, "/", studentSession, function(redirected) {
+                    redirected.should.be.false();
+                    done();
+                });
+            });
+
+            it("should redirect all other requests to the visit create form", function(done) {
+                isRedirect("GET", `/student/${student.id}/edit`, "/", studentSession, function(redirected) {
+                });
+                isRedirect("POST", `/student/${student.id}/edit`, "/", studentSession, function(redirected) {
+                });
+                isRedirect("GET", "/", `/visit/new`, studentSession, function(redirected) {
+                    redirected.should.be.true();
+                    done();
+                });
+            });
         });
 
         context("who checked in earlier today", function() {
-            it("should NOT redirect requests to their own profile edit form");
+            
+            before(function(done) {
+                authenticateAs("student", 3, function(studentRecord, cookie) {
+                    student = studentRecord;
+                    studentSession = cookie;
+                    done();
+                });
+            });
+
+            it("should NOT redirect requests to their own profile edit form", function(done) {
+                isRedirect("GET", `/student/${student.id}/edit`, "/", studentSession, function(redirected) {
+                    redirected.should.be.false();
+                    done();
+                });
+            });
 
             it("should redirect all other requests to the visit edit form, \"normal\" mode");
         });
 
         context("who checked in yesterday, or before", function() {
-            it("should NOT redirect requests to their own profile edit form");
+            
+            before(function(done) {
+                authenticateAs("student", 2, function(studentRecord, cookie) {
+                    student = studentRecord;
+                    studentSession = cookie;
+                    done();
+                });
+            });
+
+            it("should NOT redirect requests to their own profile edit form", function(done) {
+                isRedirect("GET", `/student/${student.id}/edit`, "/", studentSession, function(redirected) {
+                    redirected.should.be.false();
+                    done();
+                });
+            });
 
             it("should redirect all other requests to the visit edit form, \"estimate\" mode");
         });
     });
 
     context("when the user is authenticated staff", function() {
+        let staff = undefined;
+        let staffSession = undefined;
 
         context("with the mandatory profile update flag set", function() {
-            it("should redirect requests to their own profile edit form");
+            before(function(done) {
+                authenticateAs("staff", 0, function(staffRecord, cookie) {
+                    staff = staffRecord;
+                    staffSession = cookie;
+                    done();
+                });
+            });
+
+            it("should redirect requests to their own profile edit form", function(done) {
+                isRedirect("GET", "/", `/staff/${staff.id}/edit`, staffSession, function(redirected) {
+                    redirected.should.be.true();
+                    done();
+                });
+            });
         });
     });
 });
