@@ -6,13 +6,13 @@
  */
 
 module.exports = {
-    
+
     schema: false,
 
     attributes: {
         name: { model: "Student" },
         checkInTime: { type: "string", columnType: "datetime", autoCreatedAt: true },
-        checkOutTime: { type: "string", columnType: "datetime", allowNull: true },
+        checkOutTime: { type: "ref", columnType: "datetime" },
         visitLength: { type: "number", required: false, allowNull: true },
         visitPurpose: { type: "string", required: true, allowNull: false },
         purposeAchieved: { type: "string", allowNull: true, isIn: ["Yes", "No", "Not sure"] },
@@ -75,12 +75,13 @@ module.exports = {
      */
     createTestData: async function() {
         const oneDay = 24 * 60 * 60 * 1000;
+        const oneHour = 60 * 60 * 1000;
 
         // First student has NO associated visits.
 
         // All remaining students have old closed visits.
         for (let iStudent = 1; iStudent < Student.testRecords.length; iStudent++) {
-            for (let iVisit = 1; iVisit <= iStudent; iVisit++) {
+            for (let iVisit = 1; iVisit <= 3; iVisit++) {
                 let record = {
                     name: Student.testRecords[iStudent].id,
                     checkInTime: new Date(`2018-${iVisit}-${iVisit} ${iVisit}:${iVisit}:${iVisit}`),
@@ -96,16 +97,29 @@ module.exports = {
                 this.testRecords.push(await Visit.create(record).fetch());
             }
 
-            // Second student has closed visits only.
-            if (iStudent === 1) continue;
-
-            // Third student has a visit opened yesterday, and
-            // all others have a visit opened today.
-            let record = {
+        }
+        
+        // Third student has a visit opened yesterday, and
+        // all others have a visit opened today.
+        for (let iStudent = 2; iStudent < Student.testRecords.length; iStudent++) {
+            
+            let record;
+            let yesterday = {
                 name: Student.testRecords[iStudent].id,
-                checkInTime: new Date(sails.helpers.getCurrentTime() - (iStudent === 2 ? oneDay : 0)),
-                visitPurpose: "VISIT OPENED " + (iStudent === 2 ? "YESTERDAY" : "TODAY")
+                checkInTime: new Date(sails.helpers.getCurrentTime() - oneDay),
+                visitPurpose: "VISIT OPENED YESTERDAY"
             };
+            let today = {
+                name: Student.testRecords[iStudent].id,
+                checkInTime: new Date(sails.helpers.getCurrentTime() - (oneHour * (.5 * iStudent))),
+                visitPurpose: "VISIT OPENED TODAY"
+            };
+            if (iStudent === 2 || iStudent === 7) {
+                record = yesterday;
+            } else record = today;
+            
+            if (iStudent === 5 || iStudent === 6) continue;
+            
             this.testRecords.push(await Visit.create(record).fetch());
         }
     }
