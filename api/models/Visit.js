@@ -82,6 +82,7 @@ module.exports = {
         // All remaining students have old closed visits.
         for (let iStudent = 1; iStudent < Student.testRecords.length; iStudent++) {
             for (let iVisit = 1; iVisit <= 3; iVisit++) {
+                if(iStudent === 5) continue;
                 let record = {
                     name: Student.testRecords[iStudent].id,
                     checkInTime: new Date(`2018-${iVisit}-${iVisit} ${iVisit}:${iVisit}:${iVisit}`),
