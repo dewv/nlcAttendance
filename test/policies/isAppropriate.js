@@ -117,7 +117,7 @@ describe("`isAppropriate` policy", function() {
             });
 
             it("should redirect all other requests to the visit edit form, \"normal\" mode", function(done) {
-                isRedirect("GET", "/", `/visit/32/edit`, studentSession, function(redirected) {
+                isRedirect("GET", "/", `/visit/29/edit`, studentSession, function(redirected) {
                     redirected.should.be.true();
                     done();
                 });
@@ -142,7 +142,7 @@ describe("`isAppropriate` policy", function() {
             });
 
             it("should redirect all other requests to the visit edit form, \"estimate\" mode", function(done) {
-                isRedirect("GET", "/", `/visit/31/edit`, studentSession, function(redirected) {
+                isRedirect("GET", "/", `/visit/28/edit`, studentSession, function(redirected) {
                     redirected.should.be.true();
                     done();
                 });
@@ -165,6 +165,22 @@ describe("`isAppropriate` policy", function() {
 
             it("should redirect requests to their own profile edit form", function(done) {
                 isRedirect("GET", "/", `/staff/${staff.id}/edit`, staffSession, function(redirected) {
+                    redirected.should.be.true();
+                    done();
+                });
+            });
+        });
+        context("with the mandatory profile update flag not set", function() {
+            before(function(done) {
+                authenticateAs("staff", 4, function(staffRecord, cookie) {
+                    staff = staffRecord;
+                    staffSession = cookie;
+                    done();
+                });
+            });
+
+            it("should redirect requests to the staff menu", function(done) {
+                isRedirect("GET", "/", `/staffmenu`, staffSession, function(redirected) {
                     redirected.should.be.true();
                     done();
                 });
