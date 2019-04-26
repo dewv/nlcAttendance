@@ -13,9 +13,9 @@
 module.exports = async function(request, response, proceed) {
 
     let model = request.params.model;
-    
+
     if (model === "controller") return proceed();
-    
+
     let profileUrl = `/${request.session.role}/${request.session.userId}`;
 
     request.session.userProfile = await sails.helpers.populateOne(sails.models[request.session.role], request.session.userId);
@@ -43,48 +43,46 @@ module.exports = async function(request, response, proceed) {
         return proceed();
     }
 
-    if (request.path === profileUrl ||
-        request.path === `${profileUrl}/edit`) {
-        // Users are authorized to access their own profile ...
-        return proceed();
-    }
+    // Users are authorized to update their own profile ...
+    if (request.path === profileUrl && request.method === "POST") return proceed();
+    // Users are authorized to access their own profile ...
+    if (request.path === `${profileUrl}/edit` && request.method === "GET") return proceed();
 
     if (request.session.role === "student" && model === "visit") {
-        if (request.session.userProfile.visit.checkedIn) {
-            if (request.path === `/${model}/${request.session.userProfile.visit.id}` ||
-                request.path === `/${model}/${request.session.userProfile.visit.id}/edit`) {
-                // Students are authorized to edit their own most recent visit record ...
+        if (!request.session.userProfile.visit) {
+            if (request.path === "/visit/new") {
+                // ... or to get the form to create a new visit record ...
+                return proceed();
+            }
+            else if (request.path === "/visit" && request.method === "POST") {
+                // ... or to submit the form to create a new visit record ...
                 return proceed();
             }
         }
-        else if (request.path === "/visit/new" && !request.session.userProfile.visit.checkedIn) {
-            // ... or to get the form to create a new visit record ...
-            return proceed();
+        else if (request.session.userProfile.visit.checkedIn) {
+            // Students are authorized to edit their own most recent visit record ...
+            if (request.path === `/${model}/${request.session.userProfile.visit.id}` && request.method === "POST") return proceed();
+            // Students are authorized to update their own most recent visit record ...   
+            if (request.path === `/${model}/${request.session.userProfile.visit.id}/edit` && request.method === "GET") return proceed();
         }
-        else if (request.path === "/visit" && request.method === "POST" && !request.session.userProfile.checkedIn) {
-            // ... or to submit the form to create a new visit record ...
-            return proceed();
+        else if (!request.session.userProfile.visit.checkedIn || request.session.userProfile.visit.checkedIn === undefined) {
+            if (request.path === "/visit/new") {
+                // ... or to get the form to create a new visit record ...
+                return proceed();
+            }
+            else if (request.path === "/visit" && request.method === "POST") {
+                // ... or to submit the form to create a new visit record ...
+                return proceed();
+            }
         }
-        else if (request.path === `/${model}/${request.session.userProfile.visit.id}` && request.method === "POST" && request.session.userProfile.checkedIn) {
-            // ... or to submit the form to create a new visit record ...
-            return proceed();
-        } 
 
     }
 
     if (request.session.role === "staff") {
         if (request.path === "/staffmenu" && request.method === "GET") return proceed(); // view staff menu
         else if (request.path === "/visit" && request.method === "GET") return proceed(); // view visits
-        else if (request.path === "/visit/spreadsheet" && request.method === "GET") return proceed();// view visits spreadsheet dump
+        else if (request.path === "/visit/spreadsheet" && request.method === "GET") return proceed(); // view visits spreadsheet dump
         else if (request.path === "/browser") return proceed(); // register browser to track visits
-        else if (request.path === `/staff/${request.session.userProfile.id}/edit` && request.method === "GET") {
-            // ... or to load their own profile edit form ...
-            return proceed();
-        } 
-        else if (request.path === `/${model}/${request.session.userProfile.id}` && request.method === "POST") {
-            // ... or to submit the profile edit form...
-            return proceed();
-        } 
     }
 
     sails.log.debug("default to forbid for " + request.path);
