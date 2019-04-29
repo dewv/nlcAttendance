@@ -6,11 +6,19 @@ function validateForm() {
 }
 </script>
 
-<p>This form will register this browser to permit NLC attendance tracking.</p>
-<p>When a student checks in with this browser, their visit will be marked with the location that you enter below.</p>
-
 <form name="register" onsubmit="return validateForm()" method="get" action="/staffmenu">
-    Location Name:
+    <h1>Register this Browser</h1> 
+
+    <br>
+    <br>
+    <label for="location">Location Name:</label>
     <input type="text" autofocus name="location" maxlength="255" required>
-    <input type="submit" value="Submit">
+    <button id="submitButton" type="submit">Submit</button>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="instructions">
+    <p>This form will register this browser to permit NLC attendance tracking. When a student checks in with this browser, their visit will be marked with the location that you enter below:</p>
+    </div>
 </form>

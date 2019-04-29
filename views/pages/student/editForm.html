@@ -1,57 +1,63 @@
 
 
-<form method="POST" action="<%= action %>">
+<form method="POST" action="<%= action %>" >
     <div>
-      <label for="firstName" value="First Name">First name</label>
-      <input id="firstName" name="firstName" type="text" autofocus maxlength="255" required value="<%= formData.firstName %>"> 
+      <label for="firstName" value="First Name">First name</label> <br>
+      <input id="firstName" name="firstName" type="text"  placeholder="First Name" autofocus maxlength="255" required value="<%= formData.firstName %>" > 
     </div>
     <br>
     
     <div>
-      <label for="lastName" value="Last Name">Last name</label>
+      <label for="lastName" value="Last Name">Last name</label> <br>
       <input id="lastName" name="lastName" type="text" required value="<%= formData.lastName %>">
     </div>
     <br>
     
     <div>
-      <label for="academicRank">Academic Rank</label>
+      <label for="academicRank">Academic Rank</label> <br>
       <%- academicRank %>
     </div>
     <br>
     
     <div>
-      <label for="residentialStatus">Residential Status</label>
+      <label for="residentialStatus">Residential Status</label> <br>
       <%- residentialStatus %>
     </div>
     <br>
     
     <div>
-      <label for="majorOne">Major 1</label>
+      <label for="majorOne">Major 1</label> <br>
       <%- majorOne %>
     </div>
     <br>
     
     <div>
-      <label for="majorTwo">Major 2</label>
+      <label for="majorTwo">Major 2</label> <br>
       <%- majorTwo %>
     </div>
     <br>
     
+    <div>
     Are you an athlete?
     <br>
-    <input id="yesAthlete" type="radio" name="YNAthlete"/> Yes
-    <input id="noAthlete" type="radio" name="YNAthlete"/> No
     <br>
+    <label for="athletey">Yes</label>
+    <input id="yesAthlete" type="radio" name="YNAthlete"/>
+    <label for="athleteno">No</label>
+    <input id="noAthlete" type="radio" name="YNAthlete"/>
+    <br>
+    <br>
+    </div>
     
     <div>
       <br>
-      <label for="fallSport" class="sports">Fall sport</label>
+      <label for="fallSport" class="sports">Fall sport</label> <br>
       <%- fallSport %>
     </div>
 
     <div>
       <br>
-      <label for="springSport" id="springSports" class="sports">Spring sport</label>
+      <label for="springSport" id="springSports" class="sports">Spring sport</label> <br>
       <%- springSport %>
     </div>
     <br>
