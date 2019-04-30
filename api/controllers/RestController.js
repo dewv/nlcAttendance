@@ -94,11 +94,10 @@ module.exports = {
     
     updateView: async function(request, response) {
         let model = sails.models[request.params.model];
-        console.log(model);
         let ejsData = {
             action: `/${request.params.model}/view`,
-            //this might need adjusted
-            Query: await sails.models[request.params.model].find(request.body)
+            name: `${request.params.model}view`,
+            Query: await sails.models[request.params.model].find(request.query)
         };
         return await sails.helpers.responseViewSafely(response, `pages/visit/appendView`, ejsData);
     }

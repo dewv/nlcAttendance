@@ -10,32 +10,62 @@
 
 <!-- include text box for data -->
 <form method="POST" action="<%= action %>">
-<body>
-    <label for="query" value="Input">Search for student</label>
-    <input id="query" type="text">
-    <input id="submit" type="submit" value="Submit">
-</body>
+    <body>
+        <label for="query" value="Input">Search for student</label>
+        <input id="query" type="text">
+        <input id="submit" type="submit" value="Submit">
+    </body>
 </form>
+
+<a id="link" download="student.csv">
+    <button onClick="download()">Download this view</button>
+</a>
+
+<script>
+    function download() {
+        var table = document.getElementById("visitTable");
+        var data = ""; //requires some initiation or has an annoying "undefined" in the first cell
+        
+        //convert object to array
+        //code shell courtesy of https://stackoverflow.com/questions/3072233/getting-value-from-table-cell-in-javascript-not-jquery
+        for (var rowIndex = 0, rowLength = table.rows.length; rowIndex < rowLength; rowIndex++) {
+            for (var cellIndex = 0, cellLength = table.rows[rowIndex].cells.length; cellIndex < cellLength; cellIndex++) {
+                data += table.rows[rowIndex].cells.item(cellIndex).innerHTML.trim() + ", "; //append contents of cell and add comma for new cell
+            }
+            //new row
+            data += "\n";
+        }
+        
+        //convert into file and URL and pass URL to download button for execution
+        var file = new Blob([data], {type: "text/csv"});
+        var url = URL.createObjectURL(file);
+        var link = document.getElementById("link");
+        link.setAttribute("href", url);
+}
+</script>
 
 <!-- Populate table -->
 <body>
-        <table>
-        <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Check In</th>
-            <th>Check Out</th>
-            <th>Visit Length</th>
-            <th>Check Out estimated?</th>
-            <th>Purpose of Visit</th>
-            <th>Purpose Achieved?</th>
-            <th>Comments</th>
-            <th>SLP Instructor</th>
-            <th>Tutoring</th>
+    <table id="visitTable">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Check In</th>
+                <th>Check Out</th>
+                <th>Visit Length</th>
+                <th>Check Out estimated?</th>
+                <th>Purpose of Visit</th>
+                <th>Purpose Achieved?</th>
+                <th>Comments</th>
+                <th>SLP Instructor</th>
+                <th>Tutoring</th>
+            </tr>
+        </thead>
 
-        </tr>
-        <% Query.forEach(function(visit) { %>
+    <% Query.forEach(function(visit) { %>
+        <tbody>
             <tr>
                 <td>
                     <%= visit.id %>
@@ -73,8 +103,8 @@
                 <td>
                     <%= visit.tutoring %>
                 </td>
-
             </tr>
-            <% }); %>
+        </tbody>
+    <% }); %>
     </table>
 </body>
