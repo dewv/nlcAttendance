@@ -7,10 +7,8 @@ let routes = {
     "GET /:model/:id/edit": "RestController.editFormRequested",
     "POST /:model/:id": "RestController.editFormSubmitted",
     
-    //probably want to change route name, but this works for now.
-    "/:model/view": "RestController.visitView",
-    "POST /:model/view": "RestController.updateView"
-                    
+    "GET /:model/view": "RestController.view",
+    "POST /:model/view": "RestController.view"
     
 };
 

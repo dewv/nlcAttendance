@@ -85,20 +85,21 @@ module.exports = {
         return response.redirect(`/${request.params.model}/${request.params.id}`);
     },
     
-    visitView: async function(request, response) {
-        let ejsData = {
-            action: `/${request.params.model}/view`
-        };
-        return await sails.helpers.responseViewSafely(response, `pages/visit/view`, ejsData);
-    },
-    
-    updateView: async function(request, response) {
+    //this probably needs its own controller to fit in more with restful api, however, it currently searches by first name fully functionally
+    view: async function(request, response) {
         let model = sails.models[request.params.model];
+        let Query;
+        if(request.body.query){
+            Query = await sails.models[request.params.model].find({firstName: request.body.query});
+        }
+        else{
+            Query = null;
+        }
         let ejsData = {
             action: `/${request.params.model}/view`,
             name: `${request.params.model}view`,
-            Query: await sails.models[request.params.model].find(request.query)
+            Query 
         };
-        return await sails.helpers.responseViewSafely(response, `pages/visit/appendView`, ejsData);
+        return await sails.helpers.responseViewSafely(response, `pages/visit/view`, ejsData);
     }
 };
