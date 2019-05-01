@@ -77,7 +77,7 @@ describe("`isAppropriate` policy", function() {
         context("who is checked out", function() {
 
             before(function(done) {
-                authenticateAs("student", 0, function(studentRecord, cookie) {
+                authenticateAs("student", 6, function(studentRecord, cookie) {
                     student = studentRecord;
                     studentSession = cookie;
                     done();
@@ -92,10 +92,6 @@ describe("`isAppropriate` policy", function() {
             });
 
             it("should redirect all other requests to the visit create form", function(done) {
-                isRedirect("GET", `/student/${student.id}/edit`, "/", studentSession, function(redirected) {
-                });
-                isRedirect("POST", `/student/${student.id}/edit`, "/", studentSession, function(redirected) {
-                });
                 isRedirect("GET", "/", `/visit/new`, studentSession, function(redirected) {
                     redirected.should.be.true();
                     done();
@@ -106,7 +102,7 @@ describe("`isAppropriate` policy", function() {
         context("who checked in earlier today", function() {
             
             before(function(done) {
-                authenticateAs("student", 3, function(studentRecord, cookie) {
+                authenticateAs("student", 8, function(studentRecord, cookie) {
                     student = studentRecord;
                     studentSession = cookie;
                     done();
@@ -120,13 +116,18 @@ describe("`isAppropriate` policy", function() {
                 });
             });
 
-            it("should redirect all other requests to the visit edit form, \"normal\" mode");
+            it("should redirect all other requests to the visit edit form, \"normal\" mode", function(done) {
+                isRedirect("GET", "/", `/visit/29/edit`, studentSession, function(redirected) {
+                    redirected.should.be.true();
+                    done();
+                });
+            });
         });
 
         context("who checked in yesterday, or before", function() {
             
             before(function(done) {
-                authenticateAs("student", 2, function(studentRecord, cookie) {
+                authenticateAs("student", 7, function(studentRecord, cookie) {
                     student = studentRecord;
                     studentSession = cookie;
                     done();
@@ -140,7 +141,12 @@ describe("`isAppropriate` policy", function() {
                 });
             });
 
-            it("should redirect all other requests to the visit edit form, \"estimate\" mode");
+            it("should redirect all other requests to the visit edit form, \"estimate\" mode", function(done) {
+                isRedirect("GET", "/", `/visit/28/edit`, studentSession, function(redirected) {
+                    redirected.should.be.true();
+                    done();
+                });
+            });
         });
     });
 
@@ -159,6 +165,22 @@ describe("`isAppropriate` policy", function() {
 
             it("should redirect requests to their own profile edit form", function(done) {
                 isRedirect("GET", "/", `/staff/${staff.id}/edit`, staffSession, function(redirected) {
+                    redirected.should.be.true();
+                    done();
+                });
+            });
+        });
+        context("with the mandatory profile update flag not set", function() {
+            before(function(done) {
+                authenticateAs("staff", 4, function(staffRecord, cookie) {
+                    staff = staffRecord;
+                    staffSession = cookie;
+                    done();
+                });
+            });
+
+            it("should redirect requests to the staff menu", function(done) {
+                isRedirect("GET", "/", `/staffmenu`, staffSession, function(redirected) {
                     redirected.should.be.true();
                     done();
                 });

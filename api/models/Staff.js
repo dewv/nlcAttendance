@@ -42,7 +42,7 @@ module.exports = {
                 firstName: `STAFFFIRSTNAME${i + 1}`,
                 lastName: `STAFFLASTNAME${i + 1}`,
                 isSlpInstructor: i % 2 === 0,
-                forceUpdate: Staff.attributes.forceUpdate.defaultsTo
+                forceUpdate: i === 4 ? false : Staff.attributes.forceUpdate.defaultsTo
             }).fetch());
         }
     }

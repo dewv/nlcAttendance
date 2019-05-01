@@ -92,6 +92,20 @@ module.exports = {
                 forceUpdate: Student.attributes.forceUpdate.defaultsTo
             }).fetch());
         }
+        for (let i = 0; i < recordCount; i++) {
+            this.testRecords.push(await Student.create({
+                username: `NoUpdateUser${i + 1}@DEWV.NET`,
+                firstName: `FIRSTNAME${i + 1}`,
+                lastName: `LASTNAME${i + 1}`,
+                academicRank: i === 0 ? null : Student.attributes.academicRank.validations.isIn[i % Student.attributes.academicRank.validations.isIn.length],
+                majorOne: i === 0 ? null : ids.major[i],
+                majorTwo: i === 0 ? null : ids.major[(i + 1) % recordCount],
+                residentialStatus: i === 0 ? null : Student.attributes.residentialStatus.validations.isIn[i % Student.attributes.residentialStatus.validations.isIn.length],
+                fallSport: i === 0 ? null : ids.fallSport[i],
+                springSport: i === 0 ? null : ids.springSport[i],
+                forceUpdate: false
+            }).fetch());
+        }
     }
 };
 
