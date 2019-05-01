@@ -108,7 +108,7 @@ module.exports = {
         let name = request.query.name;
         let Query;
         //move this into a helper
-        if(name == null || name == "") {
+        if(name === null || name === "") {
             Query = await model.find();
         }
         else {
@@ -120,6 +120,6 @@ module.exports = {
             name: `${request.params.model}view`,
             Query //this might change
         };
-        return await sails.helpers.responseViewSafely(response, `pages/${request.params.model}/view`, ejsData) //generalize page request (This will require a convention fix with the folder/file name)
+        return await sails.helpers.responseViewSafely(response, `pages/${request.params.model}/view`, ejsData); //generalize page request (This will require a convention fix with the folder/file name)
     }
 };
