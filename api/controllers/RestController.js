@@ -84,25 +84,14 @@ module.exports = {
         await sails.models[request.params.model].updateOne({ id: request.params.id }).set(encodedData);
         return response.redirect(`/${request.params.model}/${request.params.id}`);
     },
-    
-    //this is to be generalized and be capable of accepting a query string
-    /*view: async function(request, response) {
-        let model = sails.models[request.params.model];
-        let Query;
-        if(request.body){
-            Query = await sails.models[request.params.model].find({firstName: request.body.query});
-        }
-        else{
-            Query = null;
-        }
-        let ejsData = {
-            action: `/${request.params.model}/view`,
-            name: `${request.params.model}view`,
-            Query 
-        };
-        return await sails.helpers.responseViewSafely(response, `pages/visit/view`, ejsData);
-    }*/
-    
+
+    /**
+     * Handles request to update view page.
+     * @argument {external:Request} request -  The HTTP request.
+     * @argument {external:Response} response - The HTTP response.
+     * @public
+     * @async
+     */
     view: async function(request, response) {
         let model = sails.models[request.params.model];
         let name = request.query.name;
