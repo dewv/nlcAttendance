@@ -85,11 +85,11 @@ module.exports = {
         return response.redirect(`/${request.params.model}/${request.params.id}`);
     },
     
-    //this probably needs its own controller to fit in more with restful api, however, it currently searches by first name fully functionally
-    view: async function(request, response) {
+    //this is to be generalized and be capable of accepting a query string
+    /*view: async function(request, response) {
         let model = sails.models[request.params.model];
         let Query;
-        if(request.body.query){
+        if(request.body){
             Query = await sails.models[request.params.model].find({firstName: request.body.query});
         }
         else{
@@ -101,5 +101,25 @@ module.exports = {
             Query 
         };
         return await sails.helpers.responseViewSafely(response, `pages/visit/view`, ejsData);
+    }*/
+    
+    view: async function(request, response) {
+        let model = sails.models[request.params.model];
+        let name = request.query.name;
+        let Query;
+        //move this into a helper
+        if(name == null || name == "") {
+            Query = await model.find();
+        }
+        else {
+            Query = await model.find({firstName: name});
+        }
+        
+        let ejsData = {
+            action: `/${request.params.model}/view`,
+            name: `${request.params.model}view`,
+            Query //this might change
+        };
+        return await sails.helpers.responseViewSafely(response, `pages/${request.params.model}/view`, ejsData) //generalize page request (This will require a convention fix with the folder/file name)
     }
 };

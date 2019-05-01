@@ -8,7 +8,6 @@ let routes = {
     "POST /:model/:id": "RestController.editFormSubmitted",
     
     "GET /:model/view": "RestController.view",
-    "POST /:model/view": "RestController.view"
     
 };
 
