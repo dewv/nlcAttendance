@@ -84,22 +84,31 @@ module.exports = {
         await sails.models[request.params.model].updateOne({ id: request.params.id }).set(encodedData);
         return response.redirect(`/${request.params.model}/${request.params.id}`);
     },
-    
-    visitView: async function(request, response) {
-        let ejsData = {
-            action: `/${request.params.model}/view`
-        };
-        return await sails.helpers.responseViewSafely(response, `pages/visit/view`, ejsData);
-    },
-    
-    updateView: async function(request, response) {
+
+    /**
+     * Handles request to update view page.
+     * @argument {external:Request} request -  The HTTP request.
+     * @argument {external:Response} response - The HTTP response.
+     * @public
+     * @async
+     */
+    view: async function(request, response) {
         let model = sails.models[request.params.model];
-        console.log(model);
+        let name = request.query.name;
+        let Query;
+        //move this into a helper
+        if(name === null || name === "") {
+            Query = await model.find();
+        }
+        else {
+            Query = await model.find({firstName: name});
+        }
+        
         let ejsData = {
             action: `/${request.params.model}/view`,
-            //this might need adjusted
-            Query: await sails.models[request.params.model].find(request.body)
+            name: `${request.params.model}view`,
+            Query //this might change
         };
-        return await sails.helpers.responseViewSafely(response, `pages/visit/appendView`, ejsData);
+        return await sails.helpers.responseViewSafely(response, `pages/${request.params.model}/view`, ejsData); //generalize page request (This will require a convention fix with the folder/file name)
     }
 };
