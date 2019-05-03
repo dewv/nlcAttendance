@@ -11,14 +11,6 @@ h1{
   font-family: "Georgia";
 }
 
-/*p2 {
-  margin: 0 10px 0 10px;
-  background-color:#87CEFA;
-  border-left-width: 10px;
-  border-left-color: #1E90FF;
-}*/
-
-
 form {
   position: relative;
   z-index: 1;
@@ -91,23 +83,25 @@ div.instructions {
   border-radius: 5px;
 }
 
-/*div.landingPage1 {
-  background-color: white;
-  text-align: justify;
-  border: 5px solid #f44336;
-  border-radius: 5px;
-  max-width: 100px;
-  max-height: 100px;
-  transition-duration: 0.4s;
-}
-
-div.landingPage1:link, div.landingPage1:visited {
-  color:black;
-}
-
-div.landingPage1:hover {
-  color: white;
+div.header {
+  overflow: hidden;
   background-color: #f44336;
-  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
-  text-color: white;
-}*/
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+div.header a {
+  float: left;
+  display: block;
+  color: #f2f2f3;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+div.header a:hover {
+  background: white;
+  color: black;
+}
