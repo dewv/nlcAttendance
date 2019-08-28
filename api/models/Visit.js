@@ -11,7 +11,7 @@ module.exports = {
 
     attributes: {
         name: { model: "Student" },
-        checkInTime: { type: "string", columnType: "datetime", autoCreatedAt: true },
+        checkInTime: { type: "ref", columnType: "datetime", autoCreatedAt: true },
         checkOutTime: { type: "ref", columnType: "datetime" },
         visitLength: { type: "number", required: false, allowNull: true },
         visitPurpose: { type: "string", required: true, allowNull: false },
