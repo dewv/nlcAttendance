@@ -33,7 +33,7 @@
     "@sailshq/eslint": "^4.19.3"
   },
   "scripts": {
-    "postinstall": "sudo mysql -u root -e 'CREATE DATABASE IF NOT EXISTS nlcAttendance;'",
+    "postinstall": "mysql -u root -pRootPassword -e 'CREATE DATABASE IF NOT EXISTS nlcAttendance;'",
     "sails": "test \"$NODE_ENV\" != production && sails lift",
     "start": "NODE_ENV=production node app.js",
     "test": "npm run lint && npm run htmlhint && npm run mocha && npm run coverage",
