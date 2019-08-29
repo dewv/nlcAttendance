@@ -21,7 +21,7 @@ sails.log.debug("isAuthorized")
     request.session.userProfile = await sails.helpers.populateOne(sails.models[request.session.role], request.session.userId);
 
     if (request.session.role === "student") {
-sails.log.debug("isAuthorized, student")
+        sails.log.debug("isAuthorized, student")
         let visit = await Visit.find({ where: { name: request.session.userProfile.id }, limit: 1, sort: "checkInTime DESC" });
         if (visit[0]) {
             request.session.userProfile.visit = {
@@ -66,7 +66,7 @@ sails.log.debug("isAuthorized, student")
         // ... submit the checkin form when checked out.
         if (request.path === "/visit" && request.method === "POST" && !request.session.userProfile.visit.checkedIn) return proceed();
         // ... submit the checkout form for their current visit when checked in.
-        if (request.path === `/visit/${request.session.userProfile.visit.id}/edit` && request.method === "POST" && request.session.userProfile.visit.checkedIn) return proceed();
+        if (request.path === `/visit/${request.session.userProfile.visit.id}` && request.method === "POST" && request.session.userProfile.visit.checkedIn) return proceed();
     }
 
     // Staff users are authorized to ...
