@@ -11,7 +11,7 @@ module.exports = {
      * @public
      * @async
      */
-    loginFormRequested: async function(request, response) {
+    loginFormRequested: async function (request, response) {
         return sails.helpers.responseViewSafely(request, response, "pages/login");
     },
 
@@ -22,7 +22,7 @@ module.exports = {
      * @public
      * @async
      */
-    loginFormSubmitted: async function(request, response) {
+    loginFormSubmitted: async function (request, response) {
         let authenticated = false;
         let ldapData = {};
 
@@ -43,12 +43,17 @@ module.exports = {
         let userProfile = await sails.models[request.session.role].findOrCreate({ username: request.body.username }, ldapData);
         request.session.userId = userProfile.id;
         request.session.username = userProfile.username;
+        if (request.session.role === "student") {
+            request.session.defaultUrl = "/student/visit";
+        } else if (request.session.role === "staff") {
+            request.session.defaultUrl = "/staffmenu";
+        }
         request.session.save();
-        
-        return response.redirect("/");
+
+        return response.redirect(request.session.defaultUrl);
     },
 
-    logout: function(request, response) {
+    logout: function (request, response) {
         request.session.destroy();
         return response.redirect("/login");
     }

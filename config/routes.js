@@ -10,6 +10,9 @@ let routes = {
     "GET /browser": "MiscController.get",
     "GET /default": "MiscController.get",
     
+    // Custom logic to determine which form to show to student
+    "GET /student/visit": "StudentController.visitFormRequested",
+    
     // RESTful API for sails models
     "GET /:model": "RestController.listRequested", 
     "GET /:model/new": "RestController.createFormRequested",

@@ -58,7 +58,7 @@ module.exports = {
         await sails.models[request.params.model].create(encodedData);
         response.cookie("restAction", "create");
         response.cookie("restModel", request.params.model);
-        return response.redirect("/");
+        return response.redirect(request.session.defaultUrl);
     },
 
     /**
@@ -109,7 +109,7 @@ module.exports = {
         await sails.models[request.params.model].updateOne({ id: request.params.id }).set(encodedData);
         response.cookie("restAction", "edit");
         response.cookie("restModel", request.params.model);
-        return response.redirect("/");
+        return response.redirect(request.session.defaultUrl);
     }
 };
 

@@ -12,7 +12,6 @@
  * @async
  */
 module.exports = async function(request, response, proceed) {
-    sails.log.debug(`${request.path}, ${request.get("referer")}`);
     if (request.params.model === "controller") {
         return proceed();
     }
