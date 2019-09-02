@@ -25,6 +25,11 @@ module.exports = {
     loginFormSubmitted: async function (request, response) {
         let authenticated = false;
         let ldapData = {};
+        let domain = "@dewv.edu";
+
+        if (request.body.username.slice(-domain.length) !== domain) {
+            request.body.username = request.body.username + domain;
+        }
 
         if (request.app.get("env") === "production") {
             // TODO real LDAP authentication
