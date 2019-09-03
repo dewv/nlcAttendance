@@ -1,11 +1,9 @@
-<div class="header">
-    <a href="/browser">Register browser</a>
-    <a href="/visit">View visit data</a>
-    <a href="/visit?=spreadsheet">Download visit spreadsheet</a>
-    <a href="/logout">Log out</a>
-</div>
-    
-<p>Placeholder for staff menu.</p>
-        
 
-   
+  <div class="menu">
+    <h1>Naylor Learning Center - Welcome</h1>
+    <p><button onclick="window.location.href = '/browser';">Register this browser for attendance tracking</button></p>
+    <p><button onclick="window.location.href = '/visit';">View attendance data</button></p>
+    <p><button onclick="window.location.href = '/visit?=spreadsheet';">Dump data for spreadsheet</button></p>
+    <p><button onclick="window.location.href = '/staff/<%= userId %>/edit';">Update your profile</button></p>
+    <p><button onclick="window.location.href = '/logout';">Log out</button></p>
+  </div>
