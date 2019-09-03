@@ -71,7 +71,7 @@ module.exports = async function (request, response, proceed) {
         // ... view the staff menu.        
         if (request.path === "/staffmenu" && request.method === "GET") return proceed();
         // ... view the list of visits.
-        if (request.path === "/visit/spreadsheet" && request.method === "GET") return proceed();
+        if (request.path === "/spreadsheet" && request.method === "GET") return proceed();
         // ... access and submit the form for registering the browser to track visits.
         if (request.path === "/browser") return proceed();
     }

@@ -42,12 +42,11 @@
             <th>Check In</th>
             <th>Check Out</th>
             <th>Visit Length</th>
-            <th>Check Out estimated?</th>
             <th>Purpose of Visit</th>
             <th>Purpose Achieved?</th>
             <th>Comments</th>
-            <th>SLP Instructor</th>
-            <th>Tutoring</th>
+            <th>Used Tutors</th>
+            <th>Tutor Course</th>
         </tr>
     </thead>
 
@@ -55,40 +54,31 @@
         <tbody>
             <tr>
                 <td>
-                    <%= visit.id %>
+                    <%= visit.studentId %>
                 </td>
                 <td>
-                    <%= visit.firstName %>
+                    <%= visit.checkInTime %>
                 </td>
                 <td>
-                    <%= visit.lastName %>
+                    <%= visit.checkOutTime %>
                 </td>
                 <td>
-                    <%= visit.checkIn %>
+                    <%= visit.length %>
                 </td>
                 <td>
-                    <%= visit.checkOut %>
-                </td>
-                <td>
-                    <%= visit.visitLength %>
-                </td>
-                <td>
-                    <%= visit.checkOutEstimated %>
-                </td>
-                <td>
-                    <%= visit.purposeOfVisit %>
+                    <%= visit.purpose %>
                 </td>
                 <td>
                     <%= visit.purposeAchieved %>
                 </td>
                 <td>
-                    <%= visit.comments %>
+                    <%= visit.comment %>
                 </td>
                 <td>
-                    <%=visit.slpInstructor %>
+                    <%=visit.usedTutor %>
                 </td>
                 <td>
-                    <%= visit.tutoring %>
+                    <%= visit.tutorCourses %>
                 </td>
             </tr>
         </tbody>

@@ -107,35 +107,11 @@ module.exports = {
         if (request.params.model === "controller") return response.cookie("RestController", "editFormSubmitted").end();
         let encodedData = await sails.helpers.encodeAssociations(sails.models[request.params.model], request.body);
         await sails.models[request.params.model].updateOne({ id: request.params.id }).set(encodedData);
-        return response.redirect(`/${request.params.model}/${request.params.id}`);
+        response.cookie("restAction", "edit");
+        response.cookie("restModel", request.params.model);
+        return response.redirect(request.session.defaultUrl);
     },
 
-    /**
-     * Handles request to update view page.
-     * @argument {external:Request} request -  The HTTP request.
-     * @argument {external:Response} response - The HTTP response.
-     * @public
-     * @async
-     */
-    view: async function(request, response) {
-        let model = sails.models[request.params.model];
-        let name = request.query.name;
-        let Query;
-        //move this into a helper
-        if(name === null || name === "") {
-            Query = await model.find();
-        }
-        else {
-            Query = await model.find({firstName: name});
-        }
-        
-        let ejsData = {
-            action: `/${request.params.model}/view`,
-            name: `${request.params.model}view`,
-            Query //this might change
-        };
-        return await sails.helpers.responseViewSafely(response, `pages/${request.params.model}/view`, ejsData); //generalize page request (This will require a convention fix with the folder/file name)
-    }
 };
 
 function clearRestCookies(response) {

@@ -19,6 +19,24 @@ module.exports = {
                 userId: request.session.userId,
             }
             return sails.helpers.responseViewSafely(request, response, `pages/misc${request.path}`, ejsData);
+        } else if (request.path === "/spreadsheet") {
+            let model = "visit";
+            let name = request.query.name;
+            let Query;
+            //move this into a helper
+            if(name === null || name === "") {
+                Query = await model.find();
+            }
+            else {
+                Query = await model.find({firstName: studentId});
+            }
+            
+            let ejsData = {
+                action: `/${request.params.model}/view`,
+                name: `${request.params.model}view`,
+                Query //this might change
+            };
+            return sails.helpers.responseViewSafely(response, `pages/misc${request.path}`, ejsData);
         }
         return sails.helpers.responseViewSafely(request, response, `pages/misc${request.path}`);
     }
