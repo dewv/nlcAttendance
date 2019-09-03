@@ -107,11 +107,6 @@ module.exports = {
         if (request.params.model === "controller") return response.cookie("RestController", "editFormSubmitted").end();
         let encodedData = await sails.helpers.encodeAssociations(sails.models[request.params.model], request.body);
         await sails.models[request.params.model].updateOne({ id: request.params.id }).set(encodedData);
-<<<<<<< HEAD
-        response.cookie("restAction", "edit");
-        response.cookie("restModel", request.params.model);
-        return response.redirect(request.session.defaultUrl);
-=======
         return response.redirect(`/${request.params.model}/${request.params.id}`);
     },
 
@@ -140,7 +135,6 @@ module.exports = {
             Query //this might change
         };
         return await sails.helpers.responseViewSafely(response, `pages/${request.params.model}/view`, ejsData); //generalize page request (This will require a convention fix with the folder/file name)
->>>>>>> master
     }
 };
 
