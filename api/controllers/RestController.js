@@ -54,7 +54,6 @@ module.exports = {
      */
     createFormSubmitted: async function(request, response) {
         if (request.params.model === "controller") return response.cookie("RestController", "createFormSubmitted").end();
-        request.body.name = request.session.username;
         let encodedData = await sails.helpers.encodeAssociations(sails.models[request.params.model], request.body);
         await sails.models[request.params.model].create(encodedData);
         response.cookie("restAction", "create");
