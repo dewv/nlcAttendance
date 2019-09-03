@@ -22,7 +22,7 @@ module.exports = {
     },
 
     domainDefined: {
-        isSlpInstructor: true // TODO is this needed?
+        isSlpInstructor: true 
     },
     
     testRecords: [],

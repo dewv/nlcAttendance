@@ -10,11 +10,11 @@ module.exports = {
     schema: false,
 
     attributes: {
-        name: { model: "Student" },
+        studentId: { model: "Student" },
         checkInTime: { type: "ref", columnType: "datetime", autoCreatedAt: true },
         checkOutTime: { type: "ref", columnType: "datetime" },
-        visitLength: { type: "number", required: false, allowNull: true },
-        visitPurpose: { type: "string", required: true, allowNull: false },
+        length: { type: "number", required: false, allowNull: true },
+        purpose: { type: "string", required: true, allowNull: false },
         purposeAchieved: { type: "string", allowNull: true, isIn: ["Yes", "No", "Not sure"] },
         usedTutor: { type: "string", defaultsTo: "No" },
         tutorCourses: { type: "string", required: false, allowNull: true },
@@ -29,17 +29,16 @@ module.exports = {
     },
 
     /**
-     * Calculates the checkOutTime and then visitLength setting a flag if the visitLength is greater than 8 when a Visit record is passed through the populateOne helper.
+     * Calculates the checkOutTime and then length setting a flag if the length is greater than 8 when a Visit record is passed through the populateOne helper.
      * @modifies Database contents.
      * 
      * Note global: PopulateOne checks if a function named afterPopulateOne is defined in the model of any record. The definition is model specific and runs when the record is passed through the populateOne helper.
      */
     afterPopulateOne: function(visit) {
         if (visit.checkOutTime === null) visit.checkOutTime = new Date(sails.helpers.getCurrentTime());
-        visit.visitLength = ((new Date(visit.checkOutTime)).getTime()) - ((new Date(visit.checkInTime)).getTime());
-        visit.visitLength = sails.helpers.convertToHours(visit.visitLength);
-        if (visit.visitLength > 8) visit.isLengthEstimated = true;
-        sails.log.debug("afterPopulateOne " + JSON.stringify(visit));
+        visit.length = ((new Date(visit.checkOutTime)).getTime()) - ((new Date(visit.checkInTime)).getTime());
+        visit.length = sails.helpers.convertToHours(visit.length);
+        if (visit.length > 8) visit.isLengthEstimated = true;
         return visit;
     },
 
@@ -52,16 +51,17 @@ module.exports = {
     afterEncodeAssociations: async function(visit) {
         if (visit.purposeAchieved) {
             visit.checkOutTime = new Date(sails.helpers.getCurrentTime());
-            if (!visit.visitLength) {
-                let current = await Visit.find({ where: { name: visit.name }, limit: 1, sort: "checkInTime DESC" });
+            if (!visit.length) {
+                let current = await Visit.find({ where: { studentId: visit.studentId}, limit: 1, sort: "checkInTime DESC" });
                 visit.checkInTime = current[0].checkInTime;
-                visit.visitLength = ((new Date(visit.checkOutTime)).getTime()) - ((new Date(visit.checkInTime)).getTime());
-                visit.visitLength = sails.helpers.convertToHours(visit.visitLength);
+                visit.length = ((new Date(visit.checkOutTime)).getTime()) - ((new Date(visit.checkInTime)).getTime());
+                visit.length = sails.helpers.convertToHours(visit.length);
             }
             else {
                 visit.isLengthEstimated = true;
             }
         }
+        
         return visit;
     },
 
@@ -84,11 +84,11 @@ module.exports = {
             for (let iVisit = 1; iVisit <= 3; iVisit++) {
                 if(iStudent === 5) continue;
                 let record = {
-                    name: Student.testRecords[iStudent].id,
+                    studentId: Student.testRecords[iStudent].id,
                     checkInTime: new Date(`2018-${iVisit}-${iVisit} ${iVisit}:${iVisit}:${iVisit}`),
                     checkOutTime: new Date(`2018-${iVisit}-${iVisit} ${2 * iVisit}:${iVisit}:${iVisit}`),
-                    visitLength: iVisit,
-                    visitPurpose: `OLD CLOSED VISIT`,
+                    length: iVisit,
+                    purpose: `OLD CLOSED VISIT`,
                     purposeAchieved: Visit.attributes.purposeAchieved.validations.isIn[iVisit % Visit.attributes.purposeAchieved.validations.isIn.length],
                     tutorCourses: `TUTOR COURSES ${iVisit}`,
                     comment: `COMMENT ${iVisit}`,
@@ -106,14 +106,14 @@ module.exports = {
             
             let record;
             let yesterday = {
-                name: Student.testRecords[iStudent].id,
+                studentId: Student.testRecords[iStudent].id,
                 checkInTime: new Date(sails.helpers.getCurrentTime() - oneDay),
-                visitPurpose: "VISIT OPENED YESTERDAY"
+                purpose: "VISIT OPENED YESTERDAY"
             };
             let today = {
-                name: Student.testRecords[iStudent].id,
+                studentId: Student.testRecords[iStudent].id,
                 checkInTime: new Date(sails.helpers.getCurrentTime() - (oneHour * (.5 * iStudent))),
-                visitPurpose: "VISIT OPENED TODAY"
+                purpose: "VISIT OPENED TODAY"
             };
             if (iStudent === 2 || iStudent === 7) {
                 record = yesterday;
@@ -131,11 +131,11 @@ module.exports = {
 /**
  * A student visit record.
  * @typedef {Record} VisitRecord
- * @property {Student} name - The associated student record.
+ * @property {Student} studentId - The associated student record.
  * @property {ref} checkInTime - A reference to createdAt formated in UTC.
- * @property {ref} checkOutTime - A timestamp in UTC used to calculate visitLength, defaults to '0000-00-00 00:00:00'.
- * @property {number} visitLength - The number of hours, to the nearest quarter hour, the student was at the NLC. The difference between the checkOutTime and CheckInTime.
- * @property {string} visitPurpose - The reason the student visited the NLC.
+ * @property {ref} checkOutTime - A timestamp in UTC used to calculate length, defaults to '0000-00-00 00:00:00'.
+ * @property {number} length - The number of hours, to the nearest quarter hour, the student was at the NLC. The difference between the checkOutTime and CheckInTime.
+ * @property {string} purpose - The reason the student visited the NLC.
  * @property {string} purposeAchieved - Did the student accomplish their goal this visit.
  * @property {string} tutorCourses - The course of which the student used a tutor.
  * @property {string} comment - Any comments the student may have about their visit.

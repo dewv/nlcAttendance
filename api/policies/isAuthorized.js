@@ -11,7 +11,6 @@
  * @async
  */
 module.exports = async function (request, response, proceed) {
-sails.log.debug("isAuthorized")
     let model = request.params.model;
 
     if (model === "controller") return proceed();
@@ -21,22 +20,20 @@ sails.log.debug("isAuthorized")
     request.session.userProfile = await sails.helpers.populateOne(sails.models[request.session.role], request.session.userId);
 
     if (request.session.role === "student") {
-sails.log.debug("isAuthorized, student")
-        let visit = await Visit.find({ where: { name: request.session.userProfile.id }, limit: 1, sort: "checkInTime DESC" });
+        let visit = await Visit.find({ where: { studentId: request.session.userProfile.id }, limit: 1, sort: "checkInTime DESC" });
         if (visit[0]) {
             request.session.userProfile.visit = {
                 id: visit[0].id,
                 checkInTime: visit[0].checkInTime,
                 checkOutTime: visit[0].checkOutTime,
-                visitLength: visit[0].visitLength,
-                visitPurpose: visit[0].visitPurpose,
+                length: visit[0].length,
+                purpose: visit[0].purpose,
                 purposeAchieved: visit[0].purposeAchieved,
                 tutorCourses: visit[0].tutorCourses,
                 comment: visit[0].comment,
                 isLengthEstimated: visit[0].isLengthEstimated,
             };
             request.session.userProfile.visit.checkedIn = request.session.userProfile.visit.checkOutTime === null;
-            sails.log.debug(`User's current visit ID is ${request.session.userProfile.visit.id}`)
         }
         else {
             request.session.userProfile.visit = {
@@ -66,7 +63,7 @@ sails.log.debug("isAuthorized, student")
         // ... submit the checkin form when checked out.
         if (request.path === "/visit" && request.method === "POST" && !request.session.userProfile.visit.checkedIn) return proceed();
         // ... submit the checkout form for their current visit when checked in.
-        if (request.path === `/visit/${request.session.userProfile.visit.id}/edit` && request.method === "POST" && request.session.userProfile.visit.checkedIn) return proceed();
+        if (request.path === `/visit/${request.session.userProfile.visit.id}` && request.method === "POST" && request.session.userProfile.visit.checkedIn) return proceed();
     }
 
     // Staff users are authorized to ...
@@ -81,7 +78,6 @@ sails.log.debug("isAuthorized, student")
         if (request.path === "/browser") return proceed();
     }
 
-    sails.log.debug("default to forbid for " + request.path);
-    sails.log.debug(`role: ${request.session.role}`);
+    sails.log.debug(`default to forbid for ${request.session.role}, ${request.method} ${request.path}`);
     return response.forbidden();
 };

@@ -4,16 +4,17 @@ let routes = {
     "POST /login": "AuthController.loginFormSubmitted",
     "GET /logout": "AuthController.logout",
     
-    // Miscellaneous requests
+    // Miscellaneous requests (not CRUD operations handled via REST)
     "GET /": "MiscController.get",
     "GET /staffmenu": "MiscController.get",
     "GET /browser": "MiscController.get",
     "GET /default": "MiscController.get",
     
-    // Custom logic to determine which form to show to student
+    // Custom logic to extend default REST handling of CRUD operations 
     "GET /student/visit": "StudentController.visitFormRequested",
+    "POST /visit": "VisitController.createFormSubmitted",
     
-    // RESTful API for sails models
+    // Default handling of CRUD operations via REST 
     "GET /:model": "RestController.listRequested", 
     "GET /:model/new": "RestController.createFormRequested",
     "POST /:model": "RestController.createFormSubmitted",
