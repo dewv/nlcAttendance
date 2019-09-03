@@ -20,11 +20,6 @@ module.exports = {
         forceUpdate: { type: "boolean", defaultsTo: true }
     },
     
-    /**
-     * A required, unique model attribute that has real-world meaning (as opposed to `id`).
-     */
-    candidateKey: "username",
-    
     beforeUpdate: async function(valuesToSet, proceed) {
         valuesToSet.forceUpdate = false;
         return proceed();
