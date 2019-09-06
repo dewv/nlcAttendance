@@ -39,6 +39,7 @@
 
 
     <!--STYLES-->
+    <link rel="stylesheet" href="/styles/banner.css">
     <link rel="stylesheet" href="/styles/fa.css">
     <link rel="stylesheet" href="/styles/importer.css">
     <link rel="stylesheet" href="/styles/style.css">
@@ -49,7 +50,7 @@
 
 <body>
   <% if (typeof banner !== "undefined") { %>
-    <p><%= banner %></p>
+    <div class = "banner"><p><%= banner %></p></div>
   <% } %>
 
   <%- body %>
