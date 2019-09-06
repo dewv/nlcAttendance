@@ -95,6 +95,7 @@ function sortTable(n) {
         <thead>
             <tr>
                 <th onclick="sortTable(0)">Student ID</th>
+                <th>Name</th>
                 <th>Check In</th>
                 <th>Check Out</th>
                 <th>Visit Length</th>
@@ -110,7 +111,10 @@ function sortTable(n) {
             <tbody>
                 <tr>
                     <td>
-                        <%= visit.studentId %>
+                        <%= visit.studentId.id %>
+                    </td>
+                    <td>
+                        <%= visit.studentId.firstName + " " + visit.studentID.lastName %>
                     </td>
                     <td>
                         <%= visit.checkInTime %>

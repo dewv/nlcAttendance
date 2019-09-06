@@ -15,7 +15,7 @@ module.exports = {
         if (request.params.model === "controller") return response.cookie("RestController", "listRequested").end();
         let model = sails.models[request.params.model];
         if (!model) return response.notFound();
-        let records = await model.find( { sort: " id DESC"} ).populate('studentID');
+        let records = await model.find().populate('studentId');
         clearRestCookies(response);
         return sails.helpers.responseViewSafely(request, response, `pages/${request.params.model}/index`, { records: records });
     },
