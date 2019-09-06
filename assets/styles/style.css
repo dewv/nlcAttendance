@@ -75,6 +75,29 @@ p {
   margin: 10px;
 }
 
+table {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 95%;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+th {
+  background-color: #f44336;
+  color: white;
+  border: 1px solid rgb(10, 0, 0);
+}
+
+tr:nth-child(even) {background-color: #8d8c8c;}
+
+tr {
+  border: 1px solid rgb(10, 0, 0);
+}
+
 
 div.instructions {
   background:#CBF6FF;
@@ -115,4 +138,14 @@ div.menu {
   padding: 45px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+div.download {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 95%;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
 }
