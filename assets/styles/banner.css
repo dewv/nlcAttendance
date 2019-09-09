@@ -1,11 +1,21 @@
 /* styling for banner elements, adapted from w3.css alerts  */
+@keyframes fadeOut {
+    100% {opacity: 0;}
+}
+
 div.banner {
     color: #000!important;
-    background-color: #ddffff;
+    background-color: #7ce0ff;
     border: 1px solid #ccc!important;
     margin-top: 16px;
     margin-bottom: 16px;
     padding: 0.01em 16px;
     position: relative;
     box-sizing: inherit;
+    /* Code for banner "fade out" duration and styling */
+    animation-name: fadeOut;
+    animation-delay: 5s;
+    animation-duration: 5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
 }
