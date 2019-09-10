@@ -59,6 +59,7 @@ function filterName(x) {
                 <th>Check In</th>
                 <th>Check Out</th>
                 <th>Visit Length</th>
+                <th>Visit Estimated?</th>
                 <th>Purpose of Visit</th>
                 <th>Purpose Achieved?</th>
                 <th>Comments</th>
@@ -87,6 +88,9 @@ function filterName(x) {
                     </td>
                     <td>
                         <%= visit.length %>
+                    </td>
+                    <td>
+                        <%= visit.isLengthEstimated %>
                     </td>
                     <td>
                         <%= visit.purpose %>
