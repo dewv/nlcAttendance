@@ -11,43 +11,6 @@ h1{
   font-family: "Georgia";
 }
 
-form {
-  position: relative;
-  z-index: 1;
-  background: #FFFFFF;
-  max-width: 500px;
-  margin: 0 auto 100px;
-  padding: 45px;
-  text-align: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-}
-
-form input {
-  font-family: "Roboto", sans-serif;
-  outline: 0;
-  background: #f2f2f2;
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  margin: 0 0 15px;
-  padding: 15px;
-  font-size: 14px;
-}
-
-form select {
-  font-family: "Roboto", sans-serif;
-  outline: 0;
-  background: #f2f2f2;
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  margin: 0 0 15px;
-  padding: 15px;
-  font-size: 14px;
-}
-
 button {
   background-color: white;
   border-radius: 8px;
@@ -92,38 +55,6 @@ p {
   margin: 10px;
 }
 
-#visitSearch {
-  width: 60%; /* Full-width */
-  font-size: 16px; /* Increase font-size */
-  padding: 12px 20px 12px 40px; /* Add some padding */
-  border: 1px solid #ddd; /* Add a grey border */
-  margin-bottom: 12px; /* Add some space below the input */
-}
-
-#visitTable {
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-#visitTable td, th {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
-
-#visitTable tr:nth-child(even){background-color: #f2f2f2;}
-
-#visitTable tr:hover {background-color: #ddd;}
-
-#visitTable th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #f44336;
-  color: white;
-}
-
-
 div.instructions {
   background:#CBF6FF;
   text-align: justify;
@@ -163,14 +94,4 @@ div.menu {
   padding: 45px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-}
-
-div.download {
-  position: relative;
-  z-index: 1;
-  background: #FFFFFF;
-  max-width: 95%;
-  margin: 0 auto 100px;
-  padding: 45px;
-  text-align: center;
 }

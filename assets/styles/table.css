@@ -1,0 +1,40 @@
+#visitSearch {
+    width: 60%; /* Full-width */
+    font-size: 16px; /* Increase font-size */
+    padding: 12px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+  }
+  
+  #visitTable {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #visitTable td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #visitTable tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #visitTable tr:hover {background-color: #ddd;}
+  
+  #visitTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #f44336;
+    color: white;
+  }
+
+  div.download {
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 95%;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+  }

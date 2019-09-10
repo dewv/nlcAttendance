@@ -1,0 +1,84 @@
+form {
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 500px;
+    margin: 0 auto 100px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    border: 2px solid #f44336;
+}
+
+form input {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin: 8px 0;
+    padding: 10px 20px;
+    font-size: 14px;
+}
+
+input[type=text], select {
+    width: 100%;
+    padding: 10px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+form select {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin: 8px 0;
+    padding: 10px 20px;
+    font-size: 14px;
+}
+
+textarea {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+}
+
+.radio {
+    position: relative;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px
+}
+.radio-inline {
+    position: relative;
+    display: inline-block;
+    padding-left: 20px;
+    margin-bottom: 0;
+    font-weight: 400;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+div.formPiece {
+    position: relative;
+    max-width: 100%;
+    text-align: center;
+    padding: 5px;
+    margin-bottom: 1px;
+}

@@ -4,12 +4,18 @@
 <form method="POST" action="<%= action %>">
     
     <div>
+        <h2>Check In</h2>
+    </div>
+        
+    <div class = "formPiece">
         <p id="visitPurposeQuestion">What is your goal/purpose for this visit?</p>
         <textarea id="purpose" name="purpose"  rows="10" cols="40" autofocus maxlength="255" placeholder="Description" required value="<%= formData.visitPurpose %>"></textarea>
     </div>
-    <br>
-    <br>
     
-    <button id="submitButton" type="submit">Submit</button>
+    <div class = "formPiece">
+        <button id="submitButton" type="submit">Submit</button>
+    </div>
+
 </form>
+
 <% } catch(error) { console.log(`EJS rendering error: ${error}`); }; %>
