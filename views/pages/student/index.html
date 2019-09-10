@@ -46,66 +46,54 @@ function filterName(x) {
 
 <!-- Populate table -->
 <div style="overflow-x:auto;">
-    <a id="link" download="visits.csv">
+    <a id="link" download="student.csv">
         <button onclick="download()" class = "button downloadButton">Download this view</button>
     </a>
-    <input type="text" id="visitSearch" onkeyup="filterName(2)" placeholder="Search for a Name..">
+    <input type="text" id="visitSearch" onkeyup="filterName(1)" placeholder="Search for a Name..">
     <table id="visitTable">
         <thead>
             <tr>
-                <th>#</th>
                 <th>Student ID</th>
                 <th>Name</th>
-                <th>Check In</th>
-                <th>Check Out</th>
-                <th>Visit Length</th>
-                <th>Visit Estimated?</th>
-                <th>Purpose of Visit</th>
-                <th>Purpose Achieved?</th>
-                <th>Comments</th>
-                <th>Used Tutors</th>
-                <th>Tutor Course</th>
+                <th>Academic Rank</th>
+                <th>Major One</th>
+                <th>Major Two</th>
+                <th>Residential Status</th>
+                <th>Fall Sport</th>
+                <th>Spring Sport</th>
+                <th>Updated Profile</th>
             </tr>
         </thead>
 
-        <% if(records) {records.forEach(function(visit) { %>
+        <% if(records) {records.forEach(function(student) { %>
             <tbody>
                 <tr>
                     <td>
-                        <%= visit.id %>
+                        <%= student.id %>
                     </td>
                     <td>
-                        <%= visit.studentId[0].id %>
+                        <%= student.firstName + " " + student.lastName %>
                     </td>
                     <td>
-                        <%= visit.studentId[0].firstName + " " + visit.studentId[0].lastName %>
+                        <%= student.academicRank %>
                     </td>
                     <td>
-                        <%= visit.checkInTime %>
+                        <%= student.majorOne %>
                     </td>
                     <td>
-                        <%= visit.checkOutTime %>
+                        <%= student.majorTwo %>
                     </td>
                     <td>
-                        <%= visit.length %>
+                        <%= student.residentialStatus %>
                     </td>
                     <td>
-                        <%= visit.isLengthEstimated %>
+                        <%= student.fallSport %>
                     </td>
                     <td>
-                        <%= visit.purpose %>
+                        <%= student.springSport %>
                     </td>
                     <td>
-                        <%= visit.purposeAchieved %>
-                    </td>
-                    <td>
-                        <%= visit.comment %>
-                    </td>
-                    <td>
-                        <%=visit.usedTutor %>
-                    </td>
-                    <td>
-                        <%= visit.tutorCourses %>
+                        <%= !student.forceUpdate %>
                     </td>
                 </tr>
             </tbody>

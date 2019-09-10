@@ -90,8 +90,8 @@ module.exports = {
         for (let i = 0; i < recordCount; i++) {
             this.testRecords.push(await Student.create({
                 username: `NoUpdateUser${i + 1}@dewv.edu`,
-                firstName: `FIRSTNAME${i + 1}`,
-                lastName: `LASTNAME${i + 1}`,
+                firstName: `NoUpdateFirst${i + 1}`,
+                lastName: `NoUpdateLast${i + 1}`,
                 academicRank: i === 0 ? null : Student.attributes.academicRank.validations.isIn[i % Student.attributes.academicRank.validations.isIn.length],
                 majorOne: i === 0 ? null : ids.major[i],
                 majorTwo: i === 0 ? null : ids.major[(i + 1) % recordCount],
