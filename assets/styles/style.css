@@ -65,6 +65,23 @@ button {
   cursor: pointer;
 }
 
+.downloadButton {
+  background-color: white;
+  border-radius: 8px;
+  border: 2px solid #f44336;
+  width: 60%;
+  color: black;
+  padding: 15px 32px;
+  position: center;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
 button:hover {
   background-color: #f44336;
   color: white;
@@ -75,25 +92,35 @@ p {
   margin: 10px;
 }
 
-table {
-  position: relative;
-  z-index: 1;
-  background: #FFFFFF;
-  max-width: 95%;
-  margin: 0 auto 100px;
-  padding: 45px;
-  text-align: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+#visitSearch {
+  width: 60%; /* Full-width */
+  font-size: 16px; /* Increase font-size */
+  padding: 12px 20px 12px 40px; /* Add some padding */
+  border: 1px solid #ddd; /* Add a grey border */
+  margin-bottom: 12px; /* Add some space below the input */
 }
 
-th {
+#visitTable {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#visitTable td, th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#visitTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#visitTable tr:hover {background-color: #ddd;}
+
+#visitTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
   background-color: #f44336;
   color: white;
-  border: 1px solid rgb(10, 0, 0);
-}
-
-tr {
-  border: 1px solid rgb(10, 0, 0);
 }
 
 
