@@ -75,7 +75,7 @@ module.exports = {
         // Students. All but first have associations populated.
         for (let i = 0; i < recordCount; i++) {
             this.testRecords.push(await Student.create({
-                username: `USERNAME${i + 1}@DEWV.NET`,
+                username: `USERNAME${i + 1}@dewv.edu`,
                 firstName: `FIRSTNAME${i + 1}`,
                 lastName: `LASTNAME${i + 1}`,
                 academicRank: i === 0 ? null : Student.attributes.academicRank.validations.isIn[i % Student.attributes.academicRank.validations.isIn.length],
@@ -89,7 +89,7 @@ module.exports = {
         }
         for (let i = 0; i < recordCount; i++) {
             this.testRecords.push(await Student.create({
-                username: `NoUpdateUser${i + 1}@DEWV.NET`,
+                username: `NoUpdateUser${i + 1}@dewv.edu`,
                 firstName: `FIRSTNAME${i + 1}`,
                 lastName: `LASTNAME${i + 1}`,
                 academicRank: i === 0 ? null : Student.attributes.academicRank.validations.isIn[i % Student.attributes.academicRank.validations.isIn.length],
