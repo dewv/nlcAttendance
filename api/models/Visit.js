@@ -65,6 +65,15 @@ module.exports = {
         return visit;
     },
 
+    afterPopulateAssociations: async function(records) {
+        for (let i = 0; i < records.length; i++){
+            let recordToPopulate = records[i];
+            recordToPopulate.studentId = await Student.find({ where: { id: recordToPopulate.studentId }});
+            records[i] = recordToPopulate;
+        }
+        return records;
+    },
+
     testRecords: [],
 
     /**
