@@ -66,12 +66,18 @@ module.exports = {
     },
 
     afterPopulateAssociations: async function(records) {
-        for (let i = 0; i < records.length; i++){
-            let recordToPopulate = records[i];
-            recordToPopulate.studentId = await Student.find({ where: { id: recordToPopulate.studentId }});
-            records[i] = recordToPopulate;
-        }
-        return records;
+        let records = model.getDatastore().sendNativeQuery('SELECT * FROM visit, student WHERE visit.studentId = student.id;', [], 
+            function(err, rawResult) {
+                sails.log.debug(`err: ${err}`);
+                sails.log.debug(`results: ${JSON.stringify(rawResult.rows[0])}`);
+            }
+        );
+        // for (let i = 0; i < records.length; i++){
+        //     let recordToPopulate = records[i];
+        //     recordToPopulate.studentId = await Student.find({ where: { id: recordToPopulate.studentId }});
+        //     records[i] = recordToPopulate;
+        // }
+        // return records;
     },
 
     testRecords: [],

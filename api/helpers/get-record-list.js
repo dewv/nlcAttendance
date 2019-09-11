@@ -1,5 +1,5 @@
 /**
- * @name sails&period;helpers&period;populateAssociations
+ * @name sails&period;helpers&period;getRecordList
  * @description Joins all data association ID's with their corresponding records.
  * @function
  * @argument {Model} model - A Sails model defining the associations, if any.
@@ -7,6 +7,12 @@
  * @return {Records} The record argument, modified so that any association domain values are replace with their record.
  * @async
  */
+
+ /**
+  * If model.recordListQuery
+  * then use that string
+  * else use model.find
+  */
 module.exports = {
     friendlyName: "Populate associations",
 
@@ -34,7 +40,7 @@ module.exports = {
 
     fn: async function(inputs, exits) {
         if (inputs.model.afterPopulateAssociations) {
-            await inputs.model.afterPopulateAssociations(inputs.records);
+            await inputs.model.afterPopulateAssociations();
         }
         // Send back the result through the success exit.
         return exits.success(inputs.records);
