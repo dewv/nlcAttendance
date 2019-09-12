@@ -23,7 +23,7 @@ module.exports = {
     },
 
     // Define the model's proper query for displaying it's data.
-    recordListQuery: 'SELECT visit.id, checkInTime, checkOutTime, length, purpose, purposeAchieved, usedTutor, tutorCourses, comment, isLengthEstimated, firstName, lastName FROM visit, student WHERE visit.studentId = student.id ORDER BY visit.id DESC;',
+    recordListQuery: `SELECT visit.id, DATE_FORMAT(checkInTime, '%m/%d/%Y %H:%i') as checkInTime, DATE_FORMAT(checkOutTime, '%m/%d/%Y %H:%i') as checkOutTime, length, purpose, purposeAchieved, usedTutor, tutorCourses, comment, isLengthEstimated, firstName, lastName FROM visit, student WHERE visit.studentId = student.id ORDER BY visit.id DESC;`,
 
     /** Indicates which model attributes have defined domains.
      */
@@ -88,8 +88,8 @@ module.exports = {
                 if(iStudent === 5) continue;
                 let record = {
                     studentId: Student.testRecords[iStudent].id,
-                    checkInTime: new Date(`2018-${iVisit}-${iVisit} ${iVisit}:${iVisit}:${iVisit}`),
-                    checkOutTime: new Date(`2018-${iVisit}-${iVisit} ${2 * iVisit}:${iVisit}:${iVisit}`),
+                    checkInTime: new Date(`2018-${iVisit}-${iVisit} ${iVisit}:${iVisit}`),
+                    checkOutTime: new Date(`2018-${iVisit}-${iVisit} ${2 * iVisit}:${iVisit}`),
                     length: iVisit,
                     purpose: `OLD CLOSED VISIT`,
                     purposeAchieved: Visit.attributes.purposeAchieved.validations.isIn[iVisit % Visit.attributes.purposeAchieved.validations.isIn.length],
