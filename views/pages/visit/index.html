@@ -54,7 +54,6 @@ function filterName(x) {
         <thead>
             <tr>
                 <th>#</th>
-                <th>Student ID</th>
                 <th>Name</th>
                 <th>Check In</th>
                 <th>Check Out</th>
@@ -68,17 +67,14 @@ function filterName(x) {
             </tr>
         </thead>
 
-        <% if(records) {records.forEach(function(visit) { %>
+        <% if(records) {records.rows.forEach(function(visit) { %>
             <tbody>
                 <tr>
                     <td>
                         <%= visit.id %>
                     </td>
                     <td>
-                        <%= visit.studentId[0].id %>
-                    </td>
-                    <td>
-                        <%= visit.studentId[0].firstName + " " + visit.studentId[0].lastName %>
+                        <%= visit.firstName + " " + visit.lastName %>
                     </td>
                     <td>
                         <%= visit.checkInTime %>

@@ -15,7 +15,8 @@ module.exports = {
         if (request.params.model === "controller") return response.cookie("RestController", "listRequested").end();
         let model = sails.models[request.params.model];
         if (!model) return response.notFound();
-        let records = await sails.helpers.getRecordList(model);
+        let records = {};
+        records = await sails.helpers.getRecordList(model, records);
         clearRestCookies(response);
         return sails.helpers.responseViewSafely(request, response, `pages/${request.params.model}/index`, { records: records });
     },

@@ -22,6 +22,9 @@ module.exports = {
         isLengthEstimated: { type: "boolean", allowNull: false, defaultsTo: false },
     },
 
+    // Define the model's proper query for displaying it's data.
+    recordListQuery: 'SELECT visit.id, checkInTime, checkOutTime, length, purpose, purposeAchieved, usedTutor, tutorCourses, comment, isLengthEstimated, firstName, lastName FROM visit, student WHERE visit.studentId = student.id ORDER BY visit.id DESC;',
+
     /** Indicates which model attributes have defined domains.
      */
     domainDefined: {
@@ -63,21 +66,6 @@ module.exports = {
         }
         
         return visit;
-    },
-
-    afterPopulateAssociations: async function(records) {
-        let records = model.getDatastore().sendNativeQuery('SELECT * FROM visit, student WHERE visit.studentId = student.id;', [], 
-            function(err, rawResult) {
-                sails.log.debug(`err: ${err}`);
-                sails.log.debug(`results: ${JSON.stringify(rawResult.rows[0])}`);
-            }
-        );
-        // for (let i = 0; i < records.length; i++){
-        //     let recordToPopulate = records[i];
-        //     recordToPopulate.studentId = await Student.find({ where: { id: recordToPopulate.studentId }});
-        //     records[i] = recordToPopulate;
-        // }
-        // return records;
     },
 
     testRecords: [],

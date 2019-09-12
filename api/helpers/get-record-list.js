@@ -39,11 +39,25 @@ module.exports = {
     },
 
     fn: async function(inputs, exits) {
-        if (inputs.model.afterPopulateAssociations) {
-            await inputs.model.afterPopulateAssociations();
+
+        if (inputs.model.recordListQuery) {
+            sails.log.debug(`query: ${JSON.stringify(inputs.model.recordListQuery)}`);
+            inputs.records = await inputs.model.getDatastore().sendNativeQuery(inputs.model.recordListQuery, [],
+                function(err, rawResult) {
+                    sails.log.debug(`err: ${err}`);
+                    sails.log.debug(`results: ${JSON.stringify(rawResult)}`);
+                    inputs.records = rawResult
+                    sails.log.debug(`records: ${JSON.stringify(inputs.records)}`);
+                    return exits.success(inputs.records);
+                }
+            );
+            
+        } else {
+            inputs.records = await inputs.model.find();
+            return exits.success(inputs.records);
         }
         // Send back the result through the success exit.
-        return exits.success(inputs.records);
+           
     }
 
 };
