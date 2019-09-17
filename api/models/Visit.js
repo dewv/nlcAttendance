@@ -7,8 +7,6 @@
 
 module.exports = {
 
-    schema: false,
-
     attributes: {
         studentId: { model: "Student" },
         checkInTime: { type: "ref", columnType: "datetime", autoCreatedAt: true },
