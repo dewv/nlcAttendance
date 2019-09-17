@@ -48,7 +48,7 @@ module.exports = {
         },
     },
 
-    fn: async function(inputs, exits) {
+    fn: async function (inputs, exits) {
         fs.access(`views/${inputs.pathToView}.html`, fs.constants.F_OK, (error) => {
             if (error) return exits.success(inputs.response.notFound());
 
@@ -67,6 +67,10 @@ module.exports = {
                     autoLogout = true;
                 }
             }
+
+            // Clear REST cookies
+            inputs.response.clearCookie("restAction");
+            inputs.response.clearCookie("restModel");
 
             if (autoLogout) {
                 inputs.request.session.destroy();
