@@ -17,7 +17,7 @@ module.exports = {
         if (request.path === "/staffmenu") {
             let ejsData = {
                 userId: request.session.userId,
-            }
+            };
             return sails.helpers.responseViewSafely(request, response, `pages/misc${request.path}`, ejsData);
         } 
         return sails.helpers.responseViewSafely(request, response, `pages/misc${request.path}`);

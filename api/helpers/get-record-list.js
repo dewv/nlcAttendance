@@ -8,7 +8,7 @@
  * @async
  */
 
- /**
+/**
   * If model.recordListQuery
   * then use that string
   * else use model.find
@@ -44,8 +44,8 @@ module.exports = {
             sails.log.debug(`query: ${JSON.stringify(inputs.model.recordListQuery)}`);
             inputs.records = await inputs.model.getDatastore().sendNativeQuery(inputs.model.recordListQuery, [],
                 function(err, rawResult) {
-                    if (err) { sails.log.debug(`err: ${err}`); };
-                    inputs.records = rawResult
+                    if (err) { sails.log.debug(`err: ${err}`); }
+                    inputs.records = rawResult;
                     return exits.success(inputs.records);
                 }
             );
