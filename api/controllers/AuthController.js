@@ -27,9 +27,9 @@ module.exports = {
         let ldapData = {};
         let domain = "@dewv.edu";
 
-        if (request.body.username.slice(-domain.length) !== domain) {
-            request.body.username = request.body.username + domain;
-        }
+        // if (request.body.username.indexOf("@") < 0 && request.body.username.slice(-domain.length) !== domain) {
+        //     request.body.username = request.body.username + domain;
+        // }
 
         if (request.app.get("env") === "production") {
             // TODO real LDAP authentication

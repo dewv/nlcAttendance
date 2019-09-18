@@ -17,8 +17,8 @@ module.exports = {
     createFormSubmitted: async function (request, response) {
         if (request.params.model === "controller") return response.cookie("VisitController", "createFormSubmitted").end();
 
-        // When a student creates a visit record (checks in), put studentId on the visit.
-        if (request.session.role === "student") request.body.studentId = request.session.userId;
+        // When a student creates a visit record (checks in), put student ID on the visit.
+        if (request.session.role === "student") request.body.student = request.session.userId;
         
         // Now let REST controller take over.
         request.params.model = "visit";

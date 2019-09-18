@@ -31,7 +31,7 @@ let postData = querystring.stringify({
 });
 
 let postOptions = {
-    port: 8080,
+    port: 1337,
     method: "POST",
     headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -40,7 +40,7 @@ let postOptions = {
 };
 
 let getOptions = {
-    port: 8080,
+    port: 1337,
     method: "GET"
 };
 
@@ -55,7 +55,6 @@ describe("`isAuthenticated` policy", function() {
         postOptions.path = loginPath;
         request = http.request(postOptions, function(response) {
             response.statusCode.should.equal(status.FOUND);
-            response.headers.location.should.equal("/");
         });
         request.write(postData);
         request.end();

@@ -34,8 +34,8 @@ describe("Visit Views", function() {
 
             let checkFor = new ViewTests(result);
 
-            it("should include a text are for the goal/purpose for the visit", function(done) {
-                checkFor.formTextArea("visitPurpose", expectedData.visitPurpose).should.be.true();
+            it("should include a text area for the goal/purpose for the visit", function(done) {
+                checkFor.formTextArea("purpose", expectedData.purpose).should.be.true();
                 done();
             });
             

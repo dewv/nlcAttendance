@@ -13,7 +13,7 @@ function authenticateAs(role, id, callback) {
 
     let options = {
         path: loginPath,
-        port: 8080,
+        port: 1337,
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -36,7 +36,7 @@ function authenticateAs(role, id, callback) {
  */
 function isRequestAuthorized(method, path, sessionCookie, callback) {
     let options = {
-        port: 8080,
+        port: 1337,
         method: method,
         path: path,
         headers: {
@@ -91,7 +91,7 @@ describe("`isAuthorized` policy", function() {
         });
 
         it("should authorize requests to load the visit create form", function(done) {
-            isRequestAuthorized("GET", "/visit/new", studentSession, function(authorized) {
+            isRequestAuthorized("GET", "/student/visit", studentSession, function(authorized) {
                 authorized.should.be.true();
                 done();
             });
@@ -162,13 +162,6 @@ describe("`isAuthorized` policy", function() {
 
         it("should forbid requests to load the browser registration form", function(done) {
             isRequestAuthorized("GET", "/browser", studentSession, function(authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to submit the browser registration form", function(done) {
-            isRequestAuthorized("POST", "/browser", studentSession, function(authorized) {
                 authorized.should.be.false();
                 done();
             });
@@ -297,13 +290,6 @@ describe("`isAuthorized` policy", function() {
             });
         });
 
-        it("should forbid requests to submit the browser registration form", function(done) {
-            isRequestAuthorized("POST", "/browser", studentSession, function(authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
         it("should forbid requests to load the visit spreadsheet", function(done) {
             isRequestAuthorized("GET", "/visit/spreadsheet", studentSession, function(authorized) {
                 authorized.should.be.false();
@@ -351,7 +337,7 @@ describe("`isAuthorized` policy", function() {
         });
 
         it("should authorize requests to load the visit create form", function(done) {
-            isRequestAuthorized("GET", "/visit/new", studentSession, function(authorized) {
+            isRequestAuthorized("GET", "/student/visit", studentSession, function(authorized) {
                 authorized.should.be.true();
                 done();
             });
@@ -394,13 +380,6 @@ describe("`isAuthorized` policy", function() {
 
         it("should forbid requests to load the browser registration form", function(done) {
             isRequestAuthorized("GET", "/browser", studentSession, function(authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to submit the browser registration form", function(done) {
-            isRequestAuthorized("POST", "/browser", studentSession, function(authorized) {
                 authorized.should.be.false();
                 done();
             });
@@ -473,15 +452,8 @@ describe("`isAuthorized` policy", function() {
             });
         });
 
-        it("should authorize requests to submit the browser registration form", function(done) {
-            isRequestAuthorized("POST", "/browser", staffSession, function(authorized) {
-                authorized.should.be.true();
-                done();
-            });
-        });
-
         it("should forbid requests to load the visit create form", function(done) {
-            isRequestAuthorized("GET", "/visit/new", staffSession, function(authorized) {
+            isRequestAuthorized("GET", "/student/visit", staffSession, function(authorized) {
                 authorized.should.be.false();
                 done();
             });

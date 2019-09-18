@@ -20,7 +20,7 @@ module.exports = async function (request, response, proceed) {
     request.session.userProfile = await sails.helpers.populateOne(sails.models[request.session.role], request.session.userId);
 
     if (request.session.role === "student") {
-        let visit = await Visit.find({ where: { studentId: request.session.userProfile.id }, limit: 1, sort: "checkInTime DESC" });
+        let visit = await Visit.find({ where: { student: request.session.userProfile.id }, limit: 1, sort: "checkInTime DESC" });
         if (visit[0]) {
             request.session.userProfile.visit = {
                 id: visit[0].id,

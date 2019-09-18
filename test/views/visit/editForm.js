@@ -29,7 +29,6 @@ describe("Visit Views", function() {
             if (error) {
                 console.log("Error Rendering File: ", JSON.stringify(error));
             }
-            console.log(result);
             let checkFor = new ViewTests(result);
 
             it("should include select options to edit the question of goal/purpose accomplished", function(done) {

@@ -8,7 +8,7 @@
 module.exports = {
 
     attributes: {
-        studentId: { model: "Student" },
+        student: { model: "Student" },
         checkInTime: { type: "ref", columnType: "datetime", autoCreatedAt: true },
         checkOutTime: { type: "ref", columnType: "datetime" },
         length: { type: "number", required: false, allowNull: true },
@@ -21,7 +21,7 @@ module.exports = {
     },
 
     // Define the model's proper query for displaying it's data.
-    recordListQuery: `SELECT visit.id, DATE_FORMAT(checkInTime, '%m/%d/%Y %H:%i') as checkInTime, DATE_FORMAT(checkOutTime, '%m/%d/%Y %H:%i') as checkOutTime, length, purpose, purposeAchieved, usedTutor, tutorCourses, comment, isLengthEstimated, firstName, lastName FROM visit, student WHERE visit.studentId = student.id ORDER BY visit.id DESC;`,
+    recordListQuery: `SELECT visit.id, DATE_FORMAT(checkInTime, '%m/%d/%Y %H:%i') as checkInTime, DATE_FORMAT(checkOutTime, '%m/%d/%Y %H:%i') as checkOutTime, length, purpose, purposeAchieved, usedTutor, tutorCourses, comment, isLengthEstimated, firstName, lastName FROM visit, student WHERE visit.student = student.id ORDER BY visit.id DESC;`,
 
     /** Indicates which model attributes have defined domains.
      */
@@ -53,7 +53,7 @@ module.exports = {
         if (visit.purposeAchieved) {
             visit.checkOutTime = new Date(sails.helpers.getCurrentTime());
             if (!visit.length) {
-                let current = await Visit.find({ where: { studentId: visit.studentId}, limit: 1, sort: "checkInTime DESC" });
+                let current = await Visit.find({ where: { student: visit.student}, limit: 1, sort: "checkInTime DESC" });
                 visit.checkInTime = current[0].checkInTime;
                 visit.length = ((new Date(visit.checkOutTime)).getTime()) - ((new Date(visit.checkInTime)).getTime());
                 visit.length = sails.helpers.convertToHours(visit.length);
@@ -85,7 +85,7 @@ module.exports = {
             for (let iVisit = 1; iVisit <= 3; iVisit++) {
                 if(iStudent === 5) continue;
                 let record = {
-                    studentId: Student.testRecords[iStudent].id,
+                    student: Student.testRecords[iStudent].id,
                     checkInTime: new Date(`2018-${iVisit}-${iVisit} ${iVisit}:${iVisit}`),
                     checkOutTime: new Date(`2018-${iVisit}-${iVisit} ${2 * iVisit}:${iVisit}`),
                     length: iVisit,
@@ -107,12 +107,12 @@ module.exports = {
             
             let record;
             let yesterday = {
-                studentId: Student.testRecords[iStudent].id,
+                student: Student.testRecords[iStudent].id,
                 checkInTime: new Date(sails.helpers.getCurrentTime() - oneDay),
                 purpose: "VISIT OPENED YESTERDAY"
             };
             let today = {
-                studentId: Student.testRecords[iStudent].id,
+                student: Student.testRecords[iStudent].id,
                 checkInTime: new Date(sails.helpers.getCurrentTime() - (oneHour * (.5 * iStudent))),
                 purpose: "VISIT OPENED TODAY"
             };
@@ -132,7 +132,7 @@ module.exports = {
 /**
  * A student visit record.
  * @typedef {Record} VisitRecord
- * @property {Student} studentId - The associated student record.
+ * @property {Student} student - The associated student record.
  * @property {ref} checkInTime - A reference to createdAt formated in UTC.
  * @property {ref} checkOutTime - A timestamp in UTC used to calculate length, defaults to '0000-00-00 00:00:00'.
  * @property {number} length - The number of hours, to the nearest quarter hour, the student was at the NLC. The difference between the checkOutTime and CheckInTime.

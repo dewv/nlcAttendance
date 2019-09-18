@@ -14,7 +14,7 @@ let restGets = [{
 }];
 
 let getOptions = {
-    port: 8080,
+    port: 1337,
     method: "GET"
 };
 
@@ -31,7 +31,7 @@ let postData = querystring.stringify({
 });
 
 let postOptions = {
-    port: 8080,
+    port: 1337,
     method: "POST",
     headers: {
         "Content-Type": "application/x-www-form-urlencoded",

@@ -21,10 +21,6 @@ module.exports = {
         return proceed();
     },
 
-    domainDefined: {
-        isSlpInstructor: true 
-    },
-    
     testRecords: [],
 
     /**
