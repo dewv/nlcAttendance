@@ -27,7 +27,7 @@ describe("Visit model", function() {
     before(async function() {
 
         testData.record = Visit.testRecords[2];
-        testData.associations.name = await Student.findOne({ id: testData.record.student });
+        testData.associations.student = await Student.findOne({ id: testData.record.student });
         testData.checkInForm = { purpose: "test" };
         testData.checkOutFormNL = { purposeAchieved:"Yes", usedTutor:"Yes", tutorCourses:"test", comment:"test comment", name:3 };
         testData.checkOutFormLE = { purposeAchieved:"Yes", length:"1.25", usedTutor:"Yes", tutorCourses:"test", comment:"test comment", name:3 };
@@ -47,11 +47,11 @@ describe("Visit model", function() {
 
         context("`Test the association of the student model for name attribute.", async function() {
             it("Returns correct id number", async function() {
-                let expected = testData.record.name;
+                let expected = testData.record.student;
                 let visitSample = await Visit.findOne(3);
                 visitSample.should.not.be.an.Error();
                 visitSample.should.be.an.Object();
-                let result = visitSample.name;
+                let result = visitSample.student;
                 result.should.not.be.an.Error();
                 should.exist(result, "The record did not return anything.");
 
