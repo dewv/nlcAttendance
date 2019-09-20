@@ -94,12 +94,12 @@ module.exports = {
                 username: `NoUpdateUser${i + 1}@DEWV.NET`,
                 firstName: `NoUpdateFirst${i + 1}`,
                 lastName: `NoUpdateLast${i + 1}`,
-                academicRank: /*i === 0 ? null : */ Student.attributes.academicRank.validations.isIn[i % Student.attributes.academicRank.validations.isIn.length],
-                majorOne: /*i === 0 ? null : */ ids.major[i],
-                majorTwo: /*i === 0 ? null : */ ids.major[(i + 1) % recordCount],
-                residentialStatus: /*i === 0 ? null :*/  Student.attributes.residentialStatus.validations.isIn[i % Student.attributes.residentialStatus.validations.isIn.length],
-                fallSport: /*i === 0 ? null : */ ids.fallSport[i],
-                springSport: /*i === 0 ? null : */ ids.springSport[i],
+                academicRank: i === 0 ? null : Student.attributes.academicRank.validations.isIn[i % Student.attributes.academicRank.validations.isIn.length],
+                majorOne: i === 0 ? null : ids.major[i],
+                majorTwo: i === 0 ? null : ids.major[(i + 1) % recordCount],
+                residentialStatus: i === 0 ? null : Student.attributes.residentialStatus.validations.isIn[i % Student.attributes.residentialStatus.validations.isIn.length],
+                fallSport: i === 0 ? null : ids.fallSport[i],
+                springSport: i === 0 ? null : ids.springSport[i],
                 forceUpdate: false
             }).fetch());
         }
