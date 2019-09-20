@@ -50,6 +50,7 @@ module.exports = {
      * Note global: EncodeAssociations checks if a function named afterEncodeAssociations is defined in the model of any record. The definition is model specific and runs when the record is passed through the encodeAssociations helper.
      */
     afterEncodeAssociations: async function(visit) {
+        // This conditional checks if purposeAchieved. If it is defined, the action was checkout and we need to run the following code.
         if (visit.purposeAchieved) {
             visit.checkOutTime = new Date(sails.helpers.getCurrentTime());
             if (!visit.length) {

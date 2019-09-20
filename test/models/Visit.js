@@ -20,8 +20,8 @@ describe("Visit model", function() {
         associations: {},
         record: {},
         checkInForm: {},
-        checkOutFormNL: {},
-        checkOutFormLE: {},
+        checkOutFormNL: {}, // No Length in form submission test data. 
+        checkOutFormLE: {}, // Length Estimated in form submission data.
     };
 
     before(async function() {
@@ -29,8 +29,8 @@ describe("Visit model", function() {
         testData.record = Visit.testRecords[2];
         testData.associations.student = await Student.findOne({ id: testData.record.student });
         testData.checkInForm = { purpose: "test" };
-        testData.checkOutFormNL = { purposeAchieved:"Yes", usedTutor:"Yes", tutorCourses:"test", comment:"test comment", name:3 };
-        testData.checkOutFormLE = { purposeAchieved:"Yes", length:"1.25", usedTutor:"Yes", tutorCourses:"test", comment:"test comment", name:3 };
+        testData.checkOutFormNL = { purposeAchieved:"Yes", usedTutor:"Yes", tutorCourses:"test", comment:"test comment", student: 3 }; 
+        testData.checkOutFormLE = { purposeAchieved:"Yes", length:"1.25", usedTutor:"Yes", tutorCourses:"test", comment:"test comment", student: 3 };
         
     });
 
