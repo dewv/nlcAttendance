@@ -40,15 +40,11 @@ module.exports = {
 
     fn: async function(inputs, exits) {
 
-        if (inputs.model.recordListQuery) {
+        if (inputs.model.recordToAssociate) {
             sails.log.debug(`query: ${JSON.stringify(inputs.model.recordListQuery)}`);
-            inputs.records = await inputs.model.getDatastore().sendNativeQuery(inputs.model.recordListQuery, [],
-                function(err, rawResult) {
-                    if (err) { sails.log.debug(`err: ${err}`); }
-                    inputs.records = rawResult;
-                    return exits.success(inputs.records);
-                }
-            );
+            inputs.records = await inputs.model.find().populate(inputs.model.recordToAssociate);
+            sails.log.debug(`query: ${JSON.stringify(inputs.records[1])}`);
+            return exits.success(inputs.records);
             
         } else {
             inputs.records = await inputs.model.find();
