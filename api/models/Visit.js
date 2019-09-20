@@ -20,8 +20,8 @@ module.exports = {
         isLengthEstimated: { type: "boolean", allowNull: false, defaultsTo: false },
     },
 
-    // Define the model's proper query for displaying it's data.
-    recordListQuery: `SELECT visit.id, DATE_FORMAT(checkInTime, '%m/%d/%Y %H:%i') as checkInTime, DATE_FORMAT(checkOutTime, '%m/%d/%Y %H:%i') as checkOutTime, length, purpose, purposeAchieved, usedTutor, tutorCourses, comment, isLengthEstimated, firstName, lastName FROM visit, student WHERE visit.student = student.id ORDER BY visit.id DESC;`,
+    // Define the model's one to many association.
+    recordToAssociate: "student",
 
     /** Indicates which model attributes have defined domains.
      */
