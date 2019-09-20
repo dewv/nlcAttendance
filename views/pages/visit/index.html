@@ -67,14 +67,14 @@ function filterName(x) {
             </tr>
         </thead>
 
-        <% if(records) {records.rows.forEach(function(visit) { %>
+        <% if(records) {records.forEach(function(visit) { %>
             <tbody>
                 <tr>
                     <td>
                         <%= visit.id %>
                     </td>
                     <td>
-                        <%= visit.firstName + " " + visit.lastName %>
+                        <%= visit.student.firstName + " " + visit.student.lastName %>
                     </td>
                     <td>
                         <%= visit.checkInTime %>
