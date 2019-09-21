@@ -123,20 +123,26 @@ module.exports = function(modelName, testData) {
 
         context("`getRecordList` helper", async function() {
             it("should return a array of records for a defined model", async function() {
-                let result = sails.helpers.getRecordList('student');
-                let expected = sails.models['student'].find()
+                let records = {};
+                let result = await sails.helpers.getRecordList(Student, records);
+                let expected = await Student.find()
                 result.should.not.be.an.Error();
                 expected.should.not.be.an.Error();
                 should.exist(result, "The helper did not return anything");
-                result.should.equal(expected, "The helper returned " + result + " , while the test expected " + expected + ".");
+                for (let i = 0; i < result.length; i++) {
+                    result[i].id.should.equal(expected[i].id, "The helper returned " + JSON.stringify(result[i]) + " , while the test expected " + JSON.stringify(expected[i]) + ".");
+                }
             });
             it("should return a array of records for a defined model with a association", async function() {
-                let result = sails.helpers.getRecordList('visit');
-                let expected = sails.models['visit'].find().populate('student');
+                let records = {};
+                let result = await sails.helpers.getRecordList(Visit, records);
+                let expected = await Visit.find().populate('student');
                 result.should.not.be.an.Error();
                 expected.should.not.be.an.Error();
                 should.exist(result, "The helper did not return anything");
-                result.should.equal(expected, "The helper returned " + result + " , while the test expected " + expected + ".");
+                for (let i = 0; i < result.length; i++) {
+                    result[i].id.should.equal(expected[i].id, "The helper returned " + JSON.stringify(result[i]) + " , while the test expected " + JSON.stringify(expected[i]) + ".");
+                }
             });
         });
     });
