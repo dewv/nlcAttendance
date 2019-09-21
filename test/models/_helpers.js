@@ -123,18 +123,16 @@ module.exports = function(modelName, testData) {
 
         context("`getRecordList` helper", async function() {
             it("should return a array of records for a defined model", async function() {
-                let result = sails.helpers.getRecordList("student");
-                let time = ;
-                let expected = 
+                let result = sails.helpers.getRecordList('student');
+                let expected = sails.models['student'].find()
                 result.should.not.be.an.Error();
                 expected.should.not.be.an.Error();
                 should.exist(result, "The helper did not return anything");
                 result.should.equal(expected, "The helper returned " + result + " , while the test expected " + expected + ".");
             });
             it("should return a array of records for a defined model with a association", async function() {
-                let result = sails.helpers.getRecordList("visit");
-                let time = ;
-                let expected = sails.;
+                let result = sails.helpers.getRecordList('visit');
+                let expected = sails.models['visit'].find().populate('student');
                 result.should.not.be.an.Error();
                 expected.should.not.be.an.Error();
                 should.exist(result, "The helper did not return anything");
