@@ -167,8 +167,15 @@ describe("`isAuthorized` policy", function() {
             });
         });
 
-        it("should forbid requests to load the visit spreadsheet", function(done) {
-            isRequestAuthorized("GET", "/visit/spreadsheet", studentSession, function(authorized) {
+        it("should forbid requests to load the visit records", function(done) {
+            isRequestAuthorized("GET", "/visit", studentSession, function(authorized) {
+                authorized.should.be.false();
+                done();
+            });
+        });
+
+        it("should forbid requests to load the student records", function(done) {
+            isRequestAuthorized("GET", "/student", studentSession, function(authorized) {
                 authorized.should.be.false();
                 done();
             });
@@ -228,7 +235,7 @@ describe("`isAuthorized` policy", function() {
         });
 
         it("should authorize requests to load their own most recent visit in the edit form", function(done) {
-            isRequestAuthorized("GET", "/visit/28/edit", studentSession, function(authorized) {
+            isRequestAuthorized("GET", "/student/visit", studentSession, function(authorized) {
                 authorized.should.be.true();
                 done();
             });
@@ -283,6 +290,13 @@ describe("`isAuthorized` policy", function() {
             });
         });
 
+        it("should forbid requests to view all student records", function(done) {
+            isRequestAuthorized("GET", "/student", studentSession, function(authorized) {
+                authorized.should.be.false();
+                done();
+            });
+        });
+
         it("should forbid requests to load the browser registration form", function(done) {
             isRequestAuthorized("GET", "/browser", studentSession, function(authorized) {
                 authorized.should.be.false();
@@ -290,12 +304,6 @@ describe("`isAuthorized` policy", function() {
             });
         });
 
-        it("should forbid requests to load the visit spreadsheet", function(done) {
-            isRequestAuthorized("GET", "/visit/spreadsheet", studentSession, function(authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
     });
 
     context("when the user is authenticated student and has no visits", function() {
@@ -385,8 +393,15 @@ describe("`isAuthorized` policy", function() {
             });
         });
 
-        it("should forbid requests to load the visit spreadsheet", function(done) {
-            isRequestAuthorized("GET", "/visit/spreadsheet", studentSession, function(authorized) {
+        it("should forbid requests to load the visit records", function(done) {
+            isRequestAuthorized("GET", "/visit", studentSession, function(authorized) {
+                authorized.should.be.false();
+                done();
+            });
+        });
+
+        it("should forbid requests to load the student records", function(done) {
+            isRequestAuthorized("GET", "/student", studentSession, function(authorized) {
                 authorized.should.be.false();
                 done();
             });
@@ -480,11 +495,18 @@ describe("`isAuthorized` policy", function() {
             });
         });
 
-        it("should authorize requests to load the visit spreadsheet"/*, function(done) {
-            isRequestAuthorized("GET", "/visit/spreadsheet", staffSession, function(authorized) {
+        it("should authorize requests to load the visit spreadsheet", function(done) {
+            isRequestAuthorized("GET", "/visit", staffSession, function(authorized) {
                 authorized.should.be.true();
                 done();
             });
-        }*/);
+        });
+
+        it("should authorize requests to load the student spreadsheet", function(done) {
+            isRequestAuthorized("GET", "/student", staffSession, function(authorized) {
+                authorized.should.be.true();
+                done();
+            });
+        });
     });
 });
