@@ -5,9 +5,15 @@ require("should");
 
 const loginPath = "/login";
 
-function authenticateAs(role, id, callback) {
+/**
+ * Authenticates as a specified test user. 
+ * @argument {string} role - The user role: `staff` or `student`. 
+ * @argument {number} index - The `testRecords` array index of the test user. 
+ * @argument {function} callback - The function to call on completion.
+ */
+function authenticateAs(role, index, callback) {
     let credentials = querystring.stringify({
-        "username": sails.models[role].testRecords[id].username,
+        "username": sails.models[role].testRecords[index].username,
         "password": role
     });
 
@@ -24,6 +30,7 @@ function authenticateAs(role, id, callback) {
     let request = http.request(options, function(response) {
         callback(response.headers["set-cookie"]);
     });
+
     request.write(credentials);
     request.end();
 }
@@ -51,7 +58,49 @@ function isRequestAuthorized(method, path, sessionCookie, callback) {
     request.end();
 }
 
+/**
+ * Returns location of a redirected request, or `undefined` if request was not redirected. 
+ * @argument {string} method - The HTTP method of the request.
+ * @argument {string} path - The relative URL of the request.
+ * @argument {function} callback - The function to call on completion.
+ */
+function redirectLocation(method, path, sessionCookie, callback) {
+    let options = {
+        port: 1337,
+        method: method,
+        path: path,
+        headers: {
+            "Cookie": sessionCookie
+        }
+    };
+
+    let request = http.request(options, function(response) {
+        return callback(response.statusCode === status.FOUND ? response.headers.location : undefined);
+    });
+
+    request.end();
+}
+
 describe("`isAuthorized` policy", function() {
+    context("when the user is an authenticated student and a profile update is required", function() {
+        let studentSession = undefined;
+        let testRecordsIndex = 0;
+
+        before(function(done) {
+            authenticateAs("student", testRecordsIndex, function(cookie) {
+                studentSession = cookie;
+                done();
+            });
+        });
+
+        it("should force an update to the student's profile by redirecting requests", function(done) {
+            redirectLocation("GET", "/student/visit", studentSession, function(location) {
+                location.should.equal(`/student/${testRecordsIndex + 1}/edit`);
+                done();
+            });
+        });
+    });
+
     context("when the user is an authenticated student and checked out", function() {
         let studentSession = undefined;
 

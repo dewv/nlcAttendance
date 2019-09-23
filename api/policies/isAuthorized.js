@@ -42,10 +42,6 @@ module.exports = async function (request, response, proceed) {
         }
     }
 
-    if (request.path === "/") {
-        return proceed();
-    }
-
     // Users are authorized to access their own profile ...
     if (request.path === `${profileUrl}/edit` && request.method === "GET") return proceed();
     // Users are authorized to update their own profile ...
