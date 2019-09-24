@@ -28,7 +28,7 @@ module.exports = {
         return RestController.createFormSubmitted(request, response);
     },
     
-     /**
+    /**
      * Handles request to update a data record using form data.
      * @argument {external:Request} request -  The HTTP request.
      * @argument {external:Response} response - The HTTP response.
@@ -37,9 +37,10 @@ module.exports = {
      */
     editFormSubmitted: async function(request, response) {
         if (request.params.model === "controller") return response.cookie("VisitController", "editFormSubmitted").end();
+        request.params.model = "visit";
         response.locals = response.locals || {};
         response.locals.banner = "You are now checked out. Thanks for visiting Naylor Learning Center.";
         response.locals.forceLogout = true;
-        return RestController.editFormRequested(request, response);
+        return RestController.editFormSubmitted(request, response);
     }
 };

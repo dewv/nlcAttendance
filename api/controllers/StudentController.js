@@ -34,7 +34,7 @@ module.exports = {
         }
     },
 
-     /**
+    /**
      * Handles request to update a data record using form data.
      * @argument {external:Request} request -  The HTTP request.
      * @argument {external:Response} response - The HTTP response.
@@ -45,6 +45,7 @@ module.exports = {
         if (request.params.model === "controller") return response.cookie("StudentController", "editFormSubmitted").end();
         response.locals = response.locals || {};
         response.locals.banner = "Your student profile was updated.";
-        return RestController.editFormRequested(request, response);
+        request.params.model = "student";
+        return RestController.editFormSubmitted(request, response);
     }
 };

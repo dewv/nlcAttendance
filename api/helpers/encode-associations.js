@@ -38,6 +38,7 @@ module.exports = {
                 inputs.record[property]) {
                 let lookup = null;
                 let candidateKey = sails.models[inputs.model.attributes[property].model].candidateKey;
+                /* istanbul ignore else */
                 if (candidateKey) {
                     let criteria = {};
                     criteria[candidateKey] = inputs.record[property];
