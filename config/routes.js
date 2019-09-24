@@ -13,6 +13,9 @@ let routes = {
     // Custom logic to extend default REST handling of CRUD operations 
     "GET /student/visit": "StudentController.visitFormRequested",
     "POST /visit": "VisitController.createFormSubmitted",
+    "POST /student/:id": "StudentController.editFormSubmitted",
+    "POST /visit/:id": "VisitController.editFormSubmitted",
+    "POST /staff/:id": "StaffController.editFormSubmitted",
     
     // Default handling of CRUD operations via REST 
     "GET /:model": "RestController.listRequested", 

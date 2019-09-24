@@ -110,37 +110,38 @@ describe("`isAuthorized` policy", function() {
 
     context("when the user is an authenticated student and checked out", function() {
         let studentSession = undefined;
+        let testRecordsIndex = 6;
 
         before(function(done) {
-            authenticateAs("student", 6, function(cookie) {
+            authenticateAs("student", testRecordsIndex, function(cookie) {
                 studentSession = cookie;
                 done();
             });
         });
 
         it("should authorize requests to load their own profile in the edit form", function(done) {
-            isRequestAuthorized("GET", "/student/7/edit", studentSession, function(authorized) {
+            isRequestAuthorized("GET", `/student/${testRecordsIndex + 1}/edit`, studentSession, function(authorized) {
                 authorized.should.be.true();
                 done();
             });
         });
 
         it("should authorize requests to update their own profile", function(done) {
-            isRequestAuthorized("POST", "/student/7", studentSession, function(authorized) {
+            isRequestAuthorized("POST", `/student/${testRecordsIndex + 1}`, studentSession, function(authorized) {
                 authorized.should.be.true();
                 done();
             });
         });
 
         it("should forbid requests to load other user profiles in the edit form", function(done) {
-            isRequestAuthorized("GET", "/student/3/edit", studentSession, function(authorized) {
+            isRequestAuthorized("GET", `/student/${testRecordsIndex - 1}/edit`, studentSession, function(authorized) {
                 authorized.should.be.false();
                 done();
             });
         });
 
         it("should forbid requests to update other user profiles", function(done) {
-            isRequestAuthorized("POST", "/student/3", studentSession, function(authorized) {
+            isRequestAuthorized("POST", `/student/${testRecordsIndex - 1}`, studentSession, function(authorized) {
                 authorized.should.be.false();
                 done();
             });
@@ -240,37 +241,38 @@ describe("`isAuthorized` policy", function() {
 
     context("when the user is an authenticated student and checked in", function() {
         let studentSession = undefined;
+        let testRecordsIndex = 7;
 
         before(function(done) {
-            authenticateAs("student", 7, function(cookie) {
+            authenticateAs("student", testRecordsIndex, function(cookie) {
                 studentSession = cookie;
                 done();
             });
         });
 
         it("should authorize requests to load their own profile in the edit form", function(done) {
-            isRequestAuthorized("GET", "/student/8/edit", studentSession, function(authorized) {
+            isRequestAuthorized("GET", `/student/${testRecordsIndex + 1}/edit`, studentSession, function(authorized) {
                 authorized.should.be.true();
                 done();
             });
         });
 
         it("should authorize requests to update their own profile", function(done) {
-            isRequestAuthorized("POST", "/student/8", studentSession, function(authorized) {
+            isRequestAuthorized("POST", `/student/${testRecordsIndex + 1}`, studentSession, function(authorized) {
                 authorized.should.be.true();
                 done();
             });
         });
 
         it("should forbid requests to load other user profiles in the edit form", function(done) {
-            isRequestAuthorized("GET", "/student/3/edit", studentSession, function(authorized) {
+            isRequestAuthorized("GET", `/student/${testRecordsIndex - 1}/edit`, studentSession, function(authorized) {
                 authorized.should.be.false();
                 done();
             });
         });
 
         it("should forbid requests to update other user profiles", function(done) {
-            isRequestAuthorized("POST", "/student/3", studentSession, function(authorized) {
+            isRequestAuthorized("POST", `/student/${testRecordsIndex - 1}`, studentSession, function(authorized) {
                 authorized.should.be.false();
                 done();
             });
@@ -364,37 +366,38 @@ describe("`isAuthorized` policy", function() {
 
     context("when the user is authenticated student and has no visits", function() {
         let studentSession = undefined;
+        let testRecordsIndex = 5;
 
         before(function(done) {
-            authenticateAs("student", 5, function(cookie) {
+            authenticateAs("student", testRecordsIndex, function(cookie) {
                 studentSession = cookie;
                 done();
             });
         });
 
         it("should authorize requests to load their own profile in the edit form", function(done) {
-            isRequestAuthorized("GET", "/student/6/edit", studentSession, function(authorized) {
+            isRequestAuthorized("GET", `/student/${testRecordsIndex + 1}/edit`, studentSession, function(authorized) {
                 authorized.should.be.true();
                 done();
             });
         });
 
         it("should authorize requests to update their own profile", function(done) {
-            isRequestAuthorized("POST", "/student/6", studentSession, function(authorized) {
+            isRequestAuthorized("POST", `/student/${testRecordsIndex + 1}`, studentSession, function(authorized) {
                 authorized.should.be.true();
                 done();
             });
         });
 
         it("should forbid requests to load other user profiles in the edit form", function(done) {
-            isRequestAuthorized("GET", "/student/3/edit", studentSession, function(authorized) {
+            isRequestAuthorized("GET", `/student/${testRecordsIndex - 1}/edit`, studentSession, function(authorized) {
                 authorized.should.be.false();
                 done();
             });
         });
 
         it("should forbid requests to update other user profiles", function(done) {
-            isRequestAuthorized("POST", "/student/3", studentSession, function(authorized) {
+            isRequestAuthorized("POST", `/student/${testRecordsIndex - 1}`, studentSession, function(authorized) {
                 authorized.should.be.false();
                 done();
             });
@@ -466,37 +469,38 @@ describe("`isAuthorized` policy", function() {
 
     context("when the user is authenticated staff", function() {
         let staffSession = undefined;
+        let testUserId = 5;
 
         before(function(done) {
-            authenticateAs("staff", 1, function(cookie) {
+            authenticateAs("staff", testUserId - 1, function(cookie) {
                 staffSession = cookie;
                 done();
             });
         });
 
         it("should authorize requests to load their own profile in the edit form", function(done) {
-            isRequestAuthorized("GET", "/staff/2/edit", staffSession, function(authorized) {
+            isRequestAuthorized("GET", `/staff/${testUserId}/edit`, staffSession, function(authorized) {
                 authorized.should.be.true();
                 done();
             });
         });
 
         it("should authorize requests to update their own profile", function(done) {
-            isRequestAuthorized("POST", "/staff/2", staffSession, function(authorized) {
+            isRequestAuthorized("POST", `/staff/${testUserId}`, staffSession, function(authorized) {
                 authorized.should.be.true();
                 done();
             });
         });
 
         it("should forbid requests to load other user profiles in the edit form", function(done) {
-            isRequestAuthorized("GET", "/staff/3/edit", staffSession, function(authorized) {
+            isRequestAuthorized("GET", `/staff/${testUserId - 1}/edit`, staffSession, function(authorized) {
                 authorized.should.be.false();
                 done();
             });
         });
 
         it("should forbid requests to update other user profiles", function(done) {
-            isRequestAuthorized("POST", "/staff/4", staffSession, function(authorized) {
+            isRequestAuthorized("POST", `/staff/${testUserId - 1}`, staffSession, function(authorized) {
                 authorized.should.be.false();
                 done();
             });

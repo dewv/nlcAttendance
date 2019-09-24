@@ -15,9 +15,7 @@ module.exports = {
         if (request.params.model === "controller") return response.cookie("RestController", "listRequested").end();
         let model = sails.models[request.params.model];
         if (!model) return response.notFound();
-        let records = {};
-        records = await sails.helpers.getRecordList(model, records);
-        clearRestCookies(response);
+        let records = await sails.helpers.getRecordList(model, {});
         return sails.helpers.responseViewSafely(request, response, `pages/${request.params.model}/index`, { records: records });
     },
 
@@ -42,7 +40,6 @@ module.exports = {
             ejsData[domain] = await sails.helpers.generateHtmlSelect(domain, domains[domain]);
         }
 
-        clearRestCookies(response);
         return sails.helpers.responseViewSafely(request, response, `pages/${request.params.model}/createForm`, ejsData);
     },
 
@@ -55,10 +52,10 @@ module.exports = {
      */
     createFormSubmitted: async function(request, response) {
         if (request.params.model === "controller") return response.cookie("RestController", "createFormSubmitted").end();
-        let encodedData = await sails.helpers.encodeAssociations(sails.models[request.params.model], request.body);
-        await sails.models[request.params.model].create(encodedData);
-        response.cookie("restAction", "create");
-        response.cookie("restModel", request.params.model);
+        let model = sails.models[request.params.model];
+        if (!model) return response.notFound();
+        let encodedData = await sails.helpers.encodeAssociations(model, request.body);
+        await model.create(encodedData);
         return response.redirect(request.session.defaultUrl);
     },
 
@@ -72,6 +69,7 @@ module.exports = {
     editFormRequested: async function(request, response) {
         if (request.params.model === "controller") return response.cookie("RestController", "editFormRequested").end();
         let model = sails.models[request.params.model];
+        if (!model) return response.notFound();
         let recordToUpdate = await sails.helpers.populateOne(model, request.params.id);
         if (!recordToUpdate) return response.notFound();
         let domains = await sails.helpers.getDomains(model);
@@ -93,7 +91,6 @@ module.exports = {
             ejsData[domain] = await sails.helpers.generateHtmlSelect(domain, domains[domain], selected);
         }
 
-        clearRestCookies(response);
         return await sails.helpers.responseViewSafely(request, response, `pages/${request.params.model}/editForm`, ejsData);
     },
 
@@ -106,16 +103,10 @@ module.exports = {
      */
     editFormSubmitted: async function(request, response) {
         if (request.params.model === "controller") return response.cookie("RestController", "editFormSubmitted").end();
-        let encodedData = await sails.helpers.encodeAssociations(sails.models[request.params.model], request.body);
-        await sails.models[request.params.model].updateOne({ id: request.params.id }).set(encodedData);
-        response.cookie("restAction", "edit");
-        response.cookie("restModel", request.params.model);
+        let model = sails.models[request.params.model];
+        if (!model) return response.notFound();
+        let encodedData = await sails.helpers.encodeAssociations(model, request.body);
+        await model.updateOne({ id: request.params.id }).set(encodedData);
         return response.redirect(request.session.defaultUrl);
-    },
-
+    }
 };
-
-function clearRestCookies(response) {
-    response.clearCookie("restAction");
-    response.clearCookie("restModel");
-}
