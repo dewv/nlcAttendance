@@ -42,12 +42,18 @@ function authenticateAs(role, index, callback) {
  * @argument {function} callback - The function to call on completion.
  */
 function isRequestAuthorized(method, path, sessionCookie, callback) {
+    let payload = querystring.stringify({
+        "purpose": "This is required" 
+    });
+
     let options = {
         port: 1337,
         method: method,
         path: path,
-        headers: {
-            "Cookie": sessionCookie
+        headers: { 
+            "Cookie": sessionCookie,
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Content-Length": Buffer.byteLength(payload)
         }
     };
 
@@ -55,6 +61,7 @@ function isRequestAuthorized(method, path, sessionCookie, callback) {
         return callback(response.statusCode !== status.FORBIDDEN);
     });
 
+    request.write(payload);
     request.end();
 }
 
