@@ -30,7 +30,7 @@ module.exports = {
         let result = {};
         if (inputs.model.domainDefined) {
             for (let property in inputs.model.domainDefined) {
-                if (!inputs.model.domainDefined[property]) continue;
+                /* istanbul ignore else */
                 if (sails.helpers.isAssociation(inputs.model, property)) {
                     result[property] = await sails.models[inputs.model.attributes[property].model].find().sort("name ASC");
                 }
