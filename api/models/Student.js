@@ -31,10 +31,10 @@ module.exports = {
      * Indicates which model attributes have defined domains.
      */
     domainDefined: {
-        academicRank: true,
-        majorOne: true,
+        academicRank: {inputRequired: true},
+        majorOne: {inputRequired: true},
         majorTwo: true,
-        residentialStatus: true,
+        residentialStatus: {inputRequired: true},
         fallSport: true,
         springSport: true
     },
