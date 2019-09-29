@@ -18,7 +18,7 @@ module.exports = {
         if (request.params.model === "controller") return response.cookie("VisitController", "createFormSubmitted").end();
 
         // When a student creates a visit record (checks in), put student ID on the visit.
-        if (request.session.role === "student") request.body.student = request.session.userId;
+        if (request.session.role === "student") request.body.student = request.session.username;
         
         // Now let REST controller take over.
         request.params.model = "visit";

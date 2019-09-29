@@ -44,8 +44,7 @@ module.exports = {
                     criteria[candidateKey] = inputs.record[property];
                     lookup = await sails.models[inputs.model.attributes[property].model].findOne(criteria);
                 }
-                // inputs.record[property] = lookup ? lookup.id : /* istanbul ignore next */ null;
-                if (lookup) inputs.record[property] = lookup.id;
+                inputs.record[property] = lookup ? lookup.id : null;
             }
         }
         
