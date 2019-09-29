@@ -31,12 +31,21 @@ module.exports = {
      * Indicates which model attributes have defined domains.
      */
     domainDefined: {
-        academicRank: {inputRequired: true},
-        majorOne: {inputRequired: true},
+        academicRank: true,
+        majorOne: true,
         majorTwo: true,
-        residentialStatus: {inputRequired: true},
+        residentialStatus: true,
         fallSport: true,
         springSport: true
+    },
+
+    /** 
+     * Indicates which model attributes are required when a user updates their profile.
+     */
+    inputRequired: {
+        academicRank: true,
+        majorOne: true,
+        residentialStatus: true,
     },
 
     testRecords: [],
