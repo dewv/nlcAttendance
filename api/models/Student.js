@@ -39,6 +39,15 @@ module.exports = {
         springSport: true
     },
 
+    /** 
+     * Indicates which model attributes are required when a user updates their profile.
+     */
+    inputRequired: {
+        academicRank: true,
+        majorOne: true,
+        residentialStatus: true,
+    },
+
     testRecords: [],
     
     /**

@@ -5,30 +5,30 @@
  */
 module.exports = {
     /**
-     * Handles request to display a list of data records.
-     * @argument {external:Request} request -  The HTTP request.
-     * @argument {external:Response} response - The HTTP response.
-     * @public
-     * @async
-     */
-    listRequested: async function(request, response) {
+   * Handles request to display a list of data records.
+   * @argument {external:Request} request -  The HTTP request.
+   * @argument {external:Response} response - The HTTP response.
+   * @public
+   * @async
+   */
+    listRequested: async function (request, response) {
         if (request.params.model === "controller") return response.cookie("RestController", "listRequested").end();
         let model = sails.models[request.params.model];
         if (!model) return response.notFound();
-        let records = {};
-        records = await sails.helpers.getRecordList(model, records);
-        clearRestCookies(response);
-        return sails.helpers.responseViewSafely(request, response, `pages/${request.params.model}/index`, { records: records });
+        let records = await sails.helpers.getRecordList(model, {});
+        return sails.helpers.responseViewSafely(request, response, `pages/${request.params.model}/index`, {
+            records: records
+        });
     },
 
     /**
-     * Handles request to display a form for entering a new data record.
-     * @argument {external:Request} request -  The HTTP request.
-     * @argument {external:Response} response - The HTTP response.
-     * @public
-     * @async
-     */
-    createFormRequested: async function(request, response) {
+   * Handles request to display a form for entering a new data record.
+   * @argument {external:Request} request -  The HTTP request.
+   * @argument {external:Response} response - The HTTP response.
+   * @public
+   * @async
+   */
+    createFormRequested: async function (request, response) {
         if (request.params.model === "controller") return response.cookie("RestController", "createFormRequested").end();
         let model = sails.models[request.params.model];
         if (!model) return response.notFound();
@@ -42,36 +42,37 @@ module.exports = {
             ejsData[domain] = await sails.helpers.generateHtmlSelect(domain, domains[domain]);
         }
 
-        clearRestCookies(response);
         return sails.helpers.responseViewSafely(request, response, `pages/${request.params.model}/createForm`, ejsData);
     },
 
     /**
-     * Handles request to create a new data record using form data.
-     * @argument {external:Request} request -  The HTTP request.
-     * @argument {external:Response} response - The HTTP response.
-     * @public
-     * @async
-     */
-    createFormSubmitted: async function(request, response) {
+   * Handles request to create a new data record using form data.
+   * @argument {external:Request} request -  The HTTP request.
+   * @argument {external:Response} response - The HTTP response.
+   * @public
+   * @async
+   */
+    createFormSubmitted: async function (request, response) {
         if (request.params.model === "controller") return response.cookie("RestController", "createFormSubmitted").end();
-        let encodedData = await sails.helpers.encodeAssociations(sails.models[request.params.model], request.body);
-        await sails.models[request.params.model].create(encodedData);
-        response.cookie("restAction", "create");
-        response.cookie("restModel", request.params.model);
+        let model = sails.models[request.params.model];
+        if (!model) return response.notFound();
+        let encodedData = await sails.helpers.encodeAssociations(model, request.body);
+        await model.create(encodedData);
+        if (response.locals.forceLogout) return this.forceLogout(request, response);
         return response.redirect(request.session.defaultUrl);
     },
 
     /**
-     * Handles request to display a form for editing a data record.
-     * @argument {external:Request} request -  The HTTP request.
-     * @argument {external:Response} response - The HTTP response.
-     * @public
-     * @async
-     */
-    editFormRequested: async function(request, response) {
+   * Handles request to display a form for editing a data record.
+   * @argument {external:Request} request -  The HTTP request.
+   * @argument {external:Response} response - The HTTP response.
+   * @public
+   * @async
+   */
+    editFormRequested: async function (request, response) {
         if (request.params.model === "controller") return response.cookie("RestController", "editFormRequested").end();
         let model = sails.models[request.params.model];
+        if (!model) return response.notFound();
         let recordToUpdate = await sails.helpers.populateOne(model, request.params.id);
         if (!recordToUpdate) return response.notFound();
         let domains = await sails.helpers.getDomains(model);
@@ -85,37 +86,45 @@ module.exports = {
             if (recordToUpdate[domain]) {
                 if (recordToUpdate[domain].name) {
                     selected = recordToUpdate[domain].name;
-                }
-                else {
+                } else {
                     selected = recordToUpdate[domain];
                 }
             }
             ejsData[domain] = await sails.helpers.generateHtmlSelect(domain, domains[domain], selected);
         }
 
-        clearRestCookies(response);
         return await sails.helpers.responseViewSafely(request, response, `pages/${request.params.model}/editForm`, ejsData);
     },
 
     /**
-     * Handles request to update a data record using form data.
-     * @argument {external:Request} request -  The HTTP request.
-     * @argument {external:Response} response - The HTTP response.
-     * @public
-     * @async
-     */
-    editFormSubmitted: async function(request, response) {
+   * Handles request to update a data record using form data.
+   * @argument {external:Request} request -  The HTTP request.
+   * @argument {external:Response} response - The HTTP response.
+   * @public
+   * @async
+   */
+    editFormSubmitted: async function (request, response) {
         if (request.params.model === "controller") return response.cookie("RestController", "editFormSubmitted").end();
-        let encodedData = await sails.helpers.encodeAssociations(sails.models[request.params.model], request.body);
-        await sails.models[request.params.model].updateOne({ id: request.params.id }).set(encodedData);
-        response.cookie("restAction", "edit");
-        response.cookie("restModel", request.params.model);
+        let model = sails.models[request.params.model];
+        if (!model) return response.notFound();
+        let encodedData = await sails.helpers.encodeAssociations(model, request.body);
+        await model.updateOne({
+            id: request.params.id
+        }).set(encodedData);
+
+        if (response.locals.forceLogout) return this.forceLogout(request, response);
         return response.redirect(request.session.defaultUrl);
     },
 
+    /**
+   * Destroys session information and redirects to login page. 
+   * @argument {external:Request} request -  The HTTP request.
+   * @argument {external:Response} response - The HTTP response.
+   * @public
+   * @async
+   */
+    forceLogout: async function (request, response) {
+        request.session.destroy();
+        return await sails.helpers.responseViewSafely(request, response, `pages/login`);
+    }
 };
-
-function clearRestCookies(response) {
-    response.clearCookie("restAction");
-    response.clearCookie("restModel");
-}

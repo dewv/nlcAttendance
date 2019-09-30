@@ -29,8 +29,8 @@ describe("Visit model", function() {
         testData.record = Visit.testRecords[2];
         testData.associations.student = await Student.findOne({ id: testData.record.student });
         testData.checkInForm = { purpose: "test" };
-        testData.checkOutFormNL = { purposeAchieved:"Yes", usedTutor:"Yes", tutorCourses:"test", comment:"test comment", student: 3 }; 
-        testData.checkOutFormLE = { purposeAchieved:"Yes", length:"1.25", usedTutor:"Yes", tutorCourses:"test", comment:"test comment", student: 3 };
+        testData.checkOutFormNL = { purposeAchieved:"Yes", usedTutor:"Yes", courses:"test", comment:"test comment", student: 3 }; 
+        testData.checkOutFormLE = { purposeAchieved:"Yes", length:"1.25", usedTutor:"Yes", courses:"test", comment:"test comment", student: 3 };
         
     });
 

@@ -9,7 +9,8 @@
     </div>
 
     <div class = "formPiece">
-        <p>You checked in at </p>&nbsp; <%= formData.checkInTime %>
+        <label  for="checkIn">You checked in on</label>
+        <input id="checkIn"  value="<%= formData.checkInTime %>" readonly>
     </div>
     
     <% if (formData.isLengthEstimated) { %>
@@ -25,7 +26,8 @@
     <% } %>
 
     <div class = "formPiece">
-        <p>The purpose of your visit was: </p>&nbsp; <%= formData.purpose%>
+        <label  for="purpose">The purpose of your visit was:</label>
+        <textarea id="purpose" name="purpose"  rows="10" cols="40" autofocus maxlength="255" required value="<%= formData.purpose %>" readonly><%= formData.purpose %></textarea>
     </div>
     
     <div class = "formPiece">
@@ -40,8 +42,8 @@
     </div>
 
     <div class = "formPiece">
-        <label for="tutorCourses" value="tutorCourses">If yes, list the Courses:</label>
-        <input id="tutorCourses" name="tutorCourses" type="text" autofocus maxlength="255" required value="<%= formData.tutorCourses %>">
+        <label for="courses" value="courses">List the courses you worked on:</label>
+        <input id="courses" name="courses" type="text" autofocus maxlength="255" required value="<%= formData.courses %>">
     </div>
 
     <div class = "formPiece">

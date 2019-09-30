@@ -52,29 +52,9 @@ module.exports = {
         fs.access(`views/${inputs.pathToView}.html`, fs.constants.F_OK, (error) => {
             if (error) return exits.success(inputs.response.notFound());
 
-            let autoLogout = false;
             let locals = inputs.locals || {};
-            if (inputs.request.cookies) {
-                if (inputs.request.cookies.restAction === "edit" && (inputs.request.cookies.restModel === "student" || inputs.request.cookies.restModel === "staff")) {
-                    locals.banner = "Your user profile has been updated.";
-                }
-                else if (inputs.request.cookies.restAction === "create" && inputs.request.cookies.restModel === "visit") {
-                    locals.banner = "You are now checked in. Please remember to check out before you leave.";
-                    autoLogout = true;
-                }
-                else if (inputs.request.cookies.restAction === "edit" && inputs.request.cookies.restModel === "visit") {
-                    locals.banner = "You are now checked out. Thanks for visiting the Naylor Center.";
-                    autoLogout = true;
-                }
-            }
-
-            // Clear REST cookies
-            inputs.response.clearCookie("restAction");
-            inputs.response.clearCookie("restModel");
-
-            if (autoLogout) {
-                inputs.request.session.destroy();
-                return exits.success(inputs.response.view("pages/login", locals));
+            if (inputs.response.locals) {
+                locals.banner = inputs.response.locals.banner;
             }
 
             return exits.success(inputs.response.view(inputs.pathToView, locals));

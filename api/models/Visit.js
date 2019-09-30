@@ -15,7 +15,7 @@ module.exports = {
         purpose: { type: "string", required: true, allowNull: false },
         purposeAchieved: { type: "string", allowNull: true, isIn: ["Yes", "No", "Not sure"] },
         usedTutor: { type: "string", defaultsTo: "No" },
-        tutorCourses: { type: "string", required: false, allowNull: true },
+        courses: { type: "string", required: false, allowNull: true },
         comment: { type: "string", allowNull: true },
         isLengthEstimated: { type: "boolean", allowNull: false, defaultsTo: false },
     },
@@ -26,6 +26,13 @@ module.exports = {
     /** Indicates which model attributes have defined domains.
      */
     domainDefined: {
+        purposeAchieved: true
+    },
+
+    /** 
+     * Indicates which model attributes are required when a closes a visit.
+     */
+    inputRequired: {
         purposeAchieved: true
     },
 
@@ -92,7 +99,7 @@ module.exports = {
                     length: iVisit,
                     purpose: `OLD CLOSED VISIT`,
                     purposeAchieved: Visit.attributes.purposeAchieved.validations.isIn[iVisit % Visit.attributes.purposeAchieved.validations.isIn.length],
-                    tutorCourses: `TUTOR COURSES ${iVisit}`,
+                    courses: `COURSES ${iVisit}`,
                     comment: `COMMENT ${iVisit}`,
                     isLengthEstimated: false
                 };
@@ -139,7 +146,7 @@ module.exports = {
  * @property {number} length - The number of hours, to the nearest quarter hour, the student was at the NLC. The difference between the checkOutTime and CheckInTime.
  * @property {string} purpose - The reason the student visited the NLC.
  * @property {string} purposeAchieved - Did the student accomplish their goal this visit.
- * @property {string} tutorCourses - The course of which the student used a tutor.
+ * @property {string} courses - The course of which the student worked on.
  * @property {string} comment - Any comments the student may have about their visit.
  * @property {boolean} isLengthEstimated=false - Indicates if it is mandatory for the student to estimate the length of their last visit when the value is true. 
  */

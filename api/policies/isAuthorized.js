@@ -29,7 +29,7 @@ module.exports = async function (request, response, proceed) {
                 length: visit[0].length,
                 purpose: visit[0].purpose,
                 purposeAchieved: visit[0].purposeAchieved,
-                tutorCourses: visit[0].tutorCourses,
+                courses: visit[0].courses,
                 comment: visit[0].comment,
                 isLengthEstimated: visit[0].isLengthEstimated,
             };
@@ -40,10 +40,6 @@ module.exports = async function (request, response, proceed) {
                 checkedIn: false
             };
         }
-    }
-
-    if (request.path === "/") {
-        return proceed();
     }
 
     // Users are authorized to access their own profile ...
