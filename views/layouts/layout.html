@@ -39,13 +39,9 @@
 
 
     <!--STYLES-->
-    <link rel="stylesheet" href="/styles/banner.css">
-    <link rel="stylesheet" href="/styles/fa.css">
-    <link rel="stylesheet" href="/styles/form.css">
-    <link rel="stylesheet" href="/styles/importer.css">
-    <link rel="stylesheet" href="/styles/style.css">
-    <link rel="stylesheet" href="/styles/table.css">
-    <!--STYLES END-->
+    <link rel="stylesheet" href="/styles/w3.css">
+    <link rel="stylesheet" href="/styles/w3-theme-red.css">
+    <!--STYLES END--> 
 
 
 </head>
@@ -53,10 +49,17 @@
 <body>
   
   <% if (typeof banner !== "undefined") { %>
-    <div class = "banner"><p><%= banner %></p></div>
-  <% } %>
+  <div class = "w3-panel w3-green w3-display-container">
+  <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">&times;</span>
+  <p><%= banner %></p>
+  </div>
 
-  <%- body %>
+  <% } %>
+  <div class="w3-container w3-center">
+    <div class="w3-padding w3-border w3-border-red w3-display-middle">
+        <p><%- body %></p>
+    </div>
+  </div>
 
 
     <!--
