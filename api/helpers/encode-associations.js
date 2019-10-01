@@ -34,8 +34,7 @@ module.exports = {
 
     fn: async function(inputs, exits) {
         for (let property in inputs.model.attributes) {
-            if (sails.helpers.isAssociation(inputs.model, property) &&
-                inputs.record[property] || inputs.record[property] === "") {
+            if (sails.helpers.isAssociation(inputs.model, property) && typeof inputs.record[property] !== "undefined") {
                 let lookup = null;
                 let candidateKey = sails.models[inputs.model.attributes[property].model].candidateKey;
                 /* istanbul ignore else */

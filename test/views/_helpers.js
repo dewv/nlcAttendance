@@ -18,7 +18,7 @@ module.exports = function() {
             it("should provide a <select> tag with <option>s", function() {
                 let htmlName = "HTML-TEST-NAME";
                 let selectedOption = "SELECTED OPTION";
-                let expected = `<select id="${htmlName}" name="${htmlName}"> <option>Choose one ...</option>`;
+                let expected = `<select id="${htmlName}" name="${htmlName}" size="1"> <option value="">Choose one ...</option>`;
                 let options = [];
                 for (let i = 0; i < 3; i++) {
                     options.push({ name: `OPTION ${i}`});
@@ -26,7 +26,7 @@ module.exports = function() {
                 }
                 options.push({name: selectedOption});
                 expected += ` <option value="${selectedOption}" selected>${selectedOption}</option> </select>`;
-                let actual = sails.helpers.generateHtmlSelect(htmlName, options, selectedOption);
+                let actual = sails.helpers.generateHtmlSelect(htmlName, { options: options }, selectedOption);
                 actual.should.equal(expected);
             });
         });
