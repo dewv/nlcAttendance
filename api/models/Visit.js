@@ -103,7 +103,6 @@ module.exports = {
                     comment: `COMMENT ${iVisit}`,
                     isLengthEstimated: false
                 };
-                console.log(record.checkInTime + " " + record.checkOutTime);
                 this.testRecords.push(await Visit.create(record).fetch());
             }
 

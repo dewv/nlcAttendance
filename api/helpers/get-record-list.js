@@ -41,9 +41,7 @@ module.exports = {
     fn: async function(inputs, exits) {
 
         if (inputs.model.recordToAssociate) {
-            sails.log.debug(`query: ${JSON.stringify(inputs.model.recordListQuery)}`);
             inputs.records = await inputs.model.find().populate(inputs.model.recordToAssociate);
-            sails.log.debug(`query: ${JSON.stringify(inputs.records[1])}`);
             return exits.success(inputs.records);
             
         } else {
