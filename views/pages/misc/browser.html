@@ -1,0 +1,24 @@
+<script type="text/javascript">
+function validateForm() {
+    let d = new Date();
+    d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
+    document.cookie = "location=" + register.location.value + "; expires=" + d.toUTCString() + "; path=/";
+}
+</script>
+
+<form name="register" onsubmit="return validateForm()" method="get" action="/staffmenu">
+    <h1>Register this Browser</h1> 
+
+    <br>
+    <br>
+    <label for="location">Location Name:</label>
+    <input type="text" autofocus name="location" maxlength="255" required>
+    <button id="submitButton" type="submit">Submit</button>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="instructions">
+    <p>This form will register this browser to permit NLC attendance tracking. When a student checks in with this browser, their visit will be marked with the location that you enter below:</p>
+    </div>
+</form>

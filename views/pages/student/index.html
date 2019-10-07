@@ -1,0 +1,103 @@
+<div class = "download">
+
+<script>
+    function download() {
+        var table = document.getElementById("visitTable");
+        var data = ""; //requires some initiation or has an annoying "undefined" in the first cell
+        
+        //convert object to array
+        //code shell courtesy of https://stackoverflow.com/questions/3072233/getting-value-from-table-cell-in-javascript-not-jquery
+        for (var rowIndex = 0, rowLength = table.rows.length; rowIndex < rowLength; rowIndex++) {
+            for (var cellIndex = 0, cellLength = table.rows[rowIndex].cells.length; cellIndex < cellLength; cellIndex++) {
+                data += table.rows[rowIndex].cells.item(cellIndex).innerHTML.trim() + ", "; //append contents of cell and add comma for new cell
+            }
+            //new row
+            data += "\n";
+        }
+        
+        //convert into file and URL and pass URL to download button for execution
+        var file = new Blob([data], {type: "text/csv"});
+        var url = URL.createObjectURL(file);
+        var link = document.getElementById("link");
+        link.setAttribute("href", url);
+}
+function filterName(x) {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("visitSearch");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("visitTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[x];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+
+<!-- Populate table -->
+<div style="overflow-x:auto;">
+    <a id="link" download="student.csv">
+        <button onclick="download()" class = "button downloadButton">Download this view</button>
+    </a>
+    <input type="text" id="visitSearch" onkeyup="filterName(1)" placeholder="Search for a Name..">
+    <table id="visitTable">
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Name</th>
+                <th>Academic Rank</th>
+                <th>Major One</th>
+                <th>Major Two</th>
+                <th>Residential Status</th>
+                <th>Fall Sport</th>
+                <th>Spring Sport</th>
+                <th>Updated Profile</th>
+            </tr>
+        </thead>
+
+        <% if(records) {records.forEach(function(student) { %>
+            <tbody>
+                <tr>
+                    <td>
+                        <%= student.id %>
+                    </td>
+                    <td>
+                        <%= student.firstName + " " + student.lastName %>
+                    </td>
+                    <td>
+                        <%= student.academicRank %>
+                    </td>
+                    <td>
+                        <%= student.majorOne %>
+                    </td>
+                    <td>
+                        <%= student.majorTwo %>
+                    </td>
+                    <td>
+                        <%= student.residentialStatus %>
+                    </td>
+                    <td>
+                        <%= student.fallSport %>
+                    </td>
+                    <td>
+                        <%= student.springSport %>
+                    </td>
+                    <td>
+                        <%= !student.forceUpdate %>
+                    </td>
+                </tr>
+            </tbody>
+        <% }); }%>
+    </table>
+</div>
+</div>

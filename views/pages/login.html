@@ -1,15 +1,18 @@
-<form method="POST" action="#">
-    <p>
-         <label>Username
-            <input name="username" autofocus type="text">
-         </label>
-    </p>
-    <p>
-         <label>Password
-              <input name="password" type="password">
-        </label>
-     </p>
-     <p>
-         <input value="Ok" type="submit"> 
-    </p>
+<form method="POST" action="/login">
+    
+    <h1>Davis &amp; Elkins College</h1>
+    <h2>Naylor Learning Center</h2>
+
+    <div class = "formPiece">
+        <input name="username" class="login" placeholder="Username" autofocus type="text" required/>
+    </div>
+
+    <div class = "formPiece">
+        <input name="password" class="login" placeholder="Password" type="password" required/>
+    </div>
+
+    <div class = "button">
+        <button class="w3-btn w3-block w3-red" type="submit">Login</button>
+    </div>
+    
  </form>

@@ -1,0 +1,11 @@
+<script src="assets/js/logoutTimer.js"></script>
+
+<script>setTimeout("logoutWarning();", sessionTimeLimit);</script>
+
+<div id="logoutWarning" class="overlay" style="position: fixed; visibility: hidden;">
+	<div class="popup">
+		<h1>Your Session Is About To Expire</h1>
+	    <a class="close" href="#!" onclick="resetLogoutTimer();">&times;</a>
+		<div class="content">Close this message if you want to continue working.</div>
+    </div>
+</div>

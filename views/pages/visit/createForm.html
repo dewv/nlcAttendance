@@ -1,0 +1,19 @@
+<% try { %>
+<script src="/javascripts/formCheck.js"></script>
+
+<h2>Check In</h2>
+
+<form method="POST" action="<%= action %>">
+    
+    <div class="formPiece">
+        <label id="visitPurposeQuestion">What is your goal/purpose for this visit?</label>
+        <textarea id="purpose" name="purpose"  rows="10" cols="40" autofocus maxlength="255" required value="<%= formData.purpose %>"></textarea>
+    </div>
+    
+    <div class="formPiece">
+        <button id="submitButton" type="submit">Submit</button>
+    </div>
+
+</form>
+
+<% } catch(error) { console.log(`EJS rendering error: ${error}`); }; %>

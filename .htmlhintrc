@@ -2,12 +2,26 @@
   "tagname-lowercase": true,
   "attr-lowercase": true,
   "attr-value-double-quotes": true,
+  "attr-value-not-empty": false, // only for XML/XHTML
+  "attr-no-duplication": true,
+  "doctype-first": false, // because of fragments
   "tag-pair": true,
+  "empty-tag-not-self-closed": true,
+  "spec-char-escape": false, // because of ejs
   "id-unique": true,
   "src-not-empty": true,
-  "attr-no-duplication": true,
   "title-require": true,
   "alt-require": true,
+  "doctype-html5": true,
+  "id-class-value": false, // meh
+  "style-disabled": false, // maybe later
+  "inline-style-disabled": false, // maybe later
+  "inline-script-disabled": false,
+  "space-tab-mixed-disabled": false, // troublesome 
+  "id-class-ad-disabled": true,
+  "href-abs-or-rel": false, // meh
+  "attr-unsafe-chars": true,
+  "head-script-disabled": true,
   "csslint": {
     "display-property-grouping": true,
     "known-properties": true

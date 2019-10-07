@@ -3,7 +3,8 @@
  */
 
 "use strict";
-const should = require("should");
+require("should");
+const MockExpressRequest = require("mock-express-request");
 const MockExpressResponse = require("mock-express-response");
 
 /**
@@ -17,7 +18,7 @@ module.exports = function() {
             it("should provide a <select> tag with <option>s", function() {
                 let htmlName = "HTML-TEST-NAME";
                 let selectedOption = "SELECTED OPTION";
-                let expected = `<select id="${htmlName}" name="${htmlName}"> <option>Choose one ...</option>`;
+                let expected = `<select id="${htmlName}" name="${htmlName}" size="1"> <option value="">Choose one ...</option>`;
                 let options = [];
                 for (let i = 0; i < 3; i++) {
                     options.push({ name: `OPTION ${i}`});
@@ -25,12 +26,14 @@ module.exports = function() {
                 }
                 options.push({name: selectedOption});
                 expected += ` <option value="${selectedOption}" selected>${selectedOption}</option> </select>`;
-                let actual = sails.helpers.generateHtmlSelect(htmlName, options, selectedOption);
+                let actual = sails.helpers.generateHtmlSelect(htmlName, { options: options }, selectedOption);
                 actual.should.equal(expected);
             });
         });
         
         context("`responseViewSafely` helper", async function() {
+            let request = new MockExpressRequest();
+            request.cookies = {};
             let response = new MockExpressResponse();
             let success = false;
             response.notFound = function() {
@@ -38,7 +41,7 @@ module.exports = function() {
             };
 
             it("should call `response.notFound()` when a non-existent file is requested", async function() {
-                await sails.helpers.responseViewSafely(response, "PATH_OF_A_NONEXISTENT_FILE");
+                await sails.helpers.responseViewSafely(request, response, "PATH_OF_A_NONEXISTENT_FILE");
                 (success).should.be.true();
             });
         });

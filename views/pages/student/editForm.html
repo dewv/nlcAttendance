@@ -1,59 +1,52 @@
-<form method="POST" action="<%= action %>">
-    <div>
-      <label for="firstName" value="First Name">First name</label>
-      <input id="firstName" name="firstName" type="text" autofocus maxlength="255" required value="<%= formData.firstName %>"> 
+
+
+<form method="POST" action="<%= action %>" >
+  <div>
+    <h2>User Profile</h2>
+  </div>
+    <div class = "w3-input">
+      <label for="firstName" value="First Name">*First name</label>
+      <input id="firstName" name="firstName" type="text"  placeholder="First Name" autofocus maxlength="255" required value="<%= formData.firstName %>" > 
     </div>
-    <br>
-    
-    <div>
-      <label for="lastName" value="Last Name">Last name</label>
+  
+    <div class = "w3-input">
+      <label for="lastName" value="Last Name">*Last name</label>
       <input id="lastName" name="lastName" type="text" required value="<%= formData.lastName %>">
     </div>
-    <br>
     
-    <div>
-      <label for="academicRank">Academic Rank</label>
+    <div class = "w3-input">
+      <label for="academicRank">*Academic Rank</label>
       <%- academicRank %>
     </div>
-    <br>
     
-    <div>
-      <label for="residentialStatus">Residential Status</label>
+    <div class = "w3-input">
+      <label for="residentialStatus">*Residential Status</label>
       <%- residentialStatus %>
     </div>
-    <br>
     
-    <div>
-      <label for="MajorOne">Major 1</label>
+    <div class = "w3-input">
+      <label for="majorOne">*Major 1</label>
       <%- majorOne %>
     </div>
-    <br>
     
-    <div>
-      <label for="MajorTwo">Major 2</label>
+    <div class = "w3-input">
+      <label for="majorTwo">Major 2</label>
       <%- majorTwo %>
     </div>
-    <br>
     
-    Are you an athlete?
-    <br>
-    <input id="yesAthlete" type="radio" name="YNAthlete"/> Yes
-    <input id="noAthlete" type="radio" name="YNAthlete"/> No
-    <br>
-    
-    <div>
-      <br>
-      <label for="fallSport" id="fallSports" class="sports">Fall sport</label>
+    <div class = "w3-input">
+      <label for="fallSport" class="sports">Fall sport</label>
       <%- fallSport %>
     </div>
 
-    <div>
-      <br>
+    <div class = "w3-input">
       <label for="springSport" id="springSports" class="sports">Spring sport</label>
       <%- springSport %>
     </div>
-    <br>
+
+    <div class = "w3-input">
+      <button id="submitButton" type="submit">Update</button>
+    </div>
     
-    <button id="submitButton" type="submit">Update</button>
 
 </form>
