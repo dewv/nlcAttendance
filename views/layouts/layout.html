@@ -47,6 +47,29 @@
 </head>
 
 <body>
+
+  <% if ( typeof role !== "undefined" ) { %>
+
+    <% if ( role === "staff" ) { %>
+      <div class="topnav">
+          <a class="active" href="/student">Students</a>
+          <a href="/visit">Visits</a>
+          <a href="/browser">Browser Registration</a>
+          <a href="/staff/<%= userId %>/edit">Profile</a>
+          <a href="/logout">Log out</a>
+      </div>
+    <% } %>
+
+    <% if ( role === "student" ) { %>
+      <div class="topnav">
+          <a href="/student/<%= userId %>/edit">Profile</a>
+          <a href="/logout">Log out</a>
+      </div>
+    <% } %>
+    
+  <% } %>
+
+  
   
   <% if (typeof banner !== "undefined") { %>
   <div class = "w3-panel w3-green w3-display-container">
