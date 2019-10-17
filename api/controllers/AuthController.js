@@ -51,7 +51,7 @@ module.exports = {
         if (request.session.role === "student") {
             request.session.defaultUrl = "/student/visit";
         } else if (request.session.role === "staff") {
-            request.session.defaultUrl = "/staffmenu";
+            request.session.defaultUrl = "/visit";
         }
         request.session.save();
 
