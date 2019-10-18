@@ -68,10 +68,17 @@
     
   <% } %>
 
+  <style>
+    .animate-fade-out {
+      animation-direction: reverse; 
+      animation-fill-mode: forwards;
+        animation-duration: 8s;
+    }
+  </style>
   
   
   <% if (typeof banner !== "undefined") { %>
-  <div class = "w3-panel w3-green w3-display-container w3-animate-fading">
+  <div class = "w3-panel w3-green w3-display-container w3-animate-opacity animate-fade-out">
   <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">&times;</span>
   <p><%= banner %></p>
   </div>
