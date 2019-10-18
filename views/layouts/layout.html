@@ -50,12 +50,12 @@
   <% if ( typeof role !== "undefined" ) { %>
 
     <% if ( role === "staff" ) { %>
-      <div class="topnav">
-          <a class="active" href="/student">Students</a>
-          <a href="/visit">Visits</a>
-          <a href="/browser">Browser Registration</a>
-          <a href="/staff/<%= userId %>/edit">Profile</a>
-          <a href="/logout">Log out</a>
+      <div class="topnav w3-bar w3-red w3-mobile">
+          <a class="active w3-bar-item w3-button" href="/student">Students</a>
+          <a href="/visit" class="w3-bar-item w3-button">Visits</a>
+          <a href="/browser" class="w3-bar-item w3-button">Browser Registration</a>
+          <a href="/staff/<%= userId %>/edit" class="w3-bar-item w3-button">Profile</a>
+          <a href="/logout" class="w3-bar-item w3-button">Log out</a>
       </div>
     <% } %>
 
