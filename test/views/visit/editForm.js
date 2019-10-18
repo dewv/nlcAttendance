@@ -14,7 +14,7 @@ describe("Visit Views", function() {
             length: null,
             purpose: "Study",
             purposeAchieved: "No",
-            courses: "math",
+            tutorCourses: "math",
             comment: "Very good",
             isLengthEstimated: false,
         };
@@ -36,8 +36,8 @@ describe("Visit Views", function() {
                 done();
             });
             
-            it("should include a text input to edit the courses", function(done) {
-                checkFor.formInputText("courses", expectedData.courses).should.be.true();
+            it("should include a text input to edit the tutorCourses", function(done) {
+                checkFor.formInputText("tutorCourses", expectedData.tutorCourses).should.be.true();
                 done();
             });
 

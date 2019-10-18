@@ -29,7 +29,7 @@ module.exports = async function (request, response, proceed) {
                 length: visit[0].length,
                 purpose: visit[0].purpose,
                 purposeAchieved: visit[0].purposeAchieved,
-                courses: visit[0].courses,
+                tutorCourses: visit[0].tutorCourses,
                 comment: visit[0].comment,
                 isLengthEstimated: visit[0].isLengthEstimated,
             };

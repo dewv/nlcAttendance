@@ -15,7 +15,7 @@ module.exports = {
         purpose: { type: "string", required: true, allowNull: false },
         purposeAchieved: { type: "string", allowNull: true, isIn: ["Yes", "No", "Not sure"] },
         usedTutor: { type: "string", defaultsTo: "No" },
-        courses: { type: "string", required: false, allowNull: true },
+        tutorCourses: { type: "string", required: false, allowNull: true },
         comment: { type: "string", allowNull: true },
         isLengthEstimated: { type: "boolean", allowNull: false, defaultsTo: false },
     },
@@ -99,11 +99,10 @@ module.exports = {
                     length: iVisit,
                     purpose: `OLD CLOSED VISIT`,
                     purposeAchieved: Visit.attributes.purposeAchieved.validations.isIn[iVisit % Visit.attributes.purposeAchieved.validations.isIn.length],
-                    courses: `COURSES ${iVisit}`,
+                    tutorCourses: `tutorCourses ${iVisit}`,
                     comment: `COMMENT ${iVisit}`,
                     isLengthEstimated: false
                 };
-                console.log(record.checkInTime + " " + record.checkOutTime);
                 this.testRecords.push(await Visit.create(record).fetch());
             }
 
@@ -146,7 +145,7 @@ module.exports = {
  * @property {number} length - The number of hours, to the nearest quarter hour, the student was at the NLC. The difference between the checkOutTime and CheckInTime.
  * @property {string} purpose - The reason the student visited the NLC.
  * @property {string} purposeAchieved - Did the student accomplish their goal this visit.
- * @property {string} courses - The course of which the student worked on.
+ * @property {string} tutorCourses - The course of which the student used a tutor.
  * @property {string} comment - Any comments the student may have about their visit.
  * @property {boolean} isLengthEstimated=false - Indicates if it is mandatory for the student to estimate the length of their last visit when the value is true. 
  */
