@@ -45,11 +45,10 @@
 
 
 </head>
-
 <body>
   
   <% if (typeof banner !== "undefined") { %>
-  <div class = "w3-panel w3-green w3-display-container w3-animate-opacity" style="animation-fill-mode: backwards; animation-iteration-count: 1; animation-timing-function: linear">
+  <div class = "w3-panel w3-green w3-display-container w3-animate-fading">
   <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">&times;</span>
   <p><%= banner %></p>
   </div>
