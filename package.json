@@ -24,7 +24,7 @@
     "sails-hook-orm": "^2.1.1",
     "sails-mysql": "^1.0.1",
     "should": "^13.2.3",
-    "supertest-session": "^4.0.0"
+    "supertest-session": "^3.3.0"
   },
   "devDependencies": {
     "@sailshq/eslint": "^4.19.3"
