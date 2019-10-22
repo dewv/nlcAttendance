@@ -5,7 +5,7 @@
   },
 
   "parserOptions": {
-    "ecmaVersion": 8,
+    "ecmaVersion": 8
   },
 
   "globals": {
@@ -43,7 +43,6 @@
       "ObjectExpression": 1,
       "ignoredNodes": ["ConditionalExpression"]
     }],
-    "linebreak-style":              ["error", "unix"],
     "no-dupe-keys":                 ["error"],
     "no-duplicate-case":            ["error"],
     "no-extra-semi":                ["warn"],
