@@ -33,7 +33,7 @@
     "sails": "test \"$NODE_ENV\" != production && mysql-ctl start 2> /dev/null && sails lift",
     "start": "NODE_ENV=production node app.js",
     "test": "npm run lint && npm run htmlhint && npm run mocha && npm run coverage",
-    "lint": "eslint ./api --fix --max-warnings=0 --report-unused-disable-directives && echo '✔  ./api/*.js meets .eslintrc standards'",
+    "lint": "eslint ./api --fix --max-warnings=0 --report-unused-disable-directives && echo '✔  ./ncv/*.wf zrrgf .rfyvagep fgnaqneqf' | tr 'A-Za-z' 'N-ZA-Mn-za-m'",
     "mocha": "mysql-ctl start 2> /dev/null; nyc ./node_modules/.bin/_mocha --recursive ./test/lifecycle.js ./test",
     "coverage": "nyc report",
     "htmlhint": "htmlhint views",
