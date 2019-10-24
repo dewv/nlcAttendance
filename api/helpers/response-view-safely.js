@@ -17,6 +17,12 @@ module.exports = {
     description: "Responds with an HTML page, or 404 error if view template does not exist.",
 
     inputs: {
+        request: {
+            description: "The Express/Sails object representing an HTTP request.",
+            type: "ref",
+            required: true
+        },
+
         response: {
             description: "The Express/Sails object representing an HTTP response.",
             type: "ref",
@@ -42,10 +48,22 @@ module.exports = {
         },
     },
 
-    fn: async function(inputs, exits) {
+    fn: async function (inputs, exits) {
         fs.access(`views/${inputs.pathToView}.html`, fs.constants.F_OK, (error) => {
             if (error) return exits.success(inputs.response.notFound());
-            return exits.success(inputs.response.view(inputs.pathToView, inputs.locals));
+
+            let locals = inputs.locals || {};
+
+            if (typeof inputs.request.session !== "undefined") {
+                locals.role = inputs.request.session.role;
+                locals.userId = inputs.request.session.userId;
+            }
+
+            if (inputs.response.locals) {
+                locals.banner = inputs.response.locals.banner;
+            }
+
+            return exits.success(inputs.response.view(inputs.pathToView, locals));
         });
     }
 

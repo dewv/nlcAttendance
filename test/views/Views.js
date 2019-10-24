@@ -24,6 +24,18 @@ class ViewTests {
         let results = this.$("input#" + id);
         return (results.length === 1 && results.val() === value);
     }
+    
+    /** Returns true if the view contains a text are with the specified ID and value; false otherwise.
+     * @argument {string} id - The specified ID.
+     * @argument {string} vale - The specified value.
+     * @returnts {boolean}
+     * @public
+     */
+    formTextArea(id, value) {
+        let results = this.$("textarea#" + id);
+        return (results.length === 1 && results[0].attribs.value === value);
+        
+    }
 
     /** Returns true if the view contains one checked radio button with the specified ID; false otherwise. 
      * @argument {string} id - The specified ID.

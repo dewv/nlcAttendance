@@ -19,14 +19,44 @@ module.exports = {
         springSport: { model: "SpringSport" },
         forceUpdate: { type: "boolean", defaultsTo: true }
     },
+   
+    candidateKey: "username",
+    
+    beforeUpdate: async function(valuesToSet, proceed) {
+        valuesToSet.forceUpdate = false;
+        return proceed();
+    },
+    
+    /** 
+     * Indicates which model attributes have defined domains.
+     */
+    domainDefined: {
+        academicRank: true,
+        majorOne: true,
+        majorTwo: true,
+        residentialStatus: true,
+        fallSport: true,
+        springSport: true
+    },
 
+    /** 
+     * Indicates which model attributes are required when a user updates their profile.
+     */
+    inputRequired: {
+        academicRank: true,
+        majorOne: true,
+        residentialStatus: true,
+    },
+
+    testRecords: [],
+    
     /**
-     * Populates the database with sample data for use in development environments.
+     * Populates the database with test data for use in development environments.
      * @modifies Database contents.
      * 
      * Note convention: sample data is ALL CAPS, using .net rather than .edu domain
      */
-    createDevelopmentData: async function() {
+    createTestData: async function() {
         let recordCount = 5;
 
         // Associations
@@ -55,7 +85,7 @@ module.exports = {
 
         // Students. All but first have associations populated.
         for (let i = 0; i < recordCount; i++) {
-            await Student.create({
+            this.testRecords.push(await Student.create({
                 username: `USERNAME${i + 1}@DEWV.NET`,
                 firstName: `FIRSTNAME${i + 1}`,
                 lastName: `LASTNAME${i + 1}`,
@@ -66,7 +96,21 @@ module.exports = {
                 fallSport: i === 0 ? null : ids.fallSport[i],
                 springSport: i === 0 ? null : ids.springSport[i],
                 forceUpdate: Student.attributes.forceUpdate.defaultsTo
-            });
+            }).fetch());
+        }
+        for (let i = 0; i < recordCount; i++) {
+            this.testRecords.push(await Student.create({
+                username: `NoUpdateUser${i + 1}@DEWV.NET`,
+                firstName: `NoUpdateFirst${i + 1}`,
+                lastName: `NoUpdateLast${i + 1}`,
+                academicRank: i === 0 ? null : Student.attributes.academicRank.validations.isIn[i % Student.attributes.academicRank.validations.isIn.length],
+                majorOne: i === 0 ? null : ids.major[i],
+                majorTwo: i === 0 ? null : ids.major[(i + 1) % recordCount],
+                residentialStatus: i === 0 ? null : Student.attributes.residentialStatus.validations.isIn[i % Student.attributes.residentialStatus.validations.isIn.length],
+                fallSport: i === 0 ? null : ids.fallSport[i],
+                springSport: i === 0 ? null : ids.springSport[i],
+                forceUpdate: false
+            }).fetch());
         }
     }
 };

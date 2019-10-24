@@ -28,19 +28,26 @@ module.exports = {
 
     fn: async function(inputs, exits) {
         let result = {};
-        for (let property in inputs.model.attributes) {
-            if (sails.helpers.isAssociation(inputs.model, property)) {
-                result[property] = await sails.models[inputs.model.attributes[property].model].find().sort("name ASC");
-            }
-            else if (inputs.model.attributes[property].validations &&
-                inputs.model.attributes[property].validations.isIn) {
-                result[property] = [];
-                for (let i = 0; i < inputs.model.attributes[property].validations.isIn.length; i++) {
-                    result[property].push({ name: inputs.model.attributes[property].validations.isIn[i] });
+        if (inputs.model.domainDefined) {
+            for (let property in inputs.model.domainDefined) {
+                result[property] = {}; 
+                if (inputs.model.inputRequired[property]){result[property].inputRequired = true;}
+                /* istanbul ignore else */
+                if (sails.helpers.isAssociation(inputs.model, property)) {
+                    result[property].options = await sails.models[inputs.model.attributes[property].model].find().sort("name ASC");
+                }
+                else if (inputs.model.attributes[property].validations &&
+                    inputs.model.attributes[property].validations.isIn) {
+                    result[property].options = [];
+                    for (let i = 0; i < inputs.model.attributes[property].validations.isIn.length; i++) {
+                        result[property].options.push({ name: inputs.model.attributes[property].validations.isIn[i] });
+                    }
+                }
+                else {
+                    sails.log.warn(`Unable to find domain values for ${inputs.model.identity}.${property}`);
                 }
             }
         }
-
         // Send back the result through the success exit.
         return exits.success(result);
     }

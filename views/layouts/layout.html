@@ -39,17 +39,50 @@
 
 
     <!--STYLES-->
-    <link rel="stylesheet" href="/styles/fa.css">
-    <link rel="stylesheet" href="/styles/importer.css">
-    <link rel="stylesheet" href="/styles/style.css">
-    <!--STYLES END-->
+    <link rel="stylesheet" href="/styles/w3-theme-red.css">
+    <link rel="stylesheet" href="/styles/w3.css">
+    <!--STYLES END--> 
 
 
 </head>
 
 <body>
-  <%- body %>
 
+  <% if ( typeof role !== "undefined" ) { %>
+
+    <% if ( role === "staff" ) { %>
+      <div class="topnav">
+          <a class="active" href="/student">Students</a>
+          <a href="/visit">Visits</a>
+          <a href="/browser">Browser Registration</a>
+          <a href="/staff/<%= userId %>/edit">Profile</a>
+          <a href="/logout">Log out</a>
+      </div>
+    <% } %>
+
+    <% if ( role === "student" ) { %>
+      <div class="topnav">
+          <a href="/student/<%= userId %>/edit">Profile</a>
+          <a href="/logout">Log out</a>
+      </div>
+    <% } %>
+    
+  <% } %>
+
+  
+  
+  <% if (typeof banner !== "undefined") { %>
+  <div class = "w3-panel w3-green w3-display-container">
+  <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">&times;</span>
+  <p><%= banner %></p>
+  </div>
+
+  <% } %>
+  <div class="w3-container w3-center">
+    <div class="w3-padding w3-border w3-border-red w3-display-middle">
+        <p><%- body %></p>
+    </div>
+  </div>
 
 
     <!--
@@ -118,7 +151,7 @@
     -->
 
     <!--SCRIPTS-->
-    
+    <script src="/js/logoutTimer.js"></script>
     <!--SCRIPTS END-->
 </body>
 

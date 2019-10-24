@@ -36,6 +36,7 @@ module.exports = {
             else if (inputs.model.attributes[property].type === "string") result[property] = "";
             else if (inputs.model.attributes[property].type === "boolean") result[property] = false;
             else if (inputs.model.attributes[property].type === "number") result[property] = 0;
+            else if (inputs.model.attributes[property].type === "ref") result[property] = null;
             else sails.log.warn("found " + inputs.model.attributes[property].type + ": " + JSON.stringify(inputs.model.attributes[property]));
         }
 

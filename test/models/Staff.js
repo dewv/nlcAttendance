@@ -1,5 +1,5 @@
 /**
- * @file Defines tests for the Student sailsjs model.
+ * @file Defines tests for the Staff sailsjs model.
  */
 
 "use strict";
@@ -11,37 +11,19 @@ describe("Staff model", function() {
         record: {}
     };
 
-    let testStaff = {
-        username: "TESTSTAFF@DEWV.NET",
-        firstName: "TEST",
-        lastName: "STAFF",  
-        isSlpInstructor: true,
-        forceUpdate: true,
-    };
-    
     // Before tests run ...
     before(async function() {
-
-        // Destroy any old test data that might be haning around
-        await destroyTestData();
-
-        // Create test data: associated model records
-        // Associate, using the new IDs
-
-        // Create main test record, with associations in place
-        testData.record = await Staff.create(testStaff).fetch();
+        // Create main test record
+        testData.record = Staff.testRecords[0];
     });
-
-    // After tests run ...
-    after(destroyTestData);
 
     // Run helper integration tests
     helperIntegrationTests("staff", testData);
     
-    async function destroyTestData() {
-        // Destroy main test record
-        await Staff.destroyOne({ username: testStaff.username });
-        
-        // Destroy test records in associated model
-    }
+    context("A data record returned by `create()`", function() {
+
+        it("should have correct default field values", function() {
+            testData.record.forceUpdate.should.be.true();
+        });
+    });
 });

@@ -34,10 +34,21 @@ module.exports = {
 
     fn: async function(inputs, exits) {
         for (let property in inputs.model.attributes) {
-            if (sails.helpers.isAssociation(inputs.model, property)) {
-                let lookup = await sails.models[inputs.model.attributes[property].model].findOne({ name: inputs.record[property] });
-                inputs.record[property] = lookup ? lookup.id : /* istanbul ignore next */ null;
+            if (sails.helpers.isAssociation(inputs.model, property) && typeof inputs.record[property] !== "undefined") {
+                let lookup = undefined;
+                let candidateKey = sails.models[inputs.model.attributes[property].model].candidateKey;
+                /* istanbul ignore else */
+                if (candidateKey) {
+                    let criteria = {};
+                    criteria[candidateKey] = inputs.record[property];
+                    lookup = await sails.models[inputs.model.attributes[property].model].findOne(criteria);
+                }
+                inputs.record[property] = lookup ? lookup.id : null;
             }
+        }
+        
+        if (inputs.model.afterEncodeAssociations) {
+            await inputs.model.afterEncodeAssociations(inputs.record);
         }
 
         // Send back the result through the success exit.
