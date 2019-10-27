@@ -1,7 +1,5 @@
-<div id="logoutWarning" class="overlay" style="position: fixed; visibility: hidden;">
-	<div class="popup">
-		<h1>Your Session Is About To Expire</h1>
-	    <a class="close" href="#!" onclick="setLogoutTimer();">&times;</a>
-		<div class="content">Close this message if you want to continue working.</div>
-    </div>
+<div id="logoutWarning" class="w3-panel w3-yellow w3-display-container">
+	<span onclick="setLogoutTimer();" class="w3-button w3-display-topright">&times;</span>
+	<h1>Your Session Is About To Expire</h1>
+	<p>Close this message if you want to continue working.</p>
 </div>
