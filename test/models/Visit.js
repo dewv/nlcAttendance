@@ -139,5 +139,3 @@ describe("Visit model", function() {
 
 
 });
-
-/*global Visit*/

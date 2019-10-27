@@ -5,7 +5,7 @@ const ViewTests = require("../Views");
 describe("Student views", function() {
     const pathToView = "pages/student/editForm";
 
-    context("The edit form", async function(done) {
+    context("The edit form", async function() {
 
         let expectedData = {
             id: 0,

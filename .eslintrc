@@ -20,7 +20,7 @@
     "Major": true,
     "Student": true,
     "Staff": true,
-    "Visit": true,
+    "Visit": true
     // …and any others (e.g. `"Organization": true`)
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   },
@@ -52,7 +52,7 @@
     "no-redeclare":                 ["warn"],
     "no-return-assign":             ["error", "always"],
     "no-sequences":                 ["error"],
-    "no-undef":                     ["off"],
+    "no-undef":                     ["error"],
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // ^^Note: If this "no-undef" rule is enabled (set to `["error"]`), then all model globals
     // (e.g. `"Organization": true`) should be included above under "globals".
@@ -65,7 +65,8 @@
     "quotes":                       ["warn", "double", {"avoidEscape":false, "allowTemplateLiterals":true}],
     "semi":                         ["warn", "always"],
     "semi-spacing":                 ["warn", {"before":false, "after":true}],
-    "semi-style":                   ["warn", "last"]
-  }
-
+    "semi-style":                   ["warn", "last"],
+    "space-infix-ops":              "warn"
+  },
+  "reportUnusedDisableDirectives": true
 }

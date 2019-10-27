@@ -125,7 +125,7 @@ module.exports = function(modelName, testData) {
             it("should return a array of records for a defined model", async function() {
                 let records = {};
                 let result = await sails.helpers.getRecordList(Student, records);
-                let expected = await Student.find()
+                let expected = await Student.find();
                 result.should.not.be.an.Error();
                 expected.should.not.be.an.Error();
                 should.exist(result, "The helper did not return anything");
@@ -136,7 +136,7 @@ module.exports = function(modelName, testData) {
             it("should return a array of records for a defined model with a association", async function() {
                 let records = {};
                 let result = await sails.helpers.getRecordList(Visit, records);
-                let expected = await Visit.find().populate('student');
+                let expected = await Visit.find().populate("student");
                 result.should.not.be.an.Error();
                 expected.should.not.be.an.Error();
                 should.exist(result, "The helper did not return anything");
