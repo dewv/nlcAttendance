@@ -44,13 +44,27 @@ function filterName(x) {
 }
 </script>
 
+<style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    th, td {
+      text-align: left;
+      padding: 8px;
+    }
+    
+    tr:nth-child(even) {background-color: #f2f2f2;}
+    </style>
+
 <!-- Populate table -->
-<div class="w3-container w3-display-middle w3-center w3-table" style="overflow:auto;">
+<div class="w3-table-all w3-center" style="overflow:scroll;">
     <a id="link" download="visits.csv">
         <button onclick="download()" class = "button downloadButton">Download this view</button>
     </a>
     <input type="text" id="visitSearch" onkeyup="filterName(2)" placeholder="Search for a Name..">
-    <table class="w3-table w3-bordered" id="visitTable scrolltabe">
+    <table>
         <thead>
             <tr>
                 <th>#</th>
