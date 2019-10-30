@@ -1,0 +1,39 @@
+
+
+
+<div style="overflow-x:auto;">
+
+    <div>
+        <h2>Majors</h2>
+    </div>
+
+    <table id="visitTable">
+        <thead>
+                <th>Major</th>
+                <th>Status</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+
+        <% if(records) {records.forEach(function(major) { %>
+            <tbody>
+                <tr>
+                    <td>
+                        <%= major.name %>
+                    </td>
+                    <td>
+                        <%= major.status %>
+                    </td>
+                    <td>
+                        <button><a href="/major/<%= major.id %>/edit">Edit Form</a></button>
+                    </td>
+                </tr>
+            </tbody>
+        <% }); }%>
+    </table>
+        
+    </div>
+
+
+</div>
+
