@@ -8,6 +8,7 @@ let routes = {
     "GET /": "MiscController.get",
     "GET /browser": "MiscController.get",
     "GET /default": "MiscController.get",
+    "GET /sports": "MiscController.getSports",
     
     // Custom logic to extend default REST handling of CRUD operations 
     "GET /student/visit": "StudentController.visitFormRequested",
