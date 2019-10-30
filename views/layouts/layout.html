@@ -60,9 +60,9 @@
     <% } %>
 
     <% if ( role === "student" ) { %>
-      <div class="topnav">
-          <a href="/student/<%= userId %>/edit">Profile</a>
-          <a href="/logout">Log out</a>
+      <div class="topnav w3-bar w3-red w3-mobile">
+          <a href="/student/<%= userId %>/edit" class="w3-bar-item w3-button">Profile</a>
+          <a href="/logout" class="w3-bar-item w3-button">Log out</a>
       </div>
     <% } %>
     
