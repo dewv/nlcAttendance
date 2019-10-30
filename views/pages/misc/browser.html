@@ -5,20 +5,19 @@ function validateForm() {
     document.cookie = "location=" + register.location.value + "; expires=" + d.toUTCString() + "; path=/";
 }
 </script>
-
+<div class="w3-container w3-display-middle w3-center w3-border w3-red w3-round w3-border-black">
 <form name="register" onsubmit="return validateForm()" method="get" action="/staffmenu">
     <h1>Register this Browser</h1> 
-
-    <br>
-    <br>
-    <label for="location">Location Name:</label>
-    <input type="text" autofocus name="location" maxlength="255" required>
-    <button id="submitButton" type="submit">Submit</button>
-    <br>
-    <br>
-    <br>
-    <br>
     <div class="instructions">
     <p>This form will register this browser to permit NLC attendance tracking. When a student checks in with this browser, their visit will be marked with the location that you enter below:</p>
     </div>
+    <br>
+    <label for="location">Location Name:</label>
+    <input type="text" autofocus name="location" maxlength="255" required>
+    <br>
+    <br>
+    <button class="w3-btn w3-white" id="submitButton" type="submit">Submit</button>
+    <br>
+    <br>
 </form>
+</div>
