@@ -199,13 +199,6 @@ describe("`isAuthorized` policy", function () {
       });
     });
 
-    it("should forbid requests to get the staff menu", function (done) {
-      isRequestAuthorized("GET", "/staffmenu", studentSession, function (authorized) {
-        authorized.should.be.false();
-        done();
-      });
-    });
-
     it("should forbid requests to view all visit records", function (done) {
       isRequestAuthorized("GET", "/visit", studentSession, function (authorized) {
         authorized.should.be.false();
@@ -330,13 +323,6 @@ describe("`isAuthorized` policy", function () {
       });
     });
 
-    it("should forbid requests to get the staff menu", function (done) {
-      isRequestAuthorized("GET", "/staffmenu", studentSession, function (authorized) {
-        authorized.should.be.false();
-        done();
-      });
-    });
-
     it("should forbid requests to view all visit records", function (done) {
       isRequestAuthorized("GET", "/visit", studentSession, function (authorized) {
         authorized.should.be.false();
@@ -427,13 +413,6 @@ describe("`isAuthorized` policy", function () {
       });
     });
 
-    it("should forbid requests to get the staff menu", function (done) {
-      isRequestAuthorized("GET", "/staffmenu", studentSession, function (authorized) {
-        authorized.should.be.false();
-        done();
-      });
-    });
-
     it("should forbid requests to view all visit records", function (done) {
       isRequestAuthorized("GET", "/visit", studentSession, function (authorized) {
         authorized.should.be.false();
@@ -506,13 +485,6 @@ describe("`isAuthorized` policy", function () {
     it("should forbid requests to update other user profiles", function (done) {
       isRequestAuthorized("POST", `/staff/${testUserId - 1}`, staffSession, function (authorized) {
         authorized.should.be.false();
-        done();
-      });
-    });
-
-    it("should authorize requests to get the staff menu", function (done) {
-      isRequestAuthorized("GET", "/staffmenu", staffSession, function (authorized) {
-        authorized.should.be.true();
         done();
       });
     });

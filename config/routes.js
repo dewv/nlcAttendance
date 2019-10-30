@@ -6,7 +6,6 @@ let routes = {
     
     // Miscellaneous requests (not CRUD operations handled via REST)
     "GET /": "MiscController.get",
-    "GET /staffmenu": "MiscController.get",
     "GET /browser": "MiscController.get",
     "GET /default": "MiscController.get",
     
@@ -16,6 +15,7 @@ let routes = {
     "POST /student/:id": "StudentController.editFormSubmitted",
     "POST /visit/:id": "VisitController.editFormSubmitted",
     "POST /staff/:id": "StaffController.editFormSubmitted",
+    "POST /major/:id": "StaffController.editMajorFormSubmitted",
     
     // Default handling of CRUD operations via REST 
     "GET /:model": "RestController.listRequested", 
