@@ -5,27 +5,34 @@
 
     <div>
         <h2>Majors</h2>
+        <h3><a href="/major/new" >Add New Major</a></h3>
     </div>
 
-    <table id="visitTable">
+    <table id="majorTable">
         <thead>
                 <th>Major</th>
-                <th>Status</th>
-                <th>Edit</th>
+                <th>Display This Major For Students?</th>
             </tr>
         </thead>
 
-        <% if(records) {records.forEach(function(major) { %>
+        <% let count = 0 %>
+        <% if(records) {records.forEach(function(major) { count++%>
             <tbody>
                 <tr>
                     <td>
                         <%= major.name %>
                     </td>
                     <td>
-                        <%= major.status %>
-                    </td>
-                    <td>
-                        <button><a href="/major/<%= major.id %>/edit">Edit Form</a></button>
+                        <form method="POST" action="/major/<%= major.id %>">
+                            <input type="hidden" name="name" value="<%= major.name %>"/>
+                            <% if(major.status === "Yes") { %>
+                                <input type="hidden" name="status" value="No"/>
+                                <button type="submit" id="<%= count %>"><img src="/images/check.png" /></button>
+                            <% } else { %>
+                                <input type="hidden" name="status" value="Yes"/>
+                                <button type="submit" id="<%= count %>"><img src="/images/x.png" /></button>
+                            <% } %>
+                        </form>
                     </td>
                 </tr>
             </tbody>

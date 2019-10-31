@@ -7,7 +7,7 @@
 module.exports = {
     attributes: {
         name: { type: "string", required: true, unique: true, },
-        status: {type: "string", required: true, isIn: ["Enabled", "Disabled"]},
+        status: {type: "string", required: true, isIn: ["Yes", "No"]},
     },
     
     candidateKey: "name",

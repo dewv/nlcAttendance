@@ -16,8 +16,13 @@ let routes = {
     "POST /student/:id": "StudentController.editFormSubmitted",
     "POST /visit/:id": "VisitController.editFormSubmitted",
     "POST /staff/:id": "StaffController.editFormSubmitted",
-    "POST /major/:id": "StaffController.editMajorFormSubmitted",
-    
+    "POST /major": "StaffController.majorFormSubmitted",
+    "POST /major/:id": "StaffController.majorFormSubmitted",
+    "POST /fallsports": "StaffController.sportFormSubmitted",
+    "POST /fallsports/:id": "StaffController.sportFormSubmitted",
+    "POST /springsports": "StaffController.sportFormSubmitted",
+    "POST /springsports/:id": "StaffController.sportFormSubmitted",
+     
     // Default handling of CRUD operations via REST 
     "GET /:model": "RestController.listRequested", 
     "GET /:model/new": "RestController.createFormRequested",

@@ -1,0 +1,87 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+    function submit(url, data) {
+        $.post(url, data, function(data, status){
+            console.log(`${data} and status is ${status}`)
+        });
+    }
+</script>
+
+
+<div style="overflow-x:auto;">
+
+    <div>
+        <h2>Fall Sports</h2>
+        <h3><a href="/fallsport/new" >Add New Fall Sport</a></h3>
+    </div>
+
+    <table id="fallTable">
+        <thead>
+                <th>Fall Sport</th>
+                <th>Display This Sport For Students?</th>
+            </tr>
+        </thead>
+
+        <% let count = 0 %>
+        <% if(fallSport) {fallSport.forEach(function(fallsport) { count++%>
+            <tbody>
+                <tr>
+                    <td>
+                        <%= fallsport.name %>
+                    </td>
+                    <td>
+                        <form method="POST" action="/fallsport/<%= fallsport.id %>">
+                            <input type="hidden" name="name" value="<%= fallsport.name %>"/>
+                            <% if(fallsport.status === "Yes") { %>
+                                <input type="hidden" name="status" value="No"/>
+                                <button onclick="submit('/fallsport/<%= fallsport.id %>', {status: 'No'})" type='button' value="<%= fallsport.status %>" id="<%= count %>"><img src="/images/check.png" /></button>
+                            <% } else { %>
+                                <input type="hidden" name="status" value="Yes"/>
+                                <button onclick="submit('/fallsport/<%= fallsport.id %>', {status: 'Yes'})" type='button' value="<%= fallsport.status %>" id="<%= count %>"><img src="/images/x.png" /></button>
+                            <% } %>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        <% }); }%>
+    </table>
+
+    <div>
+        <h2>Spring Sports</h2>
+        <h3><a href="/springsport/new" >Add New Spring Sport</a></h3>
+    </div>
+
+    <table id="springTable">
+        <thead>
+                <th>Spring Sport</th>
+                <th>Display This Sport For Students?</th>
+            </tr>
+        </thead>
+
+        <% if(springSport) {springSport.forEach(function(springsport) { count++%>
+            <tbody>
+                <tr>
+                    <td>
+                        <%= springsport.name %>
+                    </td>
+                    <td>
+                        <form method="POST" action="/springsport/<%= springsport.id %>">
+                            <input type="hidden" name="name" value="<%= springsport.name %>"/>
+                            <% if(springsport.status === "Yes") { %>
+                                <input type="hidden" name="status" value="No"/>
+                                <button onclick="submit('/springsport/<%= springsport.id %>', {status: 'No'})" type='button' value="<%= springsport.status %>" id="<%= count %>"><img src="/images/check.png" /></button>
+                            <% } else { %>
+                                <input type="hidden" name="status" value="Yes"/>
+                                <button onclick="submit('/springsport/<%= springsport.id %>', {status: 'Yes'})" type='button' value="<%= springsport.status %>" id="<%= count %>"><img src="/images/x.png" /></button>
+                            <% } %>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        <% }); }%>
+    </table>
+        
+    </div>
+
+
+</div>
+

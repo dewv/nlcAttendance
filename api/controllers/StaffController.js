@@ -22,30 +22,24 @@ module.exports = {
         return RestController.editFormSubmitted(request, response);
     },
 
-    editMajorFormSubmitted: async function (request, response) {
-        if (request.params.model === "controller") return response.cookie("StaffController", "editMajorFormSubmitted").end();
-        let model = sails.models[request.params.model];
-        if (!model) return response.notFound();
-        let encodedData = await sails.helpers.encodeAssociations(model, request.body);
-        await model.updateOne({
-            id: request.params.id
-        }).set(encodedData);
-
-        if (response.locals.forceLogout) return this.forceLogout(request, response);
-        return response.redirect("/major");
+    majorFormSubmitted: async function (request, response) {
+        if(request.path === "/major") {
+            request.session.Url = "/major"
+            return RestController.createFormSubmitted(request, response);
+        } else if (request.route.path === "/major/:id" && request.method === "POST") {
+            request.session.Url = "/major"
+            return RestController.editFormSubmitted(request, response);
+        }
     },
 
-    editSportFormSubmitted: async function (request, response) {
-        if (request.params.model === "controller") return response.cookie("StaffController", "editMajorFormSubmitted").end();
-        let model = sails.models[request.params.model];
-        if (!model) return response.notFound();
-        let encodedData = await sails.helpers.encodeAssociations(model, request.body);
-        await model.updateOne({
-            id: request.params.id
-        }).set(encodedData);
-
-        if (response.locals.forceLogout) return this.forceLogout(request, response);
-        return response.redirect("/sports");
+    sportFormSubmitted: async function (request, response) {
+        if(request.path === ("/springsport" || "/fallsport") && request.method === "POST") {
+            request.session.Url = "/sports"
+            return RestController.createFormSubmitted(request, response);
+        } else if (request.route.path === ("/springsport/:id" || "fallsport/:id") && request.method === "POST") {
+            request.session.Url = "/sports"
+            return RestController.editFormSubmitted(request, response);
+        }
     },
-    
+
 };

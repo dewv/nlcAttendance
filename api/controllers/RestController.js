@@ -59,6 +59,7 @@ module.exports = {
         let encodedData = await sails.helpers.encodeAssociations(model, request.body);
         await model.create(encodedData);
         if (response.locals.forceLogout) return this.forceLogout(request, response);
+        if (request.session.Url) return response.redirect(request.session.Url);
         return response.redirect(request.session.defaultUrl);
     },
 
@@ -111,8 +112,9 @@ module.exports = {
         await model.updateOne({
             id: request.params.id
         }).set(encodedData);
-
+        console.log(JSON.stringify(request.body));
         if (response.locals.forceLogout) return this.forceLogout(request, response);
+        if (request.session.Url) return response.redirect(request.session.Url);
         return response.redirect(request.session.defaultUrl);
     },
 

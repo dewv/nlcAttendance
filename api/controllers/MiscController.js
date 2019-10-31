@@ -14,12 +14,15 @@ module.exports = {
      * @async
      */
     get: async function(request, response) {
-        if (request.path === "/staffmenu") {
-            let ejsData = {
-                userId: request.session.userId,
-            };
-            return sails.helpers.responseViewSafely(request, response, `pages/misc${request.path}`, ejsData);
-        } 
         return sails.helpers.responseViewSafely(request, response, `pages/misc${request.path}`);
-    }
+    },
+
+    getSports: async function(request, response) {
+        let springSport = await sails.helpers.getRecordList(sails.models["springsport"], {});
+        let fallSport = await sails.helpers.getRecordList(sails.models["fallsport"], {});
+        return sails.helpers.responseViewSafely(request, response, `pages/misc${request.path}`, {
+            springSport: springSport,
+            fallSport: fallSport,
+        });
+    },
 };

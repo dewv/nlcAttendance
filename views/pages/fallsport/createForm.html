@@ -1,0 +1,22 @@
+
+
+<form method="POST" action="<%= action %>" >
+  <div>
+    <h2>Add A Fall Sport</h2>
+  </div>
+    <div class = "w3-input">
+      <label for="name" value="name">Sport's Name</label>
+      <input id="name" name="name" type="text" autofocus maxlength="255" required value="<%= formData.name %>" > 
+    </div>
+  
+    <div class = "w3-input">
+      <label for="Status" value="Status">Display the Sport?</label>
+      <%- status %>
+    </div>
+  
+    <div class = "w3-input">
+      <button id="submitButton" type="submit">Submit</button>
+    </div>
+    
+
+</form>

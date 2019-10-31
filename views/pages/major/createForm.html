@@ -2,20 +2,20 @@
 
 <form method="POST" action="<%= action %>" >
   <div>
-    <h2>User Profile</h2>
+    <h2>Add A Major</h2>
   </div>
     <div class = "w3-input">
-      <label for="name" value="name">Major</label>
+      <label for="name" value="name">Major's Name</label>
       <input id="name" name="name" type="text" autofocus maxlength="255" required value="<%= formData.name %>" > 
     </div>
   
     <div class = "w3-input">
-      <label for="Status" value="Status">Status</label>
+      <label for="Status" value="Status">Display the Major?</label>
       <%- status %>
     </div>
   
     <div class = "w3-input">
-      <button id="submitButton" type="submit">Update</button>
+      <button id="submitButton" type="submit">Submit</button>
     </div>
     
 

@@ -70,24 +70,34 @@ module.exports = async function (request, response, proceed) {
         if (request.path === "/visit" && request.method === "GET") return proceed();
         // ... access and submit the form for registering the browser to track visits.
         if (request.path === "/browser") return proceed();
-        if (model === "major") return proceed();
-        // ... view the list of majors.
-        if (request.path === "/major" && request.method === "GET") return proceed();
+        // ... view the list of majors and create a major.
+        if (request.path === "/major") return proceed();
         // ... view a particular major.
         if (request.route.path === "/:model/:id/edit" && model === "major" && request.method === "GET") return proceed();
         // ... edit a particular major.
-        sails.log.debug(`${request.route.path}`);
         if (request.route.path === "/major/:id" && request.method === "POST") return proceed();
+        // ... view the create major form.
+        if (request.route.path === "/:model/new" && model === "major" && request.method === "GET") return proceed();
         // ... view the list of sports.
-        if (request.path === "/sports" && request.method === "GET") return proceed();
+        if (request.path === "/sports") return proceed();
+        // ... create a springsport.
+        if (request.path === "/springsport" && request.method === "POST") return proceed();
         // ... view a particular spring sport.
         if (request.route.path === "/:model/:id/edit" && model === "springsport" && request.method === "GET") return proceed();
         // ... edit a particular spring sport.
         if (request.route.path === "/springsport/:id" && request.method === "POST") return proceed();
+        // ... view the create springsport form.
+        if (request.route.path === "/:model/new" && model === "springsport" && request.method === "GET") return proceed();
+        // ... create a fallsport.
+        if (request.path === "/fallsport" && request.method === "POST") return proceed();
         // ... view a particular fall sport.
         if (request.route.path === "/:model/:id/edit" && model === "fallsport" && request.method === "GET") return proceed();
         // ... edit a particular fall sport.
         if (request.route.path === "/fallsport/:id" && request.method === "POST") return proceed();
+        // ... view the create fallsport form.
+        if (request.route.path === "/:model/new" && model === "fallsport" && request.method === "GET") return proceed();
+        // ... create a fallsport.
+        if (request.route.path === "/:model" && model === "fallsport" && request.method === "POST") return proceed();
     }
     sails.log.debug(`${model}`);
     sails.log.debug(`default to forbid for ${request.session.role}, ${request.method} ${request.path}`);

@@ -42,11 +42,12 @@ module.exports = {
 
     fn: function(inputs, exits) {
         let result = `<select id="${inputs.htmlName}" name="${inputs.htmlName}"${inputs.domain.inputRequired ? " required" : ""} size="1"> <option value="">Choose one ...</option> `;
-        console.log(JSON.stringify(inputs.domain.options));
         for (let i = 0; i < inputs.domain.options.length; i++) {
             /* istanbul ignore else */
-            if (inputs.domain.options[i].status === "Enabled" || !inputs.domain.options[i].status) {
-                result += `<option value="${inputs.domain.options[i].name}"`;
+            if (inputs.domain.options[i].name) {
+                if (inputs.selected && inputs.selected === inputs.domain.options[i].name && inputs.domain.options[i].status === "No"){
+                    result += `<option readonly value="${inputs.domain.options[i].name}"`;
+                } else if(inputs.domain.options[i].status === "Yes" || !inputs.domain.options[i].status) { result += `<option value="${inputs.domain.options[i].name}"`; } 
                 if (inputs.selected && inputs.selected === inputs.domain.options[i].name) result += " selected";
                 result += `>${inputs.domain.options[i].name}</option> `;
             }
