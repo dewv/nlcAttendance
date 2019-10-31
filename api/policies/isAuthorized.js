@@ -62,7 +62,6 @@ module.exports = async function (request, response, proceed) {
         if (request.path === `/visit/${request.session.userProfile.visit.id}` && request.method === "POST" && request.session.userProfile.visit.checkedIn) return proceed();
     }
 
-    sails.log.debug(`Req ${request.session.role}, ${request.method}, ${request.path}, ${request.route.path}`);
     // Staff users are authorized to ...
     if (request.session.role === "staff") {
         // ... view the list of students.
