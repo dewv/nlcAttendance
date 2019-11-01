@@ -1,10 +1,11 @@
 const ldap = require("ldapjs");
+
 /**
  * Routes login and logout requests. 
  * @implements Controller
  * @module
  */
-module.exports = {
+let AuthController = {
     /**
      * Handles request to display a form for entering a new data record.
      * @argument {external:Request} request -  The HTTP request.
@@ -32,34 +33,22 @@ module.exports = {
 
         var result;
         // TODO .env flag for real/fake authentication; don't use node env
-        if (true || request.app.get("env") === "production") {
-            // try to authenticate via LDAP
+        if (request.app.get("env") === "production") {
             result = await _checkLdap(request.body.username, request.body.password);
-            if (result instanceof ldap.InvalidCredentialsError) {
-                response.locals.banner = "Invalid username and/or password.";
-                return response.redirect("/login");
-            } else if (result instanceof ldap.ConnectionError || result instanceof ldap.UnavailableError) {
-                response.locals.banner = "TODO cannot access LDAP server";
-                sails.log.debug("do alt auth")
-                // LDAP is unavailable; appeal to security question
-                return response.redirect("/altauth");
-            } else if (result instanceof Error) {
-                response.locals.banner = result.message;
-                return response.redirect("/login");
-            }
         } else {
-            // Simulate authentication 
-            if (request.body.password === "student" || request.body.password === "staff") {
-                result = {
-                    role: request.body.password,
-                    firstName: "First",
-                    lastName: "Last"
-                };
-            } else {
-                // TODO Why do banners not display?
-                response.locals.banner = "Invalid username and/or password.";
-                return response.redirect("/login");
-            }
+            result = _simulateAuthentication(request.body.username, request.body.password);
+        }
+
+        if (result instanceof ldap.InvalidCredentialsError) {
+            response.locals.banner = "Invalid username and/or password.";
+            return AuthController.logout(request, response);
+        } else if (result instanceof ldap.InsufficientAccessRightsError) {
+            response.locals.banner = "Sorry, you are not authorized to use this system.";
+            return AuthController.logout(request, response);
+        } else if (result instanceof ldap.UnavailableError) {
+            sails.log.debug("appeal to security question");
+            // LDAP is unavailable; appeal to security question
+            return response.redirect("/nonexistentSecurityQuestionUrl"); // TODO
         }
 
         for (const property in result) {
@@ -87,15 +76,13 @@ module.exports = {
         return response.redirect(request.session.defaultUrl);
     },
 
-    logout: function (request, response) {
+    logout: async function (request, response) {
         request.session.destroy();
-        return response.redirect("/login");
+        return await sails.helpers.responseViewSafely(request, response, `pages/login`);
     }
 };
 
 async function _checkLdap(username, password) {
-    const failMessage = "Due to technical difficulties, we cannot verify your username/password at this time.";
-
     const clientOptions = {
         url: "ldaps://DEDC-01.DEWV.EDU:636",
         timeout: 10 * 1000,
@@ -105,42 +92,28 @@ async function _checkLdap(username, password) {
         },
     };
 
-    // TODO returns
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         var client = ldap.createClient(clientOptions);
 
-        _handleFailure("testing", new ldap.ConnectionError())
-
         client.on("error", function (error) {
-            // Defensive programming: not clear when/why ldapjs might emit this.
-            sails.log.warn(`LDAP client error handler: ${error.message}`);
-            reject(new Error(failMessage));
+            _handleError(`LDAP client error handler: ${error.message}`);
         });
 
-        client.on("connectError", function () {
-            sails.log.warn(`LDAP connect error handler`);
-            resolve(new ldap.UnavailableError());
-            return; // Not sure why this is needed, but it is.
+        client.on("connectError", function (error) {
+            _handleError(`LDAP connectError handler: ${error.message}`);
         });
 
         client.on("connect", function (r, error) {
-            sails.log.debug("on connect");
             if (error) {
-                sails.log.warn(`LDAP connect handler: ${error.message}`);
-                reject(new Error(failMessage));
+                return _handleError(`LDAP connect handler: ${error.message}`);
             }
 
             client.bind(username, password, function (error) {
                 if (error) {
-                    // Caller will handle some errors. 
-                    if (error instanceof ldap.ConnectionError ||
-                        error instanceof ldap.UnavailableError ||
-                        error instanceof ldap.InvalidCredentialsError) {
-                        resolve(error);
+                    if (error instanceof ldap.InvalidCredentialsError) {
+                        return resolve(error);
                     }
-                    // Defensive programming, in case of other ldapjs errors.
-                    sails.log.warn(`LDAP user bind: ${error}`);
-                    reject(new Error(failMessage));
+                    return _handleError(`LDAP bind handler: ${error.message}`);
                 }
 
                 // Authentication was successful. Get information about user. 
@@ -152,18 +125,16 @@ async function _checkLdap(username, password) {
 
                 client.search("DC=dewv,DC=edu", searchOptions, function (error, searchResponse) {
                     if (error) {
-                        // Defensive programming: not clear when/why ldapjs might error here.
-                        sails.log.warn(`LDAP client search: ${error}`);
-                        reject(new Error(failMessage));
+                        return _handleError(`LDAP client search: ${error.message}`);
                     }
 
                     searchResponse.on("error", function (error) {
-                        // Defensive programming: not clear when/why ldapjs might emit this.
-                        sails.log.warn(`LDAP search response error handler: ${error}`);
-                        reject(new Error(failMessage));
+                        _handleError(`LDAP search response error handler: ${error.message}`);
                     });
 
                     searchResponse.on("searchEntry", function (entry) {
+                        client.unbind();
+
                         var ldapDn = entry.object.dn;
                         var result = {
                             firstName: entry.object.givenName,
@@ -174,17 +145,17 @@ async function _checkLdap(username, password) {
 
                         // TODO .env this
                         let ldapRoles = [{
-                                dnContains: "OU=Students",
-                                role: "student"
-                            },
-                            {
-                                dnContains: "OU=Naylor_Center",
-                                role: "staff"
-                            },
-                            {
-                                dnContains: "CN=Mattingly",
-                                role: "staff"
-                            }
+                            dnContains: "OU=Students",
+                            role: "student"
+                        },
+                        {
+                            dnContains: "OU=Naylor_Center",
+                            role: "staff"
+                        },
+                        {
+                            dnContains: "CN=Mattingly",
+                            role: "staff"
+                        }
                         ];
 
                         // Set user role(s) based on LDAP distinguished name (dn).
@@ -197,9 +168,7 @@ async function _checkLdap(username, password) {
                         }
 
                         // User must have at least one role.
-                        if (!result.role) resolve(new Error("You do not appear to be a D&E student or a Naylor Center staff member."));
-
-                        client.unbind();
+                        if (!result.role) return resolve(new ldap.InsufficientAccessRightsError());
 
                         resolve(result);
                     });
@@ -207,10 +176,28 @@ async function _checkLdap(username, password) {
             });
         });
 
-        function _handleError(message, error) {
+        function _handleError(message) {
             // Defensive programming: not clear when/why ldapjs might error here.
-            sails.log.warn(`${message}: ${error.message}`);
-            reject(new Error(failMessage));
+            sails.log.warn(message);
+            resolve(new ldap.UnavailableError());
         }
     });
 }
+
+function _simulateAuthentication(username, password) {
+    if (password === "student" || password === "staff") {
+        return {
+            role: password,
+            firstName: "First",
+            lastName: "Last"
+        };
+    } else if (password === "neither") {
+        return new ldap.InsufficientAccessRightsError();
+    } else if (password === "noldap") {
+        return new ldap.UnavailableError();
+    }
+
+    return new ldap.InvalidCredentialsError();
+}
+
+module.exports = AuthController;
