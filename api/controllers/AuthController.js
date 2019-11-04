@@ -31,12 +31,11 @@ let AuthController = {
             request.body.username = request.body.username + domain;
         }
 
-        var result;
-        // TODO .env flag for real/fake authentication; don't use node env
-        if (request.app.get("env") === "production") {
-            result = await _checkLdap(request.body.username, request.body.password);
+        let result;
+        if (sails.config.custom.ldap) {
+            result = await AuthController._ldapAuthentication(request.body.username, request.body.password);
         } else {
-            result = _simulateAuthentication(request.body.username, request.body.password);
+            result = AuthController._simulatedAuthentication(request.body.username, request.body.password);
         }
 
         if (result instanceof ldap.InvalidCredentialsError) {
@@ -79,125 +78,98 @@ let AuthController = {
     logout: async function (request, response) {
         request.session.destroy();
         return await sails.helpers.responseViewSafely(request, response, `pages/login`);
-    }
-};
+    },
 
-async function _checkLdap(username, password) {
-    const clientOptions = {
-        url: "ldaps://DEDC-01.DEWV.EDU:636",
-        timeout: 10 * 1000,
-        connectTimeout: 10 * 1000,
-        tlsOptions: {
-            rejectUnauthorized: false
-        },
-    };
+    _ldapAuthentication: async function (username, password) {
+        const ldapConfig = sails.config.custom.ldap;
+        const clientOptions = ldapConfig.clientOptions;
 
-    return new Promise((resolve) => {
-        var client = ldap.createClient(clientOptions);
+        return new Promise((resolve) => {
+            let client = ldap.createClient(clientOptions);
 
-        client.on("error", function (error) {
-            _handleError(`LDAP client error handler: ${error.message}`);
-        });
+            client.on("error", function (error) {
+                _handleError(`LDAP client error handler: ${error.message}`);
+            });
 
-        client.on("connectError", function (error) {
-            _handleError(`LDAP connectError handler: ${error.message}`);
-        });
+            client.on("connectError", function (error) {
+                _handleError(`LDAP connectError handler: ${error.message}`);
+            });
 
-        client.on("connect", function (r, error) {
-            if (error) {
-                return _handleError(`LDAP connect handler: ${error.message}`);
-            }
-
-            client.bind(username, password, function (error) {
+            client.on("connect", function (_socket, error) {
                 if (error) {
-                    if (error instanceof ldap.InvalidCredentialsError) {
-                        return resolve(error);
-                    }
-                    return _handleError(`LDAP bind handler: ${error.message}`);
+                    return _handleError(`LDAP connect handler: ${error.message}`);
                 }
 
-                // Authentication was successful. Get information about user. 
-                var searchOptions = {
-                    filter: `(userPrincipalName=${username})`,
-                    scope: "sub",
-                    attributes: ["dn", "givenName", "sn"]
-                };
-
-                client.search("DC=dewv,DC=edu", searchOptions, function (error, searchResponse) {
+                client.bind(username, password, function (error) {
                     if (error) {
-                        return _handleError(`LDAP client search: ${error.message}`);
+                        if (error instanceof ldap.InvalidCredentialsError) {
+                            return resolve(error);
+                        }
+                        return _handleError(`LDAP bind handler: ${error.message}`);
                     }
 
-                    searchResponse.on("error", function (error) {
-                        _handleError(`LDAP search response error handler: ${error.message}`);
-                    });
-
-                    searchResponse.on("searchEntry", function (entry) {
-                        client.unbind();
-
-                        var ldapDn = entry.object.dn;
-                        var result = {
-                            firstName: entry.object.givenName,
-                            lastName: entry.object.sn,
-                            role: undefined
-                        };
-                        // TODO make session.role an object with boolean properties for roles
-
-                        // TODO .env this
-                        let ldapRoles = [{
-                            dnContains: "OU=Students",
-                            role: "student"
-                        },
-                        {
-                            dnContains: "OU=Naylor_Center",
-                            role: "staff"
-                        },
-                        {
-                            dnContains: "CN=Mattingly",
-                            role: "staff"
+                    // Authentication was successful. Get information about user. 
+                    ldapConfig.searchOptions.filter = `(userPrincipalName=${username})`;
+                    client.search(ldapConfig.searchBaseDn, ldapConfig.searchOptions, function (error, searchResponse) {
+                        if (error) {
+                            return _handleError(`LDAP client search: ${error.message}`);
                         }
-                        ];
 
-                        // Set user role(s) based on LDAP distinguished name (dn).
-                        for (const rule of ldapRoles) {
-                            sails.log.debug(`Trying ${rule.dnContains} against ${ldapDn}`);
-                            if (ldapDn.indexOf(rule.dnContains) >= 0) {
-                                sails.log.debug(`Setting role ${rule.role}`);
-                                result.role = rule.role;
+                        searchResponse.on("error", function (error) {
+                            _handleError(`LDAP search response error handler: ${error.message}`);
+                        });
+
+                        searchResponse.on("searchEntry", function (entry) {
+                            client.unbind();
+
+                            // Build result using configured aliases (e.g., "sn" -> "lastName")
+                            let result = {};
+                            for (let attribute of ldapConfig.searchOptions.attributes) {
+                                if (ldapConfig.searchResultAliases[attribute]) {
+                                    result[ldapConfig.searchResultAliases[attribute]] = entry.object[attribute];
+                                }
                             }
-                        }
 
-                        // User must have at least one role.
-                        if (!result.role) return resolve(new ldap.InsufficientAccessRightsError());
+                            // Set user role(s) based on LDAP distinguished name (dn).
+                            let ldapRoles = sails.config.custom.ldap.roles;
+                            for (const rule of ldapRoles) {
+                                if (entry.object.dn.indexOf(rule.dnContains) >= 0) {
+                                    result.role = rule.role;
+                                }
+                            }
 
-                        resolve(result);
+                            // User must have at least one role.
+                            if (!result.role) return resolve(new ldap.InsufficientAccessRightsError());
+
+                            resolve(result);
+                        });
                     });
                 });
             });
+
+            function _handleError(message) {
+                // Defensive programming: not clear when/why ldapjs might error here.
+                sails.log.warn(message);
+                resolve(new ldap.UnavailableError());
+            }
         });
+    },
 
-        function _handleError(message) {
-            // Defensive programming: not clear when/why ldapjs might error here.
-            sails.log.warn(message);
-            resolve(new ldap.UnavailableError());
+    _simulatedAuthentication: function (username, password) {
+        if (password === "student" || password === "staff") {
+            return {
+                role: password,
+                firstName: "First",
+                lastName: "Last"
+            };
+        } else if (password === "neither") {
+            return new ldap.InsufficientAccessRightsError();
+        } else if (password === "noldap") {
+            return new ldap.UnavailableError();
         }
-    });
-}
 
-function _simulateAuthentication(username, password) {
-    if (password === "student" || password === "staff") {
-        return {
-            role: password,
-            firstName: "First",
-            lastName: "Last"
-        };
-    } else if (password === "neither") {
-        return new ldap.InsufficientAccessRightsError();
-    } else if (password === "noldap") {
-        return new ldap.UnavailableError();
+        return new ldap.InvalidCredentialsError();
     }
-
-    return new ldap.InvalidCredentialsError();
-}
+};
 
 module.exports = AuthController;
