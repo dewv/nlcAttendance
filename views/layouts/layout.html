@@ -45,44 +45,46 @@
 
 
 </head>
-
 <body>
 
   <% if ( typeof role !== "undefined" ) { %>
 
     <% if ( role === "staff" ) { %>
-      <div class="topnav">
-          <a class="active" href="/student">Students</a>
-          <a href="/visit">Visits</a>
-          <a href="/browser">Browser Registration</a>
-          <a href="/staff/<%= userId %>/edit">Profile</a>
-          <a href="/logout">Log out</a>
+      <div class="topnav w3-bar w3-red w3-mobile">
+          <a class="active w3-bar-item w3-button" href="/student">Students</a>
+          <a href="/visit" class="w3-bar-item w3-button">Visits</a>
+          <a href="/browser" class="w3-bar-item w3-button">Browser Registration</a>
+          <a href="/staff/<%= userId %>/edit" class="w3-bar-item w3-button">Profile</a>
+          <a href="/logout" class="w3-bar-item w3-button">Log out</a>
       </div>
     <% } %>
 
     <% if ( role === "student" ) { %>
-      <div class="topnav">
-          <a href="/student/<%= userId %>/edit">Profile</a>
-          <a href="/logout">Log out</a>
+      <div class="topnav w3-bar w3-red w3-mobile">
+          <a href="/student/<%= userId %>/edit" class="w3-bar-item w3-button">Profile</a>
+          <a href="/logout" class="w3-bar-item w3-button">Log out</a>
       </div>
     <% } %>
     
   <% } %>
 
+  <style>
+    .animate-fade-out {
+      animation-direction: reverse; 
+      animation-fill-mode: forwards;
+        animation-duration: 8s;
+    }
+  </style>
   
   
   <% if (typeof banner !== "undefined") { %>
-  <div class = "w3-panel w3-green w3-display-container">
+  <div class = "w3-panel w3-green w3-display-container w3-animate-opacity animate-fade-out">
   <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">&times;</span>
   <p><%= banner %></p>
   </div>
 
   <% } %>
-  <div class="w3-container w3-center">
-    <div class="w3-padding w3-border w3-border-red w3-display-middle">
         <p><%- body %></p>
-    </div>
-  </div>
 
 
     <!--
