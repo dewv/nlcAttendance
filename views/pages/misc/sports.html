@@ -12,7 +12,7 @@
         <thead>
             <tr>
                 <th>Fall Sport</th>
-                <th>Display This Sport For Students?</th>
+                <th>Discontinued?</th>
             </tr>
         </thead>
 
@@ -25,11 +25,11 @@
                     </td>
                     <td>
                         <form method="POST" action="/fallsport/<%= fallsport.id %>">
-                            <% if(fallsport.status === "Yes") { %>
-                                <input type="hidden" name="status" value="No"/>
+                            <% if(fallsport.discontinued === "Yes") { %>
+                                <input type="hidden" name="discontinued" value="No"/>
                                 <button type="submit" id="Y<%= count %>"><img alt="Yes" src="/images/check.png" /></button>
                             <% } else { %>
-                                <input type="hidden" name="status" value="Yes"/>
+                                <input type="hidden" name="discontinued" value="Yes"/>
                                 <button type="submit" id="N<%= count %>"><img alt="No" src="/images/x.png" /></button>
                             <% } %>
                         </form>
@@ -48,7 +48,7 @@
         <thead>
             <tr>
                 <th>Spring Sport</th>
-                <th>Display This Sport For Students?</th>
+                <th>Discontinued?</th>
             </tr>
         </thead>
 
@@ -60,11 +60,11 @@
                     </td>
                     <td>
                         <form method="POST" action="/springsport/<%= springsport.id %>">
-                            <% if(springsport.status === "Yes") { %>
-                                <input type="hidden" name="status" value="No"/>
+                            <% if(springsport.discontinued === "Yes") { %>
+                                <input type="hidden" name="discontinued" value="No"/>
                                 <button type="submit" id="Yes<%= count %>"><img alt="Yes" src="/images/check.png" /></button>
                             <% } else { %>
-                                <input type="hidden" name="status" value="Yes"/>
+                                <input type="hidden" name="discontinued" value="Yes"/>
                                 <button type="submit" id="No<%= count %>"><img alt="No" src="/images/x.png" /></button>
                             <% } %>
                         </form>

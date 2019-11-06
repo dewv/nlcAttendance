@@ -16,6 +16,7 @@ module.exports = {
      * @async
      */
     getSports: async function(request, response) {
+        if (request.params.model === "controller") return response.cookie("SportsController", "getSports").end();
         let springSport = await sails.helpers.getRecordList(sails.models["springsport"], {});
         let fallSport = await sails.helpers.getRecordList(sails.models["fallsport"], {});
         return sails.helpers.responseViewSafely(request, response, `pages/misc${request.path}`, {
@@ -32,7 +33,7 @@ module.exports = {
      * @async
      */
     sportFormSubmitted: async function (request, response) {
-        if (request.params.model === "controller") return response.cookie("StaffController", "sportFormSubmitted").end();
+        if (request.params.model === "controller") return response.cookie("SportsController", "sportFormSubmitted").end();
         request.session.Url = "/sports";
         // If action is a create on spring sport
         if (request.path === "/springsport") {

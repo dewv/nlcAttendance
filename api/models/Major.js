@@ -8,7 +8,7 @@ module.exports = {
 
     attributes: {
         name: { type: "string", required: true, unique: true,},
-        status: {type: "string", required: true, isIn: ["Yes", "No"]},
+        discontinued: {type: "string", required: true, isIn: ["Yes", "No"]},
     },
     
     candidateKey: "name",
@@ -17,14 +17,14 @@ module.exports = {
      * Indicates which model attributes have defined domains.
      */
     domainDefined: {
-        status: true,
+        discontinued: true,
     },
 
     /** 
      * Indicates which model attributes are required when a user updates a major.
      */
     inputRequired: {
-        status: true,
+        discontinued: true,
     },
 };
 
@@ -32,5 +32,5 @@ module.exports = {
  * An academic major record.
  * @typedef {Record} MajorRecord
  * @property {string} name - The major's name.
- * @property {boolean} status - Does the major show up in select options.
+ * @property {boolean} discontinued - Does the major show up in select options.
  */

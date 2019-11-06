@@ -12,7 +12,7 @@
         <thead>
             <tr>
                 <th>Major</th>
-                <th>Display This Major For Students?</th>
+                <th>Discontinued?</th>
             </tr>
         </thead>
 
@@ -25,11 +25,11 @@
                     </td>
                     <td>
                         <form method="POST" action="/major/<%= major.id %>">
-                            <% if(major.status === "Yes") { %>
-                                <input type="hidden" name="status" value="No"/>
+                            <% if(major.discontinued === "Yes") { %>
+                                <input type="hidden" name="discontinued" value="No"/>
                                 <button type="submit" id="Yes<%= count %>"><img alt="Yes" src="/images/check.png" /></button>
                             <% } else { %>
-                                <input type="hidden" name="status" value="Yes"/>
+                                <input type="hidden" name="discontinued" value="Yes"/>
                                 <button type="submit" id="No<%= count %>"><img alt="No" src="/images/x.png" /></button>
                             <% } %>
                         </form>

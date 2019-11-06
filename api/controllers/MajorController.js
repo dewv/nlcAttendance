@@ -16,7 +16,7 @@ module.exports = {
      * @async
      */
     majorFormSubmitted: async function (request, response) {
-        if (request.params.model === "controller") return response.cookie("StaffController", "majorFormSubmitted").end();
+        if (request.params.model === "controller") return response.cookie("MajorController", "majorFormSubmitted").end();
         // If action is a create
         if (request.path === "/major") {
             request.session.Url = "/major";
