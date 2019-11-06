@@ -8,7 +8,7 @@ let routes = {
     "GET /": "MiscController.get",
     "GET /browser": "MiscController.get",
     "GET /default": "MiscController.get",
-    "GET /sports": "MiscController.getSports",
+    
     
     // Custom logic to extend default REST handling of CRUD operations 
     "GET /student/visit": "StudentController.visitFormRequested",
@@ -16,12 +16,13 @@ let routes = {
     "POST /student/:id": "StudentController.editFormSubmitted",
     "POST /visit/:id": "VisitController.editFormSubmitted",
     "POST /staff/:id": "StaffController.editFormSubmitted",
-    "POST /major": "StaffController.majorFormSubmitted",
-    "POST /major/:id": "StaffController.majorFormSubmitted",
-    "POST /fallsport": "StaffController.sportFormSubmitted",
-    "POST /fallsport/:id": "StaffController.sportFormSubmitted",
-    "POST /springsport": "StaffController.sportFormSubmitted",
-    "POST /springsport/:id": "StaffController.sportFormSubmitted",
+    "POST /major": "MajorController.majorFormSubmitted",
+    "POST /major/:id": "MajorController.majorFormSubmitted",
+    "GET /sports": "SportsController.getSports",
+    "POST /fallsport": "SportsController.sportFormSubmitted",
+    "POST /fallsport/:id": "SportsController.sportFormSubmitted",
+    "POST /springsport": "SportsController.sportFormSubmitted",
+    "POST /springsport/:id": "SportsController.sportFormSubmitted",
      
     // Default handling of CRUD operations via REST 
     "GET /:model": "RestController.listRequested", 
