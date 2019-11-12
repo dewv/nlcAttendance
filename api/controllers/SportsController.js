@@ -26,14 +26,14 @@ module.exports = {
     },
 
     /**
-     * Handles request to update or create a sport data record using form data.
+     * Handles request to create a sport data record using form data.
      * @argument {external:Request} request -  The HTTP request.
      * @argument {external:Response} response - The HTTP response.
      * @public
      * @async
      */
-    sportFormSubmitted: async function (request, response) {
-        if (request.params.model === "controller") return response.cookie("SportsController", "sportFormSubmitted").end();
+    createFormSubmitted: async function (request, response) {
+        if (request.params.model === "controller") return response.cookie("SportsController", "createFormSubmitted").end();
         request.session.Url = "/sports";
         // If action is a create on spring sport
         if (request.path === "/springsport") {
@@ -41,10 +41,20 @@ module.exports = {
             return RestController.createFormSubmitted(request, response);
         }
         // If action is a create on fall sport 
-        if (request.path === "/fallsport") {
-            request.params.model = "fallsport";
-            return RestController.createFormSubmitted(request, response);
-        }
+        request.params.model = "fallsport";
+        return RestController.createFormSubmitted(request, response);
+    },
+
+    /**
+     * Handles request to edit a sport data record using form data.
+     * @argument {external:Request} request -  The HTTP request.
+     * @argument {external:Response} response - The HTTP response.
+     * @public
+     * @async
+     */
+    editFormSubmitted: async function (request, response) {
+        if (request.params.model === "controller") return response.cookie("SportsController", "editFormSubmitted").end();
+        request.session.Url = "/sports";
         // If action is a edit on spring sport
         if (request.route.path === "/springsport/:id") {
             request.params.model = "springsport";
