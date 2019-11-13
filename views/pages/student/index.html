@@ -53,7 +53,6 @@ function filterName(x) {
     <table>
         <thead>
             <tr>
-                <th>Student ID</th>
                 <th>Name</th>
                 <th>Academic Rank</th>
                 <th>Major One</th>
@@ -68,9 +67,6 @@ function filterName(x) {
         <% if(records) {records.forEach(function(student) { %>
             <tbody>
                 <tr>
-                    <td>
-                        <%= student.id %>
-                    </td>
                     <td>
                         <%= student.firstName + " " + student.lastName %>
                     </td>

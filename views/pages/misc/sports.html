@@ -1,0 +1,78 @@
+
+
+
+<div style="overflow-x:auto;">
+
+    <div>
+        <h2>Fall Sports</h2>
+        <h3><a href="/fallsport/new" >Add New Fall Sport</a></h3>
+    </div>
+
+    <table id="fallTable">
+        <thead>
+            <tr>
+                <th>Fall Sport</th>
+                <th>Discontinued?</th>
+            </tr>
+        </thead>
+
+        <% let count = 0 %>
+        <% if(fallSport) {fallSport.forEach(function(fallsport) { count++ %>
+            <tbody>
+                <tr>
+                    <td>
+                        <%= fallsport.name %>
+                    </td>
+                    <td>
+                        <form method="POST" action="/fallsport/<%= fallsport.id %>">
+                            <% if(fallsport.discontinued === "Yes") { %>
+                                <input type="hidden" name="discontinued" value="No"/>
+                                <button type="submit" id="Y<%= count %>"><img alt="Yes" src="/images/check.png" /></button>
+                            <% } else { %>
+                                <input type="hidden" name="discontinued" value="Yes"/>
+                                <button type="submit" id="N<%= count %>"><img alt="No" src="/images/x.png" /></button>
+                            <% } %>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        <% }); }%>
+    </table>
+
+    <div>
+        <h2>Spring Sports</h2>
+        <h3><a href="/springsport/new" >Add New Spring Sport</a></h3>
+    </div>
+
+    <table id="springTable">
+        <thead>
+            <tr>
+                <th>Spring Sport</th>
+                <th>Discontinued?</th>
+            </tr>
+        </thead>
+
+        <% if(springSport) {springSport.forEach(function(springsport) { count++%>
+            <tbody>
+                <tr>
+                    <td>
+                        <%= springsport.name %>
+                    </td>
+                    <td>
+                        <form method="POST" action="/springsport/<%= springsport.id %>">
+                            <% if(springsport.discontinued === "Yes") { %>
+                                <input type="hidden" name="discontinued" value="No"/>
+                                <button type="submit" id="Yes<%= count %>"><img alt="Yes" src="/images/check.png" /></button>
+                            <% } else { %>
+                                <input type="hidden" name="discontinued" value="Yes"/>
+                                <button type="submit" id="No<%= count %>"><img alt="No" src="/images/x.png" /></button>
+                            <% } %>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        <% }); }%>
+    </table>
+
+</div>
+

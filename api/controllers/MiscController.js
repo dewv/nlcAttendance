@@ -14,12 +14,7 @@ module.exports = {
      * @async
      */
     get: async function(request, response) {
-        if (request.path === "/staffmenu") {
-            let ejsData = {
-                userId: request.session.userId,
-            };
-            return sails.helpers.responseViewSafely(request, response, `pages/misc${request.path}`, ejsData);
-        } 
         return sails.helpers.responseViewSafely(request, response, `pages/misc${request.path}`);
-    }
+    },
+
 };
