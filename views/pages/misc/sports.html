@@ -1,18 +1,19 @@
 
 
 
-<div style="overflow-x:auto;">
+<div class="w3-row w3-container w3-display-middle w3-center w3-border w3-red w3-round w3-border-black w3-margin" style="overflow-x:auto; width:75%;">
 
-    <div>
+    <div class="w3-row w3-container w3-left" style="width:50%">
+    <div>    
         <h2>Fall Sports</h2>
         <h3><a href="/fallsport/new" >Add New Fall Sport</a></h3>
     </div>
 
-    <table id="fallTable">
+    <table class="w3-table w3-margin" id="fallTable">
         <thead>
             <tr>
-                <th>Fall Sport</th>
-                <th>Discontinued?</th>
+                <th class="w3-center">Fall Sport</th>
+                <th class="w3-center">Discontinued?</th>
             </tr>
         </thead>
 
@@ -20,17 +21,17 @@
         <% if(fallSport) {fallSport.forEach(function(fallsport) { count++ %>
             <tbody>
                 <tr>
-                    <td>
+                    <td class="w3-center">
                         <%= fallsport.name %>
                     </td>
                     <td>
-                        <form method="POST" action="/fallsport/<%= fallsport.id %>">
+                        <form class="w3-center" method="POST" action="/fallsport/<%= fallsport.id %>">
                             <% if(fallsport.discontinued === "Yes") { %>
                                 <input type="hidden" name="discontinued" value="No"/>
-                                <button type="submit" id="Y<%= count %>"><img alt="Yes" src="/images/check.png" /></button>
+                                <button class="w3-btn w3-white w3-padding-small" type="submit" id="Y<%= count %>"><img alt="Yes" src="/images/check.png" /></button>
                             <% } else { %>
                                 <input type="hidden" name="discontinued" value="Yes"/>
-                                <button type="submit" id="N<%= count %>"><img alt="No" src="/images/x.png" /></button>
+                                <button class="w3-btn w3-white w3-padding-small" type="submit" id="N<%= count %>"><img alt="No" src="/images/x.png" /></button>
                             <% } %>
                         </form>
                     </td>
@@ -38,34 +39,36 @@
             </tbody>
         <% }); }%>
     </table>
+    </div>
 
+    <div class="w3-row w3-container w3-right" style="width:50%">
     <div>
         <h2>Spring Sports</h2>
         <h3><a href="/springsport/new" >Add New Spring Sport</a></h3>
     </div>
 
-    <table id="springTable">
+    <table class="w3-table w3-margin" id="springTable">
         <thead>
             <tr>
-                <th>Spring Sport</th>
-                <th>Discontinued?</th>
+                <th class="w3-center">Spring Sport</th>
+                <th class="w3-center">Discontinued?</th>
             </tr>
         </thead>
 
         <% if(springSport) {springSport.forEach(function(springsport) { count++%>
             <tbody>
                 <tr>
-                    <td>
+                    <td class="w3-center">
                         <%= springsport.name %>
                     </td>
                     <td>
-                        <form method="POST" action="/springsport/<%= springsport.id %>">
+                        <form class="w3-center" method="POST" action="/springsport/<%= springsport.id %>">
                             <% if(springsport.discontinued === "Yes") { %>
                                 <input type="hidden" name="discontinued" value="No"/>
-                                <button type="submit" id="Yes<%= count %>"><img alt="Yes" src="/images/check.png" /></button>
+                                <button class="w3-btn w3-white w3-padding-small" type="submit" id="Yes<%= count %>"><img alt="Yes" src="/images/check.png" /></button>
                             <% } else { %>
                                 <input type="hidden" name="discontinued" value="Yes"/>
-                                <button type="submit" id="No<%= count %>"><img alt="No" src="/images/x.png" /></button>
+                                <button class="w3-btn w3-white w3-padding-small" type="submit" id="No<%= count %>"><img alt="No" src="/images/x.png" /></button>
                             <% } %>
                         </form>
                     </td>
@@ -73,6 +76,6 @@
             </tbody>
         <% }); }%>
     </table>
-
+    </div>
 </div>
 
