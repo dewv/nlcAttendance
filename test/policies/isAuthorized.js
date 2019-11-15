@@ -199,13 +199,6 @@ describe("`isAuthorized` policy", function () {
       });
     });
 
-    it("should forbid requests to get the staff menu", function (done) {
-      isRequestAuthorized("GET", "/staffmenu", studentSession, function (authorized) {
-        authorized.should.be.false();
-        done();
-      });
-    });
-
     it("should forbid requests to view all visit records", function (done) {
       isRequestAuthorized("GET", "/visit", studentSession, function (authorized) {
         authorized.should.be.false();
@@ -330,13 +323,6 @@ describe("`isAuthorized` policy", function () {
       });
     });
 
-    it("should forbid requests to get the staff menu", function (done) {
-      isRequestAuthorized("GET", "/staffmenu", studentSession, function (authorized) {
-        authorized.should.be.false();
-        done();
-      });
-    });
-
     it("should forbid requests to view all visit records", function (done) {
       isRequestAuthorized("GET", "/visit", studentSession, function (authorized) {
         authorized.should.be.false();
@@ -427,13 +413,6 @@ describe("`isAuthorized` policy", function () {
       });
     });
 
-    it("should forbid requests to get the staff menu", function (done) {
-      isRequestAuthorized("GET", "/staffmenu", studentSession, function (authorized) {
-        authorized.should.be.false();
-        done();
-      });
-    });
-
     it("should forbid requests to view all visit records", function (done) {
       isRequestAuthorized("GET", "/visit", studentSession, function (authorized) {
         authorized.should.be.false();
@@ -510,13 +489,6 @@ describe("`isAuthorized` policy", function () {
       });
     });
 
-    it("should authorize requests to get the staff menu", function (done) {
-      isRequestAuthorized("GET", "/staffmenu", staffSession, function (authorized) {
-        authorized.should.be.true();
-        done();
-      });
-    });
-
     it("should authorize requests to view all visit records", function (done) {
       isRequestAuthorized("GET", "/visit", staffSession, function (authorized) {
         authorized.should.be.true();
@@ -572,5 +544,84 @@ describe("`isAuthorized` policy", function () {
         done();
       });
     });
+
+    it("should authorize requests to load the major spreadsheet", function (done) {
+      isRequestAuthorized("GET", `/major`, staffSession, function (authorized) {
+        authorized.should.be.true();
+        done();
+      });
+    });
+
+    it("should authorize requests to load the create major form", function (done) {
+      isRequestAuthorized("GET", `/major/new`, staffSession, function (authorized) {
+        authorized.should.be.true();
+        done();
+      });
+    });
+
+    it("should authorize requests to create a major", function (done) {
+      isRequestAuthorized("POST", `/major`, staffSession, function (authorized) {
+        authorized.should.be.true();
+        done();
+      });
+    });
+
+    it("should authorize requests to edit majors", function (done) {
+      isRequestAuthorized("POST", `/major/1`, staffSession, function (authorized) {
+        authorized.should.be.true();
+        done();
+      });
+    });
+
+    it("should authorize requests to load the sports spreadsheet", function (done) {
+      isRequestAuthorized("GET", `/sports`, staffSession, function (authorized) {
+        authorized.should.be.true();
+        done();
+      });
+    });
+
+    it("should authorize requests to load the create springsport form", function (done) {
+      isRequestAuthorized("GET", `/springsport/new`, staffSession, function (authorized) {
+        authorized.should.be.true();
+        done();
+      });
+    });
+
+    it("should authorize requests to create a springsport", function (done) {
+      isRequestAuthorized("POST", `/springsport`, staffSession, function (authorized) {
+        authorized.should.be.true();
+        done();
+      });
+    });
+
+    it("should authorize requests to edit springsport", function (done) {
+      isRequestAuthorized("POST", `/springsport/1`, staffSession, function (authorized) {
+        authorized.should.be.true();
+        done();
+      });
+    });
+
+    it("should authorize requests to load the create fallsport form", function (done) {
+      isRequestAuthorized("GET", `/fallsport/new`, staffSession, function (authorized) {
+        authorized.should.be.true();
+        done();
+      });
+    });
+
+    it("should authorize requests to create a fallsport", function (done) {
+      isRequestAuthorized("POST", `/fallsport`, staffSession, function (authorized) {
+        authorized.should.be.true();
+        done();
+      });
+    });
+
+    it("should authorize requests to edit fallsport", function (done) {
+      isRequestAuthorized("POST", `/fallsport/1`, staffSession, function (authorized) {
+        authorized.should.be.true();
+        done();
+      });
+    });
+    
+
   });
 });

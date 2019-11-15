@@ -69,17 +69,17 @@ module.exports = {
         for (let i = 0; i < recordCount; i++) {
             ids.major[i] = await (
                 await Major.create({
-                    name: `MAJOR ${i + 1}`
+                    name: `MAJOR ${i + 1}`, discontinued: "No"
                 }).fetch()).id;
 
             ids.fallSport[i] = await (
                 await FallSport.create({
-                    name: `FALL SPORT ${i + 1}`
+                    name: `FALL SPORT ${i + 1}`, discontinued: "No"
                 }).fetch()).id;
 
             ids.springSport[i] = await (
                 await SpringSport.create({
-                    name: `SPRING SPORT ${i + 1}`
+                    name: `SPRING SPORT ${i + 1}`, discontinued: "No"
                 }).fetch()).id;
         }
 

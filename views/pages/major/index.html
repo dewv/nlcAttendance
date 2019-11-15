@@ -1,0 +1,43 @@
+
+
+
+<div style="overflow-x:auto;">
+
+    <div>
+        <h2>Majors</h2>
+        <h3><a href="/major/new" >Add New Major</a></h3>
+    </div>
+
+    <table id="majorTable">
+        <thead>
+            <tr>
+                <th>Major</th>
+                <th>Discontinued?</th>
+            </tr>
+        </thead>
+
+        <% let count = 0 %>
+        <% if(records) {records.forEach(function(major) { count++ %>
+            <tbody>
+                <tr>
+                    <td>
+                        <%= major.name %>
+                    </td>
+                    <td>
+                        <form method="POST" action="/major/<%= major.id %>">
+                            <% if(major.discontinued === "Yes") { %>
+                                <input type="hidden" name="discontinued" value="No"/>
+                                <button type="submit" id="Yes<%= count %>"><img alt="Yes" src="/images/check.png" /></button>
+                            <% } else { %>
+                                <input type="hidden" name="discontinued" value="Yes"/>
+                                <button type="submit" id="No<%= count %>"><img alt="No" src="/images/x.png" /></button>
+                            <% } %>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        <% }); }%>
+    </table>
+
+</div>
+

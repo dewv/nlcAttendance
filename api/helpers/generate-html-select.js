@@ -45,7 +45,9 @@ module.exports = {
         for (let i = 0; i < inputs.domain.options.length; i++) {
             /* istanbul ignore else */
             if (inputs.domain.options[i].name) {
-                result += `<option value="${inputs.domain.options[i].name}"`;
+                if (inputs.selected && inputs.selected === inputs.domain.options[i].name && inputs.domain.options[i].discontinued === "Yes"){
+                    result += `<option readonly value="${inputs.domain.options[i].name}"`;
+                } else if(inputs.domain.options[i].discontinued === "No" || !inputs.domain.options[i].discontinued) { result += `<option value="${inputs.domain.options[i].name}"`; } 
                 if (inputs.selected && inputs.selected === inputs.domain.options[i].name) result += " selected";
                 result += `>${inputs.domain.options[i].name}</option> `;
             }
