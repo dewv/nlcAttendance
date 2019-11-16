@@ -58,8 +58,8 @@ module.exports = {
         if (!model) return response.notFound();
         let encodedData = await sails.helpers.encodeAssociations(model, request.body);
         await model.create(encodedData);
-        if (response.locals.forceLogout) return this.forceLogout(request, response);
-        return response.redirect(request.session.defaultUrl);
+        let url = request.session.forceLogout ? "/logout" : request.session.defaultUrl;
+        return response.redirect(url);
     },
 
     /**
@@ -112,19 +112,9 @@ module.exports = {
             id: request.params.id
         }).set(encodedData);
 
-        if (response.locals.forceLogout) return this.forceLogout(request, response);
-        return response.redirect(request.session.defaultUrl);
-    },
+        if (model.successMessages) request.session.banner = model.successMessages.update;
 
-    /**
-   * Destroys session information and redirects to login page. 
-   * @argument {external:Request} request -  The HTTP request.
-   * @argument {external:Response} response - The HTTP response.
-   * @public
-   * @async
-   */
-    forceLogout: async function (request, response) {
-        request.session.destroy();
-        return await sails.helpers.responseViewSafely(request, response, `pages/login`);
+        let url = request.session.forceLogout ? "/logout" : request.session.defaultUrl;
+        return response.redirect(url);
     }
 };

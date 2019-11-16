@@ -57,10 +57,8 @@ module.exports = {
             if (typeof inputs.request.session !== "undefined") {
                 locals.role = inputs.request.session.role;
                 locals.userId = inputs.request.session.userId;
-            }
-
-            if (inputs.response.locals) {
-                locals.banner = inputs.response.locals.banner;
+                locals.banner = inputs.request.session.banner;
+                inputs.request.session.banner = undefined;
             }
 
             return exits.success(inputs.response.view(inputs.pathToView, locals));

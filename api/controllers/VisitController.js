@@ -22,9 +22,8 @@ module.exports = {
         
         // Now let REST controller take over.
         request.params.model = "visit";
-        response.locals = response.locals || {};
-        response.locals.banner = "You are now checked in. Please remember to check out before you leave.";
-        response.locals.forceLogout = true;
+        request.session.banner = "You are now checked in. Please remember to check out before you leave.";
+        request.session.forceLogout = true;
         return RestController.createFormSubmitted(request, response);
     },
     
@@ -38,9 +37,8 @@ module.exports = {
     editFormSubmitted: async function(request, response) {
         if (request.params.model === "controller") return response.cookie("VisitController", "editFormSubmitted").end();
         request.params.model = "visit";
-        response.locals = response.locals || {};
-        response.locals.banner = "You are now checked out. Thanks for visiting Naylor Learning Center.";
-        response.locals.forceLogout = true;
+        request.session.banner = "You are now checked out. Thanks for visiting Naylor Learning Center.";
+        request.session.forceLogout = true;
         return RestController.editFormSubmitted(request, response);
     }
 };

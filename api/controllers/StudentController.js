@@ -43,8 +43,7 @@ module.exports = {
      */
     editFormSubmitted: async function(request, response) {
         if (request.params.model === "controller") return response.cookie("StudentController", "editFormSubmitted").end();
-        response.locals = response.locals || {};
-        response.locals.banner = "Your student profile was updated.";
+        request.session.banner = "Your student profile was updated.";
         request.params.model = "student";
         return RestController.editFormSubmitted(request, response);
     }

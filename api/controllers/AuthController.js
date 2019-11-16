@@ -39,10 +39,10 @@ let AuthController = {
         }
 
         if (result instanceof ldap.InvalidCredentialsError) {
-            response.locals.banner = "Invalid username and/or password.";
+            request.session.banner = "Invalid username and/or password.";
             return AuthController.logout(request, response);
         } else if (result instanceof ldap.InsufficientAccessRightsError) {
-            response.locals.banner = "Sorry, you are not authorized to use this system.";
+            request.session.banner = "Sorry, you are not authorized to use this system.";
             return AuthController.logout(request, response);
         } else if (result instanceof ldap.UnavailableError) {
             sails.log.debug("appeal to security question");
@@ -76,8 +76,9 @@ let AuthController = {
     },
 
     logout: async function (request, response) {
+        let banner = request.session.banner;
         request.session.destroy();
-        return await sails.helpers.responseViewSafely(request, response, `pages/login`);
+        return await sails.helpers.responseViewSafely(request, response, `pages/login`, { banner: banner});
     },
 
     _ldapAuthentication: async function (username, password) {
