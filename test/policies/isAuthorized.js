@@ -104,7 +104,7 @@ describe("`isAuthorized` policy", function () {
         });
 
         it("should force an update to the student's profile by redirecting requests", function (done) {
-            redirectLocation("GET", "/student/visit", studentSession, function (location) {
+            redirectLocation("GET", "/visit/new", studentSession, function (location) {
                 location.should.equal(`/student/${testRecordsIndex + 1}/edit`);
                 done();
             });
@@ -122,6 +122,63 @@ describe("`isAuthorized` policy", function () {
             });
         });
 
+        it("should redirect most requests to the check in form", function (done) {
+            let requests = [{
+                method: "GET",
+                url: `/student/${testRecordsIndex - 1}/edit`
+            },
+            {
+                method: "POST",
+                url: `/student/${testRecordsIndex - 1}`
+            },
+            {
+                method: "GET",
+                url: "/visit/15/edit"
+            },
+            {
+                method: "POST",
+                url: "/visit/15"
+            },
+            {
+                method: "GET",
+                url: "/visit/13/edit"
+            },
+            {
+                method: "POST",
+                url: "/visit/13"
+            },
+            {
+                method: "GET",
+                url: "/visit/10"
+            },
+            {
+                method: "POST",
+                url: "/visit/10"
+            },
+            {
+                method: "GET",
+                url: "/visit"
+            },
+            {
+                method: "GET",
+                url: "/browser"
+            },
+            {
+                method: "GET",
+                url: "/student"
+            }
+            ];
+
+            let activeRequests = 0;
+            for (let request in requests) {
+                activeRequests++;
+                redirectLocation(request.method, request.url, studentSession, function (location) {
+                    location.should.equal("/visit/new");
+                    if (--activeRequests === 0) return done();
+                });
+            }
+        });
+
         it("should authorize requests to load their own profile in the edit form", function (done) {
             isRequestAuthorized("GET", `/student/${testRecordsIndex + 1}/edit`, studentSession, function (authorized) {
                 authorized.should.be.true();
@@ -136,100 +193,9 @@ describe("`isAuthorized` policy", function () {
             });
         });
 
-        it("should forbid requests to load other user profiles in the edit form", function (done) {
-            isRequestAuthorized("GET", `/student/${testRecordsIndex - 1}/edit`, studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to update other user profiles", function (done) {
-            isRequestAuthorized("POST", `/student/${testRecordsIndex - 1}`, studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
         it("should authorize requests to load the visit create form", function (done) {
             isRequestAuthorized("GET", "/student/visit", studentSession, function (authorized) {
                 authorized.should.be.true();
-                done();
-            });
-        });
-
-        it("should forbid requests to load their own most recent visit in the edit form", function (done) {
-            isRequestAuthorized("GET", "/visit/15/edit", studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to update their own most recent visit", function (done) {
-            isRequestAuthorized("POST", "/visit/15", studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to load their older visits in the edit form", function (done) {
-            isRequestAuthorized("GET", "/visit/13/edit", studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to update their older visits", function (done) {
-            isRequestAuthorized("POST", "/visit/13", studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to load other user's visits in the edit form", function (done) {
-            isRequestAuthorized("GET", "/visit/10", studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to update other user's visits", function (done) {
-            isRequestAuthorized("POST", "/visit/10", studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to get the staff menu", function (done) {
-            isRequestAuthorized("GET", "/staffmenu", studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to view all visit records", function (done) {
-            isRequestAuthorized("GET", "/visit", studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to load the browser registration form", function (done) {
-            isRequestAuthorized("GET", "/browser", studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to load the visit records", function (done) {
-            isRequestAuthorized("GET", "/visit", studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to load the student records", function (done) {
-            isRequestAuthorized("GET", "/student", studentSession, function (authorized) {
-                authorized.should.be.false();
                 done();
             });
         });
@@ -240,7 +206,8 @@ describe("`isAuthorized` policy", function () {
                 authorized.should.be.true();
                 done();
             });
-        });  });
+        });
+    });
 
     context("when the user is an authenticated student and checked in", function () {
         let studentSession = undefined;
@@ -253,6 +220,67 @@ describe("`isAuthorized` policy", function () {
             });
         });
 
+        it("should redirect most requests to the check out form", function (done) {
+            let requests = [{
+                method: "GET",
+                url: `/student/${testRecordsIndex - 1}/edit`
+            },
+            {
+                method: "POST",
+                url: `/student/${testRecordsIndex - 1}`
+            },
+            {
+                method: "GET",
+                url: "/visit/15/edit"
+            },
+            {
+                method: "POST",
+                url: "/visit/15"
+            },
+            {
+                method: "GET",
+                url: "/visit/13/edit"
+            },
+            {
+                method: "POST",
+                url: "/visit/13"
+            },
+            {
+                method: "GET",
+                url: "/visit/10"
+            },
+            {
+                method: "POST",
+                url: "/visit/10"
+            },
+            {
+                method: "GET",
+                url: "/visit"
+            },
+            {
+                method: "GET",
+                url: "/browser"
+            },
+            {
+                method: "GET",
+                url: "/student"
+            },
+            {
+                method: "GET",
+                url: "/visit/new"
+            }
+            ];
+
+            let activeRequests = 0;
+            for (let request in requests) {
+                activeRequests++;
+                redirectLocation(request.method, request.url, studentSession, function (location) {
+                    location.should.equal("/visit/28/edit");
+                    if (--activeRequests === 0) return done();
+                });
+            }
+        });
+
         it("should authorize requests to load their own profile in the edit form", function (done) {
             isRequestAuthorized("GET", `/student/${testRecordsIndex + 1}/edit`, studentSession, function (authorized) {
                 authorized.should.be.true();
@@ -266,94 +294,10 @@ describe("`isAuthorized` policy", function () {
                 done();
             });
         });
-
-        it("should forbid requests to load other user profiles in the edit form", function (done) {
-            isRequestAuthorized("GET", `/student/${testRecordsIndex - 1}/edit`, studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to update other user profiles", function (done) {
-            isRequestAuthorized("POST", `/student/${testRecordsIndex - 1}`, studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to load the visit create form", function (done) {
-            isRequestAuthorized("GET", "/vist/new", studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to submit the visit create form", function (done) {
-            isRequestAuthorized("POST", "/visit", studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
+        
         it("should authorize requests to load their own most recent visit in the edit form", function (done) {
-            isRequestAuthorized("GET", "/student/visit", studentSession, function (authorized) {
+            isRequestAuthorized("GET", "/visit/28/edit", studentSession, function (authorized) {
                 authorized.should.be.true();
-                done();
-            });
-        });
-
-        it("should forbid requests to load their older visits in the edit form", function (done) {
-            isRequestAuthorized("GET", "/visit/18/edit", studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to update their older visits", function (done) {
-            isRequestAuthorized("POST", "/visit/18", studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to load other user's visits in the edit form", function (done) {
-            isRequestAuthorized("GET", "/visit/10", studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to update other user's visits", function (done) {
-            isRequestAuthorized("POST", "/visit/10", studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to get the staff menu", function (done) {
-            isRequestAuthorized("GET", "/staffmenu", studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to view all visit records", function (done) {
-            isRequestAuthorized("GET", "/visit", studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to view all student records", function (done) {
-            isRequestAuthorized("GET", "/student", studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to load the browser registration form", function (done) {
-            isRequestAuthorized("GET", "/browser", studentSession, function (authorized) {
-                authorized.should.be.false();
                 done();
             });
         });
@@ -378,6 +322,63 @@ describe("`isAuthorized` policy", function () {
             });
         });
 
+        it("should redirect most requests to the check in form", function (done) {
+            let requests = [{
+                method: "GET",
+                url: `/student/${testRecordsIndex - 1}/edit`
+            },
+            {
+                method: "POST",
+                url: `/student/${testRecordsIndex - 1}`
+            },
+            {
+                method: "GET",
+                url: "/visit/15/edit"
+            },
+            {
+                method: "POST",
+                url: "/visit/15"
+            },
+            {
+                method: "GET",
+                url: "/visit/13/edit"
+            },
+            {
+                method: "POST",
+                url: "/visit/13"
+            },
+            {
+                method: "GET",
+                url: "/visit/10"
+            },
+            {
+                method: "POST",
+                url: "/visit/10"
+            },
+            {
+                method: "GET",
+                url: "/visit"
+            },
+            {
+                method: "GET",
+                url: "/browser"
+            },
+            {
+                method: "GET",
+                url: "/student"
+            }
+            ];
+
+            let activeRequests = 0;
+            for (let request in requests) {
+                activeRequests++;
+                redirectLocation(request.method, request.url, studentSession, function (location) {
+                    location.should.equal("/visit/new");
+                    if (--activeRequests === 0) return done();
+                });
+            }
+        });
+
         it("should authorize requests to load their own profile in the edit form", function (done) {
             isRequestAuthorized("GET", `/student/${testRecordsIndex + 1}/edit`, studentSession, function (authorized) {
                 authorized.should.be.true();
@@ -392,72 +393,9 @@ describe("`isAuthorized` policy", function () {
             });
         });
 
-        it("should forbid requests to load other user profiles in the edit form", function (done) {
-            isRequestAuthorized("GET", `/student/${testRecordsIndex - 1}/edit`, studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to update other user profiles", function (done) {
-            isRequestAuthorized("POST", `/student/${testRecordsIndex - 1}`, studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
         it("should authorize requests to load the visit create form", function (done) {
             isRequestAuthorized("GET", "/student/visit", studentSession, function (authorized) {
                 authorized.should.be.true();
-                done();
-            });
-        });
-
-        it("should forbid requests to load other user's visits in the edit form", function (done) {
-            isRequestAuthorized("GET", "/visit/10", studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to update other user's visits", function (done) {
-            isRequestAuthorized("POST", "/visit/10", studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to get the staff menu", function (done) {
-            isRequestAuthorized("GET", "/staffmenu", studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to view all visit records", function (done) {
-            isRequestAuthorized("GET", "/visit", studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to load the browser registration form", function (done) {
-            isRequestAuthorized("GET", "/browser", studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to load the visit records", function (done) {
-            isRequestAuthorized("GET", "/visit", studentSession, function (authorized) {
-                authorized.should.be.false();
-                done();
-            });
-        });
-
-        it("should forbid requests to load the student records", function (done) {
-            isRequestAuthorized("GET", "/student", studentSession, function (authorized) {
-                authorized.should.be.false();
                 done();
             });
         });

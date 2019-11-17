@@ -22,21 +22,12 @@ module.exports = async function (request, response, proceed) {
     if (request.session.role === "student") {
         let visit = await Visit.find({ where: { student: request.session.userProfile.id }, limit: 1, sort: "checkInTime DESC" });
         if (visit[0]) {
-            request.session.userProfile.visit = {
-                id: visit[0].id,
-                checkInTime: visit[0].checkInTime,
-                checkOutTime: visit[0].checkOutTime,
-                length: visit[0].length,
-                purpose: visit[0].purpose,
-                purposeAchieved: visit[0].purposeAchieved,
-                tutorCourses: visit[0].tutorCourses,
-                comment: visit[0].comment,
-                isLengthEstimated: visit[0].isLengthEstimated,
-            };
-            request.session.userProfile.visit.checkedIn = request.session.userProfile.visit.checkOutTime === null;
+            request.session.userProfile.visit = visit[0];
+            request.session.userProfile.visit.checkedIn = (request.session.userProfile.visit.checkOutTime === null);
         }
         else {
             request.session.userProfile.visit = {
+                id: undefined,
                 checkedIn: false
             };
         }
@@ -44,6 +35,7 @@ module.exports = async function (request, response, proceed) {
 
     // Users are authorized to access their own profile ...
     if (request.path === `${profileUrl}/edit` && request.method === "GET") return proceed();
+
     // Users are authorized to update their own profile ...
     if (request.path === profileUrl && request.method === "POST") return proceed();
 
@@ -52,16 +44,23 @@ module.exports = async function (request, response, proceed) {
         return response.redirect(`${profileUrl}/edit`);
     }
 
-    // Student users are authorized to ...
+    // Student users are *required* to ...
     if (request.session.role === "student") {
-        // ... get the proper form (checkin or checkout), to be determined by the controller. 
-        if (request.path === "/student/visit") return proceed();
-        // ... submit the checkin form when checked out.
-        if (request.path === "/visit" && request.method === "POST" && !request.session.userProfile.visit.checkedIn) return proceed();
-        // ... submit the checkout form for their current visit when checked in.
-        if (request.path === `/visit/${request.session.userProfile.visit.id}` && request.method === "POST" && request.session.userProfile.visit.checkedIn) return proceed();
+        let checkInForm = "/visit/new";
+        let checkOutForm = `/visit/${request.session.userProfile.visit.id}/edit`;
+        if (request.session.userProfile.visit.checkedIn) {
+            // ... check out when checked in.
+            if (request.path === checkOutForm && request.method === "GET") return proceed();
+            if (request.path === `/visit/${request.session.userProfile.visit.id}` && request.method === "POST") return proceed();
+            return response.redirect(checkOutForm);
+        } else {
+            // ... check in when checked out.
+            if (request.path === checkInForm && request.method === "GET") return proceed();
+            if (request.path === "/visit" && request.method === "POST") return proceed();
+            return response.redirect(checkInForm);
+        }
     }
-
+    
     // Staff users are authorized to ...
     if (request.session.role === "staff") {
         // ... view the staff menu.        

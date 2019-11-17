@@ -66,7 +66,7 @@ let AuthController = {
         request.session.username = userProfile.username;
 
         if (request.session.role === "student") {
-            request.session.defaultUrl = "/student/visit";
+            request.session.defaultUrl = "/visit/new";
         } else if (request.session.role === "staff") {
             request.session.defaultUrl = "/visit";
         }
@@ -78,7 +78,9 @@ let AuthController = {
     logout: async function (request, response) {
         let banner = request.session.banner;
         request.session.destroy();
-        return await sails.helpers.responseViewSafely(request, response, `pages/login`, { banner: banner});
+        return await sails.helpers.responseViewSafely(request, response, `pages/login`, {
+            banner: banner
+        });
     },
 
     _ldapAuthentication: async function (username, password) {
