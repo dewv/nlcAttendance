@@ -45,15 +45,14 @@ function filterName(x) {
 </script>
 
 <!-- Populate table -->
-<div style="overflow-x:auto;">
+<div class="w3-table-all w3-center" style="overflow:scroll;">
     <a id="link" download="student.csv">
         <button onclick="download()" class = "button downloadButton">Download this view</button>
     </a>
     <input type="text" id="visitSearch" onkeyup="filterName(1)" placeholder="Search for a Name..">
-    <table id="visitTable">
+    <table>
         <thead>
             <tr>
-                <th>Student ID</th>
                 <th>Name</th>
                 <th>Academic Rank</th>
                 <th>Major One</th>
@@ -68,9 +67,6 @@ function filterName(x) {
         <% if(records) {records.forEach(function(student) { %>
             <tbody>
                 <tr>
-                    <td>
-                        <%= student.id %>
-                    </td>
                     <td>
                         <%= student.firstName + " " + student.lastName %>
                     </td>
@@ -98,6 +94,6 @@ function filterName(x) {
                 </tr>
             </tbody>
         <% }); }%>
-    </table>
+    </table>   
 </div>
 </div>

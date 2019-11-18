@@ -8,6 +8,9 @@ let routes = {
     "GET /": "MiscController.get",
     "GET /browser": "MiscController.get",
     
+    // Custom handling to combine sports seasons
+    "GET /sports": "SportsController.listsRequested",
+     
     // Default handling of CRUD operations via REST 
     "GET /:model": "RestController.listRequested", 
     "GET /:model/new": "RestController.createFormRequested",

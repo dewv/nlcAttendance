@@ -15,5 +15,6 @@ module.exports = {
      */
     get: async function(request, response) {
         return sails.helpers.responseViewSafely(request, response, `pages/misc${request.path}`);
-    }
+    },
+
 };

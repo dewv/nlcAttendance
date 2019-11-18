@@ -29,6 +29,7 @@ module.exports = async function (request, response, proceed) {
             limit: 1,
             sort: "checkInTime DESC"
         });
+
         if (visit[0]) {
             request.session.userProfile.visit = visit[0];
             request.session.userProfile.visit.checkedIn = (request.session.userProfile.visit.checkOutTime === null);
@@ -87,6 +88,21 @@ module.exports = async function (request, response, proceed) {
         if (requestIs("GET", "/browser")) return proceed();
         // ... submit the form for registering the browser to track visits.
         if (requestIs("POST", "/browser")) return proceed();
+        // ... view the list of visits.
+        if (requestIs("GET", "/major")) return proceed();
+        if (requestIs("GET", "/major/new")) return proceed();
+        if (requestIs("GET", "/sports")) return proceed();
+        if (requestIs("GET", "/fallsport/new")) return proceed();
+        if (requestIs("GET", "/springsport/new")) return proceed();
+        if (request.method === "POST" && request.params.model === "major") {
+            request.session.nextUrl = "/major";
+            return proceed();
+        }
+        if (request.method === "POST" &&
+            (request.params.model === "fallsport" || request.params.model === "springsport")) {
+            request.session.nextUrl = "/sports";
+            return proceed();
+        }
     }
 
     sails.log.debug(`default to forbid for ${request.session.role}, ${request.method} ${request.path}`);
