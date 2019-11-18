@@ -18,7 +18,6 @@ let getUrls = [
     "/student/0/edit",
     "/staff/0/edit",
     "/visit/new",
-    "/staffmenu",
     "/browser"
 ];
 

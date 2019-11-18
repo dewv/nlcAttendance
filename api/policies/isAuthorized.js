@@ -11,21 +11,28 @@
  * @async
  */
 module.exports = async function (request, response, proceed) {
-    let model = request.params.model;
+    if (request.params.model === "controller-unit-test") return proceed();
 
-    if (model === "controller") return proceed();
+    let requestIs = function (method, path) {
+        return request.method === method && request.path === path;
+    };
 
     let profileUrl = `/${request.session.role}/${request.session.userId}`;
 
     request.session.userProfile = await sails.helpers.populateOne(sails.models[request.session.role], request.session.userId);
 
     if (request.session.role === "student") {
-        let visit = await Visit.find({ where: { student: request.session.userProfile.id }, limit: 1, sort: "checkInTime DESC" });
+        let visit = await Visit.find({
+            where: {
+                student: request.session.userProfile.id
+            },
+            limit: 1,
+            sort: "checkInTime DESC"
+        });
         if (visit[0]) {
             request.session.userProfile.visit = visit[0];
             request.session.userProfile.visit.checkedIn = (request.session.userProfile.visit.checkOutTime === null);
-        }
-        else {
+        } else {
             request.session.userProfile.visit = {
                 id: undefined,
                 checkedIn: false
@@ -34,10 +41,9 @@ module.exports = async function (request, response, proceed) {
     }
 
     // Users are authorized to access their own profile ...
-    if (request.path === `${profileUrl}/edit` && request.method === "GET") return proceed();
-
+    if (requestIs("GET", `${profileUrl}/edit`)) return proceed();
     // Users are authorized to update their own profile ...
-    if (request.path === profileUrl && request.method === "POST") return proceed();
+    if (requestIs("POST", `${profileUrl}`)) return proceed();
 
     // A profile update may be required before the user can take any other action.
     if (request.session.userProfile.forceUpdate) {
@@ -50,27 +56,37 @@ module.exports = async function (request, response, proceed) {
         let checkOutForm = `/visit/${request.session.userProfile.visit.id}/edit`;
         if (request.session.userProfile.visit.checkedIn) {
             // ... check out when checked in.
-            if (request.path === checkOutForm && request.method === "GET") return proceed();
-            if (request.path === `/visit/${request.session.userProfile.visit.id}` && request.method === "POST") return proceed();
+            if (requestIs("GET", checkOutForm)) {
+                return proceed();
+            }
+            if (requestIs("POST", `/visit/${request.session.userProfile.visit.id}`)) {
+                request.body[request.session.role] = request.session.username;
+                request.session.nextUrl = "/logout";
+                return proceed();
+            }
             return response.redirect(checkOutForm);
         } else {
             // ... check in when checked out.
-            if (request.path === checkInForm && request.method === "GET") return proceed();
-            if (request.path === "/visit" && request.method === "POST") return proceed();
+            if (requestIs("GET", checkInForm)) {
+                return proceed();
+            }
+            if (requestIs("POST", "/visit")) {
+                request.body[request.session.role] = request.session.username;
+                request.session.nextUrl = "/logout";
+                return proceed();
+            }
             return response.redirect(checkInForm);
         }
     }
-    
+
     // Staff users are authorized to ...
     if (request.session.role === "staff") {
-        // ... view the staff menu.        
-        if (request.path === "/staffmenu" && request.method === "GET") return proceed();
-        // ... view the list of students.
-        if (request.path === "/student" && request.method === "GET") return proceed();
         // ... view the list of visits.
-        if (request.path === "/visit" && request.method === "GET") return proceed();
-        // ... access and submit the form for registering the browser to track visits.
-        if (request.path === "/browser") return proceed();
+        if (requestIs("GET", "/visit")) return proceed();
+        // ... access the form for registering the browser to track visits.
+        if (requestIs("GET", "/browser")) return proceed();
+        // ... submit the form for registering the browser to track visits.
+        if (requestIs("POST", "/browser")) return proceed();
     }
 
     sails.log.debug(`default to forbid for ${request.session.role}, ${request.method} ${request.path}`);

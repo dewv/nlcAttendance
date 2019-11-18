@@ -20,6 +20,11 @@ module.exports = {
         isLengthEstimated: { type: "boolean", allowNull: false, defaultsTo: false },
     },
 
+    successMessages: {
+        create: "You are now checked in. Please remember to check out before you leave.",
+        update: "You are now checked out. Thanks for visiting Naylor Learning Center."
+    },
+
     // Define the model's one to many association.
     recordToAssociate: "student",
 

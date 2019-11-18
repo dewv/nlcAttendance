@@ -32,6 +32,7 @@ let AuthController = {
         }
 
         let result;
+        /* istanbul ignore if */
         if (sails.config.custom.ldap) {
             result = await AuthController._ldapAuthentication(request.body.username, request.body.password);
         } else {
@@ -66,13 +67,13 @@ let AuthController = {
         request.session.username = userProfile.username;
 
         if (request.session.role === "student") {
-            request.session.defaultUrl = "/visit/new";
+            request.session.nextUrl = "/visit/new";
         } else if (request.session.role === "staff") {
-            request.session.defaultUrl = "/visit";
+            request.session.nextUrl = "/visit";
         }
 
         request.session.save();
-        return response.redirect(request.session.defaultUrl);
+        return response.redirect(request.session.nextUrl);
     },
 
     logout: async function (request, response) {
@@ -84,10 +85,10 @@ let AuthController = {
     },
 
     _ldapAuthentication: async function (username, password) {
-        const ldapConfig = sails.config.custom.ldap;
-        const clientOptions = ldapConfig.clientOptions;
-
+        /* istanbul ignore next */
         return new Promise((resolve) => {
+            const ldapConfig = sails.config.custom.ldap;
+            const clientOptions = ldapConfig.clientOptions;
             let client = ldap.createClient(clientOptions);
 
             client.on("error", function (error) {

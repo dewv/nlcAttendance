@@ -12,7 +12,7 @@
  * @async
  */
 module.exports = async function(request, response, proceed) {
-    if (request.params.model === "controller") {
+    if (request.params.model === "controller-unit-test") {
         return proceed();
     }
     

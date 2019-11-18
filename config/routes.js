@@ -6,13 +6,7 @@ let routes = {
     
     // Miscellaneous requests (not CRUD operations handled via REST)
     "GET /": "MiscController.get",
-    "GET /staffmenu": "MiscController.get",
     "GET /browser": "MiscController.get",
-    "GET /default": "MiscController.get",
-    
-    // Custom logic to extend default REST handling of CRUD operations 
-    "POST /visit": "VisitController.createFormSubmitted",
-    "POST /visit/:id": "VisitController.editFormSubmitted",
     
     // Default handling of CRUD operations via REST 
     "GET /:model": "RestController.listRequested", 
@@ -20,7 +14,6 @@ let routes = {
     "POST /:model": "RestController.createFormSubmitted",
     "GET /:model/:id/edit": "RestController.editFormRequested",
     "POST /:model/:id": "RestController.editFormSubmitted",
-    
 };
 
 module.exports.routes = routes;

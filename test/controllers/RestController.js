@@ -3,13 +3,13 @@ const querystring = require("querystring");
 require("should");
 
 let restGets = [{
-    url: "/controller",
+    url: "/controller-unit-test",
     handler: "listRequested"
 }, {
-    url: "/controller/new",
+    url: "/controller-unit-test/new",
     handler: "createFormRequested"
 }, {
-    url: "/controller/0/edit",
+    url: "/controller-unit-test/0/edit",
     handler: "editFormRequested"
 }];
 
@@ -19,10 +19,10 @@ let getOptions = {
 };
 
 let restPosts = [{
-    url: "/controller",
+    url: "/controller-unit-test",
     handler: "createFormSubmitted"
 }, {
-    url: "/controller/0",
+    url: "/controller-unit-test/0",
     handler: "editFormSubmitted"
 }];
 
@@ -61,5 +61,5 @@ describe("RESTful requests", function() {
             request.write(postData);
             request.end();
         }
-    });
+    });    
 });

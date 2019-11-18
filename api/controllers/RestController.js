@@ -12,9 +12,11 @@ module.exports = {
    * @async
    */
     listRequested: async function (request, response) {
-        if (request.params.model === "controller") return response.cookie("RestController", "listRequested").end();
+        if (request.params.model === "controller-unit-test") return response.cookie("RestController", "listRequested").end();
         let model = sails.models[request.params.model];
-        if (!model) return response.notFound();
+        /* istanbul ignore next */
+        if (!model) return response.notFound(); 
+
         let records = await sails.helpers.getRecordList(model, {});
         return sails.helpers.responseViewSafely(request, response, `pages/${request.params.model}/index`, {
             records: records
@@ -29,9 +31,11 @@ module.exports = {
    * @async
    */
     createFormRequested: async function (request, response) {
-        if (request.params.model === "controller") return response.cookie("RestController", "createFormRequested").end();
+        if (request.params.model === "controller-unit-test") return response.cookie("RestController", "createFormRequested").end();
         let model = sails.models[request.params.model];
+        /* istanbul ignore next */
         if (!model) return response.notFound();
+
         let domains = await sails.helpers.getDomains(model);
         let ejsData = {
             formData: await sails.helpers.getDefaults(model),
@@ -53,13 +57,18 @@ module.exports = {
    * @async
    */
     createFormSubmitted: async function (request, response) {
-        if (request.params.model === "controller") return response.cookie("RestController", "createFormSubmitted").end();
+        if (request.params.model === "controller-unit-test") return response.cookie("RestController", "createFormSubmitted").end();
         let model = sails.models[request.params.model];
+        /* istanbul ignore next */
         if (!model) return response.notFound();
+
         let encodedData = await sails.helpers.encodeAssociations(model, request.body);
         await model.create(encodedData);
-        let url = request.session.forceLogout ? "/logout" : request.session.defaultUrl;
-        return response.redirect(url);
+        
+        /* istanbul ignore else */
+        if (model.successMessages) request.session.banner = model.successMessages.create;
+        
+        return response.redirect(request.session.nextUrl);
     },
 
     /**
@@ -70,11 +79,15 @@ module.exports = {
    * @async
    */
     editFormRequested: async function (request, response) {
-        if (request.params.model === "controller") return response.cookie("RestController", "editFormRequested").end();
+        if (request.params.model === "controller-unit-test") return response.cookie("RestController", "editFormRequested").end();
         let model = sails.models[request.params.model];
-        if (!model) return response.notFound();
+        /* istanbul ignore next */
+        if (!model) return response.notFound(); 
+
         let recordToUpdate = await sails.helpers.populateOne(model, request.params.id);
+        /* istanbul ignore next */
         if (!recordToUpdate) return response.notFound();
+
         let domains = await sails.helpers.getDomains(model);
         let ejsData = {
             formData: recordToUpdate,
@@ -104,17 +117,19 @@ module.exports = {
    * @async
    */
     editFormSubmitted: async function (request, response) {
-        if (request.params.model === "controller") return response.cookie("RestController", "editFormSubmitted").end();
+        if (request.params.model === "controller-unit-test") return response.cookie("RestController", "editFormSubmitted").end();
         let model = sails.models[request.params.model];
+        /* istanbul ignore next */
         if (!model) return response.notFound();
+
         let encodedData = await sails.helpers.encodeAssociations(model, request.body);
         await model.updateOne({
             id: request.params.id
         }).set(encodedData);
 
+        /* istanbul ignore else */
         if (model.successMessages) request.session.banner = model.successMessages.update;
 
-        let url = request.session.forceLogout ? "/logout" : request.session.defaultUrl;
-        return response.redirect(url);
+        return response.redirect(request.session.nextUrl);
     }
 };

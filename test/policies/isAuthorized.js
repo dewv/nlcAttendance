@@ -85,7 +85,7 @@ function redirectLocation(method, path, sessionCookie, callback) {
     };
 
     let request = http.request(options, function (response) {
-        return callback(response.statusCode === status.FOUND ? response.headers.location : undefined);
+        return callback(response.headers.location);
     });
 
     request.end();
@@ -194,7 +194,7 @@ describe("`isAuthorized` policy", function () {
         });
 
         it("should authorize requests to load the visit create form", function (done) {
-            isRequestAuthorized("GET", "/student/visit", studentSession, function (authorized) {
+            isRequestAuthorized("GET", "/visit/new", studentSession, function (authorized) {
                 authorized.should.be.true();
                 done();
             });
@@ -448,13 +448,6 @@ describe("`isAuthorized` policy", function () {
             });
         });
 
-        it("should authorize requests to get the staff menu", function (done) {
-            isRequestAuthorized("GET", "/staffmenu", staffSession, function (authorized) {
-                authorized.should.be.true();
-                done();
-            });
-        });
-
         it("should authorize requests to view all visit records", function (done) {
             isRequestAuthorized("GET", "/visit", staffSession, function (authorized) {
                 authorized.should.be.true();
@@ -499,13 +492,6 @@ describe("`isAuthorized` policy", function () {
 
         it("should authorize requests to load the visit spreadsheet", function (done) {
             isRequestAuthorized("GET", "/visit", staffSession, function (authorized) {
-                authorized.should.be.true();
-                done();
-            });
-        });
-
-        it("should authorize requests to load the student spreadsheet", function (done) {
-            isRequestAuthorized("GET", "/student", staffSession, function (authorized) {
                 authorized.should.be.true();
                 done();
             });
