@@ -1,18 +1,18 @@
 
 
 
-<div style="overflow-x:auto;">
+<div class="w3-row w3-container w3-display-middle w3-center w3-border w3-red w3-round w3-border-black w3-margin" style="overflow-x:auto; width:50%;">
 
     <div>
         <h2>Majors</h2>
-        <h3><a href="/major/new" >Add New Major</a></h3>
+        <a class="w3-btn w3-white w3-padding-small" href="/major/new" >Add New Major</a>
     </div>
 
-    <table id="majorTable">
+    <table class="w3-table" id="majorTable">
         <thead>
             <tr>
-                <th>Major</th>
-                <th>Discontinued?</th>
+                <th class="w3-center">Major</th>
+                <th class="w3-center">Discontinued?</th>
             </tr>
         </thead>
 
@@ -20,17 +20,17 @@
         <% if(records) {records.forEach(function(major) { count++ %>
             <tbody>
                 <tr>
-                    <td>
+                    <td class="w3-center">
                         <%= major.name %>
                     </td>
                     <td>
-                        <form method="POST" action="/major/<%= major.id %>">
+                        <form class="w3-center" method="POST" action="/major/<%= major.id %>">
                             <% if(major.discontinued === "Yes") { %>
                                 <input type="hidden" name="discontinued" value="No"/>
-                                <button type="submit" id="Yes<%= count %>"><img alt="Yes" src="/images/check.png" /></button>
+                                <button class="w3-btn w3-white w3-padding-small" type="submit" id="Yes<%= count %>"><img alt="Yes" src="/images/check.png" /></button>
                             <% } else { %>
                                 <input type="hidden" name="discontinued" value="Yes"/>
-                                <button type="submit" id="No<%= count %>"><img alt="No" src="/images/x.png" /></button>
+                                <button class="w3-btn w3-white w3-padding-small" type="submit" id="No<%= count %>"><img alt="No" src="/images/x.png" /></button>
                             <% } %>
                         </form>
                     </td>
