@@ -5,12 +5,11 @@
  * @borrows MajorRecord as MajorRecord 
  */
 module.exports = {
-
     attributes: {
-        name: { type: "string", required: true, unique: true,},
-        discontinued: {type: "string", required: true, isIn: ["Yes", "No"]},
+        name: { type: "string", required: true, unique: true, },
+        discontinued: { type: "string", required: true, isIn: ["Yes", "No"] },
     },
-    
+
     candidateKey: "name",
 
     /** 
@@ -32,5 +31,5 @@ module.exports = {
  * An academic major record.
  * @typedef {Record} MajorRecord
  * @property {string} name - The major's name.
- * @property {boolean} discontinued - Does the major show up in select options.
+ * @property {boolean} discontinued - Indicates if the major has been discontinued.
  */

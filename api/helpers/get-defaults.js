@@ -1,15 +1,14 @@
 /**
  * @name sails&period;helpers&period;getDefaults
- * @description Generates a data record with default values for model attributes, appropriate for populating create form.
+ * @description Generates a data record with default values for model attributes, appropriate for populating a create form.
  * @function
  * @argument {Model} model - A Sails model whose attributes define the structure of the blank record.
  * @return {Record} A data record containing default values.
 */
 module.exports = {
-
     friendlyName: "Get defaults",
 
-    description: "Generates a data record with default values for model attributes, appropriate for populating create form.",
+    description: "Generates a data record with default values for model attributes, appropriate for populating a create form.",
 
     inputs: {
         model: {
@@ -27,7 +26,7 @@ module.exports = {
 
     sync: true,
 
-    fn: function(inputs, exits) {
+    fn: function (inputs, exits) {
         let result = {};
         for (let property in inputs.model.attributes) {
             /* istanbul ignore else */

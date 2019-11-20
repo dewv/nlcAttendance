@@ -4,16 +4,12 @@
  * @function
  * @argument {Model} model - The Sails model to check.
  * @argument {string} propertyName - The name of the model property to check.
- * @return {boolean}
+ * @return {boolean} `true` if the model property is an associated model; `false` otherwise.
  */
 module.exports = {
-
-
-    friendlyName: "Is association",
-
+    friendlyName: "Is association?",
 
     description: "Determines if a model property is an associated model.",
-
 
     inputs: {
         model: {
@@ -21,7 +17,7 @@ module.exports = {
             type: "ref",
             required: true
         },
-    
+
         propertyName: {
             description: "The name of the model property to check.",
             type: "string",
@@ -30,13 +26,11 @@ module.exports = {
     },
 
     exits: {
-
         success: {
             description: "All done.",
         },
-
     },
-  
+
     sync: true,
 
     fn: function (inputs, exits) {

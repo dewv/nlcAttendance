@@ -5,7 +5,6 @@
  * @borrows StaffRecord as StaffRecord 
  */
 module.exports = {
-
     attributes: {
         username: { type: "string", required: true, allowNull: false, unique: true },
         firstName: { type: "string", required: true, allowNull: false },
@@ -20,7 +19,7 @@ module.exports = {
         update: "Your staff profile was updated."
     },
 
-    beforeUpdate: async function(valuesToSet, proceed) {
+    beforeUpdate: async function (valuesToSet, proceed) {
         valuesToSet.forceUpdate = false;
         return proceed();
     },
@@ -30,10 +29,11 @@ module.exports = {
     /**
      * Populates the database with test data for use in development environments.
      * @modifies Database contents.
+     * @async
      * 
      * Note convention: sample data is ALL CAPS, using .net rather than .edu domain
      */
-    createTestData: async function() {
+    createTestData: async function () {
         let recordCount = 5;
 
         for (let i = 0; i < recordCount; i++) {
@@ -51,9 +51,9 @@ module.exports = {
 /**
  * A staff profile record.
  * @typedef {Record} StaffRecord
- * @property {string} username - The staff member's email address, @dewv.edu.
+ * @property {string} username - The staff member's email address.
  * @property {string} firstName - The staff member's first name.
  * @property {string} lastName - The staff member's last name.
- * @property {boolean} isSlpInstructor - Indicates if the staff member is an SLP instructor. 
- * @property {boolean} forceUpdate=true - Indicates if it is mandatory for the student to update their profile. 
+ * @property {boolean} isSlpInstructor - Indicates if the staff member is an SLP instructor.
+ * @property {boolean} forceUpdate=true - Indicates if it is mandatory for the user to update their profile.
  */

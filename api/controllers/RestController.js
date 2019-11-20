@@ -1,35 +1,35 @@
 /**
- * Routes standard REST requests to the proper model's view.
+ * Routes standard REST requests to the proper model's views.
  * @implements Controller
  * @module
  */
 module.exports = {
     /**
-   * Handles request to display a list of data records.
-   * @argument {external:Request} request -  The HTTP request.
-   * @argument {external:Response} response - The HTTP response.
-   * @public
-   * @async
-   */
+     * Handles request to display a list of data records.
+     * @argument {external:Request} request -  The HTTP request.
+     * @argument {external:Response} response - The HTTP response.
+     * @public
+     * @async
+     */
     listRequested: async function (request, response) {
         if (request.params.model === "controller-unit-test") return response.cookie("RestController", "listRequested").end();
         let model = sails.models[request.params.model];
         /* istanbul ignore next */
-        if (!model) return response.notFound(); 
+        if (!model) return response.notFound();
 
-        let records = await sails.helpers.getRecordList(model, {});
+        let records = await sails.helpers.getRecordList(model);
         return sails.helpers.responseViewSafely(request, response, `pages/${request.params.model}/index`, {
             records: records
         });
     },
 
     /**
-   * Handles request to display a form for entering a new data record.
-   * @argument {external:Request} request -  The HTTP request.
-   * @argument {external:Response} response - The HTTP response.
-   * @public
-   * @async
-   */
+     * Handles request to display a form for entering a new data record.
+     * @argument {external:Request} request -  The HTTP request.
+     * @argument {external:Response} response - The HTTP response.
+     * @public
+     * @async
+     */
     createFormRequested: async function (request, response) {
         if (request.params.model === "controller-unit-test") return response.cookie("RestController", "createFormRequested").end();
         let model = sails.models[request.params.model];
@@ -50,12 +50,12 @@ module.exports = {
     },
 
     /**
-   * Handles request to create a new data record using form data.
-   * @argument {external:Request} request -  The HTTP request.
-   * @argument {external:Response} response - The HTTP response.
-   * @public
-   * @async
-   */
+     * Handles request to create a new data record using form data.
+     * @argument {external:Request} request -  The HTTP request.
+     * @argument {external:Response} response - The HTTP response.
+     * @public
+     * @async
+     */
     createFormSubmitted: async function (request, response) {
         if (request.params.model === "controller-unit-test") return response.cookie("RestController", "createFormSubmitted").end();
         let model = sails.models[request.params.model];
@@ -64,25 +64,25 @@ module.exports = {
 
         let encodedData = await sails.helpers.encodeAssociations(model, request.body);
         await model.create(encodedData);
-        
+
         /* istanbul ignore else */
         if (model.successMessages) request.session.banner = model.successMessages.create;
-        
+
         return response.redirect(request.session.nextUrl);
     },
 
     /**
-   * Handles request to display a form for editing a data record.
-   * @argument {external:Request} request -  The HTTP request.
-   * @argument {external:Response} response - The HTTP response.
-   * @public
-   * @async
-   */
+     * Handles request to display a form for editing a data record.
+     * @argument {external:Request} request -  The HTTP request.
+     * @argument {external:Response} response - The HTTP response.
+     * @public
+     * @async
+     */
     editFormRequested: async function (request, response) {
         if (request.params.model === "controller-unit-test") return response.cookie("RestController", "editFormRequested").end();
         let model = sails.models[request.params.model];
         /* istanbul ignore next */
-        if (!model) return response.notFound(); 
+        if (!model) return response.notFound();
 
         let recordToUpdate = await sails.helpers.populateOne(model, request.params.id);
         /* istanbul ignore next */
@@ -110,12 +110,12 @@ module.exports = {
     },
 
     /**
-   * Handles request to update a data record using form data.
-   * @argument {external:Request} request -  The HTTP request.
-   * @argument {external:Response} response - The HTTP response.
-   * @public
-   * @async
-   */
+     * Handles request to update a data record using form data.
+     * @argument {external:Request} request -  The HTTP request.
+     * @argument {external:Response} response - The HTTP response.
+     * @public
+     * @async
+     */
     editFormSubmitted: async function (request, response) {
         if (request.params.model === "controller-unit-test") return response.cookie("RestController", "editFormSubmitted").end();
         let model = sails.models[request.params.model];

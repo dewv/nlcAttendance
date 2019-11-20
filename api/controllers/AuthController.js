@@ -7,7 +7,7 @@ const ldap = require("ldapjs");
  */
 let AuthController = {
     /**
-     * Handles request to display a form for entering a new data record.
+     * Handles request to display the login form. 
      * @argument {external:Request} request -  The HTTP request.
      * @argument {external:Response} response - The HTTP response.
      * @public
@@ -18,7 +18,7 @@ let AuthController = {
     },
 
     /**
-     * Handles request to create a new data record using form data.
+     * Handles request to submit the login form. 
      * @argument {external:Request} request -  The HTTP request.
      * @argument {external:Response} response - The HTTP response.
      * @public
@@ -76,6 +76,13 @@ let AuthController = {
         return response.redirect(request.session.nextUrl);
     },
 
+    /**
+     * Ends the current session and displays the login form. 
+     * @argument {external:Request} request -  The HTTP request.
+     * @argument {external:Response} response - The HTTP response.
+     * @public
+     * @async
+     */
     logout: async function (request, response) {
         let banner = request.session.banner;
         request.session.destroy();
@@ -84,6 +91,14 @@ let AuthController = {
         });
     },
 
+    /**
+     * Checks login credentials against an LDAP server. 
+     * @argument {string} username -  The submitted username. 
+     * @argument {string} password -  The submitted password. 
+     * @return {Object} A dictionary of user information, or an LDAP-defined Error object.
+     * @private
+     * @async
+     */
     _ldapAuthentication: async function (username, password) {
         /* istanbul ignore next */
         return new Promise((resolve) => {
@@ -159,6 +174,14 @@ let AuthController = {
         });
     },
 
+    /**
+     * Checks login credentials for development use. 
+     * @argument {string} username -  The submitted username. 
+     * @argument {string} password -  The submitted password. 
+     * @return {Object} A dictionary of user information, or an LDAP-defined Error object.
+     * @private
+     * @async
+     */
     _simulatedAuthentication: function (username, password) {
         if (password === "student" || password === "staff") {
             return {

@@ -7,7 +7,6 @@
  * @async
  */
 module.exports = {
-
     friendlyName: "Get domains",
 
     description: "Provides domain values for each relevant attribute, based on association or validations.",
@@ -26,12 +25,12 @@ module.exports = {
         }
     },
 
-    fn: async function(inputs, exits) {
+    fn: async function (inputs, exits) {
         let result = {};
         if (inputs.model.domainDefined) {
             for (let property in inputs.model.domainDefined) {
-                result[property] = {}; 
-                if (inputs.model.inputRequired[property]){result[property].inputRequired = true;}
+                result[property] = {};
+                if (inputs.model.inputRequired[property]) { result[property].inputRequired = true; }
                 /* istanbul ignore else */
                 if (sails.helpers.isAssociation(inputs.model, property)) {
                     result[property].options = await sails.models[inputs.model.attributes[property].model].find().sort("name ASC");

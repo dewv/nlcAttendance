@@ -19,18 +19,18 @@ module.exports = {
         springSport: { model: "SpringSport" },
         forceUpdate: { type: "boolean", defaultsTo: true }
     },
-   
+
     candidateKey: "username",
 
     successMessages: {
         update: "Your student profile was updated."
     },
 
-    beforeUpdate: async function(valuesToSet, proceed) {
+    beforeUpdate: async function (valuesToSet, proceed) {
         valuesToSet.forceUpdate = false;
         return proceed();
     },
-    
+
     /** 
      * Indicates which model attributes have defined domains.
      */
@@ -53,14 +53,14 @@ module.exports = {
     },
 
     testRecords: [],
-    
+
     /**
      * Populates the database with test data for use in development environments.
      * @modifies Database contents.
      * 
      * Note convention: sample data is ALL CAPS, using .net rather than .edu domain
      */
-    createTestData: async function() {
+    createTestData: async function () {
         let recordCount = 5;
 
         // Associations
@@ -120,12 +120,12 @@ module.exports = {
 };
 
 /**
- * Domain values for student academic rank. 
- * @typedef {string} academicRankDomain 
+ * Domain values for student academic rank.
+ * @typedef {string} academicRankDomain
  */
 
 /**
- * Domain values for student residential status. 
+ * Domain values for student residential status.
  * @typedef {string} residentialStatusDomain
  */
 
@@ -136,10 +136,10 @@ module.exports = {
  * @property {string} firstName - The student's first name.
  * @property {string} lastName - The student's last name.
  * @property {academicRankDomain} academicRank - The student's academic rank.
- * @property {MajorRecord} majorOne - The student's primary major. 
- * @property {MajorRecord} majorTwo - The student's secondary major. 
+ * @property {MajorRecord} majorOne - The student's primary major.
+ * @property {MajorRecord} majorTwo - The student's secondary major.
  * @property {residentialStatusDomain} residentialStatus - The student's residential status.
- * @property {FallSport} fallSport - The student's Fall sport. 
- * @property {SpringSport} springSport - The student's Spring sport. 
- * @property {boolean} forceUpdate=true - Indicates if it is mandatory for the student to update their profile. 
+ * @property {FallSport} fallSport - The student's Fall sport.
+ * @property {SpringSport} springSport - The student's Spring sport.
+ * @property {boolean} forceUpdate=true - Indicates if it is mandatory for the student to update their profile.
  */

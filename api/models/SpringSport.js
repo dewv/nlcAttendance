@@ -6,10 +6,10 @@
  */
 module.exports = {
     attributes: {
-        name: { type: "string", required: true, unique: true,},
-        discontinued: {type: "string", required: true, isIn: ["Yes", "No"]},
+        name: { type: "string", required: true, unique: true, },
+        discontinued: { type: "string", required: true, isIn: ["Yes", "No"] },
     },
-    
+
     candidateKey: "name",
 
     /** 
@@ -31,5 +31,5 @@ module.exports = {
  * A Spring sport record.
  * @typedef {Record} SpringSportRecord
  * @property {string} name - The sport's name.
- * @property {boolean} discontinued - Does the sport show up in select options.
+ * @property {boolean} discontinued - Indicates whether the sport has been discontinued.
  */

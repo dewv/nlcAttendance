@@ -8,7 +8,6 @@
  * @async
  */
 module.exports = {
-
     friendlyName: "populateOne",
 
     description: "Retrieves attributes and populates all associations for a specified ID.",
@@ -33,7 +32,7 @@ module.exports = {
         }
     },
 
-    fn: async function(inputs, exits) {
+    fn: async function (inputs, exits) {
         let result = await inputs.model.findOne({ id: inputs.id });
         for (let property in inputs.model.attributes) {
             if (sails.helpers.isAssociation(inputs.model, property)) {
@@ -45,7 +44,7 @@ module.exports = {
         if (inputs.model.afterPopulateOne) {
             await inputs.model.afterPopulateOne(result);
         }
-        
+
         // Send back the result through the success exit.
         return exits.success(result);
     }

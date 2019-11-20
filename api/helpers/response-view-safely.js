@@ -11,7 +11,6 @@
 const fs = require("fs"); // nodejs file system access
 
 module.exports = {
-
     friendlyName: "Response view safely",
 
     description: "Responds with an HTML page, or 404 error if view template does not exist.",

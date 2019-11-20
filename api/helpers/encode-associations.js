@@ -4,7 +4,7 @@
  * @function
  * @argument {Model} model - A Sails model defining the associations, if any.
  * @argument {Record} record - A data record that may contain association domain values that need encoding.
- * @return {Record} The record argument, modified so that any association domain values are replace with their ID/key.
+ * @return {Record} The record argument, modified so that any association domain values are replaced with their ID/key.
  * @async
  */
 module.exports = {
@@ -32,7 +32,7 @@ module.exports = {
         }
     },
 
-    fn: async function(inputs, exits) {
+    fn: async function (inputs, exits) {
         for (let property in inputs.model.attributes) {
             if (sails.helpers.isAssociation(inputs.model, property) && typeof inputs.record[property] !== "undefined") {
                 let lookup = undefined;
@@ -46,7 +46,7 @@ module.exports = {
                 inputs.record[property] = lookup ? lookup.id : null;
             }
         }
-        
+
         if (inputs.model.afterEncodeAssociations) {
             await inputs.model.afterEncodeAssociations(inputs.record);
         }

@@ -11,12 +11,12 @@ const config = require("../../config/models");
  * @argument {Object[]} testData - Data record to be used for testing.
  * @public
  */
-module.exports = function(modelName, testData) {
+module.exports = function (modelName, testData) {
 
-    describe("Standard tests of model, helpers integration", async function() {
+    describe("Standard tests of model, helpers integration", async function () {
 
-        context("`getDefaults` helper", async function() {
-            it("should return a record with expected sailsjs model attributes", async function() {
+        context("`getDefaults` helper", async function () {
+            it("should return a record with expected sailsjs model attributes", async function () {
                 let model = sails.models[modelName];
                 let result = sails.helpers.getDefaults(model);
                 result.should.not.be.an.Error();
@@ -28,8 +28,8 @@ module.exports = function(modelName, testData) {
             });
         });
 
-        context("`getAssociationDomains` helper", async function() {
-            it("should return a dictionary containing domain values for each appropriate model attribute", async function() {
+        context("`getAssociationDomains` helper", async function () {
+            it("should return a dictionary containing domain values for each appropriate model attribute", async function () {
                 let model = sails.models[modelName];
                 let result = await sails.helpers.getDomains(model);
                 if (model.generateHtmlSelect) {
@@ -42,8 +42,8 @@ module.exports = function(modelName, testData) {
             });
         });
 
-        context("`encodeAssociations` helper", async function() {
-            it("should replace the specified record's domain values with keys for each associated sailsjs model", async function() {
+        context("`encodeAssociations` helper", async function () {
+            it("should replace the specified record's domain values with keys for each associated sailsjs model", async function () {
                 let model = sails.models[modelName];
                 let record = sails.helpers.getDefaults(model);
                 for (let property in model.attributes) {
@@ -64,8 +64,8 @@ module.exports = function(modelName, testData) {
             });
         });
 
-        context("`populateOne` helper", async function() {
-            it("should return a data record for the specified ID, with all associations populated", async function() {
+        context("`populateOne` helper", async function () {
+            it("should return a data record for the specified ID, with all associations populated", async function () {
                 let model = sails.models[modelName];
                 let id = testData.record.id;
                 let result = await sails.helpers.populateOne(model, id);
@@ -96,8 +96,8 @@ module.exports = function(modelName, testData) {
             });
         });
 
-        context("`getCurrentTime` helper", async function() {
-            it("should return the current synchronized time", async function() {
+        context("`getCurrentTime` helper", async function () {
+            it("should return the current synchronized time", async function () {
                 let result = sails.helpers.getCurrentTime();
                 let expected = Date.now();
                 result.should.not.be.an.Error();
@@ -106,9 +106,9 @@ module.exports = function(modelName, testData) {
                 result.should.equal(expected, "The helper returned " + result + " , while the test expected " + expected + ".");
             });
         });
-        
-        context("`convertToHours` helper", async function() {
-            it("should return the number of hours, to the nearest quarter hour", async function() {
+
+        context("`convertToHours` helper", async function () {
+            it("should return the number of hours, to the nearest quarter hour", async function () {
                 for (let i = 6000000; i < 10000000; i = i + 1000000) {
                     let result = sails.helpers.convertToHours(i);
                     let time = i / 3600000;
@@ -121,10 +121,9 @@ module.exports = function(modelName, testData) {
             });
         });
 
-        context("`getRecordList` helper", async function() {
-            it("should return a array of records for a defined model", async function() {
-                let records = {};
-                let result = await sails.helpers.getRecordList(Student, records);
+        context("`getRecordList` helper", async function () {
+            it("should return a array of records for a defined model", async function () {
+                let result = await sails.helpers.getRecordList(Student);
                 let expected = await Student.find();
                 result.should.not.be.an.Error();
                 expected.should.not.be.an.Error();
@@ -133,9 +132,9 @@ module.exports = function(modelName, testData) {
                     result[i].id.should.equal(expected[i].id, "The helper returned " + JSON.stringify(result[i]) + " , while the test expected " + JSON.stringify(expected[i]) + ".");
                 }
             });
-            it("should return a array of records for a defined model with a association", async function() {
-                let records = {};
-                let result = await sails.helpers.getRecordList(Visit, records);
+
+            it("should return a array of records for a defined model with a association", async function () {
+                let result = await sails.helpers.getRecordList(Visit);
                 let expected = await Visit.find().populate("student");
                 result.should.not.be.an.Error();
                 expected.should.not.be.an.Error();

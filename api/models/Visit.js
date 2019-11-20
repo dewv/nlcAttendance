@@ -1,23 +1,56 @@
 /**
- * Visit.js
- *
- * @description :: A model definition represents a database table/collection.
- * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
+ * Represents a set of visit records. 
+ * @module 
+ * @implements Model
+ * @borrows VisitRecord as VisitRecord
  */
-
 module.exports = {
-
     attributes: {
-        student: { model: "Student" },
-        checkInTime: { type: "ref", columnType: "datetime", autoCreatedAt: true },
-        checkOutTime: { type: "ref", columnType: "datetime" },
-        length: { type: "number", required: false, allowNull: true },
-        purpose: { type: "string", required: true, allowNull: false },
-        purposeAchieved: { type: "string", allowNull: true, isIn: ["Yes", "No", "Not sure"] },
-        usedTutor: { type: "string", defaultsTo: "No" },
-        tutorCourses: { type: "string", required: false, allowNull: true },
-        comment: { type: "string", allowNull: true },
-        isLengthEstimated: { type: "boolean", allowNull: false, defaultsTo: false },
+        student: {
+            model: "Student"
+        },
+        checkInTime: {
+            type: "ref",
+            columnType: "datetime",
+            autoCreatedAt: true
+        },
+        checkOutTime: {
+            type: "ref",
+            columnType: "datetime"
+        },
+        length: {
+            type: "number",
+            required: false,
+            allowNull: true
+        },
+        purpose: {
+            type: "string",
+            required: true,
+            allowNull: false
+        },
+        purposeAchieved: {
+            type: "string",
+            allowNull: true,
+            isIn: ["Yes", "No", "Not sure"]
+        },
+        usedTutor: {
+            type: "string",
+            defaultsTo: "No"
+        },
+        tutorCourses: {
+            type: "string",
+            required: false,
+            allowNull: true
+        },
+        comment: {
+            type: "string",
+            allowNull: true
+        },
+        isLengthEstimated: {
+            type: "boolean",
+            allowNull: false,
+            defaultsTo: false
+        },
     },
 
     successMessages: {
@@ -28,7 +61,8 @@ module.exports = {
     // Define the model's one to many association.
     recordToAssociate: "student",
 
-    /** Indicates which model attributes have defined domains.
+    /** 
+     * Indicates which model attributes have defined domains.
      */
     domainDefined: {
         purposeAchieved: true
@@ -42,12 +76,13 @@ module.exports = {
     },
 
     /**
-     * Calculates the checkOutTime and then length setting a flag if the length is greater than 8 when a Visit record is passed through the populateOne helper.
+     * Provides an opportunity for a model to customize a newly populated record. 
+     * After populating a record, the populateOne function will call this function. 
+     * Calculates the visit length, up to a maximum. If maximum exceeded, sets flag indicating the length should be estimated by user. 
      * @modifies Database contents.
-     * 
-     * Note global: PopulateOne checks if a function named afterPopulateOne is defined in the model of any record. The definition is model specific and runs when the record is passed through the populateOne helper.
+     * @async
      */
-    afterPopulateOne: function(visit) {
+    afterPopulateOne: async function (visit) {
         if (visit.checkOutTime === null) visit.checkOutTime = new Date(sails.helpers.getCurrentTime());
         visit.length = ((new Date(visit.checkOutTime)).getTime()) - ((new Date(visit.checkInTime)).getTime());
         visit.length = sails.helpers.convertToHours(visit.length);
@@ -56,26 +91,32 @@ module.exports = {
     },
 
     /**
+     * Provides an opportunity for a model to customize a newly encoded record.
+     * After encoding a record, the encodeAssociations function will call this function.
      * Takes data passed from encodeAssociations, modifies it as needed and returns that data back to the encodeAssociations helper.
      * @modifies Database contents.
-     * 
-     * Note global: EncodeAssociations checks if a function named afterEncodeAssociations is defined in the model of any record. The definition is model specific and runs when the record is passed through the encodeAssociations helper.
+     * @async 
      */
-    afterEncodeAssociations: async function(visit) {
-        // This conditional checks if purposeAchieved. If it is defined, the action was checkout and we need to run the following code.
+    afterEncodeAssociations: async function (visit) {
+        // If `purposeAchieved` is defined, the user is checking *out*.
         if (visit.purposeAchieved) {
             visit.checkOutTime = new Date(sails.helpers.getCurrentTime());
             if (!visit.length) {
-                let current = await Visit.find({ where: { student: visit.student}, limit: 1, sort: "checkInTime DESC" });
+                let current = await Visit.find({
+                    where: {
+                        student: visit.student
+                    },
+                    limit: 1,
+                    sort: "checkInTime DESC"
+                });
                 visit.checkInTime = current[0].checkInTime;
                 visit.length = ((new Date(visit.checkOutTime)).getTime()) - ((new Date(visit.checkInTime)).getTime());
                 visit.length = sails.helpers.convertToHours(visit.length);
-            }
-            else {
+            } else {
                 visit.isLengthEstimated = true;
             }
         }
-        
+
         return visit;
     },
 
@@ -85,9 +126,9 @@ module.exports = {
      * Populates the database with test data for use in development environments.
      * @modifies Database contents.
      * 
-     * Note convention: sample data is ALL CAPS, using .net rather than .edu domain
+     * Note convention: sample data is ALL CAPS.
      */
-    createTestData: async function() {
+    createTestData: async function () {
         const oneDay = 24 * 60 * 60 * 1000;
         const oneHour = 60 * 60 * 1000;
 
@@ -96,7 +137,7 @@ module.exports = {
         // All remaining students have old closed visits.
         for (let iStudent = 1; iStudent < Student.testRecords.length; iStudent++) {
             for (let iVisit = 1; iVisit <= 3; iVisit++) {
-                if(iStudent === 5) continue;
+                if (iStudent === 5) continue;
                 let record = {
                     student: Student.testRecords[iStudent].id,
                     checkInTime: new Date(`2018-${iVisit}-${iVisit} ${iVisit}:${iVisit}`),
@@ -110,13 +151,10 @@ module.exports = {
                 };
                 this.testRecords.push(await Visit.create(record).fetch());
             }
-
         }
-        
-        // Third student has a visit opened yesterday, and
-        // all others have a visit opened today.
+
+        // Third student has a visit opened yesterday, and all others have a visit opened today.
         for (let iStudent = 2; iStudent < Student.testRecords.length; iStudent++) {
-            
             let record;
             let yesterday = {
                 student: Student.testRecords[iStudent].id,
@@ -130,16 +168,16 @@ module.exports = {
             };
             if (iStudent === 2 || iStudent === 7) {
                 record = yesterday;
-            } else record = today;
-            
+            } else {
+                record = today;
+            }
+
             if (iStudent === 5 || iStudent === 6) continue;
-            
+
             this.testRecords.push(await Visit.create(record).fetch());
         }
     }
-
 };
-
 
 /**
  * A student visit record.
@@ -152,5 +190,5 @@ module.exports = {
  * @property {string} purposeAchieved - Did the student accomplish their goal this visit.
  * @property {string} tutorCourses - The course of which the student used a tutor.
  * @property {string} comment - Any comments the student may have about their visit.
- * @property {boolean} isLengthEstimated=false - Indicates if it is mandatory for the student to estimate the length of their last visit when the value is true. 
+ * @property {boolean} isLengthEstimated=false - Indicates if it is mandatory for the student to estimate the length of their last visit when the value is true.
  */

@@ -1,7 +1,6 @@
 /**
  * @module
  */
- 
 /**
  * Enforces authentication. 
  * @function isAuthenticated
@@ -11,11 +10,11 @@
  * @modifies The response, when the user is not authenticated.
  * @async
  */
-module.exports = async function(request, response, proceed) {
+module.exports = async function (request, response, proceed) {
     if (request.params.model === "controller-unit-test") {
         return proceed();
     }
-    
+
     if (request.session && request.session.role) {
         return proceed();
     }

@@ -1,28 +1,22 @@
 /**
  * @name sails&period;helpers&period;getCurrentTime
- * @description Returns the current syncronized time.
+ * @description Returns the current date and time.
  * @function
- * @return {object} A standard Date object.
+ * @return {Date} The current time.
  */
 module.exports = {
+    friendlyName: "Get current time",
 
-
-    friendlyName: "get Time",
-
-
-    description: "Returns the current syncronized time.",
-
+    description: "Returns the current date and time.",
 
     inputs: {},
 
     exits: {
-
         success: {
             description: "All done.",
         },
-
     },
-  
+
     sync: true,
 
     fn: function (inputs, exits) {

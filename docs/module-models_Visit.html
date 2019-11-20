@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: models/Student</title>
+    <title>JSDoc: Module: models/Visit</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: models/Student</h1>
+    <h1 class="page-title">Module: models/Visit</h1>
 
     
 
@@ -38,7 +38,7 @@
     <div class="container-overview">
     
         
-            <div class="description">Represents a set of student profile records.</div>
+            <div class="description">Represents a set of visit records.</div>
         
 
         
@@ -203,7 +203,7 @@
 
 
 <div class="description">
-    Indicates which model attributes are required when a user updates their profile.
+    Indicates which model attributes are required when a closes a visit.
 </div>
 
 
@@ -257,6 +257,186 @@
 
     
         <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".afterEncodeAssociations"><span class="type-signature">(async, static) </span>afterEncodeAssociations<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Provides an opportunity for a model to customize a newly encoded record.After encoding a record, the encodeAssociations function will call this function.Takes data passed from encodeAssociations, modifies it as needed and returns that data back to the encodeAssociations helper.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+<h5>Modifies:</h5>
+
+        
+
+
+
+    
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".afterPopulateOne"><span class="type-signature">(async, static) </span>afterPopulateOne<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Provides an opportunity for a model to customize a newly populated record. After populating a record, the populateOne function will call this function. Calculates the visit length, up to a maximum. If maximum exceeded, sets flag indicating the length should be estimated by user.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+<h5>Modifies:</h5>
+
+        
+
+
+
+    
+
+
+
+
+
+
+
+
 
         
             
@@ -356,147 +536,13 @@
 
         
                 
-<h4 class="name" id=".academicRankDomain">academicRankDomain</h4>
+<h4 class="name" id=".VisitRecord">VisitRecord</h4>
 
 
 
 
 <div class="description">
-    Domain values for student academic rank.
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-            
-                
-<h4 class="name" id=".residentialStatusDomain">residentialStatusDomain</h4>
-
-
-
-
-<div class="description">
-    Domain values for student residential status.
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">string</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-            
-                
-<h4 class="name" id=".StudentRecord">StudentRecord</h4>
-
-
-
-
-<div class="description">
-    A student profile record.
+    A student visit record.
 </div>
 
 
@@ -543,7 +589,115 @@
 
         <tr>
             
-                <td class="name"><code>username</code></td>
+                <td class="name"><code>student</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Student</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The associated student record.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>checkInTime</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ref</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">A reference to createdAt formated in UTC.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>checkOutTime</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ref</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">A timestamp in UTC used to calculate length, defaults to '0000-00-00 00:00:00'.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>length</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The number of hours, to the nearest quarter hour, the student was at the NLC. The difference between the checkOutTime and CheckInTime.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>purpose</code></td>
             
 
             <td class="type">
@@ -563,14 +717,14 @@
                 </td>
             
 
-            <td class="description last">The student's email address, @dewv.edu.</td>
+            <td class="description last">The reason the student visited the NLC.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>firstName</code></td>
+                <td class="name"><code>purposeAchieved</code></td>
             
 
             <td class="type">
@@ -590,14 +744,14 @@
                 </td>
             
 
-            <td class="description last">The student's first name.</td>
+            <td class="description last">Did the student accomplish their goal this visit.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>lastName</code></td>
+                <td class="name"><code>tutorCourses</code></td>
             
 
             <td class="type">
@@ -617,20 +771,20 @@
                 </td>
             
 
-            <td class="description last">The student's last name.</td>
+            <td class="description last">The course of which the student used a tutor.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>academicRank</code></td>
+                <td class="name"><code>comment</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="global.html#academicRankDomain">academicRankDomain</a></span>
+<span class="param-type">string</span>
 
 
             
@@ -644,149 +798,14 @@
                 </td>
             
 
-            <td class="description last">The student's academic rank.</td>
+            <td class="description last">Any comments the student may have about their visit.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>majorOne</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#MajorRecord">MajorRecord</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">The student's primary major.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>majorTwo</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#MajorRecord">MajorRecord</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">The student's secondary major.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>residentialStatus</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#residentialStatusDomain">residentialStatusDomain</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">The student's residential status.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>fallSport</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">FallSport</span>
-
-
-            
-            </td>
-
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">The student's Fall sport.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>springSport</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">SpringSport</span>
-
-
-            
-            </td>
-
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">The student's Spring sport.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>forceUpdate</code></td>
+                <td class="name"><code>isLengthEstimated</code></td>
             
 
             <td class="type">
@@ -803,12 +822,12 @@
             
                 <td class="default">
                 
-                    true
+                    false
                 
                 </td>
             
 
-            <td class="description last">Indicates if it is mandatory for the student to update their profile.</td>
+            <td class="description last">Indicates if it is mandatory for the student to estimate the length of their last visit when the value is true.</td>
         </tr>
 
     

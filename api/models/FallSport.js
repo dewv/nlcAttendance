@@ -7,9 +7,9 @@
 module.exports = {
     attributes: {
         name: { type: "string", required: true, unique: true, },
-        discontinued: {type: "string", required: true, isIn: ["Yes", "No"]},
+        discontinued: { type: "string", required: true, isIn: ["Yes", "No"] },
     },
-    
+
     candidateKey: "name",
 
     /** 
@@ -31,5 +31,5 @@ module.exports = {
  * A Fall sport record.
  * @typedef {Record} FallSportRecord
  * @property {string} name - The sport's name.
- * @property {boolean} discontinued - Does the sport show up in select options.
+ * @property {boolean} discontinued - Indicates whether the sport has been discontinued.
  */

@@ -1,32 +1,19 @@
 /**
  * @name sails&period;helpers&period;getRecordList
- * @description Joins all data association ID's with their corresponding records.
+ * @description Retrieves a model's records, with association populated. 
  * @function
- * @argument {Model} model - A Sails model defining the associations, if any.
- * @argument {Records} records - A data record that may contain association domain values that need encoding.
- * @return {Records} The record argument, modified so that any association domain values are replace with their record.
+ * @argument {Model} model - A Sails model defining the association, if any.
+ * @return {Record[]} The model's records, modified so that any association domain values are replaced with their record.
  * @async
  */
-
-/**
-  * If model.recordListQuery
-  * then use that string
-  * else use model.find
-  */
 module.exports = {
-    friendlyName: "Populate associations",
+    friendlyName: "Get record list",
 
-    description: "Replaces all model association ID's with their corresponding records",
+    description: "Get list of records, with association populated.",
 
     inputs: {
         model: {
             description: "A Sails model defining the associations, if any.",
-            type: "ref",
-            required: true
-        },
-
-        records: {
-            description: "A array of records that may contain association domain values that need encoding.",
             type: "ref",
             required: true
         }
@@ -34,22 +21,16 @@ module.exports = {
 
     exits: {
         success: {
-            outputFriendlyName: "Populated associations",
+            outputFriendlyName: "Record list",
         }
     },
 
-    fn: async function(inputs, exits) {
-
+    fn: async function (inputs, exits) {
         if (inputs.model.recordToAssociate) {
             inputs.records = await inputs.model.find().populate(inputs.model.recordToAssociate);
-            return exits.success(inputs.records);
-            
         } else {
             inputs.records = await inputs.model.find();
-            return exits.success(inputs.records);
         }
-        // Send back the result through the success exit.
-           
+        return exits.success(inputs.records);
     }
-
 };

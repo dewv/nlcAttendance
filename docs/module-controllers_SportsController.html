@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: models/Major</title>
+    <title>JSDoc: Module: controllers/SportsController</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: models/Major</h1>
+    <h1 class="page-title">Module: controllers/SportsController</h1>
 
     
 
@@ -38,7 +38,7 @@
     <div class="container-overview">
     
         
-            <div class="description">Represents a set of academic major records.</div>
+            <div class="description">Extends REST handling with custom logic for sports models.</div>
         
 
         
@@ -74,7 +74,7 @@
     <dt class="implements">Implements:</dt>
     <dd class="implements"><ul>
         
-            <li><a href="Model.html">Model</a></li>
+            <li><a href="Controller.html">Controller</a></li>
         
     </ul></dd>
     
@@ -136,17 +136,25 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
+
+    
+        <h3 class="subsection-title">Methods</h3>
 
         
             
-<h4 class="name" id=".domainDefined"><span class="type-signature">(static) </span>domainDefined<span class="type-signature"></span></h4>
 
+    
+
+    
+    <h4 class="name" id=".listsRequested"><span class="type-signature">(async, static) </span>listsRequested<span class="signature">(request, response)</span><span class="type-signature"></span></h4>
+    
+
+    
 
 
 
 <div class="description">
-    Indicates which model attributes have defined domains.
+    Handles an HTTP GET request for lists of all sports-- one list per season.
 </div>
 
 
@@ -155,143 +163,12 @@
 
 
 
-<dl class="details">
 
+
+    <h5>Parameters:</h5>
     
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".inputRequired"><span class="type-signature">(static) </span>inputRequired<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    Indicates which model attributes are required when a user updates a major.
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-    
-
-    
-
-    
-        <h3 class="subsection-title">Type Definitions</h3>
-
-        
-                
-<h4 class="name" id=".MajorRecord">MajorRecord</h4>
-
-
-
-
-<div class="description">
-    An academic major record.
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type"><a href="Record.html">Record</a></span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
+<table class="params">
     <thead>
     <tr>
         
@@ -313,13 +190,13 @@
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>request</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type"><a href="external-Request.html">external:Request</a></span>
 
 
             
@@ -329,20 +206,20 @@
 
             
 
-            <td class="description last">The major's name.</td>
+            <td class="description last">The HTTP request.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>discontinued</code></td>
+                <td class="name"><code>response</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type"><a href="external-Response.html">external:Response</a></span>
 
 
             
@@ -352,12 +229,14 @@
 
             
 
-            <td class="description last">Indicates if the major has been discontinued.</td>
+            <td class="description last">The HTTP response.</td>
         </tr>
 
     
     </tbody>
 </table>
+
+
 
 
 
@@ -402,7 +281,23 @@
 
 
 
-            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
     
 
     
