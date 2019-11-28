@@ -11,13 +11,7 @@
  * @async
  */
 module.exports = async function (request, response, proceed) {
-    if (request.params.model === "controller-unit-test") {
-        return proceed();
-    }
-
-    if (request.session && request.session.role) {
-        return proceed();
-    }
+    if (request.session && request.session.role) return proceed();
 
     return response.redirect("/login");
 };

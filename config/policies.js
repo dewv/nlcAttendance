@@ -17,10 +17,9 @@ module.exports.policies = {
      *                                                                          *
      ***************************************************************************/
 
+    // See also `routes.js`, where policies are applied to individual actions.
 
-    "*": ["isAuthenticated", "isAuthorized"],
+    "*": "isAuthenticated",
 
-    AuthController: {
-        "*": true
-    }
+    "authentication/*": true
 };

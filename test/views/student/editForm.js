@@ -2,10 +2,10 @@ require("should");
 const ejs = require("ejs");
 const ViewTests = require("../Views");
 
-describe("Student views", function() {
-    const pathToView = "pages/student/editForm";
+describe("Student views", function () {
+    const pathToView = "pages/student/updateForm";
 
-    context("The edit form", async function() {
+    context("The update form", async function () {
 
         let expectedData = {
             id: 0,
@@ -33,54 +33,54 @@ describe("Student views", function() {
         };
 
         // Generate the view
-        ejs.renderFile("views/" + pathToView + ".html", ejsData, function(error, result) {
+        ejs.renderFile("views/" + pathToView + ".html", ejsData, function (error, result) {
             if (error) {
                 console.log(JSON.stringify(error));
             }
 
             let checkFor = new ViewTests(result);
 
-            it("should include a text input to edit the first name", function(done) {
+            it("should include a text input to edit the first name", function (done) {
                 checkFor.formInputText("firstName", expectedData.firstName).should.be.true();
                 done();
             });
 
-            it("should include a text input to edit the last name", function(done) {
+            it("should include a text input to edit the last name", function (done) {
                 checkFor.formInputText("lastName", expectedData.lastName).should.be.true();
                 done();
             });
-            
-            it("should include select options to edit the academic rank", function(done) {
+
+            it("should include select options to edit the academic rank", function (done) {
                 checkFor.formSelectOption("academicRank").should.be.true();
                 done();
             });
-            
-            it("should include select options to edit the residential status", function(done) {
+
+            it("should include select options to edit the residential status", function (done) {
                 checkFor.formSelectOption("residentialStatus").should.be.true();
                 done();
             });
-            
-            it("should include select options to edit the Major One", function(done) {
+
+            it("should include select options to edit the Major One", function (done) {
                 checkFor.formSelectOption("majorOne").should.be.true();
                 done();
             });
-            
-            it("should include select options to edit the major Two", function(done) {
+
+            it("should include select options to edit the major Two", function (done) {
                 checkFor.formSelectOption("majorTwo").should.be.true();
                 done();
             });
 
-            it("should include select options to edit the fall sport", function(done) {
+            it("should include select options to edit the fall sport", function (done) {
                 checkFor.formSelectOption("fallSport", expectedData.fallSport.name).should.be.true();
                 done();
             });
 
-            it("should include select options to edit the spring sport", function(done) {
+            it("should include select options to edit the spring sport", function (done) {
                 checkFor.formSelectOption("springSport").should.be.true();
                 done();
             });
 
-            it("should include a submit button to send the form", function(done) {
+            it("should include a submit button to send the form", function (done) {
                 checkFor.formButton("submitButton").should.be.true();
                 done();
             });

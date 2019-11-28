@@ -51,7 +51,7 @@ function isRequestAuthorized(method, path, sessionCookie, callback) {
         method: method,
         path: path,
         headers: {
-            "Cookie": sessionCookie,
+            "Cookie": [sessionCookie, "location=test"],
         }
     };
 
@@ -61,7 +61,7 @@ function isRequestAuthorized(method, path, sessionCookie, callback) {
     }
 
     let request = http.request(options, function (response) {
-        return callback(response.statusCode !== status.FORBIDDEN);
+        return callback(response.statusCode !== status.FORBIDDEN && response.statusCode !== status.BAD_REQUEST);
     });
 
     if (method === "POST") request.write(payload);
@@ -122,19 +122,19 @@ describe("`isAuthorized` policy", function () {
             });
         });
 
-        it("should redirect most requests to the check in form", function (done) {
-            let requests = [{
+        it("should refuse requests that are *not* to check in or update their profile", function (done) {
+            let requests = [/*{
                 method: "GET",
                 url: `/student/${testRecordsIndex - 1}/edit`
             },
             {
                 method: "POST",
                 url: `/student/${testRecordsIndex - 1}`
-            },
-            {
-                method: "GET",
-                url: "/visit/15/edit"
-            },
+            },*/
+                {
+                    method: "GET",
+                    url: "/visit/15/edit"
+                },/*
             {
                 method: "POST",
                 url: "/visit/15"
@@ -161,25 +161,25 @@ describe("`isAuthorized` policy", function () {
             },
             {
                 method: "GET",
-                url: "/browser"
+                url: "/browser/register"
             },
             {
                 method: "GET",
                 url: "/student"
-            }
+            }*/
             ];
 
             let activeRequests = 0;
-            for (let request in requests) {
+            for (let request of requests) {
                 activeRequests++;
-                redirectLocation(request.method, request.url, studentSession, function (location) {
-                    location.should.equal("/visit/new");
+                isRequestAuthorized(request.method, request.url, studentSession, function (authorized) {
+                    authorized.should.be.false(`Should have rejected ${request.method} ${request.url}`);
                     if (--activeRequests === 0) return done();
                 });
             }
         });
 
-        it("should authorize requests to load their own profile in the edit form", function (done) {
+        it("should authorize requests to load their own profile in the update form", function (done) {
             isRequestAuthorized("GET", `/student/${testRecordsIndex + 1}/edit`, studentSession, function (authorized) {
                 authorized.should.be.true();
                 done();
@@ -220,7 +220,7 @@ describe("`isAuthorized` policy", function () {
             });
         });
 
-        it("should redirect most requests to the check out form", function (done) {
+        it("should refuse requests that are *not* to check out or update their profile", function (done) {
             let requests = [{
                 method: "GET",
                 url: `/student/${testRecordsIndex - 1}/edit`
@@ -259,7 +259,7 @@ describe("`isAuthorized` policy", function () {
             },
             {
                 method: "GET",
-                url: "/browser"
+                url: "/browser/register"
             },
             {
                 method: "GET",
@@ -272,16 +272,16 @@ describe("`isAuthorized` policy", function () {
             ];
 
             let activeRequests = 0;
-            for (let request in requests) {
+            for (let request of requests) {
                 activeRequests++;
-                redirectLocation(request.method, request.url, studentSession, function (location) {
-                    location.should.equal("/visit/28/edit");
+                isRequestAuthorized(request.method, request.url, studentSession, function (authorized) {
+                    authorized.should.be.false(`Should have rejected ${request.method} ${request.url}`);
                     if (--activeRequests === 0) return done();
                 });
             }
         });
 
-        it("should authorize requests to load their own profile in the edit form", function (done) {
+        it("should authorize requests to load their own profile in the update form", function (done) {
             isRequestAuthorized("GET", `/student/${testRecordsIndex + 1}/edit`, studentSession, function (authorized) {
                 authorized.should.be.true();
                 done();
@@ -294,8 +294,8 @@ describe("`isAuthorized` policy", function () {
                 done();
             });
         });
-        
-        it("should authorize requests to load their own most recent visit in the edit form", function (done) {
+
+        it("should authorize requests to load their own most recent visit in the update form", function (done) {
             isRequestAuthorized("GET", "/visit/28/edit", studentSession, function (authorized) {
                 authorized.should.be.true();
                 done();
@@ -322,7 +322,7 @@ describe("`isAuthorized` policy", function () {
             });
         });
 
-        it("should redirect most requests to the check in form", function (done) {
+        it("should refuse requests that are *not* to check in or update their profile", function (done) {
             let requests = [{
                 method: "GET",
                 url: `/student/${testRecordsIndex - 1}/edit`
@@ -361,7 +361,7 @@ describe("`isAuthorized` policy", function () {
             },
             {
                 method: "GET",
-                url: "/browser"
+                url: "/browser/register"
             },
             {
                 method: "GET",
@@ -370,16 +370,16 @@ describe("`isAuthorized` policy", function () {
             ];
 
             let activeRequests = 0;
-            for (let request in requests) {
+            for (let request of requests) {
                 activeRequests++;
-                redirectLocation(request.method, request.url, studentSession, function (location) {
-                    location.should.equal("/visit/new");
+                isRequestAuthorized(request.method, request.url, studentSession, function (authorized) {
+                    authorized.should.be.false(`Should have rejected ${request.method} ${request.url}`);
                     if (--activeRequests === 0) return done();
                 });
             }
         });
 
-        it("should authorize requests to load their own profile in the edit form", function (done) {
+        it("should authorize requests to load their own profile in the update form", function (done) {
             isRequestAuthorized("GET", `/student/${testRecordsIndex + 1}/edit`, studentSession, function (authorized) {
                 authorized.should.be.true();
                 done();
@@ -394,7 +394,7 @@ describe("`isAuthorized` policy", function () {
         });
 
         it("should authorize requests to load the visit create form", function (done) {
-            isRequestAuthorized("GET", "/student/visit", studentSession, function (authorized) {
+            isRequestAuthorized("GET", "/visit/new", studentSession, function (authorized) {
                 authorized.should.be.true();
                 done();
             });
@@ -420,7 +420,7 @@ describe("`isAuthorized` policy", function () {
             });
         });
 
-        it("should authorize requests to load their own profile in the edit form", function (done) {
+        it("should authorize requests to load their own profile in the update form", function (done) {
             isRequestAuthorized("GET", `/staff/${testUserId}/edit`, staffSession, function (authorized) {
                 authorized.should.be.true();
                 done();
@@ -434,7 +434,7 @@ describe("`isAuthorized` policy", function () {
             });
         });
 
-        it("should forbid requests to load other user profiles in the edit form", function (done) {
+        it("should forbid requests to load other user profiles in the update form", function (done) {
             isRequestAuthorized("GET", `/staff/${testUserId - 1}/edit`, staffSession, function (authorized) {
                 authorized.should.be.false();
                 done();
@@ -456,14 +456,14 @@ describe("`isAuthorized` policy", function () {
         });
 
         it("should authorize requests to load the browser registration form", function (done) {
-            isRequestAuthorized("GET", "/browser", staffSession, function (authorized) {
+            isRequestAuthorized("GET", "/browser/register", staffSession, function (authorized) {
                 authorized.should.be.true();
                 done();
             });
         });
 
         it("should forbid requests to load the visit create form", function (done) {
-            isRequestAuthorized("GET", "/student/visit", staffSession, function (authorized) {
+            isRequestAuthorized("GET", "/visit/new", staffSession, function (authorized) {
                 authorized.should.be.false();
                 done();
             });
@@ -476,7 +476,7 @@ describe("`isAuthorized` policy", function () {
             });
         });
 
-        it("should forbid requests to load the visit edit form", function (done) {
+        it("should forbid requests to load the visit update form", function (done) {
             isRequestAuthorized("GET", "/visit/3/edit", staffSession, function (authorized) {
                 authorized.should.be.false();
                 done();

@@ -2,21 +2,21 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title>
-    Naylor Learning Center
-  </title>
+    <meta charset="utf-8">
+    <title>
+        Naylor Learning Center
+    </title>
 
-  <link rel="icon" type="image/x-icon" href="/DE_Logo.ico" />
+    <link rel="icon" type="image/x-icon" href="/DE_Logo.ico" />
 
-  <!-- Viewport mobile tag for sensible mobile support -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Viewport mobile tag for sensible mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <%/* If you want to discourage search engines from indexing this site, uncomment the following line: */%>
+    <%/* If you want to discourage search engines from indexing this site, uncomment the following line: */%>
     <%/* <meta name="robots" content="noindex"> */%>
 
 
-      <!--
+    <!--
         Stylesheets and Preprocessors
         ==============================
 
@@ -40,50 +40,54 @@
     <!--STYLES-->
     <link rel="stylesheet" href="/styles/w3-theme-red.css">
     <link rel="stylesheet" href="/styles/w3.css">
-    <!--STYLES END--> 
+    <!--STYLES END-->
 </head>
+
 <body>
 
-  <% if ( typeof role !== "undefined" ) { %>
+    <% if ( typeof session.role !== "undefined" ) { %>
 
-    <% if ( role === "staff" ) { %>
-      <div class="topnav w3-bar w3-red w3-mobile">
-          <a class="active w3-bar-item w3-button" href="/student">Students</a>
-          <a href="/visit" class="w3-bar-item w3-button">Visits</a>
-          <a href="/major" class="w3-bar-item w3-button">Majors</a>
-          <a href="/sports" class="w3-bar-item w3-button">Sports</a>
-          <a href="/browser" class="w3-bar-item w3-button">Browser Registration</a>
-          <a href="/staff/<%= userId %>/edit" class="w3-bar-item w3-button">Profile</a>
-          <a href="/logout" class="w3-bar-item w3-button">Log out</a>
-      </div>
+    <% if ( session.role === "staff" ) { %>
+    <div class="topnav w3-bar w3-red w3-mobile">
+        <a href="/visit" class="w3-bar-item w3-button">Visits</a>
+        <a href="/major" class="w3-bar-item w3-button">Majors</a>
+        <a href="/sport" class="w3-bar-item w3-button">Sports</a>
+        <a href="/browser/register" class="w3-bar-item w3-button">Browser Registration</a>
+        <a href="/staff/<%= session.userId %>/edit" class="w3-bar-item w3-button">Profile</a>
+        <a href="/logout" class="w3-bar-item w3-button">Log out</a>
+    </div>
     <% } %>
 
-    <% if ( role === "student" ) { %>
-      <div class="topnav w3-bar w3-red w3-mobile">
-          <a href="/student/<%= userId %>/edit" class="w3-bar-item w3-button">Profile</a>
-          <a href="/logout" class="w3-bar-item w3-button">Log out</a>
-      </div>
-      <%- include("../include/logoutTimer.html"); -%>
+    <% if ( session.role === "student" ) { %>
+    <div class="topnav w3-bar w3-red w3-mobile">
+        <a href="/student/<%= session.userId %>/edit" class="w3-bar-item w3-button">Profile</a>
+        <a href="/logout" class="w3-bar-item w3-button">Log out</a>
+    </div>
+    <%- include("../include/logoutTimer.html"); -%>
     <% } %>
-  <% } %>
+    <% } %>
 
-  <style>
-    .animate-fade-out {
-      animation-direction: reverse; 
-      animation-fill-mode: forwards;
-        animation-duration: 8s;
-    }
-  </style>
-  
-  
-  <% if (typeof banner !== "undefined") { %>
-  <div class = "w3-panel w3-green w3-display-container w3-animate-opacity animate-fade-out">
-  <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">&times;</span>
-  <p><%= banner %></p>
-  </div>
+    <style>
+        .animate-fade-out {
+            animation-direction: reverse;
+            animation-fill-mode: forwards;
+            animation-duration: 8s;
+        }
 
-  <% } %>
-        <p><%- body %></p>
+    </style>
+
+    <% if (typeof session.banner !== "undefined") { %>
+    <div class="w3-panel w3-green w3-display-container w3-animate-opacity animate-fade-out">
+        <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">&times;</span>
+        <p><%= session.banner %></p>
+    </div>
+
+    <% } 
+    session.banner = undefined; %>
+
+    <p>
+        <%- body %>
+    </p>
 
     <!--
         Client-side Templates
@@ -152,13 +156,15 @@
 
     <!--SCRIPTS-->
     <script src="/js/logoutTimer.js"></script>
+    <script src="/js/preventMultiSubmit.js"></script>
     <!--SCRIPTS END-->
-    
-  <% if (typeof role !== "undefined" && role === "student") { %>
-      <script>
+
+    <% if (typeof session.role !== "undefined" && session.role === "student") { %>
+    <script>
         setLogoutTimer();
-      </script>
-  <% } %>
+
+    </script>
+    <% } %>
 </body>
 
 </html>

@@ -15,10 +15,6 @@ module.exports = {
 
     candidateKey: "username",
 
-    successMessages: {
-        update: "Your staff profile was updated."
-    },
-
     beforeUpdate: async function (valuesToSet, proceed) {
         valuesToSet.forceUpdate = false;
         return proceed();

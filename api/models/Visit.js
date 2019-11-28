@@ -18,6 +18,9 @@ module.exports = {
             type: "ref",
             columnType: "datetime"
         },
+        location: {
+            type: "string"
+        },
         length: {
             type: "number",
             required: false,
@@ -51,11 +54,6 @@ module.exports = {
             allowNull: false,
             defaultsTo: false
         },
-    },
-
-    successMessages: {
-        create: "You are now checked in. Please remember to check out before you leave.",
-        update: "You are now checked out. Thanks for visiting Naylor Learning Center."
     },
 
     // Define the model's one to many association.
@@ -142,6 +140,7 @@ module.exports = {
                     student: Student.testRecords[iStudent].id,
                     checkInTime: new Date(`2018-${iVisit}-${iVisit} ${iVisit}:${iVisit}`),
                     checkOutTime: new Date(`2018-${iVisit}-${iVisit} ${2 * iVisit}:${iVisit}`),
+                    location: `TEST LOCATION`,
                     length: iVisit,
                     purpose: `OLD CLOSED VISIT`,
                     purposeAchieved: Visit.attributes.purposeAchieved.validations.isIn[iVisit % Visit.attributes.purposeAchieved.validations.isIn.length],
@@ -159,11 +158,13 @@ module.exports = {
             let yesterday = {
                 student: Student.testRecords[iStudent].id,
                 checkInTime: new Date(sails.helpers.getCurrentTime() - oneDay),
+                location: `TEST LOCATION`,
                 purpose: "VISIT OPENED YESTERDAY"
             };
             let today = {
                 student: Student.testRecords[iStudent].id,
                 checkInTime: new Date(sails.helpers.getCurrentTime() - (oneHour * (.5 * iStudent))),
+                location: `TEST LOCATION`,
                 purpose: "VISIT OPENED TODAY"
             };
             if (iStudent === 2 || iStudent === 7) {
@@ -185,6 +186,7 @@ module.exports = {
  * @property {Student} student - The associated student record.
  * @property {ref} checkInTime - A reference to createdAt formated in UTC.
  * @property {ref} checkOutTime - A timestamp in UTC used to calculate length, defaults to '0000-00-00 00:00:00'.
+ * @property {string} location - An identifier for the browser that the student used to check in.
  * @property {number} length - The number of hours, to the nearest quarter hour, the student was at the NLC. The difference between the checkOutTime and CheckInTime.
  * @property {string} purpose - The reason the student visited the NLC.
  * @property {string} purposeAchieved - Did the student accomplish their goal this visit.

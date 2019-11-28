@@ -22,10 +22,6 @@ module.exports = {
 
     candidateKey: "username",
 
-    successMessages: {
-        update: "Your student profile was updated."
-    },
-
     beforeUpdate: async function (valuesToSet, proceed) {
         valuesToSet.forceUpdate = false;
         return proceed();

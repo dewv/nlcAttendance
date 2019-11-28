@@ -1,11 +1,3 @@
-/**
- * @name sails&period;helpers&period;getDomains
- * @description Provides domain values for each relevant model attribute, based on association or validations.
- * @function
- * @argument {Model} model - A Sails model whose relevant attributes are keys in the result dictionary.
- * @return {Object} A dictionary where keys are the model's relevant attributes, and values are arrays of domain value strings.
- * @async
- */
 module.exports = {
     friendlyName: "Get domains",
 
@@ -16,6 +8,11 @@ module.exports = {
             description: "A Sails model whose relevant attributes are keys in the result dictionary.",
             type: "ref",
             required: true
+        },
+        recordToUpdate: {
+            description: "A record whose values should be selected in the update form",
+            type: "ref",
+            required: false
         }
     },
 
@@ -26,20 +23,20 @@ module.exports = {
     },
 
     fn: async function (inputs, exits) {
-        let result = {};
+        let domains = {};
         if (inputs.model.domainDefined) {
             for (let property in inputs.model.domainDefined) {
-                result[property] = {};
-                if (inputs.model.inputRequired[property]) { result[property].inputRequired = true; }
+                domains[property] = { options: [] };
+                if (inputs.model.inputRequired[property]) { domains[property].inputRequired = true; }
                 /* istanbul ignore else */
                 if (sails.helpers.isAssociation(inputs.model, property)) {
-                    result[property].options = await sails.models[inputs.model.attributes[property].model].find().sort("name ASC");
+                    domains[property].options = await sails.models[inputs.model.attributes[property].model].find().sort("name ASC");
                 }
                 else if (inputs.model.attributes[property].validations &&
                     inputs.model.attributes[property].validations.isIn) {
-                    result[property].options = [];
+                    // domains[property].options = [];
                     for (let i = 0; i < inputs.model.attributes[property].validations.isIn.length; i++) {
-                        result[property].options.push({ name: inputs.model.attributes[property].validations.isIn[i] });
+                        domains[property].options.push({ name: inputs.model.attributes[property].validations.isIn[i] });
                     }
                 }
                 else {
@@ -47,7 +44,20 @@ module.exports = {
                 }
             }
         }
-        // Send back the result through the success exit.
+
+        let result = {};
+        for (let domain in domains) {
+            let selected = undefined;
+            if (inputs.recordToUpdate && inputs.recordToUpdate[domain]) {
+                if (inputs.recordToUpdate[domain].name) {
+                    selected = inputs.recordToUpdate[domain].name;
+                } else {
+                    selected = inputs.recordToUpdate[domain];
+                }
+            }
+            result[domain] = await sails.helpers.generateHtmlSelect(domain, domains[domain], selected);
+        }
+
         return exits.success(result);
     }
 };

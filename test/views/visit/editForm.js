@@ -2,10 +2,10 @@ require("should");
 const ejs = require("ejs");
 const ViewTests = require("../Views");
 
-describe("Visit Views", function() {
-    const pathToView = "pages/visit/editForm";
+describe("Visit Views", function () {
+    const pathToView = "pages/visit/updateForm";
 
-    context("The edit form", async function() {
+    context("The update form", async function () {
 
         let expectedData = {
             name: { id: "1" },
@@ -25,28 +25,28 @@ describe("Visit Views", function() {
             action: "/visit",
         };
         // Generate the view
-        ejs.renderFile("views/" + pathToView + ".html", ejsData, function(error, result) {
+        ejs.renderFile("views/" + pathToView + ".html", ejsData, function (error, result) {
             if (error) {
                 console.log("Error Rendering File: ", JSON.stringify(error));
             }
             let checkFor = new ViewTests(result);
 
-            it("should include select options to edit the question of goal/purpose accomplished", function(done) {
+            it("should include select options to edit the question of goal/purpose accomplished", function (done) {
                 checkFor.formSelectOption("purposeAchieved", expectedData.purposeAchieved).should.be.true();
                 done();
             });
-            
-            it("should include a text input to edit the tutorCourses", function(done) {
+
+            it("should include a text input to edit the tutorCourses", function (done) {
                 checkFor.formInputText("tutorCourses", expectedData.tutorCourses).should.be.true();
                 done();
             });
 
-            it("should include a text area for comments of the visit", function(done) {
+            it("should include a text area for comments of the visit", function (done) {
                 checkFor.formTextArea("comment", expectedData.comment).should.be.true();
                 done();
             });
 
-            it("should include a submit button to send the form", function(done) {
+            it("should include a submit button to send the form", function (done) {
                 checkFor.formButton("submitButton").should.be.true();
                 done();
             });

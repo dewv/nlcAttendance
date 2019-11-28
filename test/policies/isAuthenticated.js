@@ -18,7 +18,7 @@ let getUrls = [
     "/student/0/edit",
     "/staff/0/edit",
     "/visit/new",
-    "/browser"
+    "/browser/register"
 ];
 
 // This is valid test login credentials.
@@ -43,26 +43,26 @@ let getOptions = {
     method: "GET"
 };
 
-describe("`isAuthenticated` policy", function() {
-    it("should complete unauthenticated requests for `/login`", function() {
+describe("`isAuthenticated` policy", function () {
+    it("should complete unauthenticated requests for `/login`", function () {
         getOptions.path = loginPath;
-        let request = http.request(getOptions, function(response) {
+        let request = http.request(getOptions, function (response) {
             response.statusCode.should.equal(status.OK);
         });
         request.end();
 
         postOptions.path = loginPath;
-        request = http.request(postOptions, function(response) {
+        request = http.request(postOptions, function (response) {
             response.statusCode.should.equal(status.FOUND);
         });
         request.write(postData);
         request.end();
     });
 
-    it("should redirect all other unauthenticated requests to `/login`", function() {
+    it("should redirect all other unauthenticated requests to `/login`", function () {
         for (let url of getUrls) {
             getOptions.path = url;
-            let request = http.request(getOptions, function(response) {
+            let request = http.request(getOptions, function (response) {
                 response.statusCode.should.equal(status.FOUND);
                 response.headers.location.should.equal(loginPath);
             });
@@ -71,7 +71,7 @@ describe("`isAuthenticated` policy", function() {
 
         for (let url of postUrls) {
             postOptions.path = url;
-            let request = http.request(postOptions, function(response) {
+            let request = http.request(postOptions, function (response) {
                 response.statusCode.should.equal(status.FOUND);
                 response.headers.location.should.equal(loginPath);
             });
