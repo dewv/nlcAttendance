@@ -5,14 +5,14 @@
 require("should");
 const helperIntegrationTests = require("./_helpers");
 
-describe("Student model", function() {
+describe("Student model", function () {
     let testData = {
         associations: {},
         record: {}
     };
 
     // Before tests run ...
-    before(async function() {
+    before(async function () {
 
         // Create main test record, with associations in place
         testData.record = Student.testRecords[1];
@@ -20,15 +20,16 @@ describe("Student model", function() {
         testData.associations.springSport = await SpringSport.findOne({ id: testData.record.springSport });
         testData.associations.majorOne = await Major.findOne({ id: testData.record.majorOne });
         testData.associations.majorTwo = await Major.findOne({ id: testData.record.majorTwo });
+        testData.associations.slpInstructor = await Staff.findOne({ id: testData.record.slpInstructor });
 
     });
 
     // Run helper integration tests
     helperIntegrationTests("student", testData);
 
-    context("A data record returned by `create()`", function() {
+    context("A data record returned by `create()`", function () {
 
-        it("should have correct default field values", function() {
+        it("should have correct default field values", function () {
             testData.record.forceUpdate.should.be.true();
         });
     });

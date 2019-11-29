@@ -20,8 +20,14 @@ module.exports = {
     fn: async function (inputs, exits) {
         let request = this.req;
         if (request.session.role !== "staff") throw "unauthorized";
+        let modelName = "major";
 
-        await sails.helpers.recordCreate("major", request.body);
+        try {
+            await sails.helpers.recordCreate(modelName, request.body);
+        } catch (error) {
+            request.session.banner = error.message;
+        }
+
         return exits.success("/major");
     }
 };

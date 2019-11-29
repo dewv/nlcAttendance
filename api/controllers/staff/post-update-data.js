@@ -21,9 +21,15 @@ module.exports = {
         let request = this.req;
         // eslint-disable-next-line eqeqeq
         if (request.session.role !== "staff" || request.params.id != request.session.userId) throw "unauthorized";
+        let modelName = "staff";
 
-        await sails.helpers.recordUpdate("staff", request.params.id, request.body);
-        request.session.banner = "Your staff profile was updated.";
+        try {
+            await sails.helpers.recordUpdate(modelName, request.params.id, request.body);
+            request.session.banner = "Your staff profile was updated.";
+        } catch (error) {
+            request.banner.message = error.message;
+        }
+
         return exits.success(request.session.nextUrl);
     }
 };

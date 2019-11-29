@@ -9,6 +9,7 @@ module.exports = {
         username: { type: "string", required: true, allowNull: false, unique: true },
         firstName: { type: "string", required: true, allowNull: false },
         lastName: { type: "string", required: true, allowNull: false },
+        name: { type: "string", allowNull: true },
         isSlpInstructor: { type: "boolean", allowNull: "false", defaultsTo: false },
         forceUpdate: { type: "boolean", defaultsTo: true }
     },
@@ -37,6 +38,7 @@ module.exports = {
                 username: `STAFFUSERNAME${i + 1}@DEWV.NET`,
                 firstName: `STAFFFIRSTNAME${i + 1}`,
                 lastName: `STAFFLASTNAME${i + 1}`,
+                name: `STAFFFIRSTNAME${i + 1} STAFFLASTNAME${i + 1}`,
                 isSlpInstructor: i % 2 === 0,
                 forceUpdate: i === 4 ? false : Staff.attributes.forceUpdate.defaultsTo
             }).fetch());

@@ -21,14 +21,19 @@ module.exports = {
         let request = this.req;
         // eslint-disable-next-line eqeqeq
         if (request.session.role !== "student" || request.params.id != request.session.userId) throw "unauthorized";
+        let modelName = "student";
 
-        await sails.helpers.recordUpdate("student", request.params.id, request.body);
-        request.session.forceProfileUpdate = false;
+        try {
+            await sails.helpers.recordUpdate(modelName, request.params.id, request.body);
+            request.session.banner = "Your student profile was updated.";
+            request.session.forceProfileUpdate = false;
+        } catch (error) {
+            request.banner.message = error.message;
+        }
 
         if (request.session.visit.checkOutTime) request.session.nextUrl = "/visit/new";
         else request.session.nextUrl = `/visit/${request.session.visit.id}/edit`;
 
-        request.session.banner = "Your student profile was updated.";
         return exits.success(request.session.nextUrl);
     }
 };

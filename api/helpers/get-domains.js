@@ -30,7 +30,7 @@ module.exports = {
                 if (inputs.model.inputRequired[property]) { domains[property].inputRequired = true; }
                 /* istanbul ignore else */
                 if (sails.helpers.isAssociation(inputs.model, property)) {
-                    domains[property].options = await sails.models[inputs.model.attributes[property].model].find().sort("name ASC");
+                    domains[property].options = await sails.models[inputs.model.attributes[property].model].find()/*.sort("name ASC")*/;
                 }
                 else if (inputs.model.attributes[property].validations &&
                     inputs.model.attributes[property].validations.isIn) {

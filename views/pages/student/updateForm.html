@@ -1,54 +1,61 @@
+<div class="w3-row w3-container w3-display-middle w3-center w3-border w3-red w3-round w3-border-black"
+    style="width:25%">
+    <form method="POST" action="<%= action %>">
+        <div>
+            <h2>User Profile</h2>
+        </div>
+        <div class="w3-margin">
+            <div>
+                <label for="firstName" value="First Name">*First name</label>
+                <input class="w3-input" id="firstName" name="firstName" type="text" placeholder="First Name" autofocus
+                    maxlength="255" required value="<%= formData.firstName %>">
+            </div>
 
-<div class="w3-row w3-container w3-display-middle w3-center w3-border w3-red w3-round w3-border-black" style="width:25%">
-<form method="POST" action="<%= action %>" >
-  <div>
-    <h2>User Profile</h2>
-  </div>
-  <div class="w3-margin">
-    <div>
-      <label for="firstName" value="First Name">*First name</label>
-      <input class="w3-input" id="firstName" name="firstName" type="text"  placeholder="First Name" autofocus maxlength="255" required value="<%= formData.firstName %>" > 
-    </div>
-  
-    <div>
-      <label for="lastName" value="Last Name">*Last name</label>
-      <input class="w3-input" id="lastName" name="lastName" type="text" required value="<%= formData.lastName %>">
-    </div>
-  </div>
-    <div class="w3-select w3-border-0">
-      <label for="academicRank">*Academic Rank</label>
-      <%- academicRank %>
-    </div>
-    
-    <div class="w3-select w3-border-0">
-      <label for="residentialStatus">*Residential Status</label>
-      <%- residentialStatus %>
-    </div>
-    
-    <div class="w3-select w3-border-0">
-      <label for="majorOne">*Major 1</label>
-      <%- majorOne %>
-    </div>
-    
-    <div class="w3-select w3-border-0">
-      <label for="majorTwo">Major 2</label>
-      <%- majorTwo %>
-    </div>
-    
-    <div class="w3-select w3-border-0">
-      <label for="fallSport" class="sports">Fall sport</label>
-      <%- fallSport %>
-    </div>
+            <div>
+                <label for="lastName" value="Last Name">*Last name</label>
+                <input class="w3-input" id="lastName" name="lastName" type="text" required
+                    value="<%= formData.lastName %>">
+            </div>
+        </div>
+        <div class="w3-select w3-border-0">
+            <label for="academicRank">*Academic Rank</label>
+            <%- academicRank %>
+        </div>
 
-    <div class="w3-select w3-border-0">
-      <label for="springSport" id="springSports" class="sports">Spring sport</label>
-      <%- springSport %>
-    </div>
+        <div class="w3-select w3-border-0">
+            <label for="residentialStatus">*Residential Status</label>
+            <%- residentialStatus %>
+        </div>
 
-    <div class="button w3-padding-16">
-      <button class="w3-btn w3-white" id="submitButton" type="submit">Update</button>
-    </div>
-    
+        <div class="w3-select w3-border-0">
+            <label for="majorOne">*Major 1</label>
+            <%- majorOne %>
+        </div>
 
-</form>
+        <div class="w3-select w3-border-0">
+            <label for="majorTwo">Major 2</label>
+            <%- majorTwo %>
+        </div>
+
+        <div class="w3-select w3-border-0">
+            <label for="fallSport" class="sports">Fall sport</label>
+            <%- fallSport %>
+        </div>
+
+        <div class="w3-select w3-border-0">
+            <label for="springSport" id="springSports" class="sports">Spring sport</label>
+            <%- springSport %>
+        </div>
+
+        <div class="w3-select w3-border-0">
+            <label for="slpInstructor" id="slpInstructor">SLP Instructor</label>
+            <%- slpInstructor %>
+        </div>
+
+        <div class="button w3-padding-16">
+            <button class="w3-btn w3-white" id="submitButton" type="submit">Update</button>
+        </div>
+
+
+    </form>
 </div>

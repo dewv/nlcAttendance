@@ -18,7 +18,7 @@ describe("Student views", function () {
             residentialStatus: "Commuter",
             fallSport: { name: "fs1" },
             springSport: null,
-            slpInstructorName: "slpInstructorName"
+            slpInstructor: { name: "SLP Instructor" }
         };
 
         let ejsData = {
@@ -29,7 +29,8 @@ describe("Student views", function () {
             majorOne: `<select id="majorOne"><option value="mo1">mo1</option> <option value="${expectedData.majorOne.name}" selected>${expectedData.majorOne.name}</option> <option value="mo3">mo3</option> </select>`,
             majorTwo: `<select id="majorTwo"><option value="mt1">mt1</option> <option value="mt2">mt2</option> <option value="mt3">mt3</option> </select>`,
             residentialStatus: `<select id="residentialStatus"><option value="Commuter">Commuter</option> <option value="On campus">On campus</option> </select>`,
-            academicRank: `<select id="academicRank"><option value="Freshman">Freshman</option> <option value="Sophomore">Sophomore</option> <option value="Junior">Junior</option> <option value="Senior">Senior</option> </select>`
+            academicRank: `<select id="academicRank"><option value="Freshman">Freshman</option> <option value="Sophomore">Sophomore</option> <option value="Junior">Junior</option> <option value="Senior">Senior</option> </select>`,
+            slpInstructor: `<select id="slpInstructor"><option value="${expectedData.slpInstructor.name}" selected>${expectedData.slpInstructor.name}</option> <option value="slp2">slp2</option> </select>`,
         };
 
         // Generate the view
@@ -60,12 +61,12 @@ describe("Student views", function () {
                 done();
             });
 
-            it("should include select options to edit the Major One", function (done) {
+            it("should include select options to edit the first major", function (done) {
                 checkFor.formSelectOption("majorOne").should.be.true();
                 done();
             });
 
-            it("should include select options to edit the major Two", function (done) {
+            it("should include select options to edit the second major", function (done) {
                 checkFor.formSelectOption("majorTwo").should.be.true();
                 done();
             });
@@ -77,6 +78,11 @@ describe("Student views", function () {
 
             it("should include select options to edit the spring sport", function (done) {
                 checkFor.formSelectOption("springSport").should.be.true();
+                done();
+            });
+
+            it("should include select options to edit the SLP instructor", function (done) {
+                checkFor.formSelectOption("slpInstructor").should.be.true();
                 done();
             });
 

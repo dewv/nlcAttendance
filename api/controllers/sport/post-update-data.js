@@ -30,7 +30,12 @@ module.exports = {
         else if (request.params.season === "spring") modelName = "springsport";
         else throw "invalidSeason";
 
-        await sails.helpers.recordUpdate(modelName, request.params.id, request.body);
+        try {
+            await sails.helpers.recordUpdate(modelName, request.params.id, request.body);
+        } catch (error) {
+            request.banner.message = error.message;
+        }
+
         return exits.success("/sport");
     }
 };

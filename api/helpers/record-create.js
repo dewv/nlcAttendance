@@ -19,13 +19,18 @@ module.exports = {
     exits: {
         success: {
             description: "A new data record was created."
+        },
+        duplicate: {
+            description: "You may not create a duplicate record."
         }
     },
 
     fn: async function (inputs, exits) {
         let model = sails.models[inputs.model];
         let encodedData = await sails.helpers.encodeAssociations(model, inputs.data);
-        await model.create(encodedData);
+        await model.create(encodedData).intercept("E_UNIQUE", function () {
+            return "duplicate";
+        });
         return exits.success();
     }
 };

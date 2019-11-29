@@ -17,7 +17,8 @@ module.exports = {
         residentialStatus: { type: "string", required: false, allowNull: true, isIn: ["On campus", "Commuter"] },
         fallSport: { model: "FallSport" },
         springSport: { model: "SpringSport" },
-        forceUpdate: { type: "boolean", defaultsTo: true }
+        forceUpdate: { type: "boolean", defaultsTo: true },
+        slpInstructor: { model: "Staff" },
     },
 
     candidateKey: "username",
@@ -36,7 +37,8 @@ module.exports = {
         majorTwo: true,
         residentialStatus: true,
         fallSport: true,
-        springSport: true
+        springSport: true,
+        slpInstructor: true
     },
 
     /** 
@@ -95,7 +97,8 @@ module.exports = {
                 residentialStatus: i === 0 ? null : Student.attributes.residentialStatus.validations.isIn[i % Student.attributes.residentialStatus.validations.isIn.length],
                 fallSport: i === 0 ? null : ids.fallSport[i],
                 springSport: i === 0 ? null : ids.springSport[i],
-                forceUpdate: Student.attributes.forceUpdate.defaultsTo
+                forceUpdate: Student.attributes.forceUpdate.defaultsTo,
+                slpInstructor: i === 0 ? null : 1
             }).fetch());
         }
         for (let i = 0; i < recordCount; i++) {
@@ -109,7 +112,8 @@ module.exports = {
                 residentialStatus: i === 0 ? null : Student.attributes.residentialStatus.validations.isIn[i % Student.attributes.residentialStatus.validations.isIn.length],
                 fallSport: i === 0 ? null : ids.fallSport[i],
                 springSport: i === 0 ? null : ids.springSport[i],
-                forceUpdate: false
+                forceUpdate: false,
+                slpInstructor: i === 0 ? null : 1
             }).fetch());
         }
     }

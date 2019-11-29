@@ -24,6 +24,9 @@ module.exports = {
     exits: {
         success: {
             description: "The existing data record was updated."
+        },
+        duplicate: {
+            description: "Your update failed because it would have resulted in duplicate records."
         }
     },
 
@@ -33,7 +36,9 @@ module.exports = {
 
         await model.updateOne({
             id: inputs.id
-        }).set(encodedData);
+        }).set(encodedData).intercept("E_UNIQUE", function () {
+            return "duplicate";
+        });
 
         return exits.success();
     }

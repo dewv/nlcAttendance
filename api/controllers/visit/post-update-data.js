@@ -37,9 +37,15 @@ module.exports = {
         if (!request.cookies.location) throw { unregisteredBrowser: profileUrl };
         if (request.session.forceProfileUpdate) throw { mustUpdateProfile: profileUrl };
         if (request.session.visit.checkOutTime) throw "alreadyCheckedOut";
+        let modelName = "visit";
 
-        await sails.helpers.recordUpdate("visit", request.params.id, request.body);
-        request.session.banner = "You are now checked out. Thanks for visiting Naylor Learning Center.";
+        try {
+            await sails.helpers.recordUpdate(modelName, request.params.id, request.body);
+            request.session.banner = "You are now checked out. Thanks for visiting Naylor Learning Center.";
+        } catch (error) {
+            request.banner.message = error.message;
+        }
+
         return exits.success("/logout");
     }
 };
