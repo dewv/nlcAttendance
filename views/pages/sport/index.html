@@ -11,7 +11,7 @@
             <thead>
                 <tr>
                     <th class="w3-center">Fall Sport</th>
-                    <th class="w3-center">Discontinued?</th>
+                    <th class="w3-center">Discontinued</th>
                 </tr>
             </thead>
 
@@ -24,14 +24,14 @@
                     </td>
                     <td>
                         <form class="w3-center" method="POST" action="/sport/fall/<%= fallsport.id %>">
-                            <% if(fallsport.discontinued === "Yes") { %>
+                            <% if (fallsport.discontinued === "Yes") { %>
                             <input type="hidden" name="discontinued" value="No" />
-                            <button class="w3-btn w3-white w3-padding-small" type="submit" id="Y<%= count %>"><img
-                                    alt="Yes" src="/images/check.png" /></button>
+                            <button class="w3-red" style="border: none;" type="submit" id="Y<%= count %>"><i
+                                    class="fa fa-check-square" style="font-size: 150%; color: white"></i></button>
                             <% } else { %>
                             <input type="hidden" name="discontinued" value="Yes" />
-                            <button class="w3-btn w3-white w3-padding-small" type="submit" id="N<%= count %>"><img
-                                    alt="No" src="/images/x.png" /></button>
+                            <button class="w3-red" style="border: none;" type="submit" id="N<%= count %>">
+                                <i class="fa fa-square" style="font-size: 150%; color:white;"></i></button>
                             <% } %>
                         </form>
                     </td>
@@ -51,7 +51,7 @@
             <thead>
                 <tr>
                     <th class="w3-center">Spring Sport</th>
-                    <th class="w3-center">Discontinued?</th>
+                    <th class="w3-center">Discontinued</th>
                 </tr>
             </thead>
 
@@ -63,14 +63,14 @@
                     </td>
                     <td>
                         <form class="w3-center" method="POST" action="/sport/spring/<%= springsport.id %>">
-                            <% if(springsport.discontinued === "Yes") { %>
+                            <% if (springsport.discontinued === "Yes") { %>
                             <input type="hidden" name="discontinued" value="No" />
-                            <button class="w3-btn w3-white w3-padding-small" type="submit" id="Yes<%= count %>"><img
-                                    alt="Yes" src="/images/check.png" /></button>
+                            <button class="w3-red" style="border: none;" type="submit" id="Yes<%= count %>"><i
+                                    class="fa fa-check-square" style="font-size: 150%; color: white"></i></button>
                             <% } else { %>
                             <input type="hidden" name="discontinued" value="Yes" />
-                            <button class="w3-btn w3-white w3-padding-small" type="submit" id="No<%= count %>"><img
-                                    alt="No" src="/images/x.png" /></button>
+                            <button class="w3-red" style="border: none;" type="submit" id="No<%= count %>">
+                                <i class="fa fa-square" style="font-size: 150%; color:white;"></i></button>
                             <% } %>
                         </form>
                     </td>

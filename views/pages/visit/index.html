@@ -28,7 +28,7 @@
                 <th>Check In</th>
                 <th>Check Out</th>
                 <th>Visit Length</th>
-                <th>Estimated Length?</th>
+                <th>Length Estimated?</th>
                 <th>Purpose of Visit</th>
                 <th>Purpose Achieved?</th>
                 <th>Comments</th>
@@ -56,7 +56,7 @@
                     <%= visit.length %>
                 </td>
                 <td>
-                    <%= visit.isLengthEstimated %>
+                    <%= visit.isLengthEstimated ? "Yes" : "No" %>
                 </td>
                 <td>
                     <%= visit.purpose %>

@@ -45,6 +45,6 @@ module.exports = {
             firstPass = false;
         }
 
-        return exits.success(response.set({ "Content-Type": "text/csv", "Content-Disposition": 'filename="visits.csv"' }).send(`${headings}\n${download}`));
+        return exits.success(response.set({ "Content-Type": "text/csv", "Content-Disposition": "filename=\"visits.csv\"" }).send(`${headings}\n${download}`));
     }
 };

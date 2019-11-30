@@ -37,8 +37,7 @@ module.exports = {
             isIn: ["Yes", "No", "Not sure"]
         },
         usedTutor: {
-            type: "string",
-            defaultsTo: "No"
+            type: "string"
         },
         tutorCourses: {
             type: "string",

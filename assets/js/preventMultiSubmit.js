@@ -2,7 +2,6 @@ function preventMultiSubmit() {
     var buttons = document.getElementsByTagName("BUTTON");
     for (var i = 0; i < buttons.length; i++) {
         if (buttons[i].type === "submit") {
-            buttons[i].innerHTML = "...";
             buttons[i].disabled = true;
         }
     }
