@@ -16,6 +16,11 @@ module.exports = {
             description: "A Sails model defining the associations, if any.",
             type: "ref",
             required: true
+        },
+        sort: {
+            description: "A Sails sortClause (https://sailsjs.com/documentation/reference/waterline-orm/queries/sort)",
+            type: "ref",
+            required: false
         }
     },
 
@@ -27,10 +32,11 @@ module.exports = {
 
     fn: async function (inputs, exits) {
         if (inputs.model.recordToAssociate) {
-            inputs.records = await inputs.model.find().populate(inputs.model.recordToAssociate);
+            inputs.records = await inputs.model.find().populate(inputs.model.recordToAssociate).sort(inputs.sort);
         } else {
-            inputs.records = await inputs.model.find();
+            inputs.records = await inputs.model.find().sort(inputs.sort);
         }
+
         return exits.success(inputs.records);
     }
 };

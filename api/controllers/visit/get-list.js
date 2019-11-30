@@ -27,7 +27,7 @@ module.exports = {
 
         let ejsData = {
             session: request.session,
-            records: await sails.helpers.getRecordList(model)
+            records: await sails.helpers.getRecordList(model, "id DESC")
         };
 
         return exits.success(ejsData);

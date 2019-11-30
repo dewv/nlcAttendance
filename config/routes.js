@@ -59,7 +59,8 @@ let routes = {
     "GET /visit/:id": { response: "badRequest" },
     "GET /visit/:id/edit": { controller: "visit", action: "get-update-form" },
     "POST /visit/:id": { controller: "visit", action: "post-update-data" },
-    "POST /visit/:id/delete": { response: "badRequest" }
+    "POST /visit/:id/delete": { response: "badRequest" },
+    "GET /visit/download": { controller: "visit", action: "download" }
 };
 
 module.exports.routes = routes;
