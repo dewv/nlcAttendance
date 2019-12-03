@@ -184,7 +184,7 @@ module.exports = {
     * > (For a full list, see https://sailsjs.com/plugins/sessions)            *
     *                                                                          *
     ***************************************************************************/
-        // adapter: '@sailshq/connect-redis',
+        adapter: '@sailshq/connect-redis',
         // url: 'redis://user:password@localhost:6379/databasenumber',
         //--------------------------------------------------------------------------
         // /\   OR, to avoid checking it in to version control, you might opt to
@@ -221,7 +221,7 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
         cookie: {
-            // secure: true,
+            secure: true,
             maxAge: 24 * 60 * 60 * 1000,  // 24 hours
         },
 
@@ -322,7 +322,7 @@ module.exports = {
     * (https://sailsjs.com/config/http)                                        *
     *                                                                          *
     ***************************************************************************/
-        // trustProxy: true,
+        trustProxy: true,
 
     },
 
