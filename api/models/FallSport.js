@@ -7,7 +7,7 @@
 module.exports = {
     attributes: {
         name: { type: "string", required: true, unique: true, },
-        discontinued: {type: "string", required: true, isIn: ["Yes", "No"]},
+        discontinued: {type: "string", defaultsTo: "No", isIn: ["Yes", "No"]},
     },
     
     candidateKey: "name",
@@ -24,6 +24,31 @@ module.exports = {
      */
     inputRequired: {
         discontinued: true,
+    },
+
+    /**
+     * Creates records for each fall sport
+     */
+    createData: async function() {
+        let fallSports = {
+            name: [
+                "Men's Basketball",
+                "Women's Basketball",
+                "Men's Cross Country",
+                "Women's Cross Country",
+                "Golf",
+                "Men's Soccer",
+                "Women's Soccer",
+                "Men's Swimming",
+                "Women's Swimming",
+                "Volleyball",
+                "Wrestling"
+            ]
+        };
+
+        for (let i = 0; i < fallSports.name.length(); i++) {
+            await FallSport.create({ name: fallSports.name[i],})
+        };
     },
 };
 

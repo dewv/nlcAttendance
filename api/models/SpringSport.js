@@ -7,7 +7,7 @@
 module.exports = {
     attributes: {
         name: { type: "string", required: true, unique: true,},
-        discontinued: {type: "string", required: true, isIn: ["Yes", "No"]},
+        discontinued: {type: "string", defaultsTo: "No", isIn: ["Yes", "No"]},
     },
     
     candidateKey: "name",
@@ -24,6 +24,26 @@ module.exports = {
      */
     inputRequired: {
         discontinued: true,
+    },
+
+    createData: async function() {
+        let springSports = {
+            name: [
+                "Acrobatics and Tumbling",
+                "Baseball",
+                "Men's Lacrosse",
+                "Women's Lacrosse",
+                "Softball",
+                "Men's Tennis",
+                "Women's Tennis",
+                "Track and Field",
+                "Triathlon"
+            ]
+        };
+
+        for (let i = 0; i < springSports.name.length(); i++) {
+            await SpringSport.create({ name: springSports.name[i],})
+        };
     },
 };
 
