@@ -27,23 +27,21 @@ module.exports = {
     },
 
     createData: async function() {
-        let springSports = {
-            name: [
-                "Acrobatics and Tumbling",
-                "Baseball",
-                "Men's Lacrosse",
-                "Women's Lacrosse",
-                "Softball",
-                "Men's Tennis",
-                "Women's Tennis",
-                "Track and Field",
-                "Triathlon"
-            ]
-        };
+        let springSports = [
+            "Acrobatics and Tumbling",
+            "Baseball",
+            "Men's Lacrosse",
+            "Women's Lacrosse",
+            "Softball",
+            "Men's Tennis",
+            "Women's Tennis",
+            "Track and Field",
+            "Triathlon",
+        ];
 
-        for (let i = 0; i < springSports.name.length(); i++) {
-            await SpringSport.create({ name: springSports.name[i],})
-        };
+        for (let i = 0; i < springSports.length; i++) {
+            await SpringSport.create({ name: springSports[i] });
+        }
     },
 };
 

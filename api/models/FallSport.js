@@ -30,25 +30,23 @@ module.exports = {
      * Creates records for each fall sport
      */
     createData: async function() {
-        let fallSports = {
-            name: [
-                "Men's Basketball",
-                "Women's Basketball",
-                "Men's Cross Country",
-                "Women's Cross Country",
-                "Golf",
-                "Men's Soccer",
-                "Women's Soccer",
-                "Men's Swimming",
-                "Women's Swimming",
-                "Volleyball",
-                "Wrestling"
-            ]
-        };
+        let fallSports = [
+            "Men's Basketball",
+            "Women's Basketball",
+            "Men's Cross Country",
+            "Women's Cross Country",
+            "Golf",
+            "Men's Soccer",
+            "Women's Soccer",
+            "Men's Swimming",
+            "Women's Swimming",
+            "Volleyball",
+            "Wrestling",
+        ];
 
-        for (let i = 0; i < fallSports.name.length(); i++) {
-            await FallSport.create({ name: fallSports.name[i],})
-        };
+        for (let i = 0; i < fallSports.length; i++) {
+            await FallSport.create({ name: fallSports[i] });
+        }
     },
 };
 

@@ -60,28 +60,6 @@ module.exports = {
         let recordCount = 5;
 
         // Associations
-        let ids = {
-            major: [],
-            fallSport: [],
-            springSport: []
-        };
-
-        for (let i = 0; i < recordCount; i++) {
-            ids.major[i] = await (
-                await Major.create({
-                    name: `MAJOR ${i + 1}`, discontinued: "No"
-                }).fetch()).id;
-
-            ids.fallSport[i] = await (
-                await FallSport.create({
-                    name: `FALL SPORT ${i + 1}`, discontinued: "No"
-                }).fetch()).id;
-
-            ids.springSport[i] = await (
-                await SpringSport.create({
-                    name: `SPRING SPORT ${i + 1}`, discontinued: "No"
-                }).fetch()).id;
-        }
 
         // Students. All but first have associations populated.
         for (let i = 0; i < recordCount; i++) {
@@ -90,11 +68,11 @@ module.exports = {
                 firstName: `FIRSTNAME${i + 1}`,
                 lastName: `LASTNAME${i + 1}`,
                 academicRank: i === 0 ? null : Student.attributes.academicRank.validations.isIn[i % Student.attributes.academicRank.validations.isIn.length],
-                majorOne: i === 0 ? null : ids.major[i],
-                majorTwo: i === 0 ? null : ids.major[(i + 1) % recordCount],
+                majorOne: i + 1,
+                majorTwo: i + 4,
                 residentialStatus: i === 0 ? null : Student.attributes.residentialStatus.validations.isIn[i % Student.attributes.residentialStatus.validations.isIn.length],
-                fallSport: i === 0 ? null : ids.fallSport[i],
-                springSport: i === 0 ? null : ids.springSport[i],
+                fallSport: i + 1,
+                springSport: i + 1,
                 forceUpdate: Student.attributes.forceUpdate.defaultsTo
             }).fetch());
         }
@@ -104,11 +82,11 @@ module.exports = {
                 firstName: `NoUpdateFirst${i + 1}`,
                 lastName: `NoUpdateLast${i + 1}`,
                 academicRank: i === 0 ? null : Student.attributes.academicRank.validations.isIn[i % Student.attributes.academicRank.validations.isIn.length],
-                majorOne: i === 0 ? null : ids.major[i],
-                majorTwo: i === 0 ? null : ids.major[(i + 1) % recordCount],
+                majorOne: i + 1,
+                majorTwo: i + 4,
                 residentialStatus: i === 0 ? null : Student.attributes.residentialStatus.validations.isIn[i % Student.attributes.residentialStatus.validations.isIn.length],
-                fallSport: i === 0 ? null : ids.fallSport[i],
-                springSport: i === 0 ? null : ids.springSport[i],
+                fallSport: i + 1,
+                springSport: i + 1,
                 forceUpdate: false
             }).fetch());
         }
