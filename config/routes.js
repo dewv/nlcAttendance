@@ -27,12 +27,6 @@ let routes = {
     "GET /sport/:season/:id/edit": { response: "badRequest" },
     "POST /sport/:season/:id": { controller: "sport", action: "post-update-data" },
     "POST /sport/:season/:id/delete": { response: "badRequest" },
-    // "GET r|^/(\\w+)sport/new$|season": { controller: "sport", action: "get-create-form" },
-    // "POST r|^/(\\w+)sport$|season": { controller: "sport", action: "post-create-data" },
-    // "GET r|^/(\\w+)sport/(\\d+)$|season,id": { response: "badRequest" },
-    // "GET r|^/(\\w+)sport/(\\d+)/edit$|season,id": { response: "badRequest" },
-    // "POST r|^/(\\w+)sport/(\\d+)$|season,id": { controller: "sport", action: "post-update-data" },
-    // "POST r|^/(\\w+)sport/(\\d+)/delete$|season,id": { response: "badRequest" },
 
     // Staff 
     "GET /staff/new": { response: "badRequest" },

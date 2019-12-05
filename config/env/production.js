@@ -184,7 +184,7 @@ module.exports = {
     * > (For a full list, see https://sailsjs.com/plugins/sessions)            *
     *                                                                          *
     ***************************************************************************/
-        adapter: '@sailshq/connect-redis',
+        adapter: "@sailshq/connect-redis",
         // url: 'redis://user:password@localhost:6379/databasenumber',
         //--------------------------------------------------------------------------
         // /\   OR, to avoid checking it in to version control, you might opt to
@@ -371,8 +371,8 @@ module.exports = {
   *                                                                         *
   ***************************************************************************/
     custom: {
-        baseUrl: "https://example.com",
-        internalEmailAddress: "support@example.com",
+        baseUrl: "/nlc_attendance",
+        // internalEmailAddress: "support@example.com",
         // mailgunDomain: 'mg.example.com',
         // mailgunSecret: 'key-prod_fake_bd32301385130a0bafe030c',
         // stripeSecret: 'sk_prod__fake_Nfgh82401348jaDa3lkZ0d9Hm',
@@ -390,6 +390,8 @@ module.exports = {
 
     },
 
-
+    views: {
+        locals: { baseUrl: "/nlc_attendance" }
+    }
 
 };

@@ -20,6 +20,7 @@ describe("Visit Views", function () {
         };
 
         let ejsData = {
+            baseUrl: "",
             formData: expectedData,
             purposeAchieved: `<select id="purposeAchieved"><option value="Yes">Yes</option> <option value="No" selected>No</option> <option value="Not sure">Not sure</option> </select>`,
             action: "/visit",

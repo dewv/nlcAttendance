@@ -7,7 +7,7 @@
         Naylor Learning Center
     </title>
 
-    <link rel="icon" type="image/x-icon" href="/DE_Logo.ico" />
+    <link rel="icon" type="image/x-icon" href="<%= baseUrl %>/DE_Logo.ico" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Viewport mobile tag for sensible mobile support -->
@@ -50,12 +50,13 @@
 
     <% if ( session.role === "staff" ) { %>
     <div class="topnav w3-bar w3-red w3-mobile">
-        <a href="/visit" class="w3-bar-item w3-button">Visits</a>
-        <a href="/major" class="w3-bar-item w3-button">Majors</a>
-        <a href="/sport" class="w3-bar-item w3-button">Sports</a>
-        <a href="/browser/register" class="w3-bar-item w3-button">Browser Registration</a>
-        <a href="/staff/<%= session.userId %>/edit" class="w3-bar-item w3-button">Profile</a>
-        <a href="/logout" class="w3-bar-item w3-button">Log out</a>
+        <a href="<%= baseUrl %>/visit" class="w3-bar-item w3-button">Visits</a>
+        <a href="<%= baseUrl %>/major" class="w3-bar-item w3-button">Majors</a>
+        <a href="<%= baseUrl %>/sport" class="w3-bar-item w3-button">Sports</a>
+        <a href="<%= baseUrl %>/browser/register" class="w3-bar-item w3-button">Browser
+            Registration</a>
+        <a href="<%= baseUrl %>/staff/<%= session.userId %>/edit" class="w3-bar-item w3-button">Profile</a>
+        <a href="<%= baseUrl %>/logout" class="w3-bar-item w3-button">Log out</a>
     </div>
     <% } %>
 

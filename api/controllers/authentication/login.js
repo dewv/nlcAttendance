@@ -23,14 +23,14 @@ module.exports = async function (request, response) {
 
     if (result instanceof ldap.InvalidCredentialsError) {
         request.session.banner = "Invalid username and/or password.";
-        return response.redirect("/logout");
+        return response.redirect(sails.config.custom.baseUrl + "/logout");
     } else if (result instanceof ldap.InsufficientAccessRightsError) {
         request.session.banner = "Sorry, you are not authorized to use this system.";
-        return response.redirect("/logout");
+        return response.redirect(sails.config.custom.baseUrl + "/logout");
     } else if (result instanceof ldap.UnavailableError) {
         sails.log.debug("appeal to security question");
         // LDAP is unavailable; appeal to security question
-        return response.redirect("/nonexistentSecurityQuestionUrl"); // TODO
+        return response.redirect(sails.config.custom.baseUrl + "/nonexistentSecurityQuestionUrl"); // TODO
     }
 
     for (const property in result) {

@@ -22,6 +22,7 @@ describe("Student views", function () {
         };
 
         let ejsData = {
+            baseUrl: "",
             formData: expectedData,
             action: "/student/0",
             fallSport: `<select id="fallSport"><option value="${expectedData.fallSport.name}" selected>${expectedData.fallSport.name}</option> <option value="fs2">fs2</option> </select>`,

@@ -4,7 +4,8 @@
     <div class="w3-row w3-container w3-left" style="width:50%">
         <div>
             <h2>Fall Sports</h2>
-            <a class="w3-btn w3-white w3-padding-small" href="/sport/fall/new">Add New Fall Sport</a>
+            <a class="w3-btn w3-white w3-padding-small" href="<%= baseUrl %>/sport/fall/new">Add New
+                Fall Sport</a>
         </div>
 
         <table class="w3-table" id="fallTable">
@@ -23,7 +24,8 @@
                         <%= fallsport.name %>
                     </td>
                     <td>
-                        <form class="w3-center" method="POST" action="/sport/fall/<%= fallsport.id %>">
+                        <form class="w3-center" method="POST"
+                            action="<%= baseUrl %>/sport/fall/<%= fallsport.id %>">
                             <% if (fallsport.discontinued === "Yes") { %>
                             <input type="hidden" name="discontinued" value="No" />
                             <button class="w3-red" style="border: none;" type="submit" id="Y<%= count %>"><i
@@ -44,7 +46,8 @@
     <div class="w3-row w3-container w3-right" style="width:50%">
         <div>
             <h2>Spring Sports</h2>
-            <a class="w3-btn w3-white w3-padding-small" href="/sport/spring/new">Add New Spring Sport</a>
+            <a class="w3-btn w3-white w3-padding-small" href="<%= baseUrl %>/sport/spring/new">Add
+                New Spring Sport</a>
         </div>
 
         <table class="w3-table" id="springTable">
@@ -62,7 +65,8 @@
                         <%= springsport.name %>
                     </td>
                     <td>
-                        <form class="w3-center" method="POST" action="/sport/spring/<%= springsport.id %>">
+                        <form class="w3-center" method="POST"
+                            action="<%= baseUrl %>/sport/spring/<%= springsport.id %>">
                             <% if (springsport.discontinued === "Yes") { %>
                             <input type="hidden" name="discontinued" value="No" />
                             <button class="w3-red" style="border: none;" type="submit" id="Yes<%= count %>"><i

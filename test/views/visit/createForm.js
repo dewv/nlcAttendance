@@ -13,6 +13,7 @@ describe("Visit Views", function () {
         };
 
         let ejsData = {
+            baseUrl: "",
             formData: expectedData,
             action: "/visit",
         };

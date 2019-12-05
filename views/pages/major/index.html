@@ -3,7 +3,8 @@
 
     <div>
         <h2>Majors</h2>
-        <a class="w3-btn w3-white w3-padding-small" href="/major/new">Add New Major</a>
+        <a class="w3-btn w3-white w3-padding-small" href="<%= baseUrl %>/major/new">Add New
+            Major</a>
     </div>
 
     <table class="w3-table" id="majorTable">
@@ -22,7 +23,8 @@
                     <%= major.name %>
                 </td>
                 <td>
-                    <form class="w3-center" method="POST" action="/major/<%= major.id %>">
+                    <form class="w3-center" method="POST"
+                        action="<%= baseUrl %>/major/<%= major.id %>">
                         <% if(major.discontinued === "Yes") { %>
                         <input type="hidden" name="discontinued" value="No" />
                         <button class="w3-red" style="border: none;" type="submit" id="Yes<%= count %>"><i

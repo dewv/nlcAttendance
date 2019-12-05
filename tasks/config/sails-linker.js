@@ -11,7 +11,9 @@
  *   https://sailsjs.com/anatomy/tasks/config/sails-linker.js
  *
  */
-module.exports = function(grunt) {
+module.exports = function (grunt) {
+
+    let devBaseUrl = "/nlc_attendance";
 
     grunt.config.set("sails-linker", {
 
@@ -57,7 +59,7 @@ module.exports = function(grunt) {
             options: {
                 startTag: "<!--SCRIPTS-->",
                 endTag: "<!--SCRIPTS END-->",
-                fileTmpl: "<script src=\"%s\"></script>",
+                fileTmpl: `<script src="${devBaseUrl}%s"></script>`,
                 appRoot: ".tmp/public"
             },
             files: {
@@ -128,7 +130,7 @@ module.exports = function(grunt) {
             options: {
                 startTag: "<!--STYLES-->",
                 endTag: "<!--STYLES END-->",
-                fileTmpl: "<link rel=\"stylesheet\" href=\"%s\">",
+                fileTmpl: `<link rel=\"stylesheet\" href="${devBaseUrl}%s">`,
                 appRoot: ".tmp/public"
             },
             files: {
