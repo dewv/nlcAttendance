@@ -49,13 +49,13 @@ module.exports = async function (request, response) {
     request.session.username = userProfile.username;
 
     if (request.session.role === "staff") {
-        request.session.nextUrl = "/visit";
+        request.session.nextUrl = `${sails.config.custom.baseUrl}/visit`;
     } else if (request.session.role === "student") {
         request.session.forceProfileUpdate = userProfile.forceUpdate;
         request.session.visit = await sails.helpers.getLatestVisit(request.session.userId);
-        if (request.session.forceProfileUpdate) request.session.nextUrl = `/student/${request.session.userId}/edit`;
-        else if (request.session.visit.checkOutTime) request.session.nextUrl = "/visit/new";
-        else request.session.nextUrl = `/visit/${request.session.visit.id}/edit`;
+        if (request.session.forceProfileUpdate) request.session.nextUrl = `${sails.config.custom.baseUrl}/student/${request.session.userId}/edit`;
+        else if (request.session.visit.checkOutTime) request.session.nextUrl = `${sails.config.custom.baseUrl}/visit/new`;
+        else request.session.nextUrl = `${sails.config.custom.baseUrl}/visit/${request.session.visit.id}/edit`;
     }
 
     return response.redirect(request.session.nextUrl);
