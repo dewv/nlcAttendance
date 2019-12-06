@@ -221,8 +221,7 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
         cookie: {
-            secure: true,
-            maxAge: 24 * 60 * 60 * 1000,  // 24 hours
+            // secure: true,
         },
 
     },
@@ -371,7 +370,6 @@ module.exports = {
   *                                                                         *
   ***************************************************************************/
     custom: {
-        baseUrl: "/nlc_attendance",
         // internalEmailAddress: "support@example.com",
         // mailgunDomain: 'mg.example.com',
         // mailgunSecret: 'key-prod_fake_bd32301385130a0bafe030c',
