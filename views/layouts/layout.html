@@ -37,9 +37,17 @@
             + Import stylesheets from other directories
             + Use a different or additional preprocessor, like SASS, SCSS or Stylus
     -->
+    <style>
+        .animate-fade-out {
+            animation-fill-mode: forwards;
+            animation-duration: 15s;
+        }
+
+    </style>
 
     <!--STYLES-->
-    <link rel="stylesheet" href="/nlc_attendance/min/production.min.css">
+    <link rel="stylesheet" href="/styles/w3-theme-red.css">
+    <link rel="stylesheet" href="/styles/w3.css">
     <!--STYLES END-->
 </head>
 
@@ -68,14 +76,6 @@
     <% } %>
     <% } %>
 
-    <style>
-        .animate-fade-out {
-            animation-fill-mode: forwards;
-            animation-duration: 15s;
-        }
-
-    </style>
-
     <% if (typeof session.banner !== "undefined") { %>
     <div class="w3-panel w3-green w3-display-container w3-animate-opacity animate-fade-out">
         <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">&times;</span>
@@ -85,9 +85,7 @@
     <% } 
     session.banner = undefined; %>
 
-    <p>
-        <%- body %>
-    </p>
+    <%- body %>
 
     <!--
         Client-side Templates
@@ -155,7 +153,8 @@
     -->
 
     <!--SCRIPTS-->
-    <script src="/nlc_attendance/min/production.min.js"></script>
+    <script src="/js/logoutTimer.js"></script>
+    <script src="/js/preventMultiSubmit.js"></script>
     <!--SCRIPTS END-->
 
     <% if (typeof session.role !== "undefined" && session.role === "student") { %>
