@@ -32,7 +32,7 @@ module.exports = {
         }
 
         if (request.session.visit.checkOutTime) request.session.nextUrl = "/visit/new";
-        else request.session.nextUrl = `/visit/${request.session.visit.id} /edit`;
+        else request.session.nextUrl = `/visit/${request.session.visit.id}/edit`;
 
         return exits.success(request.session.nextUrl);
     }
