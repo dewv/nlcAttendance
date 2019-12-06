@@ -23,14 +23,14 @@ module.exports = async function (request, response) {
 
     if (result instanceof ldap.InvalidCredentialsError) {
         request.session.banner = "Invalid username and/or password.";
-        return response.redirect(sails.config.custom.baseUrl + "/logout");
+        return response.redirect("/logout");
     } else if (result instanceof ldap.InsufficientAccessRightsError) {
         request.session.banner = "Sorry, you are not authorized to use this system.";
-        return response.redirect(sails.config.custom.baseUrl + "/logout");
+        return response.redirect("/logout");
     } else if (result instanceof ldap.UnavailableError) {
         sails.log.debug("appeal to security question");
         // LDAP is unavailable; appeal to security question
-        return response.redirect(sails.config.custom.baseUrl + "/nonexistentSecurityQuestionUrl"); // TODO
+        return response.redirect("/nonexistentSecurityQuestionUrl"); // TODO
     }
 
     for (const property in result) {
@@ -49,13 +49,13 @@ module.exports = async function (request, response) {
     request.session.username = userProfile.username;
 
     if (request.session.role === "staff") {
-        request.session.nextUrl = `${sails.config.custom.baseUrl}/visit`;
+        request.session.nextUrl = "/visit";
     } else if (request.session.role === "student") {
         request.session.forceProfileUpdate = userProfile.forceUpdate;
         request.session.visit = await sails.helpers.getLatestVisit(request.session.userId);
-        if (request.session.forceProfileUpdate) request.session.nextUrl = `${sails.config.custom.baseUrl}/student/${request.session.userId}/edit`;
-        else if (request.session.visit.checkOutTime) request.session.nextUrl = `${sails.config.custom.baseUrl}/visit/new`;
-        else request.session.nextUrl = `${sails.config.custom.baseUrl}/visit/${request.session.visit.id}/edit`;
+        if (request.session.forceProfileUpdate) request.session.nextUrl = `/student/${request.session.userId}/edit`;
+        else if (request.session.visit.checkOutTime) request.session.nextUrl = "/visit/new";
+        else request.session.nextUrl = `/visit/${request.session.visit.id}/edit`;
     }
 
     return response.redirect(request.session.nextUrl);

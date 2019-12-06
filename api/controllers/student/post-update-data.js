@@ -31,8 +31,8 @@ module.exports = {
             request.banner.message = error.message;
         }
 
-        if (request.session.visit.checkOutTime) request.session.nextUrl = `${sails.config.custom.baseUrl}/visit/new`;
-        else request.session.nextUrl = `${sails.config.custom.baseUrl}/visit/${request.session.visit.id} /edit`;
+        if (request.session.visit.checkOutTime) request.session.nextUrl = "/visit/new";
+        else request.session.nextUrl = `/visit/${request.session.visit.id} /edit`;
 
         return exits.success(request.session.nextUrl);
     }

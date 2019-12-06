@@ -13,7 +13,7 @@
  */
 module.exports = function (grunt) {
 
-    let devBaseUrl = "/nlc_attendance";
+    let prodBaseUrl = "/nlc_attendance";
 
     grunt.config.set("sails-linker", {
 
@@ -59,7 +59,7 @@ module.exports = function (grunt) {
             options: {
                 startTag: "<!--SCRIPTS-->",
                 endTag: "<!--SCRIPTS END-->",
-                fileTmpl: `<script src="${devBaseUrl}%s"></script>`,
+                fileTmpl: `<script src="${prodBaseUrl}%s"></script>`,
                 appRoot: ".tmp/public"
             },
             files: {
@@ -130,7 +130,7 @@ module.exports = function (grunt) {
             options: {
                 startTag: "<!--STYLES-->",
                 endTag: "<!--STYLES END-->",
-                fileTmpl: `<link rel=\"stylesheet\" href="${devBaseUrl}%s">`,
+                fileTmpl: `<link rel=\"stylesheet\" href="${prodBaseUrl}%s">`,
                 appRoot: ".tmp/public"
             },
             files: {
