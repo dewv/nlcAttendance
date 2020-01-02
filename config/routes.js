@@ -18,15 +18,13 @@ let routes = {
     "POST /major/:id/delete": { response: "badRequest" },
 
     // Sport 
-    //   Get list operation URL is for the "meta-model"
+    "GET /sport/new": { controller: "sport", action: "get-create-form" },
+    "POST /sport": { controller: "sport", action: "post-create-data" },
     "GET /sport": { controller: "sport", action: "get-list" },
-    //   Other operation URLs have :season param to distinguish fallsport and springsport models
-    "GET /sport/:season/new": { controller: "sport", action: "get-create-form" },
-    "POST /sport/:season": { controller: "sport", action: "post-create-data" },
-    "GET /sport/:season/:id": { response: "badRequest" },
-    "GET /sport/:season/:id/edit": { response: "badRequest" },
-    "POST /sport/:season/:id": { controller: "sport", action: "post-update-data" },
-    "POST /sport/:season/:id/delete": { response: "badRequest" },
+    "GET /sport/:id": { response: "badRequest" },
+    "GET /sport/:id/edit": { response: "badRequest" },
+    "POST /sport/:id": { controller: "sport", action: "post-update-data" },
+    "POST /sport/:id/delete": { response: "badRequest" },
 
     // Staff 
     "GET /staff/new": { response: "badRequest" },

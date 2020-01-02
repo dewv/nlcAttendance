@@ -15,8 +15,8 @@ module.exports = {
         majorOne: { model: "Major" },
         majorTwo: { model: "Major" },
         residentialStatus: { type: "string", required: false, allowNull: true, isIn: ["On campus", "Commuter"] },
-        fallSport: { model: "FallSport" },
-        springSport: { model: "SpringSport" },
+        sportOne: { model: "Sport" },
+        sportTwo: { model: "Sport" },
         forceUpdate: { type: "boolean", defaultsTo: true },
         slpInstructor: { model: "Staff" },
     },
@@ -36,8 +36,8 @@ module.exports = {
         majorOne: true,
         majorTwo: true,
         residentialStatus: true,
-        fallSport: true,
-        springSport: true,
+        sportOne: true,
+        sportTwo: true,
         slpInstructor: true
     },
 
@@ -64,8 +64,8 @@ module.exports = {
         // Associations
         let ids = {
             major: [],
-            fallSport: [],
-            springSport: []
+            sportOne: [],
+            sportTwo: []
         };
 
         for (let i = 0; i < recordCount; i++) {
@@ -74,14 +74,14 @@ module.exports = {
                     name: `MAJOR ${i + 1}`, discontinued: "No"
                 }).fetch()).id;
 
-            ids.fallSport[i] = await (
-                await FallSport.create({
-                    name: `FALL SPORT ${i + 1}`, discontinued: "No"
+            ids.sportOne[i] = await (
+                await Sport.create({
+                    name: `SPORT ${i + 1}.1`, discontinued: "No"
                 }).fetch()).id;
 
-            ids.springSport[i] = await (
-                await SpringSport.create({
-                    name: `SPRING SPORT ${i + 1}`, discontinued: "No"
+            ids.sportTwo[i] = await (
+                await Sport.create({
+                    name: `SPORT ${i + 1}.2`, discontinued: "No"
                 }).fetch()).id;
         }
 
@@ -95,8 +95,8 @@ module.exports = {
                 majorOne: i === 0 ? null : ids.major[i],
                 majorTwo: i === 0 ? null : ids.major[(i + 1) % recordCount],
                 residentialStatus: i === 0 ? null : Student.attributes.residentialStatus.validations.isIn[i % Student.attributes.residentialStatus.validations.isIn.length],
-                fallSport: i === 0 ? null : ids.fallSport[i],
-                springSport: i === 0 ? null : ids.springSport[i],
+                sportOne: i === 0 ? null : ids.sportOne[i],
+                sportTwo: i === 0 ? null : ids.sportTwo[i],
                 forceUpdate: Student.attributes.forceUpdate.defaultsTo,
                 slpInstructor: i === 0 ? null : 1
             }).fetch());
@@ -110,8 +110,8 @@ module.exports = {
                 majorOne: i === 0 ? null : ids.major[i],
                 majorTwo: i === 0 ? null : ids.major[(i + 1) % recordCount],
                 residentialStatus: i === 0 ? null : Student.attributes.residentialStatus.validations.isIn[i % Student.attributes.residentialStatus.validations.isIn.length],
-                fallSport: i === 0 ? null : ids.fallSport[i],
-                springSport: i === 0 ? null : ids.springSport[i],
+                sportOne: i === 0 ? null : ids.sportOne[i],
+                sportTwo: i === 0 ? null : ids.sportTwo[i],
                 forceUpdate: false,
                 slpInstructor: i === 0 ? null : 1
             }).fetch());

@@ -1,86 +1,43 @@
-<div class="w3-row w3-container w3-display-middle w3-center w3-border w3-red w3-round w3-border-black w3-margin"
-    style="overflow-x:auto; width:75%;">
+<div class="w3-row w3-container w3-display-middle w3-center w3-border w3-red w3-round w3-border-black w3-margin" style="overflow-x:auto; width:50%;">
 
-    <div class="w3-row w3-container w3-left" style="width:50%">
-        <div>
-            <h2>Fall Sports</h2>
-            <a class="w3-btn w3-white w3-padding-small" href="<%= baseUrl %>/sport/fall/new">Add New
-                Fall Sport</a>
-        </div>
-
-        <table class="w3-table" id="fallTable">
-            <thead>
-                <tr>
-                    <th class="w3-center">Fall Sport</th>
-                    <th class="w3-center">Discontinued</th>
-                </tr>
-            </thead>
-
-            <% let count = 0 %>
-            <% if(fallSport) {fallSport.forEach(function(fallsport) { count++ %>
-            <tbody>
-                <tr>
-                    <td class="w3-center">
-                        <%= fallsport.name %>
-                    </td>
-                    <td>
-                        <form class="w3-center" method="POST"
-                            action="<%= baseUrl %>/sport/fall/<%= fallsport.id %>">
-                            <% if (fallsport.discontinued === "Yes") { %>
-                            <input type="hidden" name="discontinued" value="No" />
-                            <button class="w3-red" style="border: none;" type="submit" id="Y<%= count %>"><i
-                                    class="fa fa-check-square" style="font-size: 150%; color: white"></i></button>
-                            <% } else { %>
-                            <input type="hidden" name="discontinued" value="Yes" />
-                            <button class="w3-red" style="border: none;" type="submit" id="N<%= count %>">
-                                <i class="fa fa-square" style="font-size: 150%; color:white;"></i></button>
-                            <% } %>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-            <% }); }%>
-        </table>
+    <div>
+        <h2>Sports</h2>
+        <a class="w3-btn w3-white w3-padding-small" href="<%= baseUrl %>/sport/new">Add New
+            Sport</a>
     </div>
 
-    <div class="w3-row w3-container w3-right" style="width:50%">
-        <div>
-            <h2>Spring Sports</h2>
-            <a class="w3-btn w3-white w3-padding-small" href="<%= baseUrl %>/sport/spring/new">Add
-                New Spring Sport</a>
-        </div>
+    <table class="w3-table" id="sportTable">
+        <thead>
+            <tr>
+                <th class="w3-center">Sport</th>
+                <th class="w3-center">Discontinued</th>
+            </tr>
+        </thead>
 
-        <table class="w3-table" id="springTable">
-            <thead>
-                <tr>
-                    <th class="w3-center">Spring Sport</th>
-                    <th class="w3-center">Discontinued</th>
-                </tr>
-            </thead>
-
-            <% if(springSport) {springSport.forEach(function(springsport) { count++%>
-            <tbody>
-                <tr>
-                    <td class="w3-center">
-                        <%= springsport.name %>
-                    </td>
-                    <td>
-                        <form class="w3-center" method="POST"
-                            action="<%= baseUrl %>/sport/spring/<%= springsport.id %>">
-                            <% if (springsport.discontinued === "Yes") { %>
-                            <input type="hidden" name="discontinued" value="No" />
-                            <button class="w3-red" style="border: none;" type="submit" id="Yes<%= count %>"><i
-                                    class="fa fa-check-square" style="font-size: 150%; color: white"></i></button>
-                            <% } else { %>
-                            <input type="hidden" name="discontinued" value="Yes" />
-                            <button class="w3-red" style="border: none;" type="submit" id="No<%= count %>">
-                                <i class="fa fa-square" style="font-size: 150%; color:white;"></i></button>
-                            <% } %>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-            <% }); }%>
-        </table>
-    </div>
+        <% let count = 0; %>
+        <% if (records) {
+                records.forEach(function(sport) { 
+                    count++; 
+            %>
+        <tbody>
+            <tr>
+                <td class="w3-center">
+                    <%= sport.name %>
+                </td>
+                <td>
+                    <form class="w3-center" method="POST" action="<%= baseUrl %>/sport/<%= sport.id %>">
+                        <% if (sport.discontinued === "Yes") { %>
+                        <input type="hidden" name="discontinued" value="No" />
+                        <button class="w3-red" style="border: none;" type="submit" id="Y<%= count %>"><i class="fa fa-check-square" style="font-size: 150%; color: white"></i></button>
+                        <% } else { %>
+                        <input type="hidden" name="discontinued" value="Yes" />
+                        <button class="w3-red" style="border: none;" type="submit" id="N<%= count %>">
+                            <i class="fa fa-square" style="font-size: 150%; color:white;"></i></button>
+                        <% } %>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+        <% }); }%>
+    </table>
 </div>

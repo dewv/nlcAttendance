@@ -28,6 +28,6 @@ module.exports = {
             request.banner.message = error.message;
         }
 
-        return exits.success("/major");
+        return exits.success(`/${modelName}`);
     }
 };

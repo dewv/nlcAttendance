@@ -1,5 +1,5 @@
 module.exports = {
-    friendlyName: "Post data to update a Sport model record",
+    friendlyName: "Post data to update a Sport record",
 
     description: "Controller action for POSTing data to update an existing Sport model record.",
 
@@ -14,21 +14,13 @@ module.exports = {
         unauthorized: {
             description: "The user is not staff.",
             responseType: "forbidden"
-        },
-        invalidSeason: {
-            description: "The request URL was for something other than `fallsport` or `springsport`.",
-            responseType: "badRequest"
         }
     },
 
     fn: async function (inputs, exits) {
         let request = this.req;
         if (request.session.role !== "staff") throw "unauthorized";
-
-        let modelName;
-        if (request.params.season === "fall") modelName = "fallsport";
-        else if (request.params.season === "spring") modelName = "springsport";
-        else throw "invalidSeason";
+        let modelName = "sport";
 
         try {
             await sails.helpers.recordUpdate(modelName, request.params.id, request.body);
@@ -36,6 +28,6 @@ module.exports = {
             request.banner.message = error.message;
         }
 
-        return exits.success("/sport");
+        return exits.success(`/${modelName}`);
     }
 };

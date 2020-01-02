@@ -1,7 +1,7 @@
 module.exports = {
-    friendlyName: "Get a list of records for both Sport models",
+    friendlyName: "Get a list of Sport records",
 
-    description: "Controller action for GETting a list of model records.",
+    description: "Controller action for GETting a list of Sport model records.",
 
     inputs: {
     },
@@ -22,10 +22,12 @@ module.exports = {
         let request = this.req;
         if (request.session.role !== "staff") throw "unauthorized";
 
+        let modelName = "sport";
+        let model = sails.models[modelName];
+
         let ejsData = {
             session: request.session,
-            springSport: await sails.helpers.getRecordList(sails.models.springsport),
-            fallSport: await sails.helpers.getRecordList(sails.models.fallsport)
+            records: await sails.helpers.getRecordList(model)
         };
 
         return exits.success(ejsData);

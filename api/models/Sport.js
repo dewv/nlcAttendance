@@ -1,8 +1,8 @@
 /**
- * Represents a set of Fall sport records. 
+ * Represents a set of Sport records. 
  * @module 
  * @implements Model
- * @borrows FallSportRecord as FallSportRecord 
+ * @borrows SportRecord as SportRecord 
  */
 module.exports = {
     attributes: {
@@ -28,8 +28,8 @@ module.exports = {
 };
 
 /**
- * A Fall sport record.
- * @typedef {Record} FallSportRecord
+ * A Sport record.
+ * @typedef {Record} SportRecord
  * @property {string} name - The sport's name.
  * @property {boolean} discontinued - Indicates whether the sport has been discontinued.
  */

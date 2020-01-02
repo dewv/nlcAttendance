@@ -1,7 +1,7 @@
 module.exports = {
-    friendlyName: "Post data to create a model for some Sport model",
+    friendlyName: "Post data to create a Sport record",
 
-    description: "Controller action for POSTing data to create a new Sport model record.",
+    description: "Controller action for POSTing data to create a new Sport record.",
 
     inputs: {
     },
@@ -14,10 +14,6 @@ module.exports = {
         unauthorized: {
             description: "The user is not staff.",
             responseType: "forbidden"
-        },
-        invalidSeason: {
-            description: "The request URL was for something other than `fallsport` or `springsport`.",
-            responseType: "badRequest"
         }
     },
 
@@ -25,10 +21,7 @@ module.exports = {
         let request = this.req;
         if (request.session.role !== "staff") throw "unauthorized";
 
-        let modelName;
-        if (request.params.season === "fall") modelName = "fallsport";
-        else if (request.params.season === "spring") modelName = "springsport";
-        else throw "invalidSeason";
+        let modelName = "sport";
 
         try {
             await sails.helpers.recordCreate(modelName, request.body);
@@ -36,6 +29,6 @@ module.exports = {
             request.session.banner = error.message;
         }
 
-        return exits.success("/sport");
+        return exits.success(`/${modelName}`);
     }
 };

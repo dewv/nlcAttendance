@@ -16,8 +16,8 @@ describe("Student views", function () {
             majorOne: "CSCI",
             majorTwo: null,
             residentialStatus: "Commuter",
-            fallSport: { name: "fs1" },
-            springSport: null,
+            sportOne: { name: "Sport A" },
+            sportTwo: null,
             slpInstructor: { name: "SLP Instructor" }
         };
 
@@ -25,8 +25,8 @@ describe("Student views", function () {
             baseUrl: "",
             formData: expectedData,
             action: "/student/0",
-            fallSport: `<select id="fallSport"><option value="${expectedData.fallSport.name}" selected>${expectedData.fallSport.name}</option> <option value="fs2">fs2</option> </select>`,
-            springSport: `<select id="springSport"><option value="ss1">ss1</option> <option value="ss2">ss2</option> </select>`,
+            sportOne: `<select id="sportOne"><option value="${expectedData.sportOne.name}" selected>${expectedData.sportOne.name}</option> <option value="Sport B">Sport B</option> </select>`,
+            sportTwo: `<select id="sportTwo"><option value="${expectedData.sportOne.name}">${expectedData.sportOne.name}</option> <option value="Sport B">Sport B</option> </select>`,
             majorOne: `<select id="majorOne"><option value="mo1">mo1</option> <option value="${expectedData.majorOne.name}" selected>${expectedData.majorOne.name}</option> <option value="mo3">mo3</option> </select>`,
             majorTwo: `<select id="majorTwo"><option value="mt1">mt1</option> <option value="mt2">mt2</option> <option value="mt3">mt3</option> </select>`,
             residentialStatus: `<select id="residentialStatus"><option value="Commuter">Commuter</option> <option value="On campus">On campus</option> </select>`,
@@ -72,13 +72,13 @@ describe("Student views", function () {
                 done();
             });
 
-            it("should include select options to edit the fall sport", function (done) {
-                checkFor.formSelectOption("fallSport", expectedData.fallSport.name).should.be.true();
+            it("should include select options to edit the first sport", function (done) {
+                checkFor.formSelectOption("sportOne", expectedData.sportOne.name).should.be.true();
                 done();
             });
 
-            it("should include select options to edit the spring sport", function (done) {
-                checkFor.formSelectOption("springSport").should.be.true();
+            it("should include select options to edit the second sport", function (done) {
+                checkFor.formSelectOption("sportTwo").should.be.true();
                 done();
             });
 
