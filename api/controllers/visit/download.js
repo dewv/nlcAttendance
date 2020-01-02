@@ -21,29 +21,25 @@ module.exports = {
         let response = this.res;
         if (request.session.role !== "staff") throw "unauthorized";
 
-        let modelName = "visit";
-        let model = sails.models[modelName];
-
-        let records = await sails.helpers.getRecordList(model, "id DESC");
+        let records = await Visit.find().sort("id DESC");
 
         let download = "";
-        let headings = "";
-        let firstPass = true;
-        for (let record of records) {
-            for (let field in record) {
-                if (field === "createdAt" || field === "updatedAt") continue;
-                if (record[field] && record[field].username) {
-                    // associated student record
-                    if (firstPass) headings += `"username","firstName", "lastName",`;
-                    download += `"${record[field].username}","${record[field].firstName}","${record[field].lastName}",`;
-                } else {
-                    if (firstPass) headings += `"${field}",`;
-                    download += `"${record[field] === null ? "" : record[field]}",`;
-                }
-            }
-            download += "\n";
-            firstPass = false;
+        for (let visit of records) {
+            let student = await Student.findOne({ id: visit.student }).populate("majorOne").populate("majorTwo").populate("sportOne").populate("sportTwo").populate("slpInstructor");
+
+            download += `"${visit.id}","${student.firstName}","${student.lastName}","${visit.checkInTime}","${visit.checkOutTime}","${visit.length}","${visit.isLengthEstimated}","${visit.purpose}","${visit.purposeAchieved}","${visit.location}","${visit.comment}","${student.academicRank}","${student.residentialStatus}","${student.majorOne.name}",`;
+
+            download += `"${student.majorTwo ? student.majorTwo.name : ""}",`;
+            download += `"${student.sportOne ? student.sportOne.name : ""}",`;
+            download += `"${student.sportTwo ? student.sportTwo.name : ""}",`;
+            download += `"${student.slpInstructor ? student.slpInstructor.firstName + " " + student.slpInstructor.lastName : ""}",`;
+
+            download += `"${visit.tutorCourses}","${visit.tutorInstructors}"\n`;
         }
+
+        download = download.replace(/\"null\"/g, "\"\"");
+
+        let headings = `"#","First Name","Last Name","Check In","Check Out","Visit Length","Check Out estimated?","Purpose of Visit","Purpose Achieved?","Location","Comments","Academic Year","Residential Status","Major 1","Major 2","Sport 1","Sport 2","SLP Instructor","Tutoring Course","Tutoring Instructor"`;
 
         return exits.success(response.set({ "Content-Type": "text/csv", "Content-Disposition": "filename=\"visits.csv\"" }).send(`${headings}\n${download}`));
     }

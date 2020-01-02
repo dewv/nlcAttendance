@@ -44,14 +44,19 @@ module.exports = {
             required: false,
             allowNull: true
         },
+        tutorInstructors: {
+            type: "string",
+            required: false,
+            allowNull: true
+        },
         comment: {
             type: "string",
             allowNull: true
         },
         isLengthEstimated: {
             type: "boolean",
-            allowNull: false,
-            defaultsTo: false
+            required: false,
+            allowNull: true
         },
     },
 
@@ -109,6 +114,7 @@ module.exports = {
                 visit.checkInTime = current[0].checkInTime;
                 visit.length = ((new Date(visit.checkOutTime)).getTime()) - ((new Date(visit.checkInTime)).getTime());
                 visit.length = sails.helpers.convertToHours(visit.length);
+                visit.isLengthEstimated = false;
             } else {
                 visit.isLengthEstimated = true;
             }
@@ -144,6 +150,7 @@ module.exports = {
                     purpose: `OLD CLOSED VISIT`,
                     purposeAchieved: Visit.attributes.purposeAchieved.validations.isIn[iVisit % Visit.attributes.purposeAchieved.validations.isIn.length],
                     tutorCourses: `tutorCourses ${iVisit}`,
+                    tutorInstructors: `tutorInstructors ${iVisit}`,
                     comment: `COMMENT ${iVisit}`,
                     isLengthEstimated: false
                 };
@@ -191,5 +198,5 @@ module.exports = {
  * @property {string} purposeAchieved - Did the student accomplish their goal this visit.
  * @property {string} tutorCourses - The course of which the student used a tutor.
  * @property {string} comment - Any comments the student may have about their visit.
- * @property {boolean} isLengthEstimated=false - Indicates if it is mandatory for the student to estimate the length of their last visit when the value is true.
+ * @property {boolean} isLengthEstimated - Indicates if it is mandatory for the student to estimate the length of their last visit when the value is true.
  */

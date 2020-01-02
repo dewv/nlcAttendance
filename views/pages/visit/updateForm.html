@@ -1,7 +1,7 @@
 <% try { %>
 
 <form method="POST" action="<%= baseUrl + action %>">
-    <div class="w3-container w3-thrid w3-display-middle w3-center w3-border w3-red w3-round w3-border-black">
+    <div class="w3-container w3-third w3-display-middle w3-center w3-border w3-red w3-round w3-border-black">
         <div>
             <h2>Check Out</h2>
         </div>
@@ -13,7 +13,7 @@
         <% if (formData.isLengthEstimated) { %>
         <div class="formPiece">
             <p>*Please estimate the duration of your visit to the nearest quarter hour:&nbsp;
-                <select id="length" name="length" required size="1">
+                <select id="length" name="length" required size="1" autofocus>
                     <option value="" selected>Choose one ...</option>
                     <% for (var i = 1; i <= 32; i++) { %>
                     <option value="<%=i * 0.25%>"><%=i * 0.25%></option>
@@ -28,28 +28,31 @@
         </div>
 
         <div class="formPiece">
-            <label for="purposeAchieved" id="purposeAchievedLabel">*Did you accomplish the goal/purpose of your
+            <label for="purposeAchieved" id="purposeAchievedLabel">*Did you accomplish the purpose of your
                 visit?</label>
             <%- purposeAchieved %>
         </div>
 
         <div class="formPiece">
-            <p>Did you use a tutor?&nbsp;
-                <label class="radio-inline">Yes&nbsp;<input type="radio" value="Yes" name="usedTutor"></label>
+            <p>*Did you use a tutor?&nbsp;
+                <label class="radio-inline">Yes&nbsp;<input type="radio" value="Yes" name="usedTutor" required onclick="tutorValueChanged(true)"></label>
                 &nbsp; &nbsp;
-                <label class="radio-inline">No&nbsp;<input type="radio" value="No" name="usedTutor"></label>
+                <label class="radio-inline">No&nbsp;<input type="radio" value="No" name="usedTutor" required onclick="tutorValueChanged(false)"></label>
             </p>
+
+            <div id="tutorDetails" style="display: none;">
+                <label for="tutorCourses" value="tutorCourses">For which courses?</label>
+                <input id="tutorCourses" name="tutorCourses" type="text" maxlength="255">
+                &nbsp; &nbsp;
+                <label for="tutorInstructors" value="tutorInstructors">For which instructors?</label>
+                <input id="tutorInstructors" name="tutorInstructors" type="text" maxlength="255">
+            </div>
         </div>
 
         <div class="formPiece">
-            <label for="tutorCourses" value="tutorCourses">For which courses were you tutored?</label>
-            <input id="tutorCourses" name="tutorCourses" type="text" autofocus maxlength="255"
-                value="<%= formData.tutorCourses %>">
-        </div>
-
-        <div class="formPiece">
-            <p>Comments:</p>
-            <textarea id="comment" name="comment" rows="4" cols="75" value="<%= formData.comment %>"></textarea>
+            <p>
+                <textarea id="comment" name="comment" rows="1" cols="75" placeholder="Comments (optional)"></textarea>
+            </p>
         </div>
         <div class="button w3-padding-16">
             <button class="w3-btn w3-white" id="submitButton" type="submit">Submit</button>
@@ -57,4 +60,22 @@
     </div>
 
 </form>
+
+<script>
+    function tutorValueChanged(newValue) {
+        let div = document.getElementById("tutorDetails");
+        let courses = document.getElementById("tutorCourses");
+        let instructors = document.getElementById("tutorInstructors");
+
+        if (newValue) {
+            div.style.display = "block";
+        } else {
+            div.style.display = "none";
+            courses.value = "";
+            instructors.value = "";
+        }
+    }
+
+</script>
+
 <% } catch(error) { console.log(`EJS rendering error: ${error}`); }; %>

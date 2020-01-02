@@ -29,11 +29,6 @@
                 <th>Check Out</th>
                 <th>Visit Length</th>
                 <th>Length Estimated?</th>
-                <th>Purpose of Visit</th>
-                <th>Purpose Achieved?</th>
-                <th>Comments</th>
-                <th>Used Tutors?</th>
-                <th>Tutor Courses</th>
             </tr>
         </thead>
 
@@ -56,22 +51,11 @@
                     <%= visit.length %>
                 </td>
                 <td>
+                    <% if (visit.isLengthEstimated === null) { %>
+                    <%= "" %>
+                    <% } else { %>
                     <%= visit.isLengthEstimated ? "Yes" : "No" %>
-                </td>
-                <td>
-                    <%= visit.purpose %>
-                </td>
-                <td>
-                    <%= visit.purposeAchieved %>
-                </td>
-                <td>
-                    <%= visit.comment %>
-                </td>
-                <td>
-                    <%=visit.usedTutor %>
-                </td>
-                <td>
-                    <%= visit.tutorCourses %>
+                    <% } %>
                 </td>
             </tr>
         </tbody>

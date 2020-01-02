@@ -38,12 +38,12 @@ describe("Visit Views", function () {
             });
 
             it("should include a text input to edit the tutorCourses", function (done) {
-                checkFor.formInputText("tutorCourses", expectedData.tutorCourses).should.be.true();
+                checkFor.formInputText("tutorCourses", undefined).should.be.true();
                 done();
             });
 
             it("should include a text area for comments of the visit", function (done) {
-                checkFor.formTextArea("comment", expectedData.comment).should.be.true();
+                checkFor.formTextArea("comment", undefined).should.be.true();
                 done();
             });
 
