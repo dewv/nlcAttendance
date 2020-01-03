@@ -37,13 +37,17 @@ module.exports = async function (request, response) {
         request.session[property] = result[property];
     }
 
-    let userProfile = await sails.models[request.session.role].findOrCreate({
-        username: request.body.username
-    }, {
+    let newProfile = {
         username: request.body.username,
         firstName: request.session.firstName,
         lastName: request.session.lastName
-    });
+    };
+
+    if (request.session.role === "staff") newProfile.name = newProfile.firstName + " " + newProfile.lastName;
+
+    let userProfile = await sails.models[request.session.role].findOrCreate({
+        username: request.body.username
+    }, newProfile);
 
     request.session.userId = userProfile.id;
     request.session.username = userProfile.username;

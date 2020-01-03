@@ -41,7 +41,7 @@ module.exports = {
 
         try {
             await sails.helpers.recordUpdate(modelName, request.params.id, request.body);
-            request.session.banner = "You are now checked out. Thanks for visiting Naylor Learning Center.";
+            request.session.banner = `${request.session.firstName} ${request.session.lastName} is now checked out. Thanks for visiting Naylor Learning Center.`;
         } catch (error) {
             request.banner.message = error.message;
         }

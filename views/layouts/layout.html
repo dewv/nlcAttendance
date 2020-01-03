@@ -46,11 +46,10 @@
 </head>
 
 <body>
-
-    <% if ( typeof session.role !== "undefined" ) { %>
     <div class="w3-top">
-        <% if ( session.role === "staff" ) { %>
-        <div class="w3-bar w3-red w3-mobile">
+        <% if (typeof session.role !== "undefined") { %>
+        <% if (session.role === "staff") { %>
+        <div class="w3-bar w3-red w3-mobile" style="display: block;">
             <a href="<%= baseUrl %>/visit" class="w3-bar-item w3-button">Visits</a>
             <a href="<%= baseUrl %>/major" class="w3-bar-item w3-button">Majors</a>
             <a href="<%= baseUrl %>/sport" class="w3-bar-item w3-button">Sports</a>
@@ -61,52 +60,44 @@
         </div>
         <% } %>
 
-        <% if ( session.role === "student" ) { %>
+        <% if (session.role === "student") { %>
         <div class="w3-bar w3-red w3-mobile">
             <a href="<%= baseUrl %>/student/<%= session.userId %>/edit" class="w3-bar-item w3-button">Profile</a>
             <a href="<%= baseUrl %>/logout" class="w3-bar-item w3-button">Log out</a>
         </div>
+        <% } %>
+
+        <% if (session.role === "student") { %>
         <%- include("../include/logoutTimer.html"); -%>
         <% } %>
-    </div>
-    <% } %>
 
-    <% if (typeof session.banner !== "undefined") { %>
-    <div class="w3-panel w3-green w3-display-container animate-fade-out">
-        <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">&times;</span>
-        <p><%= session.banner %></p>
+        <% } %>
+
+        <% if (typeof session.banner !== "undefined") { %>
+        <% if (typeof session.role === "undefined") { %>
+        <div class="animate-fade-out">
+            <% } %>
+            <div class="w3-container w3-display-container w3-pale-blue" style="width: 100%;">
+                <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                <p class="w3-margin-left"><%= session.banner %></p>
+            </div>
+            <% if (typeof session.role === "undefined") { %>
+        </div>
+        <% } %>
+        <% } 
+        session.banner = undefined; %>
+
     </div>
 
-    <% } 
-    session.banner = undefined; %>
-    <div style="padding-bottom: 40px;">
-        <!-- to prevent content hiding under nav bar -->
-    </div>
     <%- body %>
 
-    <!--
-        Client-side Templates
+    <!-- Client-side Templates
         ========================
-
-        HTML templates are important prerequisites of modern, rich client applications.
-        To work their magic, frameworks like React, Vue.js, Angular, Ember, and Backbone
-        require that you load these templates client-side.
-
-        By default, your Gruntfile is configured to automatically load and precompile
-        client-side JST templates in your `assets/templates` folder, then
-        include them here automatically (between TEMPLATES and TEMPLATES END).
-
-        To customize this behavior to fit your needs, just edit `tasks/pipeline.js`.
-        For example, here are a few things you could do:
-
-            + Import templates from other directories
-            + Use a different view engine (handlebars, dust, pug/jade, etc.)
-            + Internationalize your client-side templates using a server-side
-              stringfile before they're served.
+        HTML templates are important prerequisites of modern, rich client applications. To work their magic, frameworks like React, Vue.js, Angular, Ember, and Backbone require that you load these templates client-side. By default, your Gruntfile is configured to automatically load and precompile client-side JST templates in your `assets/templates` folder, then include them here automatically (between TEMPLATES and TEMPLATES END). To customize this behavior to fit your needs, just edit `tasks/pipeline.js`. For example, here are a few things you could do: + Import templates from other directories + Use a different view engine (handlebars, dust, pug/jade, etc.) + Internationalize your client-side templates using a server-side stringfile before they're served. 
     -->
 
     <!--TEMPLATES-->
-
+    
     <!--TEMPLATES END-->
 
 

@@ -38,7 +38,7 @@ module.exports = {
         residentialStatus: true,
         sportOne: true,
         sportTwo: true,
-        slpInstructor: true
+        // slpInstructor: true
     },
 
     /** 

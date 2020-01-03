@@ -41,7 +41,7 @@ module.exports = {
         request.body.student = request.session.username;
         request.body.location = request.cookies.location;
         await sails.helpers.recordCreate(modelName, request.body);
-        request.session.banner = "You are now checked in. Please remember to check out before leaving.";
+        request.session.banner = `${request.session.firstName} ${request.session.lastName} is now checked in. Please remember to check out before leaving.`;
         return exits.success("/logout");
     }
 };

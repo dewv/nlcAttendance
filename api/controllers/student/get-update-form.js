@@ -39,6 +39,10 @@ module.exports = {
 
         ejsData.academicRank = ejsData.academicRank.replace(/id=\"academicRank\"/, "id=\"academicRank\" autofocus");
 
+        let instructors = await Staff.find({ isSlpInstructor: true });
+
+        ejsData.slpInstructor = await sails.helpers.generateHtmlSelect("slpInstructor", { options: instructors }, recordToUpdate.slpInstructor || undefined);
+
         ejsData.session = request.session;
         ejsData.formData = recordToUpdate;
         ejsData.action = `/${modelName}/${request.params.id}`;
