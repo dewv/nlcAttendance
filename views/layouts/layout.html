@@ -48,26 +48,27 @@
 <body>
 
     <% if ( typeof session.role !== "undefined" ) { %>
+    <div class="w3-top">
+        <% if ( session.role === "staff" ) { %>
+        <div class="w3-bar w3-red w3-mobile">
+            <a href="<%= baseUrl %>/visit" class="w3-bar-item w3-button">Visits</a>
+            <a href="<%= baseUrl %>/major" class="w3-bar-item w3-button">Majors</a>
+            <a href="<%= baseUrl %>/sport" class="w3-bar-item w3-button">Sports</a>
+            <a href="<%= baseUrl %>/browser/register" class="w3-bar-item w3-button">Browser
+                Registration</a>
+            <a href="<%= baseUrl %>/staff/<%= session.userId %>/edit" class="w3-bar-item w3-button">Profile</a>
+            <a href="<%= baseUrl %>/logout" class="w3-bar-item w3-button">Log out</a>
+        </div>
+        <% } %>
 
-    <% if ( session.role === "staff" ) { %>
-    <div class="topnav w3-bar w3-red w3-mobile">
-        <a href="<%= baseUrl %>/visit" class="w3-bar-item w3-button">Visits</a>
-        <a href="<%= baseUrl %>/major" class="w3-bar-item w3-button">Majors</a>
-        <a href="<%= baseUrl %>/sport" class="w3-bar-item w3-button">Sports</a>
-        <a href="<%= baseUrl %>/browser/register" class="w3-bar-item w3-button">Browser
-            Registration</a>
-        <a href="<%= baseUrl %>/staff/<%= session.userId %>/edit" class="w3-bar-item w3-button">Profile</a>
-        <a href="<%= baseUrl %>/logout" class="w3-bar-item w3-button">Log out</a>
+        <% if ( session.role === "student" ) { %>
+        <div class="w3-bar w3-red w3-mobile">
+            <a href="<%= baseUrl %>/student/<%= session.userId %>/edit" class="w3-bar-item w3-button">Profile</a>
+            <a href="<%= baseUrl %>/logout" class="w3-bar-item w3-button">Log out</a>
+        </div>
+        <%- include("../include/logoutTimer.html"); -%>
+        <% } %>
     </div>
-    <% } %>
-
-    <% if ( session.role === "student" ) { %>
-    <div class="topnav w3-bar w3-red w3-mobile">
-        <a href="<%= baseUrl %>/student/<%= session.userId %>/edit" class="w3-bar-item w3-button">Profile</a>
-        <a href="<%= baseUrl %>/logout" class="w3-bar-item w3-button">Log out</a>
-    </div>
-    <%- include("../include/logoutTimer.html"); -%>
-    <% } %>
     <% } %>
 
     <% if (typeof session.banner !== "undefined") { %>
@@ -78,7 +79,9 @@
 
     <% } 
     session.banner = undefined; %>
-
+    <div style="padding-bottom: 40px;">
+        <!-- to prevent content hiding under nav bar -->
+    </div>
     <%- body %>
 
     <!--
@@ -103,7 +106,7 @@
     -->
 
     <!--TEMPLATES-->
-    
+
     <!--TEMPLATES END-->
 
 

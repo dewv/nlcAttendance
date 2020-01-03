@@ -1,16 +1,13 @@
-<div class="w3-row w3-container w3-display-middle w3-center w3-border w3-red w3-round w3-border-black w3-margin"
-    style="overflow-x:auto; width:50%;">
+<div class="w3-center w3-padding">
+    <a href="<%= baseUrl %>/major/new">Add New
+        Major</a>
+</div>
 
-    <div>
-        <h2>Majors</h2>
-        <a class="w3-btn w3-white w3-padding-small" href="<%= baseUrl %>/major/new">Add New
-            Major</a>
-    </div>
-
-    <table class="w3-table" id="majorTable">
+<div style="width: 70%; padding-left: 30%;">
+    <table class="w3-table-all w3-card" id="majorTable">
         <thead>
             <tr>
-                <th class="w3-center">Major</th>
+                <th class="w3-left w3-margin-left">Major</th>
                 <th class="w3-center">Discontinued</th>
             </tr>
         </thead>
@@ -19,20 +16,18 @@
         <% if(records) {records.forEach(function(major) { count++ %>
         <tbody>
             <tr>
-                <td class="w3-center">
+                <td class="w3-left w3-margin-left">
                     <%= major.name %>
                 </td>
                 <td>
-                    <form class="w3-center" method="POST"
-                        action="<%= baseUrl %>/major/<%= major.id %>">
+                    <form class="w3-center" method="POST" action="<%= baseUrl %>/major/<%= major.id %>">
                         <% if(major.discontinued === "Yes") { %>
                         <input type="hidden" name="discontinued" value="No" />
-                        <button class="w3-red" style="border: none;" type="submit" id="Yes<%= count %>"><i
-                                class="fa fa-check-square" style="font-size: 150%; color: white"></i></button>
+                        <button style="border: none; background-color: white;" type="submit" id="Yes<%= count %>"><i class="fa fa-check-square-o" style="font-size: 150%;"></i></button>
                         <% } else { %>
                         <input type="hidden" name="discontinued" value="Yes" />
-                        <button class="w3-red" style="border: none;" type="submit" id="No<%= count %>">
-                            <i class="fa fa-square" style="font-size: 150%; color:white;"></i></button>
+                        <button style="border: none; background-color: white;" type="submit" id="No<%= count %>">
+                            <i class="fa fa-square-o" style="font-size: 150%;"></i></button>
                         <% } %>
                     </form>
                 </td>
@@ -40,5 +35,4 @@
         </tbody>
         <% }); }%>
     </table>
-
 </div>
