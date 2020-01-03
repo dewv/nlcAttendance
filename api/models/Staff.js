@@ -9,8 +9,8 @@ module.exports = {
         username: { type: "string", required: true, allowNull: false, unique: true },
         firstName: { type: "string", required: true, allowNull: false },
         lastName: { type: "string", required: true, allowNull: false },
-        name: { type: "string", allowNull: true },
-        isSlpInstructor: { type: "boolean", allowNull: "false", defaultsTo: false },
+        name: { type: "string", allowNull: false }, // kludge to support SLP instructor <select>
+        isSlpInstructor: { type: "boolean", allowNull: false, defaultsTo: false },
         forceUpdate: { type: "boolean", defaultsTo: true }
     },
 

@@ -10,8 +10,7 @@ describe("Student views", function () {
         let expectedData = {
             id: 0,
             username: "testuser@dewv.net",
-            firstName: "Test",
-            lastName: "User",
+            name: "Test User",
             academicRank: "Junior",
             majorOne: "CSCI",
             majorTwo: null,
@@ -41,16 +40,6 @@ describe("Student views", function () {
             }
 
             let checkFor = new ViewTests(result);
-
-            it("should include a text input to edit the first name", function (done) {
-                checkFor.formInputText("firstName", expectedData.firstName).should.be.true();
-                done();
-            });
-
-            it("should include a text input to edit the last name", function (done) {
-                checkFor.formInputText("lastName", expectedData.lastName).should.be.true();
-                done();
-            });
 
             it("should include select options to edit the academic rank", function (done) {
                 checkFor.formSelectOption("academicRank").should.be.true();

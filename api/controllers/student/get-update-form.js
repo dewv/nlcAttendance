@@ -36,6 +36,9 @@ module.exports = {
         if (!recordToUpdate) throw "recordNotFound";
 
         let ejsData = await sails.helpers.getDomains(model, recordToUpdate);
+
+        ejsData.academicRank = ejsData.academicRank.replace(/id=\"academicRank\"/, "id=\"academicRank\" autofocus");
+
         ejsData.session = request.session;
         ejsData.formData = recordToUpdate;
         ejsData.action = `/${modelName}/${request.params.id}`;

@@ -1,29 +1,8 @@
-<div class="w3-row w3-container w3-display-middle w3-center w3-border w3-red w3-round w3-border-black"
-    style="width:25%">
+<div class="w3-row w3-container w3-display-middle w3-center w3-border w3-red w3-round w3-border-black" style="width:25%">
     <form method="POST" action="<%= baseUrl + action %>">
 
         <div>
-            <h2>Staff Profile</h2>
-        </div>
-
-        <div class="w3-margin">
-            <div>
-                <label for="username">Username</label>
-                <input class="w3-input w3-margin-bottom w3-disabled" id="username" name="username" type="email"
-                    value="<%= formData.username %>" readonly>
-            </div>
-
-            <div>
-                <label for="firstName">First name</label>
-                <input class="w3-input w3-margin-bottom" id="firstName" name="firstName" type="text"
-                    value="<%= formData.firstName %>" required>
-            </div>
-
-            <div>
-                <label for="lastName">Last name</label>
-                <input class="w3-input w3-margin-bottom" id="lastName" name="lastName" type="text"
-                    value="<%= formData.lastName %>" required>
-            </div>
+            <h2><%= formData.firstName + " " + formData.lastName %></h2>
         </div>
 
         <div class="w3-slect w3-padding-16">
