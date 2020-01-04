@@ -22,12 +22,16 @@ module.exports = {
         if (request.session.role !== "staff") throw "unauthorized";
 
         let records = await Visit.find().sort("id DESC");
+        let options = {
+            year: 'numeric', month: '2-digit', day: '2-digit',
+            hour: 'numeric', minute: 'numeric', second: 'numeric',
+        };
 
         let download = "";
         for (let visit of records) {
             let student = await Student.findOne({ id: visit.student }).populate("majorOne").populate("majorTwo").populate("sportOne").populate("sportTwo").populate("slpInstructor");
 
-            download += `"${visit.id}","${student.firstName}","${student.lastName}","${visit.checkInTime}","${visit.checkOutTime}","${visit.length}","${visit.isLengthEstimated}","${visit.purpose}","${visit.purposeAchieved}","${visit.location}","${visit.comment}","${student.academicRank}","${student.residentialStatus}","${student.majorOne.name}",`;
+            download += `"${visit.id}","${student.firstName}","${student.lastName}","${new Intl.DateTimeFormat("en-US", options).format(visit.checkInTime)}","${visit.checkOutTime ? new Intl.DateTimeFormat("en-US", options).format(visit.checkOutTime) : ""}","${visit.length}","${visit.isLengthEstimated}","${visit.purpose}","${visit.purposeAchieved}","${visit.location}","${visit.comment}","${student.academicRank}","${student.residentialStatus}","${student.majorOne.name}",`;
 
             download += `"${student.majorTwo ? student.majorTwo.name : ""}",`;
             download += `"${student.sportOne ? student.sportOne.name : ""}",`;
