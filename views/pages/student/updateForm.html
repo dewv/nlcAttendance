@@ -1,3 +1,6 @@
+<% generateOptions = undefined; %>
+<%- include("../../include/generateOptions.ejs"); %>
+
 <div class="w3-row w3-container w3-display-middle w3-center w3-border w3-red w3-round w3-border-black" style="width:35%">
     <form method="POST" action="<%= baseUrl + action %>">
         <div>
@@ -7,70 +10,49 @@
         <div class="w3-select w3-border-0">
             <label for="academicRank">*Academic Rank</label>
             <select id="academicRank" name="academicRank" autofocus required size="1">
-                <option value="">Choose one ...</option>
-                <% for (let option of options.academicRank) { %>
-                <option value="<%= option %>" <%= formData.academicRank === option ? " selected" : "" %>><%= option %></option>
-                <% } %>
+                <%- generateOptions("academicRank"); %>
             </select>
         </div>
 
         <div class="w3-select w3-border-0">
             <label for="residentialStatus">*Residential Status</label>
             <select id="residentialStatus" name="residentialStatus" required size="1">
-                <option value="">Choose one ...</option>
-                <% for (let option of options.residentialStatus) { %>
-                <option value="<%= option %>" <%= formData.residentialStatus === option ? " selected" : "" %>><%= option %></option>
-                <% } %>
+                <%- generateOptions("residentialStatus"); %>
             </select>
         </div>
 
         <div class="w3-select w3-border-0">
             <label for="majorOne">*Major 1</label>
             <select id="majorOne" name="majorOne" required size="1">
-                <option value="">Choose one ...</option>
-                <% for (let option of options.majorOne) { %>
-                <option value="<%= option %>" <%= formData.majorOne && formData.majorOne.name === option ? " selected" : "" %>><%= option %></option>
-                <% } %>
+                <%- generateOptions("majorOne", "name"); %>
             </select>
         </div>
 
         <div class="w3-select w3-border-0">
             <label for="majorTwo">Major 2</label>
             <select id="majorTwo" name="majorTwo" size="1">
-                <option value="">Choose one ...</option>
-                <% for (let option of options.majorTwo) { %>
-                <option value="<%= option %>" <%= formData.majorTwo && formData.majorTwo.name === option ? " selected" : "" %>><%= option %></option>
-                <% } %>
+                <%- generateOptions("majorTwo", "name"); %>
             </select>
         </div>
 
         <div class="w3-select w3-border-0">
             <label for="sportOne" class="sports">Sport 1</label>
             <select id="sportOne" name="sportOne" size="1">
-                <option value="">Choose one ...</option>
-                <% for (let option of options.sportOne) { %>
-                <option value="<%= option %>" <%= formData.sportOne &&formData.sportOne.name === option ? " selected" : "" %>><%= option %></option>
-                <% } %>
+                <%- generateOptions("sportOne", "name"); %>
             </select>
         </div>
 
         <div class="w3-select w3-border-0">
             <label for="sportTwo" class="sports">Sport 2</label>
             <select id="sportTwo" name="sportTwo" size="1">
-                <option value="">Choose one ...</option>
-                <% for (let option of options.sportTwo) { %>
-                <option value="<%= option %>" <%= formData.sportTwo && formData.sportTwo.name === option ? " selected" : "" %>><%= option %></option>
-                <% } %>
+                <%- generateOptions("sportTwo", "name"); %>
             </select>
         </div>
 
         <div class="w3-select w3-border-0">
-            <label for="slpInstructor" id="slpInstructor">SLP Instructor</label>
+            <label for="slpInstructor">SLP Instructor</label>
             <select id="slpInstructor" name="slpInstructor" size="1">
-                <option value="">Choose one ...</option>
-                <% for (let option of options.slpInstructor) { %>
-                <option value="<%= option %>" <%= formData.slpInstructor && formData.slpInstructor.name === option ? " selected" : "" %>><%= option %></option>
-                <% } %>
+                <%- generateOptions("slpInstructor", "name"); %>
             </select>
         </div>
 

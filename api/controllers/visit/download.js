@@ -23,8 +23,8 @@ module.exports = {
 
         let records = await Visit.find().sort("id DESC");
         let options = {
-            year: 'numeric', month: '2-digit', day: '2-digit',
-            hour: 'numeric', minute: 'numeric', second: 'numeric',
+            year: "numeric", month: "2-digit", day: "2-digit",
+            hour: "numeric", minute: "numeric", second: "numeric",
         };
 
         let download = "";

@@ -18,7 +18,7 @@ describe("Staff model", function () {
     });
 
     // Run helper integration tests
-    helperIntegrationTests("staff", testData);
+    // helperIntegrationTests("staff", testData);
 
     context("A data record returned by `create()`", function () {
 

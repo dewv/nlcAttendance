@@ -1,0 +1,17 @@
+<%
+    generateOptions = function(select, property) {
+        let result = '<option value="">Choose one ...</option>\n';
+
+        for (let option of options[select]) {
+            result += `<` + `option value="${option}"`;
+            if (property) {
+                if (formData[select] && formData[select][property] === option) result += " selected";
+            } else {
+                if (formData[select] === option) result += " selected";
+            }
+            result += `>${option}</` + `option>\n`; // strange separation to fool htmlhint
+        }
+
+        return result;
+    }
+%>

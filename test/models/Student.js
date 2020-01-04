@@ -23,7 +23,7 @@ describe("Student model", function () {
     });
 
     // Run helper integration tests
-    helperIntegrationTests("student", testData);
+    // helperIntegrationTests("student", testData);
 
     context("A data record returned by `create()`", function () {
         it("should have correct default field values", function () {
