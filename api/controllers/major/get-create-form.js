@@ -20,16 +20,13 @@ module.exports = {
 
     fn: async function (inputs, exits) {
         let request = this.req;
+
         if (request.session.role !== "staff") throw "unauthorized";
 
-        let modelName = "major";
-        let model = sails.models[modelName];
-
-        let ejsData = await sails.helpers.getDomains(model);
+        let ejsData = await sails.helpers.getDomains(Major);
         ejsData.session = request.session;
-        ejsData.formData = await sails.helpers.getDefaults(model);
-        ejsData.action = `/${modelName}`;
-
+        ejsData.formData = Major.getDefaults();
+        ejsData.action = "/major";
 
         return exits.success(ejsData);
     }

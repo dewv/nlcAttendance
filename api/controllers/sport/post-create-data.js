@@ -21,14 +21,8 @@ module.exports = {
         let request = this.req;
         if (request.session.role !== "staff") throw "unauthorized";
 
-        let modelName = "sport";
+        await Sport.create(request.body);
 
-        try {
-            await sails.helpers.recordCreate(modelName, request.body);
-        } catch (error) {
-            request.session.banner = error.message;
-        }
-
-        return exits.success(`/${modelName}`);
+        return exits.success("/sport");
     }
 };

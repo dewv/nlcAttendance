@@ -10,6 +10,22 @@ module.exports = {
         discontinued: { type: "string", defaultsTo: "No", isIn: ["Yes", "No"] },
     },
 
+    getId: async function (name) {
+        if (name.length === 0) return null;
+
+        let record = await Major.findOne({ name: name });
+        if (record) return record.id;
+
+        return null;
+    },
+
+    getDefaults: function () {
+        return {
+            name: "",
+            discontinued: Major.attributes.discontinued.defaultsTo
+        };
+    },
+
     candidateKey: "name",
 
     /** 

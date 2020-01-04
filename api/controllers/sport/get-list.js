@@ -20,15 +20,13 @@ module.exports = {
 
     fn: async function (inputs, exits) {
         let request = this.req;
-        if (request.session.role !== "staff") throw "unauthorized";
 
-        let modelName = "sport";
-        let model = sails.models[modelName];
+        if (request.session.role !== "staff") throw "unauthorized";
 
         let ejsData = {
             session: request.session,
-            records: await sails.helpers.getRecordList(model)
         };
+        ejsData.records = await Sport.find();
 
         return exits.success(ejsData);
     }

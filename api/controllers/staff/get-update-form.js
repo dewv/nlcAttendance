@@ -24,20 +24,19 @@ module.exports = {
 
     fn: async function (inputs, exits) {
         let request = this.req;
+
         // eslint-disable-next-line eqeqeq
         if (request.session.role !== "staff" || request.params.id != request.session.userId) throw "unauthorized";
 
-        let modelName = "staff";
-        let model = sails.models[modelName];
+        let recordToUpdate = await Staff.findOne({ id: request.params.id });
 
-        let recordToUpdate = await sails.helpers.populateOne(model, request.params.id);
         /* istanbul ignore next */
         if (!recordToUpdate) throw "recordNotFound";
 
         let ejsData = {
             session: request.session,
             formData: recordToUpdate,
-            action: `/${modelName}/${request.params.id}`
+            action: `/staff/${request.params.id}`
         };
 
         return exits.success(ejsData);

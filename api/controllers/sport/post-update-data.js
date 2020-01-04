@@ -20,14 +20,11 @@ module.exports = {
     fn: async function (inputs, exits) {
         let request = this.req;
         if (request.session.role !== "staff") throw "unauthorized";
-        let modelName = "sport";
 
-        try {
-            await sails.helpers.recordUpdate(modelName, request.params.id, request.body);
-        } catch (error) {
-            request.banner.message = error.message;
-        }
+        await Sport.updateOne({
+            id: request.params.id
+        }).set(request.body);
 
-        return exits.success(`/${modelName}`);
+        return exits.success("/sport");
     }
 };

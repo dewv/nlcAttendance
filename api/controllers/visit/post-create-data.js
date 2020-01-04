@@ -31,17 +31,21 @@ module.exports = {
 
     fn: async function (inputs, exits) {
         let request = this.req;
+
         if (request.session.role !== "student") throw "missingUserRole";
+
         let profileUrl = `/student/${request.session.userId}/edit`;
         if (!request.cookies.location) throw { unregisteredBrowser: profileUrl };
         if (request.session.forceProfileUpdate) throw { mustUpdateProfile: profileUrl };
         if (!request.session.visit.checkOutTime) throw "alreadyCheckedIn";
 
-        let modelName = "visit";
-        request.body.student = request.session.username;
+        request.body.student = request.session.userId;
         request.body.location = request.cookies.location;
-        await sails.helpers.recordCreate(modelName, request.body);
+
+        await Visit.create(request.body);
+
         request.session.banner = `${request.session.firstName} ${request.session.lastName} is now checked in. Please remember to check out before leaving.`;
+
         return exits.success("/logout");
     }
 };

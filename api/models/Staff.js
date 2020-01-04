@@ -21,6 +21,15 @@ module.exports = {
         return proceed();
     },
 
+    getId: async function (name) {
+        if (name.length === 0) return null;
+
+        let record = await Staff.findOne({ name: name });
+        if (record) return record.id;
+
+        return null;
+    },
+
     testRecords: [],
 
     /**

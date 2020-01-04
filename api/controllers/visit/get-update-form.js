@@ -36,27 +36,39 @@ module.exports = {
 
     fn: async function (inputs, exits) {
         let request = this.req;
-        let modelName = "visit";
+
         // eslint-disable-next-line eqeqeq
         if (request.session.role !== "student" || request.params.id != request.session.visit.id) throw "unauthorized";
+
         let profileUrl = `/student/${request.session.userId}/edit`;
         if (!request.cookies.location) throw { unregisteredBrowser: profileUrl };
         if (request.session.forceProfileUpdate) throw { mustUpdateProfile: profileUrl };
         if (request.session.visit.checkOutTime) throw "alreadyCheckedOut";
 
-        let model = sails.models[modelName];
+        let recordToUpdate = await Visit.findOne({ id: request.params.id }).populate("student");
 
-        let recordToUpdate = await sails.helpers.populateOne(model, request.params.id);
         /* istanbul ignore next */
         if (!recordToUpdate) throw "recordNotFound";
 
-        let ejsData = await sails.helpers.getDomains(model, recordToUpdate);
+        if (recordToUpdate.checkOutTime === null) {
+            recordToUpdate.checkOutTime = new Date(sails.helpers.getCurrentTime());
+        }
+
+        recordToUpdate.length = ((new Date(recordToUpdate.checkOutTime)).getTime()) - ((new Date(recordToUpdate.checkInTime)).getTime());
+
+        recordToUpdate.length = sails.helpers.convertToHours(recordToUpdate.length);
+
+        if (recordToUpdate.length > 8) {
+            recordToUpdate.isLengthEstimated = true;
+        }
+
+        let ejsData = await sails.helpers.getDomains(Visit, recordToUpdate);
 
         ejsData.purposeAchieved = ejsData.purposeAchieved.replace(/id=\"purposeAchieved\"/, "id=\"purposeAchieved\" autofocus");
 
         ejsData.session = request.session;
         ejsData.formData = recordToUpdate;
-        ejsData.action = `/${modelName}/${request.params.id}`;
+        ejsData.action = `/visit/${request.params.id}`;
 
         return exits.success(ejsData);
     }

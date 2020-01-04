@@ -44,7 +44,6 @@ let getOptions = {
 };
 
 describe("`isAuthenticated` policy", function () {
-    return;
     it("should complete unauthenticated requests for `/login`", function () {
         getOptions.path = loginPath;
         let request = http.request(getOptions, function (response) {

@@ -6,58 +6,34 @@
  */
 module.exports = {
     attributes: {
-        student: {
-            model: "Student"
-        },
-        checkInTime: {
-            type: "ref",
-            columnType: "datetime",
-            autoCreatedAt: true
-        },
-        checkOutTime: {
-            type: "ref",
-            columnType: "datetime"
-        },
-        location: {
-            type: "string"
-        },
-        length: {
-            type: "number",
-            required: false,
-            allowNull: true
-        },
-        purpose: {
-            type: "string",
-            required: true,
-            allowNull: false
-        },
-        purposeAchieved: {
-            type: "string",
-            allowNull: true,
-            isIn: ["Yes", "No", "Not sure"]
-        },
-        usedTutor: {
-            type: "string"
-        },
-        tutorCourses: {
-            type: "string",
-            required: false,
-            allowNull: true
-        },
-        tutorInstructors: {
-            type: "string",
-            required: false,
-            allowNull: true
-        },
-        comment: {
-            type: "string",
-            allowNull: true
-        },
-        isLengthEstimated: {
-            type: "boolean",
-            required: false,
-            allowNull: true
-        },
+        student: { model: "Student" },
+        checkInTime: { type: "ref", columnType: "datetime", autoCreatedAt: true },
+        checkOutTime: { type: "ref", columnType: "datetime" },
+        location: { type: "string" },
+        length: { type: "number", required: false, allowNull: true },
+        purpose: { type: "string", required: true, allowNull: false },
+        purposeAchieved: { type: "string", allowNull: true, isIn: ["Yes", "No", "Not sure"] },
+        usedTutor: { type: "string" },
+        tutorCourses: { type: "string", required: false, allowNull: true },
+        tutorInstructors: { type: "string", required: false, allowNull: true },
+        comment: { type: "string", allowNull: true },
+        isLengthEstimated: { type: "boolean", required: false, allowNull: true },
+    },
+
+    getDefaults: function () {
+        return {
+            student: null,
+            checkInTime: null,
+            checkOutTime: null,
+            location: "",
+            length: null,
+            purpose: "",
+            purposeAchieved: { name: "Choose one ..." },
+            usedTutor: "",
+            tutorCourses: "",
+            tutorInstructors: "",
+            comment: ""
+        };
     },
 
     // Define the model's one to many association.
@@ -75,52 +51,6 @@ module.exports = {
      */
     inputRequired: {
         purposeAchieved: true
-    },
-
-    /**
-     * Provides an opportunity for a model to customize a newly populated record. 
-     * After populating a record, the populateOne function will call this function. 
-     * Calculates the visit length, up to a maximum. If maximum exceeded, sets flag indicating the length should be estimated by user. 
-     * @modifies Database contents.
-     * @async
-     */
-    afterPopulateOne: async function (visit) {
-        if (visit.checkOutTime === null) visit.checkOutTime = new Date(sails.helpers.getCurrentTime());
-        visit.length = ((new Date(visit.checkOutTime)).getTime()) - ((new Date(visit.checkInTime)).getTime());
-        visit.length = sails.helpers.convertToHours(visit.length);
-        if (visit.length > 8) visit.isLengthEstimated = true;
-        return visit;
-    },
-
-    /**
-     * Provides an opportunity for a model to customize a newly encoded record.
-     * After encoding a record, the encodeAssociations function will call this function.
-     * Takes data passed from encodeAssociations, modifies it as needed and returns that data back to the encodeAssociations helper.
-     * @modifies Database contents.
-     * @async 
-     */
-    afterEncodeAssociations: async function (visit) {
-        // If `purposeAchieved` is defined, the user is checking *out*.
-        if (visit.purposeAchieved) {
-            visit.checkOutTime = new Date(sails.helpers.getCurrentTime());
-            if (!visit.length) {
-                let current = await Visit.find({
-                    where: {
-                        student: visit.student
-                    },
-                    limit: 1,
-                    sort: "checkInTime DESC"
-                });
-                visit.checkInTime = current[0].checkInTime;
-                visit.length = ((new Date(visit.checkOutTime)).getTime()) - ((new Date(visit.checkInTime)).getTime());
-                visit.length = sails.helpers.convertToHours(visit.length);
-                visit.isLengthEstimated = false;
-            } else {
-                visit.isLengthEstimated = true;
-            }
-        }
-
-        return visit;
     },
 
     testRecords: [],

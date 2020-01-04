@@ -32,19 +32,18 @@ module.exports = {
 
     fn: async function (inputs, exits) {
         let request = this.req;
+
         if (request.session.role !== "student") throw "missingUserRole";
+
         let profileUrl = `/student/${request.session.userId}/edit`;
         if (!request.cookies.location) throw { unregisteredBrowser: profileUrl };
         if (request.session.forceProfileUpdate) throw { mustUpdateProfile: profileUrl };
         if (!request.session.visit.checkOutTime) throw "alreadyCheckedIn";
 
-        let modelName = "visit";
-        let model = sails.models[modelName];
-
-        let ejsData = await sails.helpers.getDomains(model);
+        let ejsData = await sails.helpers.getDomains(Visit);
         ejsData.session = request.session;
-        ejsData.formData = await sails.helpers.getDefaults(model);
-        ejsData.action = `/${modelName}`;
+        ejsData.formData = Visit.getDefaults();
+        ejsData.action = "/visit";
 
         return exits.success(ejsData);
     }

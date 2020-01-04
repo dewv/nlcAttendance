@@ -24,32 +24,27 @@ module.exports = {
 
     fn: async function (inputs, exits) {
         let request = this.req;
-        let modelName = "student";
 
         // eslint-disable-next-line eqeqeq
-        if (request.session.role !== modelName || request.params.id != request.session.userId) throw "unauthorized";
+        if (request.session.role !== "student" || request.params.id != request.session.userId) throw "unauthorized";
 
-        let model = sails.models[modelName];
+        let recordToUpdate = await Student.findOne({ id: request.params.id })
+            .populate("majorOne")
+            .populate("majorTwo")
+            .populate("sportOne")
+            .populate("sportTwo")
+            .populate("slpInstructor");
 
-        let recordToUpdate = await sails.helpers.populateOne(model, request.params.id);
         /* istanbul ignore next */
         if (!recordToUpdate) throw "recordNotFound";
 
-        let ejsData = await sails.helpers.getDomains(model, recordToUpdate);
-
+        let ejsData = await sails.helpers.getDomains(Student, recordToUpdate);
+        sails.log.debug(JSON.stringify(ejsData))
         ejsData.academicRank = ejsData.academicRank.replace(/id=\"academicRank\"/, "id=\"academicRank\" autofocus");
-
-        // let instructors = await Staff.find({ isSlpInstructor: true });
-
-        // let selected = undefined;
-        // if (recordToUpdate.slpInstructor instanceof String) selected = recordToUpdate.slpInstructor;
-        // else if (recordToUpdate.slpInstructor instanceof Object) selected = recordToUpdate.slpInstructor.name;
-
-        // ejsData.slpInstructor = await sails.helpers.generateHtmlSelect("slpInstructor", { options: instructors }, selected);
 
         ejsData.session = request.session;
         ejsData.formData = recordToUpdate;
-        ejsData.action = `/${modelName}/${request.params.id}`;
+        ejsData.action = `/student/${request.params.id}`;
 
         return exits.success(ejsData);
     }
