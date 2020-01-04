@@ -15,7 +15,8 @@
             </tr>
         </thead>
 
-        <% if(records) {records.forEach(function(visit) { %>
+        <% if (records) {
+            records.forEach(function(visit) { %>
         <tbody>
             <tr>
                 <td>
@@ -28,7 +29,7 @@
                     <%= visit.checkInTime %>
                 </td>
                 <td>
-                    <%= visit.checkOutTime %>
+                    <%= new Date(visit.checkOutTime) %>
                 </td>
                 <td>
                     <%= visit.length %>

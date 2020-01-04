@@ -40,10 +40,11 @@ module.exports = {
         if (request.session.forceProfileUpdate) throw { mustUpdateProfile: profileUrl };
         if (!request.session.visit.checkOutTime) throw "alreadyCheckedIn";
 
-        let ejsData = await sails.helpers.getDomains(Visit);
-        ejsData.session = request.session;
-        ejsData.formData = Visit.getDefaults();
-        ejsData.action = "/visit";
+        let ejsData = {
+            session: request.session,
+            formData: Visit.getDefaults(),
+            action: "/visit"
+        };
 
         return exits.success(ejsData);
     }

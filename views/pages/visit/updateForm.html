@@ -30,7 +30,12 @@
         <div class="formPiece">
             <label for="purposeAchieved" id="purposeAchievedLabel">*Did you accomplish the purpose of your
                 visit?</label>
-            <%- purposeAchieved %>
+            <select id="purposeAchieved" name="purposeAchieved" autofocus required size="1">
+                <option value="">Choose one ...</option>
+                <% for (let option of options.purposeAchieved) { %>
+                <option value="<%= option %>"><%= option %></option>
+                <% } %>
+            </select>
         </div>
 
         <div class="formPiece">

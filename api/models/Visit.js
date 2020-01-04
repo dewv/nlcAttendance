@@ -36,6 +36,12 @@ module.exports = {
         };
     },
 
+    getOptions: function () {
+        return {
+            purposeAchieved: Visit.attributes.purposeAchieved.validations.isIn
+        };
+    },
+
     // Define the model's one to many association.
     recordToAssociate: "student",
 

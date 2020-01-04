@@ -23,10 +23,11 @@ module.exports = {
 
         if (request.session.role !== "staff") throw "unauthorized";
 
-        let ejsData = await sails.helpers.getDomains(Sport);
-        ejsData.session = request.session;
-        ejsData.formData = Sport.getDefaults();
-        ejsData.action = "/sport";
+        let ejsData = {
+            session: request.session,
+            formData: Sport.getDefaults(),
+            action: "/sport"
+        };
 
         return exits.success(ejsData);
     }

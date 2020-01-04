@@ -38,13 +38,12 @@ module.exports = {
         /* istanbul ignore next */
         if (!recordToUpdate) throw "recordNotFound";
 
-        let ejsData = await sails.helpers.getDomains(Student, recordToUpdate);
-        sails.log.debug(JSON.stringify(ejsData))
-        ejsData.academicRank = ejsData.academicRank.replace(/id=\"academicRank\"/, "id=\"academicRank\" autofocus");
-
-        ejsData.session = request.session;
-        ejsData.formData = recordToUpdate;
-        ejsData.action = `/student/${request.params.id}`;
+        let ejsData = {
+            session: request.session,
+            formData: recordToUpdate,
+            action: `/student/${request.params.id}`,
+            options: await Student.getOptions(recordToUpdate)
+        };
 
         return exits.success(ejsData);
     }

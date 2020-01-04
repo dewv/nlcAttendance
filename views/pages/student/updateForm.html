@@ -6,43 +6,76 @@
 
         <div class="w3-select w3-border-0">
             <label for="academicRank">*Academic Rank</label>
-            <%- academicRank %>
+            <select id="academicRank" name="academicRank" autofocus required size="1">
+                <option value="">Choose one ...</option>
+                <% for (let option of options.academicRank) { %>
+                <option value="<%= option %>" <%= formData.academicRank === option ? " selected" : "" %>><%= option %></option>
+                <% } %>
+            </select>
         </div>
 
         <div class="w3-select w3-border-0">
             <label for="residentialStatus">*Residential Status</label>
-            <%- residentialStatus %>
+            <select id="residentialStatus" name="residentialStatus" required size="1">
+                <option value="">Choose one ...</option>
+                <% for (let option of options.residentialStatus) { %>
+                <option value="<%= option %>" <%= formData.residentialStatus === option ? " selected" : "" %>><%= option %></option>
+                <% } %>
+            </select>
         </div>
 
         <div class="w3-select w3-border-0">
             <label for="majorOne">*Major 1</label>
-            <%- majorOne %>
+            <select id="majorOne" name="majorOne" required size="1">
+                <option value="">Choose one ...</option>
+                <% for (let option of options.majorOne) { %>
+                <option value="<%= option %>" <%= formData.majorOne && formData.majorOne.name === option ? " selected" : "" %>><%= option %></option>
+                <% } %>
+            </select>
         </div>
 
         <div class="w3-select w3-border-0">
             <label for="majorTwo">Major 2</label>
-            <%- majorTwo %>
+            <select id="majorTwo" name="majorTwo" size="1">
+                <option value="">Choose one ...</option>
+                <% for (let option of options.majorTwo) { %>
+                <option value="<%= option %>" <%= formData.majorTwo && formData.majorTwo.name === option ? " selected" : "" %>><%= option %></option>
+                <% } %>
+            </select>
         </div>
 
         <div class="w3-select w3-border-0">
             <label for="sportOne" class="sports">Sport 1</label>
-            <%- sportOne %>
+            <select id="sportOne" name="sportOne" size="1">
+                <option value="">Choose one ...</option>
+                <% for (let option of options.sportOne) { %>
+                <option value="<%= option %>" <%= formData.sportOne &&formData.sportOne.name === option ? " selected" : "" %>><%= option %></option>
+                <% } %>
+            </select>
         </div>
 
         <div class="w3-select w3-border-0">
             <label for="sportTwo" class="sports">Sport 2</label>
-            <%- sportTwo %>
+            <select id="sportTwo" name="sportTwo" size="1">
+                <option value="">Choose one ...</option>
+                <% for (let option of options.sportTwo) { %>
+                <option value="<%= option %>" <%= formData.sportTwo && formData.sportTwo.name === option ? " selected" : "" %>><%= option %></option>
+                <% } %>
+            </select>
         </div>
 
         <div class="w3-select w3-border-0">
             <label for="slpInstructor" id="slpInstructor">SLP Instructor</label>
-            <%- slpInstructor %>
+            <select id="slpInstructor" name="slpInstructor" size="1">
+                <option value="">Choose one ...</option>
+                <% for (let option of options.slpInstructor) { %>
+                <option value="<%= option %>" <%= formData.slpInstructor && formData.slpInstructor.name === option ? " selected" : "" %>><%= option %></option>
+                <% } %>
+            </select>
         </div>
 
         <div class="button w3-padding-16">
             <button class="w3-btn w3-white" id="submitButton" type="submit">Update</button>
         </div>
-
-
     </form>
 </div>

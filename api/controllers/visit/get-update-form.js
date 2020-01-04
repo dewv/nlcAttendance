@@ -62,13 +62,12 @@ module.exports = {
             recordToUpdate.isLengthEstimated = true;
         }
 
-        let ejsData = await sails.helpers.getDomains(Visit, recordToUpdate);
-
-        ejsData.purposeAchieved = ejsData.purposeAchieved.replace(/id=\"purposeAchieved\"/, "id=\"purposeAchieved\" autofocus");
-
-        ejsData.session = request.session;
-        ejsData.formData = recordToUpdate;
-        ejsData.action = `/visit/${request.params.id}`;
+        let ejsData = {
+            session: request.session,
+            formData: recordToUpdate,
+            action: `/visit/${request.params.id}`,
+            options: Visit.getOptions()
+        };
 
         return exits.success(ejsData);
     }

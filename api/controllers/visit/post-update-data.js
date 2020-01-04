@@ -43,19 +43,12 @@ module.exports = {
         request.body.checkOutTime = new Date(sails.helpers.getCurrentTime());
 
         if (request.body.length) {
-            // Estimated length may be posted with form ...
+            // Visit length may be posted with form (when estimated)...
             request.body.isLengthEstimated = true;
         } else {
             // ... or it may be calculated.
             request.body.isLengthEstimated = false;
-            let current = await Visit.find({
-                where: {
-                    student: request.session.userId
-                },
-                limit: 1,
-                sort: "checkInTime DESC"
-            });
-            request.body.checkInTime = current[0].checkInTime;
+            request.body.checkInTime = new Date(request.session.visit.checkInTime);
             request.body.length = ((new Date(request.body.checkOutTime)).getTime()) - ((new Date(request.body.checkInTime)).getTime());
             request.body.length = sails.helpers.convertToHours(request.body.length);
         }

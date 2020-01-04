@@ -28,6 +28,35 @@ module.exports = {
         return proceed();
     },
 
+    getOptions: async function (student) {
+        let result = {
+            academicRank: Student.attributes.academicRank.validations.isIn,
+            majorOne: [],
+            residentialStatus: Student.attributes.residentialStatus.validations.isIn,
+            sportOne: [],
+            slpInstructor: []
+        };
+
+        let majors = await Major.find({ or: [{ discontinued: "No" }, { id: student.majorOne ? student.majorOne.id : null }, { id: student.majorTwo ? student.majorTwo.id : null }] });
+        for (let major of majors) {
+            result.majorOne.push(major.name);
+        }
+        result.majorTwo = result.majorOne;
+
+        let sports = await Sport.find({ or: [{ discontinued: "No" }, { id: student.sportOne ? student.sportOne.id : null }, { id: student.sportTwo ? student.sportTwo.id : null }] });
+        for (let sport of sports) {
+            result.sportOne.push(sport.name);
+        }
+        result.sportTwo = result.sportOne;
+
+        let instructors = await Staff.find({ or: [{ isSlpInstructor: true }, { id: student.slpInstructor ? student.slpInstructor.id : null }] });
+        for (let instructor of instructors) {
+            result.slpInstructor.push(instructor.name);
+        }
+
+        return result;
+    },
+
     /** 
      * Indicates which model attributes have defined domains.
      */
