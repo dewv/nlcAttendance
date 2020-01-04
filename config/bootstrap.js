@@ -14,8 +14,10 @@ module.exports.bootstrap = async function () {
 
     // By convention, this is a good place to set up fake data during development.
     if (sails.config.environment === "development") {
-        await Student.createTestData();
+        await Major.createData();
+        await Sport.createData();
         await Staff.createTestData();
+        await Student.createTestData();
         await Visit.createTestData();
     }
 };

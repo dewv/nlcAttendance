@@ -15,7 +15,6 @@ const helperIntegrationTests = require("./_helpers");
 // module.exports = function(testData) {
 
 describe("Visit model", function () {
-    // let testData = {
     let testData = {
         associations: {},
         record: {},
@@ -25,7 +24,6 @@ describe("Visit model", function () {
     };
 
     before(async function () {
-
         testData.record = Visit.testRecords[2];
         testData.associations.student = await Student.findOne({ id: testData.record.student });
         testData.checkInForm = { purpose: "test" };

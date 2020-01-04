@@ -39,9 +39,13 @@ module.exports = {
 
         ejsData.academicRank = ejsData.academicRank.replace(/id=\"academicRank\"/, "id=\"academicRank\" autofocus");
 
-        let instructors = await Staff.find({ isSlpInstructor: true });
+        // let instructors = await Staff.find({ isSlpInstructor: true });
 
-        ejsData.slpInstructor = await sails.helpers.generateHtmlSelect("slpInstructor", { options: instructors }, recordToUpdate.slpInstructor || undefined);
+        // let selected = undefined;
+        // if (recordToUpdate.slpInstructor instanceof String) selected = recordToUpdate.slpInstructor;
+        // else if (recordToUpdate.slpInstructor instanceof Object) selected = recordToUpdate.slpInstructor.name;
+
+        // ejsData.slpInstructor = await sails.helpers.generateHtmlSelect("slpInstructor", { options: instructors }, selected);
 
         ejsData.session = request.session;
         ejsData.formData = recordToUpdate;

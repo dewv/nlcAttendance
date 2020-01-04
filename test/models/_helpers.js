@@ -32,6 +32,7 @@ module.exports = function (modelName, testData) {
             it("should return a dictionary containing domain values for each appropriate model attribute", async function () {
                 let model = sails.models[modelName];
                 let result = await sails.helpers.getDomains(model);
+                // TODO the following is never true; this test code is badly outdated
                 if (model.generateHtmlSelect) {
                     for (let property in model.generateHtmlSelect) {
                         if (model.generateHtmlSelect[property]) {

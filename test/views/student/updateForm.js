@@ -17,7 +17,7 @@ describe("Student views", function () {
             residentialStatus: "Commuter",
             sportOne: { name: "Sport A" },
             sportTwo: null,
-            slpInstructor: { name: "SLP Instructor" }
+            slpInstructor: 1 //{ name: "SLP Instructor" }
         };
 
         let ejsData = {

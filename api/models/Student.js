@@ -38,7 +38,7 @@ module.exports = {
         residentialStatus: true,
         sportOne: true,
         sportTwo: true,
-        // slpInstructor: true
+        slpInstructor: true
     },
 
     /** 
@@ -62,28 +62,6 @@ module.exports = {
         let recordCount = 5;
 
         // Associations
-        let ids = {
-            major: [],
-            sportOne: [],
-            sportTwo: []
-        };
-
-        for (let i = 0; i < recordCount; i++) {
-            ids.major[i] = await (
-                await Major.create({
-                    name: `MAJOR ${i + 1}`, discontinued: "No"
-                }).fetch()).id;
-
-            ids.sportOne[i] = await (
-                await Sport.create({
-                    name: `SPORT ${i + 1}.1`, discontinued: "No"
-                }).fetch()).id;
-
-            ids.sportTwo[i] = await (
-                await Sport.create({
-                    name: `SPORT ${i + 1}.2`, discontinued: "No"
-                }).fetch()).id;
-        }
 
         // Students. All but first have associations populated.
         for (let i = 0; i < recordCount; i++) {
@@ -92,11 +70,11 @@ module.exports = {
                 firstName: `FIRSTNAME${i + 1}`,
                 lastName: `LASTNAME${i + 1}`,
                 academicRank: i === 0 ? null : Student.attributes.academicRank.validations.isIn[i % Student.attributes.academicRank.validations.isIn.length],
-                majorOne: i === 0 ? null : ids.major[i],
-                majorTwo: i === 0 ? null : ids.major[(i + 1) % recordCount],
+                majorOne: i + 1,
+                majorTwo: i + 4,
                 residentialStatus: i === 0 ? null : Student.attributes.residentialStatus.validations.isIn[i % Student.attributes.residentialStatus.validations.isIn.length],
-                sportOne: i === 0 ? null : ids.sportOne[i],
-                sportTwo: i === 0 ? null : ids.sportTwo[i],
+                sportOne: i + 1,
+                sportTwo: i + 1,
                 forceUpdate: Student.attributes.forceUpdate.defaultsTo,
                 slpInstructor: i === 0 ? null : 1
             }).fetch());
@@ -107,11 +85,11 @@ module.exports = {
                 firstName: `NoUpdateFirst${i + 1}`,
                 lastName: `NoUpdateLast${i + 1}`,
                 academicRank: i === 0 ? null : Student.attributes.academicRank.validations.isIn[i % Student.attributes.academicRank.validations.isIn.length],
-                majorOne: i === 0 ? null : ids.major[i],
-                majorTwo: i === 0 ? null : ids.major[(i + 1) % recordCount],
+                majorOne: i + 1,
+                majorTwo: i + 4,
                 residentialStatus: i === 0 ? null : Student.attributes.residentialStatus.validations.isIn[i % Student.attributes.residentialStatus.validations.isIn.length],
-                sportOne: i === 0 ? null : ids.sportOne[i],
-                sportTwo: i === 0 ? null : ids.sportTwo[i],
+                sportOne: i + 1,
+                sportTwo: i + 1,
                 forceUpdate: false,
                 slpInstructor: i === 0 ? null : 1
             }).fetch());
