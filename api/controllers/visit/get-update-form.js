@@ -50,14 +50,17 @@ module.exports = {
         /* istanbul ignore next */
         if (!recordToUpdate) throw "recordNotFound";
 
+        // Updating a visit means checking out.
         if (recordToUpdate.checkOutTime === null) {
             recordToUpdate.checkOutTime = new Date(sails.helpers.getCurrentTime());
         }
 
+        // Calculate length of visit.
         recordToUpdate.length = ((new Date(recordToUpdate.checkOutTime)).getTime()) - ((new Date(recordToUpdate.checkInTime)).getTime());
 
         recordToUpdate.length = sails.helpers.convertToHours(recordToUpdate.length);
 
+        // If check in was more than 8 hours ago, have user estimate visit length.
         if (recordToUpdate.length > 8) {
             recordToUpdate.isLengthEstimated = true;
         }

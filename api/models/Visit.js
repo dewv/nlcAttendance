@@ -1,8 +1,5 @@
 /**
- * Represents a set of visit records. 
- * @module 
- * @implements Model
- * @borrows VisitRecord as VisitRecord
+ * A student's visit to the NLC. 
  */
 module.exports = {
     attributes: {
@@ -40,23 +37,6 @@ module.exports = {
         return {
             purposeAchieved: Visit.attributes.purposeAchieved.validations.isIn
         };
-    },
-
-    // Define the model's one to many association.
-    recordToAssociate: "student",
-
-    /** 
-     * Indicates which model attributes have defined domains.
-     */
-    domainDefined: {
-        purposeAchieved: true
-    },
-
-    /** 
-     * Indicates which model attributes are required when a closes a visit.
-     */
-    inputRequired: {
-        purposeAchieved: true
     },
 
     testRecords: [],
@@ -121,18 +101,3 @@ module.exports = {
         }
     }
 };
-
-/**
- * A student visit record.
- * @typedef {Record} VisitRecord
- * @property {Student} student - The associated student record.
- * @property {ref} checkInTime - A reference to createdAt formated in UTC.
- * @property {ref} checkOutTime - A timestamp in UTC used to calculate length, defaults to '0000-00-00 00:00:00'.
- * @property {string} location - An identifier for the browser that the student used to check in.
- * @property {number} length - The number of hours, to the nearest quarter hour, the student was at the NLC. The difference between the checkOutTime and CheckInTime.
- * @property {string} purpose - The reason the student visited the NLC.
- * @property {string} purposeAchieved - Did the student accomplish their goal this visit.
- * @property {string} tutorCourses - The course of which the student used a tutor.
- * @property {string} comment - Any comments the student may have about their visit.
- * @property {boolean} isLengthEstimated - Indicates if it is mandatory for the student to estimate the length of their last visit when the value is true.
- */

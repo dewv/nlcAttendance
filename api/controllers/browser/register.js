@@ -21,6 +21,7 @@ module.exports = {
     fn: async function (inputs, exits) {
         let request = this.req;
         if (request.session.role !== "staff") throw "unauthorized";
+
         return exits.success();
     }
 };

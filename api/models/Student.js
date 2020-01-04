@@ -1,10 +1,5 @@
 /**
- * Represents a set of student profile records. 
- * @module 
- * @implements Model
- * @borrows StudentRecord as StudentRecord 
- * @borrows academicRankDomain as academicRankDomain
- * @borrows residentialStatusDomain as residentialStatusDomain
+ * A student user's profile. 
  */
 module.exports = {
     attributes: {
@@ -20,8 +15,6 @@ module.exports = {
         forceUpdate: { type: "boolean", defaultsTo: true },
         slpInstructor: { model: "Staff" },
     },
-
-    candidateKey: "username",
 
     beforeUpdate: async function (valuesToSet, proceed) {
         valuesToSet.forceUpdate = false;
@@ -55,28 +48,6 @@ module.exports = {
         }
 
         return result;
-    },
-
-    /** 
-     * Indicates which model attributes have defined domains.
-     */
-    domainDefined: {
-        academicRank: true,
-        majorOne: true,
-        majorTwo: true,
-        residentialStatus: true,
-        sportOne: true,
-        sportTwo: true,
-        slpInstructor: true
-    },
-
-    /** 
-     * Indicates which model attributes are required when a user updates their profile.
-     */
-    inputRequired: {
-        academicRank: true,
-        majorOne: true,
-        residentialStatus: true,
     },
 
     testRecords: [],
@@ -125,28 +96,3 @@ module.exports = {
         }
     }
 };
-
-/**
- * Domain values for student academic rank.
- * @typedef {string} academicRankDomain
- */
-
-/**
- * Domain values for student residential status.
- * @typedef {string} residentialStatusDomain
- */
-
-/**
- * A student profile record.
- * @typedef {Record} StudentRecord
- * @property {string} username - The student's email address, @dewv.edu.
- * @property {string} firstName - The student's first name.
- * @property {string} lastName - The student's last name.
- * @property {academicRankDomain} academicRank - The student's academic rank.
- * @property {MajorRecord} majorOne - The student's primary major.
- * @property {MajorRecord} majorTwo - The student's secondary major.
- * @property {residentialStatusDomain} residentialStatus - The student's residential status.
- * @property {FallSport} fallSport - The student's Fall sport.
- * @property {SpringSport} springSport - The student's Spring sport.
- * @property {boolean} forceUpdate=true - Indicates if it is mandatory for the student to update their profile.
- */

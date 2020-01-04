@@ -18,6 +18,7 @@ module.exports = {
         let request = this.req;
         let ejsData = { session: { banner: request.session.banner } };
         request.session.destroy();
+
         return exits.success(ejsData);
     }
 };

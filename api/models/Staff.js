@@ -1,8 +1,5 @@
 /**
- * Represents a set of staff profile records. 
- * @module 
- * @implements Model
- * @borrows StaffRecord as StaffRecord 
+ * A staff user's profile. 
  */
 module.exports = {
     attributes: {
@@ -13,8 +10,6 @@ module.exports = {
         isSlpInstructor: { type: "boolean", allowNull: false, defaultsTo: false },
         forceUpdate: { type: "boolean", defaultsTo: true }
     },
-
-    candidateKey: "username",
 
     beforeUpdate: async function (valuesToSet, proceed) {
         valuesToSet.forceUpdate = false;
@@ -54,13 +49,3 @@ module.exports = {
         }
     }
 };
-
-/**
- * A staff profile record.
- * @typedef {Record} StaffRecord
- * @property {string} username - The staff member's email address.
- * @property {string} firstName - The staff member's first name.
- * @property {string} lastName - The staff member's last name.
- * @property {boolean} isSlpInstructor - Indicates if the staff member is an SLP instructor.
- * @property {boolean} forceUpdate=true - Indicates if it is mandatory for the user to update their profile.
- */
