@@ -12,9 +12,9 @@
             </tr>
         </thead>
 
-        <% let count = 0 %>
-        <% if(records) {records.forEach(function(major) { count++ %>
         <tbody>
+            <% let count = 0 %>
+            <% if(records) {records.forEach(function(major) { count++ %>
             <tr>
                 <td class="w3-left w3-margin-left">
                     <%= major.name %>
@@ -32,7 +32,7 @@
                     </form>
                 </td>
             </tr>
+            <% }); }%>
         </tbody>
-        <% }); }%>
     </table>
 </div>

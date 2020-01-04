@@ -12,12 +12,12 @@
             </tr>
         </thead>
 
-        <% let count = 0; %>
-        <% if (records) {
+        <tbody>
+            <% let count = 0; %>
+            <% if (records) {
             records.forEach(function(sport) { 
                 count++; 
         %>
-        <tbody>
             <tr>
                 <td class="w3-left w3-margin-left">
                     <%= sport.name %>
@@ -35,7 +35,7 @@
                     </form>
                 </td>
             </tr>
+            <% }); }%>
         </tbody>
-        <% }); }%>
     </table>
 </div>

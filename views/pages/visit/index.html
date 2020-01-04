@@ -15,9 +15,9 @@
             </tr>
         </thead>
 
-        <% if (records) {
-            records.forEach(function(visit) { %>
         <tbody>
+            <% if (records) {
+            records.forEach(function(visit) { %>
             <tr>
                 <td>
                     <%= visit.id %>
@@ -42,7 +42,7 @@
                     <% } %>
                 </td>
             </tr>
+            <% }); }%>
         </tbody>
-        <% }); }%>
     </table>
 </div>
