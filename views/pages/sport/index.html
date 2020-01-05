@@ -1,9 +1,7 @@
-<div class="w3-center w3-padding">
-    <a href="<%= baseUrl %>/sport/new">Add New
-        Sport</a>
-</div>
+<a href="<%= baseUrl %>/sport/new" class="w3-button" style="color: white; position: fixed; right: 0; z-index: 10;">Add a new
+    Sport</a>
 
-<div style="width: 70%; padding-left: 30%;">
+<div style="width: 70%; padding-left: 30%; padding-bottom: 1%; padding-top: 4%;">
     <table class="w3-table-all w3-card" id="sportTable">
         <thead>
             <tr>
@@ -15,9 +13,9 @@
         <tbody>
             <% let count = 0; %>
             <% if (records) {
-            records.forEach(function(sport) { 
-                count++; 
-        %>
+        records.forEach(function(sport) { 
+            count++; 
+    %>
             <tr>
                 <td class="w3-left w3-margin-left">
                     <%= sport.name %>

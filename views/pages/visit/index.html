@@ -1,53 +1,51 @@
-<div class="w3-center w3-padding" style="margin-top: 50px;">
-    <a href="<%= baseUrl %>/visit/download">Download all visit data</a>
-</div>
+    <a href="<%= baseUrl %>/visit/download" class="w3-button" style="color: white; position: fixed; right: 0; z-index: 10;">Download all visit data</a>
 
-<div style="width: 99%; padding-left: 1%; padding-bottom: 1%;">
-    <table class="w3-table-all w3-card">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Check In</th>
-                <th>Check Out</th>
-                <th>Visit Length</th>
-                <th>Length Estimated?</th>
-            </tr>
-        </thead>
+    <div style="width: 99%; padding-left: 1%; padding-bottom: 1%; padding-top: 4%;">
+        <table class="w3-table-all w3-card">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Check In</th>
+                    <th>Check Out</th>
+                    <th>Visit Length</th>
+                    <th>Length Estimated?</th>
+                </tr>
+            </thead>
 
-        <tbody>
-            <% if (records) {
-                let options = {
+            <tbody>
+                <% if (records) {
+                let dateFormat = {
                     year: 'numeric', month: '2-digit', day: '2-digit',
                     hour: 'numeric', minute: 'numeric', second: 'numeric',
                 };
 
                 records.forEach(function(visit) { %>
-            <tr>
-                <td>
-                    <%= visit.id %>
-                </td>
-                <td>
-                    <%= visit.student.firstName + " " + visit.student.lastName %>
-                </td>
-                <td>
-                    <%= new Intl.DateTimeFormat("en-US", options).format(visit.checkInTime) %>
-                </td>
-                <td>
-                    <%= visit.checkOutTime ? new Intl.DateTimeFormat("en-US", options).format(visit.checkOutTime) : "" %>
-                </td>
-                <td>
-                    <%= visit.length %>
-                </td>
-                <td>
-                    <% if (visit.isLengthEstimated === null) { %>
-                    <%= "" %>
-                    <% } else { %>
-                    <%= visit.isLengthEstimated ? "Yes" : "No" %>
-                    <% } %>
-                </td>
-            </tr>
-            <% }); }%>
-        </tbody>
-    </table>
-</div>
+                <tr>
+                    <td>
+                        <%= visit.id %>
+                    </td>
+                    <td>
+                        <%= visit.student.firstName + " " + visit.student.lastName %>
+                    </td>
+                    <td>
+                        <%= new Intl.DateTimeFormat("en-US", dateFormat).format(visit.checkInTime) %>
+                    </td>
+                    <td>
+                        <%= visit.checkOutTime ? new Intl.DateTimeFormat("en-US", dateFormat).format(visit.checkOutTime) : "" %>
+                    </td>
+                    <td>
+                        <%= visit.length %>
+                    </td>
+                    <td>
+                        <% if (visit.isLengthEstimated === null) { %>
+                        <%= "" %>
+                        <% } else { %>
+                        <%= visit.isLengthEstimated ? "Yes" : "No" %>
+                        <% } %>
+                    </td>
+                </tr>
+                <% }); }%>
+            </tbody>
+        </table>
+    </div>
