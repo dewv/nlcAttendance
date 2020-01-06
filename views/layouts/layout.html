@@ -39,9 +39,7 @@
     -->
 
     <!--STYLES-->
-    <link rel="stylesheet" href="/styles/animate-fade-out.css">
-    <link rel="stylesheet" href="/styles/w3-theme-red.css">
-    <link rel="stylesheet" href="/styles/w3.css">
+    <link rel="stylesheet" href="/nlc_attendance/min/production.min.css">
     <!--STYLES END-->
 </head>
 
@@ -68,6 +66,7 @@
         <% } %>
 
         <% if (session.role === "student") { %>
+	<%- exposeLocalsToBrowser({ keys: ["baseUrl"] }); -%> 
         <%- include("../include/logoutTimer.html"); -%>
         <% } %>
 
@@ -141,8 +140,7 @@
     -->
 
     <!--SCRIPTS-->
-    <script src="/js/logoutTimer.js"></script>
-    <script src="/js/preventMultiSubmit.js"></script>
+    <script src="/nlc_attendance/min/production.min.js"></script>
     <!--SCRIPTS END-->
 
     <% if (typeof session.role !== "undefined" && session.role === "student") { %>

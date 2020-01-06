@@ -6,7 +6,7 @@ function setLogoutTimer() { // eslint-disable-line no-unused-vars
 
     var logoutWarning = function () {
         if (popup) popup.style.display = "block";
-        logoutTime = setTimeout("window.location = '/logout';", ONE_MINUTE);
+        logoutTime = setTimeout(`window.location = '${SAILS_LOCALS.baseUrl}/logout';`, ONE_MINUTE);
     };
 
     if (popup) popup.style.display = "none";
