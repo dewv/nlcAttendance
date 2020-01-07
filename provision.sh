@@ -13,3 +13,4 @@ sudo apt-get install -y nodejs
 sudo apt-get install -y npm 
 sudo npm install sails -g
 npm install
+echo "Don't forget to put config/local.js in place, if needed."

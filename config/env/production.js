@@ -21,7 +21,6 @@
 
 module.exports = {
 
-
     /**************************************************************************
   *                                                                         *
   * Tell Sails what database(s) it should use in production.                *
@@ -70,7 +69,7 @@ module.exports = {
       * https://sailsjs.com/config/datastores                                     *
       *                                                                           *
       ****************************************************************************/
-            // ssl: true,
+           // ssl: true,
 
         },
 
@@ -221,7 +220,7 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
         cookie: {
-            // secure: true,
+            secure: true,
         },
 
     },
