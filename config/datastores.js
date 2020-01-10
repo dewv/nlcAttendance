@@ -16,7 +16,7 @@
 module.exports.datastores = {
 
 
-  /***************************************************************************
+    /***************************************************************************
   *                                                                          *
   * Your app's default datastore.                                            *
   *                                                                          *
@@ -32,9 +32,9 @@ module.exports.datastores = {
   *                                                                          *
   ***************************************************************************/
 
-  default: {
+    default: {
 
-    /***************************************************************************
+        /***************************************************************************
     *                                                                          *
     * Want to use a different database during development?                     *
     *                                                                          *
@@ -48,12 +48,7 @@ module.exports.datastores = {
     *    (See https://sailsjs.com/config/datastores for help.)                 *
     *                                                                          *
     ***************************************************************************/
-    adapter: 'sails-mysql',
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    database: 'nlcAttendance'
-  },
-
-
+        adapter: "sails-mysql",
+        url: "mysql://nlc:password@localhost:3306/nlcAttendance"
+    },
 };

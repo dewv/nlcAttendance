@@ -2,21 +2,22 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title>
-    Naylor Learning Center
-  </title>
+    <meta charset="utf-8">
+    <title>
+        Naylor Learning Center
+    </title>
 
-  <link rel="icon" type="image/x-icon" href="/DE_Logo.ico" />
+    <link rel="icon" type="image/x-icon" href="<%= baseUrl %>/DE_Logo.ico" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <!-- Viewport mobile tag for sensible mobile support -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Viewport mobile tag for sensible mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <%/* If you want to discourage search engines from indexing this site, uncomment the following line: */%>
+    <%/* If you want to discourage search engines from indexing this site, uncomment the following line: */%>
     <%/* <meta name="robots" content="noindex"> */%>
 
 
-      <!--
+    <!--
         Stylesheets and Preprocessors
         ==============================
 
@@ -37,77 +38,61 @@
             + Use a different or additional preprocessor, like SASS, SCSS or Stylus
     -->
 
-
     <!--STYLES-->
-    <link rel="stylesheet" href="/styles/w3-theme-red.css">
-    <link rel="stylesheet" href="/styles/w3.css">
-    <!--STYLES END--> 
-
-
+    <link rel="stylesheet" href="/nlc_attendance/min/production.min.css">
+    <!--STYLES END-->
 </head>
+
 <body>
+    <div class="w3-top">
+        <% if (typeof session.role !== "undefined") { %>
+        <% if (session.role === "staff") { %>
+        <div class="w3-bar w3-red w3-mobile" style="display: block;">
+            <a href="<%= baseUrl %>/visit" class="w3-bar-item w3-button">Visits</a>
+            <a href="<%= baseUrl %>/major" class="w3-bar-item w3-button">Majors</a>
+            <a href="<%= baseUrl %>/sport" class="w3-bar-item w3-button">Sports</a>
+            <a href="<%= baseUrl %>/browser/register" class="w3-bar-item w3-button">Browser
+                Registration</a>
+            <a href="<%= baseUrl %>/staff/<%= session.userId %>/edit" class="w3-bar-item w3-button">Profile</a>
+            <a href="<%= baseUrl %>/logout" class="w3-bar-item w3-button">Log out</a>
+        </div>
+        <% } %>
 
-  <% if ( typeof role !== "undefined" ) { %>
+        <% if (session.role === "student") { %>
+        <div class="w3-bar w3-red w3-mobile">
+            <a href="<%= baseUrl %>/student/<%= session.userId %>/edit" class="w3-bar-item w3-button">Profile</a>
+            <a href="<%= baseUrl %>/logout" class="w3-bar-item w3-button">Log out</a>
+        </div>
+        <% } %>
 
-    <% if ( role === "staff" ) { %>
-      <div class="topnav w3-bar w3-red w3-mobile">
-          <a class="active w3-bar-item w3-button" href="/student">Students</a>
-          <a href="/visit" class="w3-bar-item w3-button">Visits</a>
-          <a href="/major" class="w3-bar-item w3-button">Majors</a>
-          <a href="/sports" class="w3-bar-item w3-button">Sports</a>
-          <a href="/browser" class="w3-bar-item w3-button">Browser Registration</a>
-          <a href="/staff/<%= userId %>/edit" class="w3-bar-item w3-button">Profile</a>
-          <a href="/logout" class="w3-bar-item w3-button">Log out</a>
-      </div>
-    <% } %>
+        <% if (session.role === "student") { %>
+	<%- exposeLocalsToBrowser({ keys: ["baseUrl"] }); -%> 
+        <%- include("../include/logoutTimer.html"); -%>
+        <% } %>
 
-    <% if ( role === "student" ) { %>
-      <div class="topnav w3-bar w3-red w3-mobile">
-          <a href="/student/<%= userId %>/edit" class="w3-bar-item w3-button">Profile</a>
-          <a href="/logout" class="w3-bar-item w3-button">Log out</a>
-      </div>
-    <% } %>
-    
-  <% } %>
+        <% } %>
 
-  <style>
-    .animate-fade-out {
-      animation-direction: reverse; 
-      animation-fill-mode: forwards;
-        animation-duration: 8s;
-    }
-  </style>
-  
-  
-  <% if (typeof banner !== "undefined") { %>
-  <div class = "w3-panel w3-green w3-display-container w3-animate-opacity animate-fade-out">
-  <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">&times;</span>
-  <p><%= banner %></p>
-  </div>
+        <% if (typeof session.banner !== "undefined") { %>
+        <% if (typeof session.role === "undefined") { %>
+        <div class="animate-fade-out">
+            <% } %>
+            <div class="w3-container w3-display-container w3-pale-blue" style="width: 100%;">
+                <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                <p class="w3-margin-left"><%= session.banner %></p>
+            </div>
+            <% if (typeof session.role === "undefined") { %>
+        </div>
+        <% } %>
+        <% } 
+        session.banner = undefined; %>
 
-  <% } %>
-        <p><%- body %></p>
+    </div>
 
+    <%- body %>
 
-    <!--
-        Client-side Templates
+    <!-- Client-side Templates
         ========================
-
-        HTML templates are important prerequisites of modern, rich client applications.
-        To work their magic, frameworks like React, Vue.js, Angular, Ember, and Backbone
-        require that you load these templates client-side.
-
-        By default, your Gruntfile is configured to automatically load and precompile
-        client-side JST templates in your `assets/templates` folder, then
-        include them here automatically (between TEMPLATES and TEMPLATES END).
-
-        To customize this behavior to fit your needs, just edit `tasks/pipeline.js`.
-        For example, here are a few things you could do:
-
-            + Import templates from other directories
-            + Use a different view engine (handlebars, dust, pug/jade, etc.)
-            + Internationalize your client-side templates using a server-side
-              stringfile before they're served.
+        HTML templates are important prerequisites of modern, rich client applications. To work their magic, frameworks like React, Vue.js, Angular, Ember, and Backbone require that you load these templates client-side. By default, your Gruntfile is configured to automatically load and precompile client-side JST templates in your `assets/templates` folder, then include them here automatically (between TEMPLATES and TEMPLATES END). To customize this behavior to fit your needs, just edit `tasks/pipeline.js`. For example, here are a few things you could do: + Import templates from other directories + Use a different view engine (handlebars, dust, pug/jade, etc.) + Internationalize your client-side templates using a server-side stringfile before they're served. 
     -->
 
     <!--TEMPLATES-->
@@ -155,8 +140,15 @@
     -->
 
     <!--SCRIPTS-->
-    <script src="/js/logoutTimer.js"></script>
+    <script src="/nlc_attendance/min/production.min.js"></script>
     <!--SCRIPTS END-->
+
+    <% if (typeof session.role !== "undefined" && session.role === "student") { %>
+    <script>
+        setLogoutTimer();
+
+    </script>
+    <% } %>
 </body>
 
 </html>

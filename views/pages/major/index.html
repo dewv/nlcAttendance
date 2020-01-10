@@ -1,43 +1,36 @@
+<a href="<%= baseUrl %>/major/new" class="w3-button" style="color: white; position: fixed; right: 0; z-index: 10;">Add a new
+    Major</a>
 
-
-
-<div style="overflow-x:auto;">
-
-    <div>
-        <h2>Majors</h2>
-        <h3><a href="/major/new" >Add New Major</a></h3>
-    </div>
-
-    <table id="majorTable">
+<div style="width: 70%; padding-left: 30%; padding-bottom: 1%; padding-top: 4%;">
+    <table class="w3-table-all w3-card" id="majorTable">
         <thead>
             <tr>
-                <th>Major</th>
-                <th>Discontinued?</th>
+                <th class="w3-left w3-margin-left">Major</th>
+                <th class="w3-center">Discontinued</th>
             </tr>
         </thead>
 
-        <% let count = 0 %>
-        <% if(records) {records.forEach(function(major) { count++ %>
-            <tbody>
-                <tr>
-                    <td>
-                        <%= major.name %>
-                    </td>
-                    <td>
-                        <form method="POST" action="/major/<%= major.id %>">
-                            <% if(major.discontinued === "Yes") { %>
-                                <input type="hidden" name="discontinued" value="No"/>
-                                <button type="submit" id="Yes<%= count %>"><img alt="Yes" src="/images/check.png" /></button>
-                            <% } else { %>
-                                <input type="hidden" name="discontinued" value="Yes"/>
-                                <button type="submit" id="No<%= count %>"><img alt="No" src="/images/x.png" /></button>
-                            <% } %>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        <% }); }%>
+        <tbody>
+            <% let count = 0 %>
+            <% if(records) {records.forEach(function(major) { count++ %>
+            <tr>
+                <td class="w3-left w3-margin-left">
+                    <%= major.name %>
+                </td>
+                <td>
+                    <form class="w3-center" method="POST" action="<%= baseUrl %>/major/<%= major.id %>">
+                        <% if(major.discontinued === "Yes") { %>
+                        <input type="hidden" name="discontinued" value="No" />
+                        <button style="border: none; background-color: white;" type="submit" id="Yes<%= count %>"><i class="fa fa-check-square-o" style="font-size: 150%;"></i></button>
+                        <% } else { %>
+                        <input type="hidden" name="discontinued" value="Yes" />
+                        <button style="border: none; background-color: white;" type="submit" id="No<%= count %>">
+                            <i class="fa fa-square-o" style="font-size: 150%;"></i></button>
+                        <% } %>
+                    </form>
+                </td>
+            </tr>
+            <% }); }%>
+        </tbody>
     </table>
-
 </div>
-

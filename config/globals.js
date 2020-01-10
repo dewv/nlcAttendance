@@ -11,16 +11,16 @@
 
 module.exports.globals = {
 
-  /****************************************************************************
+    /****************************************************************************
   *                                                                           *
   * Whether to expose the locally-installed Lodash as a global variable       *
   * (`_`), making  it accessible throughout your app.                         *
   *                                                                           *
   ****************************************************************************/
 
-  _: require('@sailshq/lodash'),
+    _: require("@sailshq/lodash"),
 
-  /****************************************************************************
+    /****************************************************************************
   *                                                                           *
   * This app was generated without a dependency on the "async" NPM package.   *
   *                                                                           *
@@ -29,24 +29,24 @@ module.exports.globals = {
   *                                                                           *
   ****************************************************************************/
 
-  async: false,
+    async: false,
 
-  /****************************************************************************
+    /****************************************************************************
   *                                                                           *
   * Whether to expose each of your app's models as global variables.          *
   * (See the link at the top of this file for more information.)              *
   *                                                                           *
   ****************************************************************************/
 
-  models: true,
+    models: true,
 
-  /****************************************************************************
+    /****************************************************************************
   *                                                                           *
   * Whether to expose the Sails app instance as a global variable (`sails`),  *
   * making it accessible throughout your app.                                 *
   *                                                                           *
   ****************************************************************************/
 
-  sails: true,
+    sails: true,
 
 };

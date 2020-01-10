@@ -104,6 +104,160 @@
     
 
     
+    <h4 class="name" id="sails&period;helpers&period;convertToHours"><span class="type-signature"></span>sails&period;helpers&period;convertToHours<span class="signature">(duration)</span><span class="type-signature"> &rarr; {number}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Returns the number of hours rounded to the nearest quarter hour based on milliseconds.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>duration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A time span in milliseconds.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The duration in hours, to the nearest quarter-hour.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="sails&period;helpers&period;encodeAssociations"><span class="type-signature">(async) </span>sails&period;helpers&period;encodeAssociations<span class="signature">(model, record)</span><span class="type-signature"> &rarr; {<a href="Record.html">Record</a>}</span></h4>
     
 
@@ -246,11 +400,13 @@
 
 
 
+
+
 <h5>Returns:</h5>
 
         
 <div class="param-desc">
-    The record argument, modified so that any association domain values are replace with their ID/key.
+    The record argument, modified so that any association domain values are replaced with their ID/key.
 </div>
 
 
@@ -472,6 +628,8 @@
 
 
 
+
+
 <h5>Returns:</h5>
 
         
@@ -505,6 +663,111 @@
     
 
     
+    <h4 class="name" id="sails&period;helpers&period;getCurrentTime"><span class="type-signature"></span>sails&period;helpers&period;getCurrentTime<span class="signature">()</span><span class="type-signature"> &rarr; {Date}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Returns the current date and time.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The current time.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Date</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="sails&period;helpers&period;getDefaults"><span class="type-signature"></span>sails&period;helpers&period;getDefaults<span class="signature">(model)</span><span class="type-signature"> &rarr; {<a href="Record.html">Record</a>}</span></h4>
     
 
@@ -513,7 +776,7 @@
 
 
 <div class="description">
-    Generates a data record with default values for model attributes, appropriate for populating create form.
+    Generates a data record with default values for model attributes, appropriate for populating a create form.
 </div>
 
 
@@ -611,6 +874,8 @@
 
     
 </dl>
+
+
 
 
 
@@ -776,6 +1041,8 @@
 
 
 
+
+
 <h5>Returns:</h5>
 
         
@@ -792,6 +1059,160 @@
     <dd>
         
 <span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="sails&period;helpers&period;getRecordList"><span class="type-signature">(async) </span>sails&period;helpers&period;getRecordList<span class="signature">(model)</span><span class="type-signature"> &rarr; {Array.&lt;<a href="Record.html">Record</a>>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Retrieves a model's records, with association populated.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>model</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Model.html">Model</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A Sails model defining the association, if any.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The model's records, modified so that any association domain values are replaced with their record.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;<a href="Record.html">Record</a>></span>
 
 
     </dd>
@@ -951,9 +1372,15 @@
 
 
 
+
+
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    `true` if the model property is an associated model; `false` otherwise.
+</div>
+
 
 
 <dl>
@@ -1109,6 +1536,8 @@
 
     
 </dl>
+
+
 
 
 
@@ -1360,6 +1789,8 @@
 
 
 
+
+
         
     
 
@@ -1506,6 +1937,29 @@
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>discontinued</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Indicates whether the sport has been discontinued.</td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -1622,6 +2076,29 @@
             
 
             <td class="description last">The major's name.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>discontinued</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Indicates if the major has been discontinued.</td>
         </tr>
 
     
@@ -1811,6 +2288,29 @@
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>discontinued</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Indicates whether the sport has been discontinued.</td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -1932,7 +2432,7 @@
                 </td>
             
 
-            <td class="description last">The staff member's email address, @dewv.edu.</td>
+            <td class="description last">The staff member's email address.</td>
         </tr>
 
     
@@ -2042,7 +2542,7 @@
                 </td>
             
 
-            <td class="description last">Indicates if it is mandatory for the student to update their profile.</td>
+            <td class="description last">Indicates if it is mandatory for the user to update their profile.</td>
         </tr>
 
     
@@ -2650,6 +3150,349 @@
 
 
             
+                
+<h4 class="name" id="VisitRecord">VisitRecord</h4>
+
+
+
+
+<div class="description">
+    A student visit record.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><a href="Record.html">Record</a></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>student</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Student</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The associated student record.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>checkInTime</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ref</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">A reference to createdAt formated in UTC.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>checkOutTime</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ref</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">A timestamp in UTC used to calculate length, defaults to '0000-00-00 00:00:00'.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>length</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The number of hours, to the nearest quarter hour, the student was at the NLC. The difference between the checkOutTime and CheckInTime.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>purpose</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The reason the student visited the NLC.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>purposeAchieved</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Did the student accomplish their goal this visit.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tutorCourses</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The course of which the student used a tutor.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>comment</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Any comments the student may have about their visit.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>isLengthEstimated</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last">Indicates if it is mandatory for the student to estimate the length of their last visit when the value is true.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
     
 
     
@@ -2663,13 +3506,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-controllers_RestController.html">controllers/RestController</a></li><li><a href="module-models_FallSport.html">models/FallSport</a></li><li><a href="module-models_Major.html">models/Major</a></li><li><a href="module-models_SpringSport.html">models/SpringSport</a></li><li><a href="module-models_Staff.html">models/Staff</a></li><li><a href="module-models_Student.html">models/Student</a></li></ul><h3>Externals</h3><ul><li><a href="external-Request.html">Request</a></li><li><a href="external-Response.html">Response</a></li></ul><h3>Interfaces</h3><ul><li><a href="Controller.html">Controller</a></li><li><a href="Model.html">Model</a></li><li><a href="Record.html">Record</a></li></ul><h3>Global</h3><ul><li><a href="global.html#sails&period;helpers&period;encodeAssociations">sails&period;helpers&period;encodeAssociations</a></li><li><a href="global.html#sails&period;helpers&period;generateHtmlSelect">sails&period;helpers&period;generateHtmlSelect</a></li><li><a href="global.html#sails&period;helpers&period;getDefaults">sails&period;helpers&period;getDefaults</a></li><li><a href="global.html#sails&period;helpers&period;getDomains">sails&period;helpers&period;getDomains</a></li><li><a href="global.html#sails&period;helpers&period;isAssociation">sails&period;helpers&period;isAssociation</a></li><li><a href="global.html#sails&period;helpers&period;populateOne">sails&period;helpers&period;populateOne</a></li><li><a href="global.html#sails&period;helpers&period;responseViewSafely">sails&period;helpers&period;responseViewSafely</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-controllers_AuthController.html">controllers/AuthController</a></li><li><a href="module-controllers_MiscController.html">controllers/MiscController</a></li><li><a href="module-controllers_RestController.html">controllers/RestController</a></li><li><a href="module-controllers_SportsController.html">controllers/SportsController</a></li><li><a href="module-models_FallSport.html">models/FallSport</a></li><li><a href="module-models_Major.html">models/Major</a></li><li><a href="module-models_SpringSport.html">models/SpringSport</a></li><li><a href="module-models_Staff.html">models/Staff</a></li><li><a href="module-models_Student.html">models/Student</a></li><li><a href="module-models_Visit.html">models/Visit</a></li><li><a href="module-policies_isAuthenticated.html">policies/isAuthenticated</a></li><li><a href="module-policies_isAuthorized.html">policies/isAuthorized</a></li></ul><h3>Externals</h3><ul><li><a href="external-Request.html">Request</a></li><li><a href="external-Response.html">Response</a></li></ul><h3>Interfaces</h3><ul><li><a href="Controller.html">Controller</a></li><li><a href="Model.html">Model</a></li><li><a href="Record.html">Record</a></li></ul><h3>Global</h3><ul><li><a href="global.html#sails&period;helpers&period;convertToHours">sails&period;helpers&period;convertToHours</a></li><li><a href="global.html#sails&period;helpers&period;encodeAssociations">sails&period;helpers&period;encodeAssociations</a></li><li><a href="global.html#sails&period;helpers&period;generateHtmlSelect">sails&period;helpers&period;generateHtmlSelect</a></li><li><a href="global.html#sails&period;helpers&period;getCurrentTime">sails&period;helpers&period;getCurrentTime</a></li><li><a href="global.html#sails&period;helpers&period;getDefaults">sails&period;helpers&period;getDefaults</a></li><li><a href="global.html#sails&period;helpers&period;getDomains">sails&period;helpers&period;getDomains</a></li><li><a href="global.html#sails&period;helpers&period;getRecordList">sails&period;helpers&period;getRecordList</a></li><li><a href="global.html#sails&period;helpers&period;isAssociation">sails&period;helpers&period;isAssociation</a></li><li><a href="global.html#sails&period;helpers&period;populateOne">sails&period;helpers&period;populateOne</a></li><li><a href="global.html#sails&period;helpers&period;responseViewSafely">sails&period;helpers&period;responseViewSafely</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Feb 21 2019 02:05:22 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Nov 18 2019 22:27:30 GMT-0500 (STD)
 </footer>
 
 <script> prettyPrint(); </script>
