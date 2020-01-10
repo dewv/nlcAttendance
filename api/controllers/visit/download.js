@@ -32,7 +32,7 @@ module.exports = {
         for (let visit of records) {
             let student = await Student.findOne({ id: visit.student }).populate("majorOne").populate("majorTwo").populate("sportOne").populate("sportTwo").populate("slpInstructor");
 
-            download += `"${visit.id}","${student.firstName}","${student.lastName}","${new Intl.DateTimeFormat("en-US", dateFormat).format(visit.checkInTime)}","${visit.checkOutTime ? new Intl.DateTimeFormat("en-US", dateFormat).format(visit.checkOutTime) : ""}","${visit.length}","${visit.isLengthEstimated}","${visit.purpose}","${visit.purposeAchieved}","${visit.location}","${visit.comment}","${student.academicRank}","${student.residentialStatus}","${student.majorOne.name}",`;
+            download += `"${visit.id}","${student.username}","${student.firstName}","${student.lastName}","${new Intl.DateTimeFormat("en-US", dateFormat).format(visit.checkInTime)}","${visit.checkOutTime ? new Intl.DateTimeFormat("en-US", dateFormat).format(visit.checkOutTime) : ""}","${visit.length}","${visit.isLengthEstimated}","${visit.purpose}","${visit.purposeAchieved}","${visit.location}","${visit.comment}","${student.academicRank}","${student.residentialStatus}","${student.majorOne.name}",`;
 
             download += `"${student.majorTwo ? student.majorTwo.name : ""}",`;
             download += `"${student.sportOne ? student.sportOne.name : ""}",`;
@@ -45,7 +45,7 @@ module.exports = {
         // Replace nulls with empty strings.
         download = download.replace(/\"null\"/g, "\"\"");
 
-        let headings = `"#","First Name","Last Name","Check In","Check Out","Visit Length","Check Out estimated?","Purpose of Visit","Purpose Achieved?","Location","Comments","Academic Year","Residential Status","Major 1","Major 2","Sport 1","Sport 2","SLP Instructor","Tutoring Course","Tutoring Instructor"`;
+        let headings = `"#","Email","First Name","Last Name","Check In","Check Out","Visit Length","Check Out estimated?","Purpose of Visit","Purpose Achieved?","Location","Comments","Academic Year","Residential Status","Major 1","Major 2","Sport 1","Sport 2","SLP Instructor","Tutoring Course","Tutoring Instructor"`;
 
         return exits.success(response.set({ "Content-Type": "text/csv", "Content-Disposition": "filename=\"visits.csv\"" }).send(`${headings}\n${download}`));
     }
