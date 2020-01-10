@@ -8,7 +8,7 @@ module.exports = {
     },
 
     getId: async function (name) {
-        if (name.length === 0) return null;
+        if (!name || !name.length) return null;
 
         let record = await Sport.findOne({ name: name });
         if (record) return record.id;
