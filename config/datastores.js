@@ -49,11 +49,6 @@ module.exports.datastores = {
     *                                                                          *
     ***************************************************************************/
         adapter: "sails-mysql",
-        host: "localhost",
-        port: 3306,
-        user: "root",
-        database: "nlcAttendance"
+        url: "mysql://nlc:password@localhost:3306/nlcAttendance"
     },
-
-
 };
