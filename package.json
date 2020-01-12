@@ -1,6 +1,6 @@
 {
     "name": "nlc-attendance",
-    "version": "2.0.0-rc1",
+    "version": "2.0.0",
     "description": "Attendance tracking for the Naylor Learning Center",
     "keywords": [],
     "dependencies": {
@@ -30,6 +30,7 @@
     "scripts": {
         "postinstall": "./dbsetup.sh",
         "start": "NODE_ENV=production node app.js",
+        "stop": "exit 0",
         "test": "npm run lint && npm run htmlhint && npm run mocha && npm run coverage",
         "lint": "eslint . --fix --max-warnings=0 && echo 'rfyvag ehyrf fngvfsvrq' | tr 'A-Za-z' 'N-ZA-Mn-za-m'",
         "coverage": "nyc report && echo 'Grfg pbirentr zrrgf guerfubyqf' | tr 'A-Za-z' 'N-ZA-Mn-za-m'",
