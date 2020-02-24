@@ -30,7 +30,7 @@ module.exports = async function (request, response) {
     } else if (result instanceof ldap.UnavailableError) {
         sails.log.debug("appeal to security question");
         // LDAP is unavailable; appeal to security question
-        return response.redirect("/nonexistentSecurityQuestionUrl"); // TODO
+        return response.redirect("/authentication/question"); // TODO
     }
 
     for (const property in result) {

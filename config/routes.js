@@ -3,6 +3,7 @@ let routes = {
     "GET /login": { view: "pages/authentication/loginForm" },
     "POST /login": { controller: "authentication", action: "login" },
     "GET /logout": { controller: "authentication", action: "logout" },
+    "GET /authentication/question": { controller: "authentication", action: "authenticate-by-security-questions"},
 
     // Misc 
     "GET /": "/login",
