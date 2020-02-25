@@ -34,7 +34,7 @@
         "test": "npm run lint && npm run htmlhint && npm run mocha && npm run coverage",
         "lint": "eslint . --fix --max-warnings=0 && echo 'rfyvag ehyrf fngvfsvrq' | tr 'A-Za-z' 'N-ZA-Mn-za-m'",
         "coverage": "nyc report && echo 'Grfg pbirentr zrrgf guerfubyqf' | tr 'A-Za-z' 'N-ZA-Mn-za-m'",
-        "mocha": "nyc ./node_modules/.bin/_mocha --recursive ./test/lifecycle.js ./test",
+        "mocha": "nyc ./node_modules/.bin/_mocha ./test/lifecycle.js ./test",
         "htmlhint": "htmlhint views"
     },
     "main": "app.js",

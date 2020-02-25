@@ -1,0 +1,202 @@
+const CheckHTTP = require("./CheckHTTP");
+const CheckHTML = require("./CheckHTML");
+
+// Expected responses.
+const ok = { statusCode: 200 };
+const forbidden = { statusCode: 403 };
+const redirect = { statusCode: 302 };
+
+const service = "/staff";
+
+describe(`${service} routes`, function () {
+    let options = {
+        userRole: "staff",
+        userId: 5
+    };
+
+    let checkHTTP = new CheckHTTP();
+
+    context("when the user is staff", function () {
+        context("prevent creating records", function () {
+            it("should forbid getting the create form", function (done) {
+                checkHTTP.roundTrip("GET", `${service}/new`, options, forbidden, function () { done(); });
+            });
+
+            it("should forbid posting create data", function (done) {
+                checkHTTP.roundTrip("POST", `${service}`, options, forbidden, function () { done(); });
+            });
+        });
+
+        context("prevent reading records", function () {
+            it("should forbid getting records list", function (done) {
+                checkHTTP.roundTrip("GET", `${service}`, options, forbidden, function () { done(); });
+            });
+
+            it("should forbid getting specific records", function (done) {
+                checkHTTP.roundTrip("GET", `${service}/${options.userId}`, options, forbidden, function () { done(); });
+            });
+        });
+
+        context("allow updating the user's own record", function () {
+            let record;
+            let checkHTML;
+
+            // Before this block of tests ...
+            before(function (done) {
+                // ... GET the update form ...
+                checkHTTP.roundTrip("GET", `${service}/${options.userId}/edit`, options, ok, async function (responseBody) {
+                    // ... parse the HTML for checking ...
+                    checkHTML = new CheckHTML(responseBody);
+                    // ... and find the database record.
+                    record = await Staff.findOne({ id: options.userId });
+                    should.exist(record);
+                    done();
+                });
+            });
+
+            context("should ok getting the update form", function () {
+                it("should include options to select SLP instructor status", function (done) {
+                    // Verify form data matches database record.
+                    let isSlpInstructor = record.isSlpInstructor ? "true" : "false";
+                    checkHTML.hasFormSelectOption("isSlpInstructor", isSlpInstructor).should.be.true();
+                    done();
+                });
+
+                it("should include a button to submit the form", function (done) {
+                    checkHTML.hasFormButton("submitButton").should.be.true();
+                    done();
+                });
+            });
+
+            context("should redirect posting update data to the visit list", function () {
+                // Isolate options changes to this context block. 
+                let _options = {};
+
+                before(function (done) {
+                    // Setup POST payload to change database contents.
+                    Object.assign(_options, options);
+                    _options.payload = { id: _options.userId, isSlpInstructor: !record.isSlpInstructor };
+
+                    // Setup expected redirect response.
+                    let visitRedirect = {
+                        statusCode: redirect.statusCode,
+                        location: "/visit"
+                    };
+
+                    // Make the request.
+                    checkHTTP.roundTrip("POST", `${service}/${_options.userId}`, _options, visitRedirect, function () {
+                        done();
+                    });
+                });
+
+                it("should update database", async function () {
+                    // Find the (updated) database record and verify it matches POST payload.
+                    let updatedRecord = await Staff.findOne({ id: _options.userId });
+                    should.exist(updatedRecord);
+                    updatedRecord.isSlpInstructor.should.equal(_options.payload.isSlpInstructor);
+                });
+            });
+        });
+
+        context("prevent updating other users' records", function () {
+            it("should forbid getting the update form", function (done) {
+                checkHTTP.roundTrip("GET", `${service}/${options.userId + 1}/edit`, options, forbidden, function () { done(); });
+            });
+
+            it("should forbid posting update data", function (done) {
+                checkHTTP.roundTrip("POST", `${service}/${options.userId + 1}`, options, forbidden, function () { done(); });
+            });
+        });
+
+        it("should forbid requests to delete records", function (done) {
+            checkHTTP.roundTrip("POST", `${service}/${options.userId}/delete`, options, forbidden, function () { done(); });
+        });
+    });
+
+    context("when the user is a student", function () {
+        let options = {
+            userRole: "student",
+            userId: 5
+        };
+
+        context("prevent creating records", function () {
+            it("should forbid getting the create form", function (done) {
+                checkHTTP.roundTrip("GET", `${service}/new`, options, forbidden, function () { done(); });
+            });
+
+            it("should forbid posting create data", function (done) {
+                checkHTTP.roundTrip("POST", `${service}`, options, forbidden, function () { done(); });
+            });
+        });
+
+        context("prevent reading records", function () {
+            it("should forbid getting records list", function (done) {
+                checkHTTP.roundTrip("GET", `${service}`, options, forbidden, function () { done(); });
+            });
+
+            it("should forbid getting specific records", function (done) {
+                checkHTTP.roundTrip("GET", `${service}/${options.userId}`, options, forbidden, function () { done(); });
+            });
+        });
+
+        context("prevent updating records", function () {
+            it("should forbid getting the update form", function (done) {
+                checkHTTP.roundTrip("GET", `${service}/${options.userId}/edit`, options, forbidden, function () { done(); });
+            });
+
+            it("should forbid posting update data", function (done) {
+                checkHTTP.roundTrip("POST", `${service}/${options.userId}`, options, forbidden, function () { done(); });
+            });
+        });
+
+        it("should forbid requests to delete records", function (done) {
+            checkHTTP.roundTrip("POST", `${service}/${options.userId}/delete`, options, forbidden, function () { done(); });
+        });
+    });
+
+    context("when the user is not authenticated", function () {
+        let options = {
+            userRole: undefined,
+            userId: 5
+        };
+
+        context("prevent creating records", function () {
+            it("should redirect when getting the create form", function (done) {
+                checkHTTP.roundTrip("GET", `${service}/new`, options, forbidden, function () { done(); });
+            });
+
+            it("should forbid posting create data", function (done) {
+                checkHTTP.roundTrip("POST", `${service}`, options, forbidden, function () { done(); });
+            });
+        });
+
+        context("prevent reading records", function () {
+            it("should forbid getting records list", function (done) {
+                checkHTTP.roundTrip("GET", `${service}`, options, forbidden, function () { done(); });
+            });
+
+            it("should forbid getting specific records", function (done) {
+                checkHTTP.roundTrip("GET", `${service}/${options.userId}`, options, forbidden, function () { done(); });
+            });
+        });
+
+        context("require authentication in order to authorize updating records", function () {
+            let loginRedirect = {
+                statusCode: redirect.statusCode,
+                location: "/login"
+            };
+
+            it("should redirect to /login when getting the update form", function (done) {
+                checkHTTP.roundTrip("GET", `${service}/${options.userId}/edit`, options, loginRedirect, function () { done(); });
+            });
+
+            it("should redirect to /login when posting update data", function (done) {
+                checkHTTP.roundTrip("POST", `${service}/${options.userId}`, options, loginRedirect, function () { done(); });
+            });
+        });
+
+        it("should forbid requests to delete records", function (done) {
+            checkHTTP.roundTrip("POST", `${service}/${options.userId}/delete`, options, forbidden, function () { done(); });
+        });
+    });
+});
