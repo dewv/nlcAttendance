@@ -47,20 +47,23 @@ class CheckHTTP {
                 // Verify the expected HTTP response code.
                 response.statusCode.should.equal(expected.statusCode);
 
-                // For redirects, check the expected location.
-                if (expected.statusCode === 302) response.headers.location.should.equal(expected.location);
+                // Check the expected (redirect) location, if defined.
+                if (expected.location) response.headers.location.should.equal(expected.location);
 
-                // Event handler to build the body of the response (the HTML).
-                let body = "";
-                response.on("data", function (chunk) {
-                    body += chunk;
-                });
+                // When callback is defined, caller wants the response HTML.
+                if (callback) {
+                    // Event handler to build the body of the response (the HTML).
+                    let body = "";
+                    response.on("data", function (chunk) {
+                        body += chunk;
+                    });
 
-                // Event handler for end of response.
-                response.on("end", function () {
-                    // Send page HTML via callback.
-                    callback(body);
-                });
+                    // Event handler for end of response.
+                    response.on("end", function () {
+                        // Send page HTML via callback.
+                        callback(body);
+                    });
+                }
             });
 
             if (method === "POST") request.write(payload);

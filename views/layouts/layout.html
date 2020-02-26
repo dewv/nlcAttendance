@@ -39,7 +39,9 @@
     -->
 
     <!--STYLES-->
-    <link rel="stylesheet" href="/nlc_attendance/min/production.min.css">
+    <link rel="stylesheet" href="/styles/animate-fade-out.css">
+    <link rel="stylesheet" href="/styles/w3-theme-red.css">
+    <link rel="stylesheet" href="/styles/w3.css">
     <!--STYLES END-->
 </head>
 
@@ -140,7 +142,8 @@
     -->
 
     <!--SCRIPTS-->
-    <script src="/nlc_attendance/min/production.min.js"></script>
+    <script src="/js/logoutTimer.js"></script>
+    <script src="/js/preventMultiSubmit.js"></script>
     <!--SCRIPTS END-->
 
     <% if (typeof session.role !== "undefined" && session.role === "student") { %>
