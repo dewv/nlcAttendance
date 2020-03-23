@@ -12,6 +12,4 @@ USER gitpod
 # More information: https://www.gitpod.io/docs/config-docker/
 RUN sudo apt-get -q update && \
     sudo apt-get install -yq mysql-server && \
-    sudo service mysql start && \
-    npm install -g sails && \
-    npm install
+    sudo service mysql start
