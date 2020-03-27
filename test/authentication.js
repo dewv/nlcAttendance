@@ -20,7 +20,7 @@ function testAuthentication(service) {
                     userId: 5
                 };
             it("should destroy their session and display the login form", function() {
-                checkHTTP.roundTrip("GET", `${service}/`, options, forbidden);
+                checkHTTP.roundTrip("GET", "/login", options, ok);
             });
         });
 
@@ -30,7 +30,7 @@ function testAuthentication(service) {
                     userId: 5
             };
             it("should destroy their session and display the login form", function() {
-                checkHTTP.roundTrip("GET", `${service}/`, options, forbidden);
+                checkHTTP.roundTrip("GET", "/login", options, ok);
             });
         });
 
@@ -40,7 +40,7 @@ function testAuthentication(service) {
                 userId: 5
             };
             it("should display the login form", function() {
-                checkHTTP.roundTrip("GET", `${service}/`, options, redirect);
+                checkHTTP.roundTrip("GET", "/login", options, ok);
             });
         });
     });
