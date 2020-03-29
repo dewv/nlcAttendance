@@ -1,5 +1,8 @@
 <% try { %>
 
+<% generateOptions = undefined; %>
+<%- include("../../include/generateOptions.ejs"); %>
+
 <form method="POST" action="<%= baseUrl + action %>">
     <div class="w3-container w3-third w3-display-middle w3-center w3-border w3-red w3-round w3-border-black">
         <div>
@@ -31,10 +34,7 @@
             <label for="purposeAchieved" id="purposeAchievedLabel">*Did you accomplish the purpose of your
                 visit?</label>
             <select id="purposeAchieved" name="purposeAchieved" autofocus required size="1">
-                <option value="">Choose one ...</option>
-                <% for (let option of options.purposeAchieved) { %>
-                <option value="<%= option %>"><%= option %></option>
-                <% } %>
+                <%- generateOptions("purposeAchieved"); %>
             </select>
         </div>
 
