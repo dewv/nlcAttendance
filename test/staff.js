@@ -67,7 +67,11 @@ describe(`${service} routes`, function () {
             });
 
             context("should redirect to the Visits list after posting update data", function () {
+<<<<<<< HEAD
                 // Isolate options changes to this context block.
+=======
+                // Isolate options changes to this context block. 
+>>>>>>> 74a575e75f97804d37ce91f67907472239f8bb07
                 let _options = {};
 
                 before(function (done) {

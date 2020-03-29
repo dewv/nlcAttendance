@@ -76,6 +76,7 @@ describe(`${service} routes`, function () {
     });
 
     context("when the user is staff", function () {
+<<<<<<< HEAD
         let options = {
         userRole: "staff",
         userId: 5
@@ -104,6 +105,16 @@ describe(`${service} routes`, function () {
         it("should forbid requests to delete records"), function () {
                 checkHTTP.roundTrip("POST", `${service}/${options.userId}/delete`, options, forbidden);
              };;
+=======
+        it("should forbid getting the create form");
+        it("should forbid posting create data");
+        it("should forbid getting the update form");
+        it("should forbid posting update data");
+        it("should allow getting records list");
+        it("should allow downloading records list");
+        it("should forbid getting specific records");
+        it("should forbid requests to delete records");
+>>>>>>> 74a575e75f97804d37ce91f67907472239f8bb07
     });
 
     context("when the user is not authenticated", function () {
