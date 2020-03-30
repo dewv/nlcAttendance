@@ -80,30 +80,31 @@ describe(`${service} routes`, function () {
         userRole: "staff",
         userId: 5
         };
-        it("should forbid getting the create form"), function () {
+        it("should forbid getting the create form", function () {
                 checkHTTP.roundTrip("GET", `${service}`, options, forbidden);
-             };
-        it("should forbid posting create data"), function () {
+        });
+
+        it("should forbid posting create data", function () {
                 checkHTTP.roundTrip("POST", `${service}`, options, forbidden);
-            };
-        it("should forbid getting the update form"), function () {
+            });
+        it("should forbid getting the update form", function () {
                 checkHTTP.roundTrip("GET", `${service}/${options.userId}/edit`, options, forbidden);
-            };
-        it("should forbid posting update data"), function () {
+            });
+        it("should forbid posting update data", function () {
                 checkHTTP.roundTrip("POST", `${service}/${options.userId}`, options, forbidden);
-            };
-        it("should allow getting records list"),function () {
+            });
+        it("should allow getting records list",function () {
                 checkHTTP.roundTrip("GET", `${service}`, options, ok);
-             };
-        it("should allow downloading records list"), function () {
+             });
+        it("should allow downloading records list", function () {
                 checkHTTP.roundTrip("GET", `${service}/${options.userId}/download`, options, ok);
-             };;
-        it("should forbid getting specific records"),function () {
+             });
+        it("should forbid getting specific records",function () {
                 checkHTTP.roundTrip("GET", `${service}/${options.userId}`, options, forbidden);
-             };
-        it("should forbid requests to delete records"), function () {
+             });
+        it("should forbid requests to delete records", function () {
                 checkHTTP.roundTrip("POST", `${service}/${options.userId}/delete`, options, forbidden);
-             };;
+             });
     });
 
     context("when the user is not authenticated", function () {
