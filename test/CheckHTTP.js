@@ -9,13 +9,13 @@ class CheckHTTP {
     constructor() {
     }
 
-    /** 
-     * Checks a round trip of the HTTP request/response cycle 
-     * @argument {string} method - The request method. 
+    /**
+     * Checks a round trip of the HTTP request/response cycle
+     * @argument {string} method - The request method.
      * @argument {string} path - The request path.
      * @argument {Object} options - A dictionary of request options.
-     * @argument {Object} expected - A dictionary describing the expected response. 
-     * @argument {function} callback - A callback function. 
+     * @argument {Object} expected - A dictionary describing the expected response.
+     * @argument {function} callback - A callback function.
      * @returns {string} The HTML content of the response (as a callback argument).
      * @public
      */
@@ -51,19 +51,27 @@ class CheckHTTP {
                 if (expected.location) response.headers.location.should.equal(expected.location);
 
                 // When callback is defined, caller wants the response HTML.
-                if (callback) {
-                    // Event handler to build the body of the response (the HTML).
-                    let body = "";
-                    response.on("data", function (chunk) {
-                        body += chunk;
-                    });
+                let body = "";
 
-                    // Event handler for end of response.
-                    response.on("end", function () {
-                        // Send page HTML via callback.
-                        callback(body);
+                // Event handler to build the body of the response (the HTML).
+                response.on("data", function (chunk) {
+                    body += chunk;
+                });
+
+                // Event handler for end of response.
+                response.on("end", function () {
+                    let logoutOptions = {
+                        port: requestOptions.port,
+                        method: "GET",
+                        path: "/logout",
+                        cookies: requestOptions.cookies
+                    };
+
+                    http.request(logoutOptions, function () {
+                        // Send page HTML via callback
+                        if (callback) callback(body);
                     });
-                }
+                });
             });
 
             if (method === "POST") request.write(payload);
