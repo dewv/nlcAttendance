@@ -15,42 +15,44 @@ class CheckHTTP {
      * @argument {string} path - The request path.
      * @argument {Object} options - A dictionary of request options.
      * @argument {Object} expected - A dictionary describing the expected response.
-     * @argument {function} callback - A callback function.
-     * @returns {string} The HTML content of the response (as a callback argument).
+     * @returns {string} The HTML content of the response.
      * @public
      */
-    roundTrip(method, path, options, expected, callback) {
+    async roundTrip(method, path, options, expected) {
         // Authenticate using the role and id in options.
-        this._authenticateAs(options.userRole, options.userId, function (sessionCookie) {
-            let requestOptions = {
-                port: 1337,
-                method: method,
-                path: path,
-                headers: {
-                    "Cookie": [sessionCookie],
-                }
-            };
+        let sessionCookie = await this._authenticateAs(options.userRole, options.userId);
 
-            // Register the browser, unless options explicitly says not to.
-            if (options.registerBrowser !== false) requestOptions.headers.Cookie.push("location=test");
-
-            // Encode a (possibly default) payload for POST requests.
-            let payload;
-            if (method === "POST") {
-                requestOptions.headers["Content-Type"] = "application/x-www-form-urlencoded";
-                payload = querystring.stringify(options.payload || { payload: "dummy payload" });
-                requestOptions.headers["Content-Length"] = Buffer.byteLength(payload);
+        let requestOptions = {
+            port: 1337,
+            method: method,
+            path: path,
+            headers: {
+                "Cookie": [sessionCookie],
             }
+        };
 
-            // Make the request.
-            let request = http.request(requestOptions, function (response) {
+        // Register the browser, unless options explicitly says not to.
+        if (options.registerBrowser !== false) requestOptions.headers.Cookie.push("location=test");
+
+        // Encode a (possibly default) payload for POST requests.
+        let payload;
+        if (method === "POST") {
+            requestOptions.headers["Content-Type"] = "application/x-www-form-urlencoded";
+            payload = querystring.stringify(options.payload || { payload: "dummy payload" });
+            requestOptions.headers["Content-Length"] = Buffer.byteLength(payload);
+        }
+
+        // Make the request.
+        return new Promise(function (resolve, reject) {
+            let request = http.request(requestOptions);
+
+            request.on("response", function (response) {
                 // Verify the expected HTTP response code.
                 response.statusCode.should.equal(expected.statusCode);
 
                 // Check the expected (redirect) location, if defined.
                 if (expected.location) response.headers.location.should.equal(expected.location);
 
-                // When callback is defined, caller wants the response HTML.
                 let body = "";
 
                 // Event handler to build the body of the response (the HTML).
@@ -60,18 +62,19 @@ class CheckHTTP {
 
                 // Event handler for end of response.
                 response.on("end", function () {
-                    let logoutOptions = {
-                        port: requestOptions.port,
-                        method: "GET",
-                        path: "/logout",
-                        cookies: requestOptions.cookies
-                    };
-
-                    http.request(logoutOptions, function () {
-                        // Send page HTML via callback
-                        if (callback) callback(body);
-                    });
+                    // Send page HTML via callback
+                    resolve(body);
                 });
+            });
+
+            request.on("error", function (error) {
+                // For unknown reasons, testing a file download gives error.
+                if (error.code === "ECONNREFUSED") {
+                    console.warn(`Suppressing ${error.code}`);
+                    return;
+                }
+                console.error(error);
+                reject(error);
             });
 
             if (method === "POST") request.write(payload);
@@ -88,34 +91,44 @@ class CheckHTTP {
      * @returns {string} A session cookie (as a callback argument).
      * @private
      */
-    _authenticateAs(role, id, callback) {
-        // Allow for unauthenticated requests.
-        if (typeof role === "undefined") return callback({});
-
-        // Test records are created by models, with role as password.
-        let credentials = querystring.stringify({
-            "username": sails.models[role].testRecords[id - 1].username,
-            "password": role
-        });
-
-        let options = {
-            path: "/login",
-            port: 1337,
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "Content-Length": Buffer.byteLength(credentials)
+    async _authenticateAs(role, id) {
+        return new Promise(function (resolve, reject) {
+            // Allow for unauthenticated requests.
+            if (typeof role === "undefined") {
+                resolve({});
             }
-        };
 
-        // POST the credentials.
-        let request = http.request(options, function (response) {
-            // Send cookie via callback.
-            callback(response.headers["set-cookie"]);
+            // Test records are created by models, with role as password.
+            let credentials = querystring.stringify({
+                "username": sails.models[role].testRecords[id - 1].username,
+                "password": role
+            });
+
+            let options = {
+                path: "/login",
+                port: 1337,
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Content-Length": Buffer.byteLength(credentials)
+                }
+            };
+
+            // POST the credentials.
+            let request = http.request(options);
+
+            request.on("response", function (response) {
+                resolve(response.headers["set-cookie"]);
+            });
+
+            request.on("error", function (error) {
+                console.error(`Login request error: ${error}`);
+                reject(error);
+            });
+
+            request.write(credentials);
+            request.end();
         });
-
-        request.write(credentials);
-        request.end();
     }
 }
 

@@ -18,22 +18,22 @@ describe(`${service} routes`, function () {
 
     context("when the user is staff", function () {
         context("prevent creating records", function () {
-            it("should forbid getting the create form", function () {
-                checkHTTP.roundTrip("GET", `${service}/new`, options, forbidden);
+            it("should forbid getting the create form", async function () {
+                await checkHTTP.roundTrip("GET", `${service}/new`, options, forbidden);
             });
 
-            it("should forbid posting create data", function () {
-                checkHTTP.roundTrip("POST", `${service}`, options, forbidden);
+            it("should forbid posting create data", async function () {
+                await checkHTTP.roundTrip("POST", `${service}`, options, forbidden);
             });
         });
 
         context("prevent reading records", function () {
-            it("should forbid getting records list", function () {
-                checkHTTP.roundTrip("GET", `${service}`, options, forbidden);
+            it("should forbid getting records list", async function () {
+                await checkHTTP.roundTrip("GET", `${service}`, options, forbidden);
             });
 
-            it("should forbid getting specific records", function () {
-                checkHTTP.roundTrip("GET", `${service}/${options.userId}`, options, forbidden);
+            it("should forbid getting specific records", async function () {
+                await checkHTTP.roundTrip("GET", `${service}/${options.userId}`, options, forbidden);
             });
         });
 
@@ -42,26 +42,24 @@ describe(`${service} routes`, function () {
             let checkHTML;
 
             // Before this block of tests ...
-            before(function (done) {
+            before(async function () {
                 // ... GET the update form ...
-                checkHTTP.roundTrip("GET", `${service}/${options.userId}/edit`, options, ok, async function (responseBody) {
-                    // ... parse the HTML for checking ...
-                    checkHTML = new CheckHTML(responseBody);
-                    // ... and find the database record.
-                    record = await Staff.findOne({ id: options.userId });
-                    should.exist(record);
-                    done();
-                });
+                let responseBody = await checkHTTP.roundTrip("GET", `${service}/${options.userId}/edit`, options, ok);
+                // ... parse the HTML for checking ...
+                checkHTML = new CheckHTML(responseBody);
+                // ... and find the database record.
+                record = await Staff.findOne({ id: options.userId });
+                should.exist(record);
             });
 
             context("should ok getting the update form", function () {
-                it("should include options to select SLP instructor status", function () {
+                it("should include options to select SLP instructor status", async function () {
                     // Verify form data matches database record.
                     let isSlpInstructor = record.isSlpInstructor ? "true" : "false";
                     checkHTML.hasFormSelectOption("isSlpInstructor", isSlpInstructor).should.be.true();
                 });
 
-                it("should include a button to submit the form", function () {
+                it("should include a button to submit the form", async function () {
                     checkHTML.hasFormButton("submitButton").should.be.true();
                 });
             });
@@ -70,7 +68,7 @@ describe(`${service} routes`, function () {
                 // Isolate options changes to this context block.
                 let _options = {};
 
-                before(function (done) {
+                before(async function () {
                     // Setup POST payload to change database contents.
                     Object.assign(_options, options);
                     _options.payload = { id: _options.userId, isSlpInstructor: !record.isSlpInstructor };
@@ -82,7 +80,7 @@ describe(`${service} routes`, function () {
                     };
 
                     // Make the request.
-                    checkHTTP.roundTrip("POST", `${service}/${_options.userId}`, _options, visitRedirect, function () { done(); });
+                    await checkHTTP.roundTrip("POST", `${service}/${_options.userId}`, _options, visitRedirect);
                 });
 
                 it("should update database", async function () {
@@ -95,17 +93,17 @@ describe(`${service} routes`, function () {
         });
 
         context("prevent updating other users' records", function () {
-            it("should forbid getting the update form", function () {
-                checkHTTP.roundTrip("GET", `${service}/${options.userId + 1}/edit`, options, forbidden);
+            it("should forbid getting the update form", async function () {
+                await checkHTTP.roundTrip("GET", `${service}/${options.userId + 1}/edit`, options, forbidden);
             });
 
-            it("should forbid posting update data", function () {
-                checkHTTP.roundTrip("POST", `${service}/${options.userId + 1}`, options, forbidden);
+            it("should forbid posting update data", async function () {
+                await checkHTTP.roundTrip("POST", `${service}/${options.userId + 1}`, options, forbidden);
             });
         });
 
-        it("should forbid requests to delete records", function () {
-            checkHTTP.roundTrip("POST", `${service}/${options.userId}/delete`, options, forbidden);
+        it("should forbid requests to delete records", async function () {
+            await checkHTTP.roundTrip("POST", `${service}/${options.userId}/delete`, options, forbidden);
         });
     });
 
@@ -116,37 +114,37 @@ describe(`${service} routes`, function () {
         };
 
         context("prevent creating records", function () {
-            it("should forbid getting the create form", function () {
-                checkHTTP.roundTrip("GET", `${service}/new`, options, forbidden);
+            it("should forbid getting the create form", async function () {
+                await checkHTTP.roundTrip("GET", `${service}/new`, options, forbidden);
             });
 
-            it("should forbid posting create data", function () {
-                checkHTTP.roundTrip("POST", `${service}`, options, forbidden);
+            it("should forbid posting create data", async function () {
+                await checkHTTP.roundTrip("POST", `${service}`, options, forbidden);
             });
         });
 
         context("prevent reading records", function () {
-            it("should forbid getting records list", function () {
-                checkHTTP.roundTrip("GET", `${service}`, options, forbidden);
+            it("should forbid getting records list", async function () {
+                await checkHTTP.roundTrip("GET", `${service}`, options, forbidden);
             });
 
-            it("should forbid getting specific records", function () {
-                checkHTTP.roundTrip("GET", `${service}/${options.userId}`, options, forbidden);
+            it("should forbid getting specific records", async function () {
+                await checkHTTP.roundTrip("GET", `${service}/${options.userId}`, options, forbidden);
             });
         });
 
         context("prevent updating records", function () {
-            it("should forbid getting the update form", function () {
-                checkHTTP.roundTrip("GET", `${service}/${options.userId}/edit`, options, forbidden);
+            it("should forbid getting the update form", async function () {
+                await checkHTTP.roundTrip("GET", `${service}/${options.userId}/edit`, options, forbidden);
             });
 
-            it("should forbid posting update data", function () {
-                checkHTTP.roundTrip("POST", `${service}/${options.userId}`, options, forbidden);
+            it("should forbid posting update data", async function () {
+                await checkHTTP.roundTrip("POST", `${service}/${options.userId}`, options, forbidden);
             });
         });
 
-        it("should forbid requests to delete records", function () {
-            checkHTTP.roundTrip("POST", `${service}/${options.userId}/delete`, options, forbidden);
+        it("should forbid requests to delete records", async function () {
+            await checkHTTP.roundTrip("POST", `${service}/${options.userId}/delete`, options, forbidden);
         });
     });
 
@@ -157,22 +155,22 @@ describe(`${service} routes`, function () {
         };
 
         context("prevent creating records", function () {
-            it("should forbid getting the create form", function () {
-                checkHTTP.roundTrip("GET", `${service}/new`, options, forbidden);
+            it("should forbid getting the create form", async function () {
+                await checkHTTP.roundTrip("GET", `${service}/new`, options, forbidden);
             });
 
-            it("should forbid posting create data", function () {
-                checkHTTP.roundTrip("POST", `${service}`, options, forbidden);
+            it("should forbid posting create data", async function () {
+                await checkHTTP.roundTrip("POST", `${service}`, options, forbidden);
             });
         });
 
         context("prevent reading records", function () {
-            it("should forbid getting records list", function () {
-                checkHTTP.roundTrip("GET", `${service}`, options, forbidden);
+            it("should forbid getting records list", async function () {
+                await checkHTTP.roundTrip("GET", `${service}`, options, forbidden);
             });
 
-            it("should forbid getting specific records", function () {
-                checkHTTP.roundTrip("GET", `${service}/${options.userId}`, options, forbidden);
+            it("should forbid getting specific records", async function () {
+                await checkHTTP.roundTrip("GET", `${service}/${options.userId}`, options, forbidden);
             });
         });
 
@@ -182,17 +180,17 @@ describe(`${service} routes`, function () {
                 location: "/login"
             };
 
-            it("should redirect to /login instead of getting the update form", function () {
-                checkHTTP.roundTrip("GET", `${service}/${options.userId}/edit`, options, loginRedirect);
+            it("should redirect to /login instead of getting the update form", async function () {
+                await checkHTTP.roundTrip("GET", `${service}/${options.userId}/edit`, options, loginRedirect);
             });
 
-            it("should redirect to /login instead of posting update data", function () {
-                checkHTTP.roundTrip("POST", `${service}/${options.userId}`, options, loginRedirect);
+            it("should redirect to /login instead of posting update data", async function () {
+                await checkHTTP.roundTrip("POST", `${service}/${options.userId}`, options, loginRedirect);
             });
         });
 
-        it("should forbid requests to delete records", function () {
-            checkHTTP.roundTrip("POST", `${service}/${options.userId}/delete`, options, forbidden);
+        it("should forbid requests to delete records", async function () {
+            await checkHTTP.roundTrip("POST", `${service}/${options.userId}/delete`, options, forbidden);
         });
     });
 });

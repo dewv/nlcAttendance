@@ -27,20 +27,20 @@ describe(`${service} routes`, function () {
             it("should redirect to the profile update form instead of getting the update form");
             it("should redirect posting update data");
 
-            it("should forbid getting records list", function () {
-                checkHTTP.roundTrip("GET", `${service}`, options, forbidden);
+            it("should forbid getting records list", async function () {
+                await checkHTTP.roundTrip("GET", `${service}`, options, forbidden);
             });
 
-            it("should forbid downloading records list", function () {
-                checkHTTP.roundTrip("GET", `${service}/download`, options, forbidden);
+            it("should forbid downloading records list", async function () {
+                await checkHTTP.roundTrip("GET", `${service}/download`, options, forbidden);
             });
 
-            it("should forbid getting specific records", function () {
-                checkHTTP.roundTrip("GET", `${service}/${visitId}`, options, forbidden);
+            it("should forbid getting specific records", async function () {
+                await checkHTTP.roundTrip("GET", `${service}/${visitId}`, options, forbidden);
             });
 
-            it("should forbid requests to delete records", function () {
-                checkHTTP.roundTrip("POST", `${service}/${visitId}/delete`, options, forbidden);
+            it("should forbid requests to delete records", async function () {
+                await checkHTTP.roundTrip("POST", `${service}/${visitId}/delete`, options, forbidden);
             });
         });
 
@@ -50,20 +50,20 @@ describe(`${service} routes`, function () {
             it("should redirect to the create form instead of getting the update form");
             it("should redirect to the create form instead of posting update data");
 
-            it("should forbid getting records list", function () {
-                checkHTTP.roundTrip("GET", `${service}`, options, forbidden);
+            it("should forbid getting records list", async function () {
+                await checkHTTP.roundTrip("GET", `${service}`, options, forbidden);
             });
 
-            it("should forbid downloading records list", function () {
-                checkHTTP.roundTrip("GET", `${service}/download`, options, forbidden);
+            it("should forbid downloading records list", async function () {
+                await checkHTTP.roundTrip("GET", `${service}/download`, options, forbidden);
             });
 
-            it("should forbid getting specific records", function () {
-                checkHTTP.roundTrip("GET", `${service}/${visitId}`, options, forbidden);
+            it("should forbid getting specific records", async function () {
+                await checkHTTP.roundTrip("GET", `${service}/${visitId}`, options, forbidden);
             });
 
-            it("should forbid requests to delete records", function () {
-                checkHTTP.roundTrip("POST", `${service}/${visitId}/delete`, options, forbidden);
+            it("should forbid requests to delete records", async function () {
+                await checkHTTP.roundTrip("POST", `${service}/${visitId}/delete`, options, forbidden);
             });
         });
 
@@ -73,20 +73,20 @@ describe(`${service} routes`, function () {
             it("should allow getting the update form");
             it("should redirect to /logout after posting update data");
 
-            it("should forbid getting records list", function () {
-                checkHTTP.roundTrip("GET", `${service}`, options, forbidden);
+            it("should forbid getting records list", async function () {
+                await checkHTTP.roundTrip("GET", `${service}`, options, forbidden);
             });
 
-            it("should forbid downloading records list", function () {
-                checkHTTP.roundTrip("GET", `${service}/download`, options, forbidden);
+            it("should forbid downloading records list", async function () {
+                await checkHTTP.roundTrip("GET", `${service}/download`, options, forbidden);
             });
 
-            it("should forbid getting specific records", function () {
-                checkHTTP.roundTrip("GET", `${service}/${visitId}`, options, forbidden);
+            it("should forbid getting specific records", async function () {
+                await checkHTTP.roundTrip("GET", `${service}/${visitId}`, options, forbidden);
             });
 
-            it("should forbid requests to delete records", function () {
-                checkHTTP.roundTrip("POST", `${service}/${visitId}/delete`, options, forbidden);
+            it("should forbid requests to delete records", async function () {
+                await checkHTTP.roundTrip("POST", `${service}/${visitId}/delete`, options, forbidden);
             });
         });
     });
@@ -100,36 +100,36 @@ describe(`${service} routes`, function () {
         // Use any valid visit ID. They aren't associated with staff anyway.
         let visitId = 1;
 
-        it("should forbid getting the create form", function () {
-            checkHTTP.roundTrip("GET", `${service}/new`, options, forbidden);
+        it("should forbid getting the create form", async function () {
+            await checkHTTP.roundTrip("GET", `${service}/new`, options, forbidden);
         });
 
-        it("should forbid posting create data", function () {
-            checkHTTP.roundTrip("POST", `${service}`, options, forbidden);
+        it("should forbid posting create data", async function () {
+            await checkHTTP.roundTrip("POST", `${service}`, options, forbidden);
         });
 
-        it("should forbid getting the update form", function () {
-            checkHTTP.roundTrip("GET", `${service}/${visitId}/edit`, options, forbidden);
+        it("should forbid getting the update form", async function () {
+            await checkHTTP.roundTrip("GET", `${service}/${visitId}/edit`, options, forbidden);
         });
 
-        it("should forbid posting update data", function () {
-            checkHTTP.roundTrip("POST", `${service}/${visitId}`, options, forbidden);
+        it("should forbid posting update data", async function () {
+            await checkHTTP.roundTrip("POST", `${service}/${visitId}`, options, forbidden);
         });
 
-        it("should allow getting records list", function () {
-            checkHTTP.roundTrip("GET", `${service}`, options, ok);
+        it("should allow getting records list", async function () {
+            await checkHTTP.roundTrip("GET", `${service}`, options, ok);
         });
 
-        it.only("should allow downloading records list", function () {
-            checkHTTP.roundTrip("GET", `${service}/download`, options, ok);
+        it("should allow downloading records list", async function () {
+            await checkHTTP.roundTrip("GET", `${service}/download`, options, ok);
         });
 
-        it("should forbid getting specific records", function () {
-            checkHTTP.roundTrip("GET", `${service}/${visitId}`, options, forbidden);
+        it("should forbid getting specific records", async function () {
+            await checkHTTP.roundTrip("GET", `${service}/${visitId}`, options, forbidden);
         });
 
-        it("should forbid requests to delete records", function () {
-            checkHTTP.roundTrip("POST", `${service}/${visitId}/delete`, options, forbidden);
+        it("should forbid requests to delete records", async function () {
+            await checkHTTP.roundTrip("POST", `${service}/${visitId}/delete`, options, forbidden);
         });
     });
 
