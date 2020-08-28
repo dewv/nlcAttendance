@@ -1,3 +1,7 @@
 tasks:
   - init: npm install -g sails && npm install
-    command: npm run start
+    command: sails lift
+
+ports:
+  - port: 1337
+    onOpen: open-browser
