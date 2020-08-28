@@ -48,7 +48,7 @@ module.exports.datastores = {
     *    (See https://sailsjs.com/config/datastores for help.)                 *
     *                                                                          *
     ***************************************************************************/
-        adapter: "sails-mysql",
-        url: "mysql://nlc:password@localhost:3306/nlcAttendance"
+        // adapter: "sails-mysql",
+        // url: "mysql://nlc:password@localhost:3306/nlcAttendance"
     },
 };

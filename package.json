@@ -28,7 +28,6 @@
         "@sailshq/eslint": "^4.19.3"
     },
     "scripts": {
-        "postinstall": "./dbsetup.sh",
         "start": "NODE_ENV=production node app.js",
         "stop": "exit 0",
         "test": "npm run lint && npm run htmlhint && npm run mocha && npm run coverage",

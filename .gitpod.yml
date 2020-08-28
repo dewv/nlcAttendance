@@ -1,0 +1,3 @@
+tasks:
+  - init: npm install -g sails && npm install
+    command: npm run start
