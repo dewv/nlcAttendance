@@ -24,7 +24,7 @@ describe(`${service} routes`, function () {
 
         context("prevent creating records", function () {
             it("should forbid getting the create form", function () {
-               checkHTTP.roundTrip("GET", `${service}/new`, options, forbidden);
+                checkHTTP.roundTrip("GET", `${service}/new`, options, forbidden);
             });
 
             it("should forbid posting create data", function () {
@@ -83,23 +83,20 @@ describe(`${service} routes`, function () {
             let checkHTML;
 
             // Before this block of tests ...
-            before(function (done) {
+            before(async function () {
                 // ... GET the update form ...
-                checkHTTP.roundTrip("GET", `${service}/${options.userId}/edit`, options, ok, async function (responseBody) {
-                    // ... parse the HTML for checking ...
-                    checkHTML = new CheckHTML(responseBody);
-                    // ... and find the database record.
-                    record = await Student.findOne({ id: options.userId });
-                    should.exist(record);
-                    done();
-                });
+                let responseBody = await checkHTTP.roundTrip("GET", `${service}/${options.userId}/edit`, options, ok);
+                // ... parse the HTML for checking ...
+                checkHTML = new CheckHTML(responseBody);
+                // ... and find the database record.
+                record = await Student.findOne({ id: options.userId });
+                should.exist(record);
             });
 
             context("should ok getting the update form", function () {
-                it("should include TODO", function () {
+                it("should include TODO"
                     // Verify form data matches database record.
-                    // TODO 
-                });
+                );
 
                 it("should include a button to submit the form", function () {
                     checkHTML.hasFormButton("submitButton").should.be.true();
@@ -110,20 +107,44 @@ describe(`${service} routes`, function () {
                 // Isolate options changes to this context block. 
                 let _options = {};
 
-                before(function (done) {
+                before(async function () {
                     // Setup POST payload to change database contents.
                     Object.assign(_options, options);
-                    _options.payload = { id: _options.userId, firstName: "TODO" };
+                    _options.payload = {
+                        id: _options.userId,
+                        academicRank: "Sophomore",
+                        residentialStatus: "Commuter",
+                        majorOne: "Accounting",
+                        majorTwo: "Adventure Recreation",
+                        sportOne: "Men's Basketball",
+                        sportTwo: "Men's Cross Country",
+                        slpInstructor: "STAFFFIRSTNAME1 STAFFLASTNAME1"
+                    };
 
                     // Make the request.
-                    checkHTTP.roundTrip("POST", `${service}/${_options.userId}`, _options, redirect, function () { done(); });
+                    await checkHTTP.roundTrip("POST", `${service}/${_options.userId}`, _options, redirect);
                 });
 
                 it("should update database", async function () {
-                    // Find the (updated) database record and verify it matches POST payload.
-                    let updatedRecord = await Student.findOne({ id: _options.userId });
+                    // Find the (updated) database record 
+                    let updatedRecord = await Student.findOne({ id: _options.userId })
+                        .populate("majorOne")
+                        .populate("majorTwo")
+                        .populate("sportOne")
+                        .populate("sportTwo")
+                        .populate("slpInstructor");
+
                     should.exist(updatedRecord);
-                    updatedRecord.firstName.should.equal(_options.payload.firstName);
+
+                    // Verify it matches POST payload.
+                    for (property in _options.payload) {
+                        if (typeof updatedRecord[property] === "object") {
+                            updatedRecord[property].name.should.equal(_options.payload[property]);
+                        }
+                        else {
+                            updatedRecord[property].should.equal(_options.payload[property]);
+                        }
+                    }
                 });
             });
         });
