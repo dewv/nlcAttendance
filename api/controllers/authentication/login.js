@@ -1,7 +1,7 @@
 const ldap = require("ldapjs");
 
 /**
- * Handles request to submit the login form. 
+ * Handles request to submit the login form.
  * @argument {external:Request} request -  The HTTP request.
  * @argument {external:Response} response - The HTTP response.
  * @public
@@ -66,9 +66,9 @@ module.exports = async function (request, response) {
 };
 
 /**
- * Checks login credentials against an LDAP server. 
- * @argument {string} username -  The submitted username. 
- * @argument {string} password -  The submitted password. 
+ * Checks login credentials against an LDAP server.
+ * @argument {string} username -  The submitted username.
+ * @argument {string} password -  The submitted password.
  * @return {Object} A dictionary of user information, or an LDAP-defined Error object.
  * @private
  * @async
@@ -101,7 +101,7 @@ async function _ldapAuthentication(username, password) {
                     return _handleError(`LDAP bind handler: ${error.message}`);
                 }
 
-                // Authentication was successful. Get information about user. 
+                // Authentication was successful. Get information about user.
                 ldapConfig.searchOptions.filter = `(userPrincipalName=${username})`;
                 client.search(ldapConfig.searchBaseDn, ldapConfig.searchOptions, function (error, searchResponse) {
                     if (error) {
@@ -149,9 +149,9 @@ async function _ldapAuthentication(username, password) {
 }
 
 /**
- * Checks login credentials for development use. 
- * @argument {string} username -  The submitted username. 
- * @argument {string} password -  The submitted password. 
+ * Checks login credentials for development use.
+ * @argument {string} username -  The submitted username.
+ * @argument {string} password -  The submitted password.
  * @return {Object} A dictionary of user information, or an LDAP-defined Error object.
  * @private
  * @async

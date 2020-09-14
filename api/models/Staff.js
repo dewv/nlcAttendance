@@ -1,5 +1,5 @@
 /**
- * A staff user's profile. 
+ * A staff user's profile.
  */
 module.exports = {
     attributes: {
@@ -31,7 +31,7 @@ module.exports = {
      * Populates the database with test data for use in development environments.
      * @modifies Database contents.
      * @async
-     * 
+     *
      * Note convention: sample data is ALL CAPS, using .net rather than .edu domain
      */
     createTestData: async function () {

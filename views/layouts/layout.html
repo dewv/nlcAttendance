@@ -41,7 +41,6 @@
     <!--STYLES-->
     <link rel="stylesheet" href="/styles/animate-fade-out.css">
     <link rel="stylesheet" href="/styles/w3-theme-red.css">
-    <link rel="stylesheet" href="/styles/w3.css">
     <!--STYLES END-->
 </head>
 
@@ -68,7 +67,7 @@
         <% } %>
 
         <% if (session.role === "student") { %>
-	<%- exposeLocalsToBrowser({ keys: ["baseUrl"] }); -%> 
+	<%- exposeLocalsToBrowser({ keys: ["baseUrl"] }); -%>
         <%- include("../include/logoutTimer.html"); -%>
         <% } %>
 
@@ -85,7 +84,7 @@
             <% if (typeof session.role === "undefined") { %>
         </div>
         <% } %>
-        <% } 
+        <% }
         session.banner = undefined; %>
 
     </div>
@@ -94,7 +93,7 @@
 
     <!-- Client-side Templates
         ========================
-        HTML templates are important prerequisites of modern, rich client applications. To work their magic, frameworks like React, Vue.js, Angular, Ember, and Backbone require that you load these templates client-side. By default, your Gruntfile is configured to automatically load and precompile client-side JST templates in your `assets/templates` folder, then include them here automatically (between TEMPLATES and TEMPLATES END). To customize this behavior to fit your needs, just edit `tasks/pipeline.js`. For example, here are a few things you could do: + Import templates from other directories + Use a different view engine (handlebars, dust, pug/jade, etc.) + Internationalize your client-side templates using a server-side stringfile before they're served. 
+        HTML templates are important prerequisites of modern, rich client applications. To work their magic, frameworks like React, Vue.js, Angular, Ember, and Backbone require that you load these templates client-side. By default, your Gruntfile is configured to automatically load and precompile client-side JST templates in your `assets/templates` folder, then include them here automatically (between TEMPLATES and TEMPLATES END). To customize this behavior to fit your needs, just edit `tasks/pipeline.js`. For example, here are a few things you could do: + Import templates from other directories + Use a different view engine (handlebars, dust, pug/jade, etc.) + Internationalize your client-side templates using a server-side stringfile before they're served.
     -->
 
     <!--TEMPLATES-->

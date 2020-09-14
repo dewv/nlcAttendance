@@ -41,7 +41,9 @@ module.exports = {
         if (request.session.role !== "student" || request.params.id != request.session.visit.id) throw "unauthorized";
 
         let profileUrl = `/student/${request.session.userId}/edit`;
-        if (!request.cookies.location) throw { unregisteredBrowser: profileUrl };
+        if (sails.config.custom.restrictBrowsers) {
+            if (!request.cookies.location) throw { unregisteredBrowser: profileUrl };
+        };
         if (request.session.forceProfileUpdate) throw { mustUpdateProfile: profileUrl };
         if (request.session.visit.checkOutTime) throw "alreadyCheckedOut";
 
