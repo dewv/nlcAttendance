@@ -1,6 +1,6 @@
 tasks:
-  - init: npm install -g sails && npm install
-    command: sails lift
+  - init: npm install
+    command: npm run lift
 
 ports:
   - port: 1337
