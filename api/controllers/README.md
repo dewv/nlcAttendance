@@ -1,7 +1,7 @@
 
 This folder is for [controllers](https://sailsjs.com/documentation/concepts/actions-and-controllers#?controllers).
 
-By default, the [routing](https://sailsjs.com/documentation/concepts/routes) is configured to use the `RestController` class for all models. 
+By default, the [routing](https://sailsjs.com/documentation/concepts/routes) is configured to use the `RestController` class for all models.
 
 `RestController` handles the following requests, defined [like this](http://http://microformats.org/wiki/rest/urls).
 
