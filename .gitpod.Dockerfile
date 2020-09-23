@@ -1,6 +1,4 @@
-FROM gitpod/workspace-full
-
-USER gitpod
+FROM cypress/base
 
 # More information: https://www.gitpod.io/docs/config-docker/
 
