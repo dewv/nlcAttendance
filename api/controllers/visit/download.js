@@ -32,8 +32,9 @@ module.exports = {
         for (let visit of records) {
             let student = await Student.findOne({ id: visit.student }).populate("majorOne").populate("majorTwo").populate("sportOne").populate("sportTwo").populate("slpInstructor");
 
-            download += `"${visit.id}","${student.username}","${student.firstName}","${student.lastName}","${new Intl.DateTimeFormat("en-US", dateFormat).format(visit.checkInTime)}","${visit.checkOutTime ? new Intl.DateTimeFormat("en-US", dateFormat).format(visit.checkOutTime) : ""}","${visit.length}","${visit.isLengthEstimated}","${visit.purpose}","${visit.purposeAchieved}","${visit.location}","${visit.comment}","${student.academicRank}","${student.residentialStatus}","${student.majorOne.name}",`;
+            download += `"${visit.id}","${student.username}","${student.firstName}","${student.lastName}","${new Intl.DateTimeFormat("en-US", dateFormat).format(visit.checkInTime)}","${visit.checkOutTime ? new Intl.DateTimeFormat("en-US", dateFormat).format(visit.checkOutTime) : ""}","${visit.length}","${visit.isLengthEstimated}","${visit.purpose}","${visit.purposeAchieved}","${visit.location}","${visit.comment}","${student.academicRank}","${student.residentialStatus}",`;
 
+            download += `"${student.majorOne ? student.majorOne.name : ""}",`;
             download += `"${student.majorTwo ? student.majorTwo.name : ""}",`;
             download += `"${student.sportOne ? student.sportOne.name : ""}",`;
             download += `"${student.sportTwo ? student.sportTwo.name : ""}",`;

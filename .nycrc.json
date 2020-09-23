@@ -1,14 +1,10 @@
 {
-    "check-coverage": true,
     "skip-full": true,
-    "lines": 95,
-    "statements": 95,
-    "functions": 95,
-    "branches": 95,
     "exclude": [
         "test/**/*.js"
     ],
     "reporter": [
+        "text-summary",
         "lcov"
     ]
 }
