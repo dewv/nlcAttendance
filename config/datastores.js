@@ -15,7 +15,6 @@
 
 module.exports.datastores = {
 
-
     /***************************************************************************
   *                                                                          *
   * Your app's default datastore.                                            *
@@ -48,7 +47,7 @@ module.exports.datastores = {
     *    (See https://sailsjs.com/config/datastores for help.)                 *
     *                                                                          *
     ***************************************************************************/
-        // adapter: "sails-mysql",
-        // url: "mysql://nlc:password@localhost:3306/nlcAttendance"
+        // Use default sails-disk adapter for development.
+        inMemoryOnly: true // Tests assume a fresh database with each run.
     },
 };

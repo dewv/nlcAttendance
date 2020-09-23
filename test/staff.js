@@ -1,3 +1,4 @@
+const should = require("should");
 const CheckHTTP = require("./CheckHTTP");
 const CheckHTML = require("./CheckHTML");
 

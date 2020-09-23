@@ -1,5 +1,5 @@
+const should = require("should");
 const CheckHTTP = require("./CheckHTTP");
-const CheckHTML = require("./CheckHTML");
 
 testLookupService("/major");
 testLookupService("/sport");
@@ -10,7 +10,7 @@ function testLookupService(service) {
     const forbidden = { statusCode: 403 };
     const redirect = { statusCode: 302 };
 
-    // Some POSTs result in redirect to records list. 
+    // Some POSTs result in redirect to records list.
     let listRedirect = {
         statusCode: redirect.statusCode,
         location: `${service}`
@@ -32,7 +32,7 @@ function testLookupService(service) {
                 });
 
                 it("should redirect to the records list after posting create data", async function () {
-                    // Isolate options changes to this block. 
+                    // Isolate options changes to this block.
                     let _options = {};
                     Object.assign(_options, options);
                     _options.payload = { name: "NEW TEST LOOKUP RECORD", discontinued: "No" };
@@ -65,7 +65,7 @@ function testLookupService(service) {
                 });
 
                 context("should redirect to the records list after posting update data", function () {
-                    // Isolate options changes to this context block. 
+                    // Isolate options changes to this context block.
                     let _options = {};
 
                     before(async function () {

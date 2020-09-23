@@ -1,3 +1,4 @@
+const should = require("should");
 const CheckHTTP = require("./CheckHTTP");
 const CheckHTML = require("./CheckHTML");
 
@@ -104,7 +105,7 @@ describe(`${service} routes`, function () {
             });
 
             context("should redirect to check in or out afer posting update data", function () {
-                // Isolate options changes to this context block. 
+                // Isolate options changes to this context block.
                 let _options = {};
 
                 before(async function () {
@@ -126,7 +127,7 @@ describe(`${service} routes`, function () {
                 });
 
                 it("should update database", async function () {
-                    // Find the (updated) database record 
+                    // Find the (updated) database record
                     let updatedRecord = await Student.findOne({ id: _options.userId })
                         .populate("majorOne")
                         .populate("majorTwo")
@@ -137,7 +138,7 @@ describe(`${service} routes`, function () {
                     should.exist(updatedRecord);
 
                     // Verify it matches POST payload.
-                    for (property in _options.payload) {
+                    for (let property in _options.payload) {
                         if (typeof updatedRecord[property] === "object") {
                             updatedRecord[property].name.should.equal(_options.payload[property]);
                         }
