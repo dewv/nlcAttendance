@@ -1,8 +1,6 @@
-tasks:
-  - init: npm install -g sails && npm install
-    command: sails lift
+image: 
+  file: .gitpod.Dockerfile
 
-ports:
-  - port: 1337
-    onOpen: open-browser
-    
+tasks:
+  - init: npm install
+    command: sails lift
