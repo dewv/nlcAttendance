@@ -15,10 +15,6 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <title>
-        Naylor Learning Center
-    </title>
-
     <link rel="icon" type="image/x-icon" href="<%= baseUrl %>/DE_Logo.ico" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -49,9 +45,15 @@
             + Import stylesheets from other directories
             + Use a different or additional preprocessor, like SASS, SCSS or Stylus
     -->
+<!--STYLES-->
+<link rel="stylesheet" href="/styles/de.css">
+<!--STYLES END-->
 
 </head>
-
+<div class="container p-3 my-3 border de-colors">
+  <h1>Davis &amp; Elkins College</h1>
+  <h2>Naylor Learning Center</h2>
+</div>
 <body>
     <div class="w3-top">
         <% if (typeof session.role !== "undefined") { %>
