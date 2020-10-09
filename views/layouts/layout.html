@@ -49,67 +49,61 @@
 	<link rel="stylesheet" href="/styles/de.css">
 	<!--STYLES END-->
 
-	<style>
-		body {
-			padding-top: 60px;
-		}
-
-		@media (max-width: 576px) {
-			body {
-				padding-top: 100px;
-			}
-		}
-	</style>
 </head>
 
-<body>
+<body style="padding-top: 60px;">
 	<% if (typeof session.role !== "undefined") { %>
-	<nav class="navbar navbar-expand-sm fixed-top navbar-dark de-colors" style="margin-bottom: 80px;">
-		<ul class="navbar-nav">
+	<nav class="navbar fixed-top navbar-expand-md navbar-dark de-colors">
+		<a href="#" class="navbar-brand">D&amp;E Naylor Learning Center</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+		<div class="collapse navbar-collapse" id="collapsibleNavbar">
+			<ul class="navbar-nav">
 
-			<% if (session.role === "staff") { %>
-			<li class="nav-item">
-				<a href="<%= baseUrl %>/visit" class="nav-link">Visits</a>
-			</li>
-			<li class="nav-item">
-				<a href="<%= baseUrl %>/major" class="nav-link">Majors</a>
-			</li>
-			<li class="nav-item">
-				<a href="<%= baseUrl %>/sport" class="nav-link">Sports</a>
-			</li>
-			<li class="nav-item">
-				<a href="<%= baseUrl %>/browser/register" class="nav-link">Browser
-					Registration</a>
-			</li>
-			<li class="nav-item">
-				<a href="<%= baseUrl %>/staff/<%= session.userId %>/edit" class="nav-link">Profile</a>
-			</li>
-			<li class="nav-item">
-				<a href="<%= baseUrl %>/logout" class="nav-link">Log out</a>
-			</li>
-			<% } %>
+				<% if (session.role === "staff") { %>
+				<li class="nav-item">
+					<a href="<%= baseUrl %>/visit" class="nav-link">Visits</a>
+				</li>
+				<li class="nav-item">
+					<a href="<%= baseUrl %>/major" class="nav-link">Majors</a>
+				</li>
+				<li class="nav-item">
+					<a href="<%= baseUrl %>/sport" class="nav-link">Sports</a>
+				</li>
+				<li class="nav-item">
+					<a href="<%= baseUrl %>/browser/register" class="nav-link">Browser
+						Registration</a>
+				</li>
+				<li class="nav-item">
+					<a href="<%= baseUrl %>/staff/<%= session.userId %>/edit" class="nav-link">Profile</a>
+				</li>
+				<li class="nav-item">
+					<a href="<%= baseUrl %>/logout" class="nav-link">Log out</a>
+				</li>
+				<% } %>
 
-			<% if (session.role === "student") { %>
-			<li class="nav-item">
-				<a href="<%= baseUrl %>/student/<%= session.userId %>/edit" class="nav-link">Profile</a>
-			</li>
-			<li class="nav-item">
-				<a href="<%= baseUrl %>/logout" class="nav-link">Log out</a>
-			</li>
+				<% if (session.role === "student") { %>
+				<li class="nav-item">
+					<a href="<%= baseUrl %>/student/<%= session.userId %>/edit" class="nav-link">Profile</a>
+				</li>
+				<li class="nav-item">
+					<a href="<%= baseUrl %>/logout" class="nav-link">Log out</a>
+				</li>
 
-			<%- //exposeLocalsToBrowser({ keys: ["baseUrl"] }); -%>
-			<%- //include("../include/logoutTimer.html"); -%>
-			<% } %>
+				<%- // TODO test logout timer; this seemed redundant with tag near bottom exposeLocalsToBrowser({ keys: ["baseUrl"] }); -%>
+				<%- //include("../include/logoutTimer.html"); -%>
+				<% } %>
 
-		</ul>
+			</ul>
 	</nav>
 	<% } %>
 
 	<% if (typeof session.banner !== "undefined") { %>
 	<% if (typeof session.role === "undefined") {
-        // add stuff to autofade the alert
+        // TODO add stuff to autofade the alert
     } %>
-	<div class="alert alert-success alert-dismissible">
+	<div class="alert alert-success alert-dismissible" style="margin-top: -5px;">
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
 		<%= session.banner %>
 	</div>
@@ -176,7 +170,6 @@
 	<% if (typeof session.role !== "undefined" && session.role === "student") { %>
 	<script>
 		setLogoutTimer();
-
 	</script>
 	<% } %>
 
