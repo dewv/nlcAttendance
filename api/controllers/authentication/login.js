@@ -23,9 +23,11 @@ module.exports = async function (request, response) {
 
     if (result instanceof ldap.InvalidCredentialsError) {
         request.session.banner = "Invalid username and/or password.";
+        request.session.bannerClass = "alert-danger";
         return response.redirect("/logout");
     } else if (result instanceof ldap.InsufficientAccessRightsError) {
         request.session.banner = "Sorry, you are not authorized to use this system.";
+        request.session.bannerClass = "alert-danger";
         return response.redirect("/logout");
     } else if (result instanceof ldap.UnavailableError) {
         sails.log.debug("appeal to security question");

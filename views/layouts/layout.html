@@ -46,12 +46,14 @@
             + Use a different or additional preprocessor, like SASS, SCSS or Stylus
     -->
 	<!--STYLES-->
+	<link rel="stylesheet" href="/styles/animate-fade-out.css">
 	<link rel="stylesheet" href="/styles/de.css">
 	<!--STYLES END-->
 
 </head>
 
 <body style="padding-top: 60px;">
+	<% try { %>
 	<% if (typeof session.role !== "undefined") { %>
 	<nav class="navbar fixed-top navbar-expand-md navbar-dark de-colors">
 		<a href="#" class="navbar-brand">D&amp;E Naylor Learning Center</a>
@@ -91,8 +93,8 @@
 					<a href="<%= baseUrl %>/logout" class="nav-link">Log out</a>
 				</li>
 
-				<%- // TODO test logout timer; this seemed redundant with tag near bottom exposeLocalsToBrowser({ keys: ["baseUrl"] }); -%>
-				<%- //include("../include/logoutTimer.html"); -%>
+				<%- exposeLocalsToBrowser({ keys: ["baseUrl"] }); -%>
+				<%- include("../include/logoutTimer.html"); -%>
 				<% } %>
 
 			</ul>
@@ -100,15 +102,17 @@
 	<% } %>
 
 	<% if (typeof session.banner !== "undefined") { %>
-	<% if (typeof session.role === "undefined") {
-        // TODO add stuff to autofade the alert
-    } %>
-	<div class="alert alert-success alert-dismissible" style="margin-top: -5px;">
+	<div class="alert alert-dismissible
+        <%= typeof session.bannerClass === 'undefined' ? 'alert-success' : session.bannerClass %>
+        <%= typeof session.role === 'undefined' ? 'animate-fade-out' : '' %>"
+		style="margin-top: -5px;">
+
 		<button type="button" class="close" data-dismiss="alert">&times;</button>
 		<%= session.banner %>
 	</div>
-	<% }
-        session.banner = undefined; %>
+	<%  session.banner = undefined; %>
+	<% } %>
+
 	<div class="container-fluid">
 		<%- body %>
 	</div>
@@ -172,6 +176,7 @@
 		setLogoutTimer();
 	</script>
 	<% } %>
+	<% } catch(error) { console.log(`EJS rendering error: ${error}`); }; %>
 
 </body>
 

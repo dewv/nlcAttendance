@@ -1,0 +1,15 @@
+.animate-fade-out {
+    animation: fade 15s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+@keyframes fade {
+    from {
+        opacity: 1
+    }
+
+    to {
+        opacity: 0
+    }
+}
