@@ -2,30 +2,30 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<meta charset="utf-8">
 
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-    <!-- Popper JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="icon" type="image/x-icon" href="<%= baseUrl %>/DE_Logo.ico" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
-    <!-- Viewport mobile tag for sensible mobile support -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<link rel="icon" type="image/x-icon" href="<%= baseUrl %>/DE_Logo.ico" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <%/* If you want to discourage search engines from indexing this site, uncomment the following line: */%>
-    <%/* <meta name="robots" content="noindex"> */%>
+	<!-- Viewport mobile tag for sensible mobile support -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<%/* If you want to discourage search engines from indexing this site, uncomment the following line: */%>
+	<%/* <meta name="robots" content="noindex"> */%>
 
 
-    <!--
+	<!--
         Stylesheets and Preprocessors
         ==============================
 
@@ -45,71 +45,89 @@
             + Import stylesheets from other directories
             + Use a different or additional preprocessor, like SASS, SCSS or Stylus
     -->
-<!--STYLES-->
-<link rel="stylesheet" href="/styles/animate-fade-out.css">
-<link rel="stylesheet" href="/styles/de.css">
-<!--STYLES END-->
+	<!--STYLES-->
+	<link rel="stylesheet" href="/styles/animate-fade-out.css">
+	<link rel="stylesheet" href="/styles/de.css">
+	<!--STYLES END-->
 
 </head>
 
-<body>
-    <div class="w3-top">
-        <% if (typeof session.role !== "undefined") { %>
-        <% if (session.role === "staff") { %>
-        <div class="w3-bar w3-red w3-mobile" style="display: block;">
-            <a href="<%= baseUrl %>/visit" class="w3-bar-item w3-button">Visits</a>
-            <a href="<%= baseUrl %>/major" class="w3-bar-item w3-button">Majors</a>
-            <a href="<%= baseUrl %>/sport" class="w3-bar-item w3-button">Sports</a>
-            <a href="<%= baseUrl %>/browser/register" class="w3-bar-item w3-button">Browser
-                Registration</a>
-            <a href="<%= baseUrl %>/staff/<%= session.userId %>/edit" class="w3-bar-item w3-button">Profile</a>
-            <a href="<%= baseUrl %>/logout" class="w3-bar-item w3-button">Log out</a>
-        </div>
-        <% } %>
+<body style="padding-top: 60px;">
+	<% try { %>
+	<% if (typeof session.role !== "undefined") { %>
+	<nav class="navbar fixed-top navbar-expand-md navbar-dark de-colors">
+		<a href="#" class="navbar-brand">D&amp;E Naylor Learning Center</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+		<div class="collapse navbar-collapse" id="collapsibleNavbar">
+			<ul class="navbar-nav">
 
-        <% if (session.role === "student") { %>
-        <div class="w3-bar w3-red w3-mobile">
-            <a href="<%= baseUrl %>/student/<%= session.userId %>/edit" class="w3-bar-item w3-button">Profile</a>
-            <a href="<%= baseUrl %>/logout" class="w3-bar-item w3-button">Log out</a>
-        </div>
-        <% } %>
+				<% if (session.role === "staff") { %>
+				<li class="nav-item">
+					<a href="<%= baseUrl %>/visit" class="nav-link">Visits</a>
+				</li>
+				<li class="nav-item">
+					<a href="<%= baseUrl %>/major" class="nav-link">Majors</a>
+				</li>
+				<li class="nav-item">
+					<a href="<%= baseUrl %>/sport" class="nav-link">Sports</a>
+				</li>
+				<li class="nav-item">
+					<a href="<%= baseUrl %>/browser/register" class="nav-link">Browser
+						Registration</a>
+				</li>
+				<li class="nav-item">
+					<a href="<%= baseUrl %>/staff/<%= session.userId %>/edit" class="nav-link">Profile</a>
+				</li>
+				<li class="nav-item">
+					<a href="<%= baseUrl %>/logout" class="nav-link">Log out</a>
+				</li>
+				<% } %>
 
-        <% if (session.role === "student") { %>
-	<%- exposeLocalsToBrowser({ keys: ["baseUrl"] }); -%>
-        <%- include("../include/logoutTimer.html"); -%>
-        <% } %>
+				<% if (session.role === "student") { %>
+				<li class="nav-item">
+					<a href="<%= baseUrl %>/student/<%= session.userId %>/edit" class="nav-link">Profile</a>
+				</li>
+				<li class="nav-item">
+					<a href="<%= baseUrl %>/logout" class="nav-link">Log out</a>
+				</li>
 
-        <% } %>
+				<%- exposeLocalsToBrowser({ keys: ["baseUrl"] }); -%>
+				<%- include("../include/logoutTimer.html"); -%>
+				<% } %>
 
-        <% if (typeof session.banner !== "undefined") { %>
-        <% if (typeof session.role === "undefined") { %>
-        <div class="animate-fade-out">
-            <% } %>
-            <div class="w3-container w3-display-container w3-pale-blue" style="width: 100%;">
-                <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">&times;</span>
-                <p class="w3-margin-left"><%= session.banner %></p>
-            </div>
-            <% if (typeof session.role === "undefined") { %>
-        </div>
-        <% } %>
-        <% }
-        session.banner = undefined; %>
+			</ul>
+	</nav>
+	<% } %>
 
-    </div>
+	<% if (typeof session.banner !== "undefined") { %>
+	<div class="alert alert-dismissible
+        <%= typeof session.bannerClass === 'undefined' ? 'alert-success' : session.bannerClass %>
+        <%= typeof session.role === 'undefined' ? 'animate-fade-out' : '' %>"
+		style="margin-top: -5px;">
 
-    <%- body %>
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<%= session.banner %>
+	</div>
+	<%  session.banner = undefined; %>
+	<% } %>
 
-    <!-- Client-side Templates
+	<div class="container-fluid">
+		<%- body %>
+	</div>
+
+	<!-- Client-side Templates
         ========================
         HTML templates are important prerequisites of modern, rich client applications. To work their magic, frameworks like React, Vue.js, Angular, Ember, and Backbone require that you load these templates client-side. By default, your Gruntfile is configured to automatically load and precompile client-side JST templates in your `assets/templates` folder, then include them here automatically (between TEMPLATES and TEMPLATES END). To customize this behavior to fit your needs, just edit `tasks/pipeline.js`. For example, here are a few things you could do: + Import templates from other directories + Use a different view engine (handlebars, dust, pug/jade, etc.) + Internationalize your client-side templates using a server-side stringfile before they're served.
     -->
 
-    <!--TEMPLATES-->
-    
-    <!--TEMPLATES END-->
+	<!--TEMPLATES-->
+	
+	<!--TEMPLATES END-->
 
 
-    <!--
+	<!--
         Server-side View Locals
         ========================
 
@@ -125,7 +143,7 @@
     -->
 
 
-    <!--
+	<!--
 
       Client-side Javascript
       ========================
@@ -148,17 +166,18 @@
 
     -->
 
-    <!--SCRIPTS-->
-    <script src="/js/logoutTimer.js"></script>
-    <script src="/js/preventMultiSubmit.js"></script>
-    <!--SCRIPTS END-->
+	<!--SCRIPTS-->
+	<script src="/js/logoutTimer.js"></script>
+	<script src="/js/preventMultiSubmit.js"></script>
+	<!--SCRIPTS END-->
 
-    <% if (typeof session.role !== "undefined" && session.role === "student") { %>
-    <script>
-        setLogoutTimer();
+	<% if (typeof session.role !== "undefined" && session.role === "student") { %>
+	<script>
+		setLogoutTimer();
+	</script>
+	<% } %>
+	<% } catch(error) { console.log(`EJS rendering error: ${error}`); }; %>
 
-    </script>
-    <% } %>
 </body>
 
 </html>

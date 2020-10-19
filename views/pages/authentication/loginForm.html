@@ -1,31 +1,19 @@
 <!--STYLES-->
-<link rel="stylesheet" href="/styles/animate-fade-out.css" />
-<link rel="stylesheet" href="/styles/de.css" />
+<link rel="stylesheet" href="/styles/animate-fade-out.css">
+<link rel="stylesheet" href="/styles/de.css">
 <!--STYLES END-->
 
-<div class="container p-3 my-3 border de-colors">
+<div class="container-fluid rounded py-3 de-colors">
     <h1>Davis &amp; Elkins College</h1>
     <h2>Naylor Learning Center</h2>
 </div>
-<form method="POST" action="<%= baseUrl %>/login">
-    <div>
-        <input
-            type="text"
-            class="form-control-lg"
-            placeholder="Username"
-            autofocus
-            name="username"
-            required
-        />
+
+<form class="py-3" method="POST" action="<%= baseUrl %>/login">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Username" autofocus name="username" required />
     </div>
-    <div>
-        <input
-            type="password"
-            class="form-control-lg"
-            placeholder="Password"
-            name="password"
-            required
-        />
+    <div class="form-group">
+        <input type="password" class="form-control" placeholder="Password" name="password" required />
     </div>
     <button type="submit" class="btn btn-dark">Submit</button>
 </form>
