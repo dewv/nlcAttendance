@@ -5,14 +5,16 @@
 <div class="container">
   <h2><%= formData.firstName + " " + formData.lastName %></h2>
     <p>Are you an SLP Instructor?</p>
-    <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Yes
-        <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-            <li><a href="#">Yes</a></li>
-            <li><a href="#">No</a></li>
-         </ul>
-    </div>
+        <select id="isSlpInstructor" name="isSlpInstructor">
+            <% if (formData.isSlpInstructor) { %>
+            <option value="true" selected>Yes</option>
+            <option value="false">No</option>
+            <% } else { %>
+            <option value="true">Yes</option>
+            <option value="false" selected>No</option>
+            <% } %>
+        </select>
+    <button id="submitButton" type="submit" class="btn btn-dark" onclick="return validateForm()">Submit</button>
 </div>
 
 
