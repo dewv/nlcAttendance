@@ -16,7 +16,12 @@ module.exports = {
 
     fn: async function (inputs, exits) {
         let request = this.req;
-        let ejsData = { session: { banner: request.session.banner } };
+        let ejsData = {
+            session: {
+                banner: request.session.banner,
+                bannerClass: request.session.bannerClass
+            }
+        };
         request.session.destroy();
 
         return exits.success(ejsData);
