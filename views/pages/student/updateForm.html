@@ -1,63 +1,79 @@
-<% generateOptions = undefined; %>
-<%- include("../../include/generateOptions.ejs"); %>
+<% generateOptions = undefined; %> <%-
+include("../../include/generateOptions.ejs"); %>
 
-<div class="w3-row w3-container w3-display-middle w3-center w3-border w3-red w3-round w3-border-black" style="width:35%">
-    <form method="POST" action="<%= baseUrl + action %>">
-        <div>
-            <h2><%= formData.firstName + " " + formData.lastName %></h2>
-        </div>
-
-        <div class="w3-select w3-border-0">
-            <label for="academicRank">*Academic Rank</label>
-            <select id="academicRank" name="academicRank" autofocus required size="1">
+<form method="POST" action="<%= baseUrl + action %>">
+    <div>
+        <h2><%= formData.firstName + " " + formData.lastName %></h2>
+    </div>
+    <div class="container">
+        <div class="form-group">
+            <label for="academicRank">Academic Rank:</label>
+            <select class="form-control" id="academicRank" name="academicRank">
                 <%- generateOptions("academicRank"); %>
             </select>
         </div>
+    </div>
 
-        <div class="w3-select w3-border-0">
-            <label for="residentialStatus">*Residential Status</label>
-            <select id="residentialStatus" name="residentialStatus" required size="1">
+    <div class="container">
+        <div class="form-group">
+            <label for="residentialStatus">Residential Status:</label>
+            <select
+                class="form-control"
+                id="residentialStatus"
+                name="residentialStatus"
+            >
                 <%- generateOptions("residentialStatus"); %>
             </select>
         </div>
+    </div>
 
-        <div class="w3-select w3-border-0">
-            <label for="majorOne">*Major 1</label>
-            <select id="majorOne" name="majorOne" required size="1">
-                <%- generateOptions("majorOne", "name"); %>
+    <div class="container">
+        <div class="form-group">
+            <label for="majorOne">Major 1:</label>
+            <select class="form-control" id="majorOne" name="majorOne">
+                <%- generateOptions("majorOne"); %>
             </select>
         </div>
+    </div>
 
-        <div class="w3-select w3-border-0">
-            <label for="majorTwo">Major 2</label>
-            <select id="majorTwo" name="majorTwo" size="1">
-                <%- generateOptions("majorTwo", "name"); %>
+    <div class="container">
+        <div class="form-group">
+            <label for="majorTwo">Major 2:</label>
+            <select class="form-control" id="majorTwo" name="majorTwo">
+                <%- generateOptions("majorTwo"); %>
             </select>
         </div>
+    </div>
 
-        <div class="w3-select w3-border-0">
-            <label for="sportOne" class="sports">Sport 1</label>
-            <select id="sportOne" name="sportOne" size="1">
-                <%- generateOptions("sportOne", "name"); %>
+    <div class="container">
+        <div class="form-group">
+            <label for="sportOne">Sport 1:</label>
+            <select class="form-control" id="sportOne" name="sportOne">
+                <%- generateOptions("sportOne"); %>
             </select>
         </div>
+    </div>
 
-        <div class="w3-select w3-border-0">
-            <label for="sportTwo" class="sports">Sport 2</label>
-            <select id="sportTwo" name="sportTwo" size="1">
-                <%- generateOptions("sportTwo", "name"); %>
+    <div class="container">
+        <div class="form-group">
+            <label for="sportTwo">Sport 2:</label>
+            <select class="form-control" id="sportTwo" name="sportTwo">
+                <%- generateOptions("sportTwo"); %>
             </select>
         </div>
+    </div>
 
-        <div class="w3-select w3-border-0">
-            <label for="slpInstructor">SLP Instructor</label>
-            <select id="slpInstructor" name="slpInstructor" size="1">
-                <%- generateOptions("slpInstructor", "name"); %>
+    <div class="container">
+        <div class="form-group">
+            <label for="slpInstructor">SLP Instructor:</label>
+            <select
+                class="form-control"
+                id="slpInstructor"
+                name="slpInstructor"
+            >
+                <%- generateOptions("slpInstructor"); %>
             </select>
         </div>
-
-        <div class="button w3-padding-16">
-            <button class="w3-btn w3-white" id="submitButton" type="submit">Update</button>
-        </div>
-    </form>
-</div>
+    </div>
+    <button type="submit" class="btn btn-dark">Update</button>
+</form>
