@@ -1,5 +1,5 @@
-<% generateOptions = undefined; %> <%-
-include("../../include/generateOptions.ejs"); %>
+<% generateOptions = undefined; %>
+<%-include("../../include/generateOptions.ejs"); %>
 
 <form method="POST" action="<%= baseUrl + action %>">
     <div>
@@ -31,7 +31,7 @@ include("../../include/generateOptions.ejs"); %>
         <div class="form-group">
             <label for="majorOne">Major 1:</label>
             <select class="form-control" id="majorOne" name="majorOne">
-                <%- generateOptions("majorOne"); %>
+                <%- generateOptions("majorOne", "name"); %>
             </select>
         </div>
     </div>
@@ -40,7 +40,7 @@ include("../../include/generateOptions.ejs"); %>
         <div class="form-group">
             <label for="majorTwo">Major 2:</label>
             <select class="form-control" id="majorTwo" name="majorTwo">
-                <%- generateOptions("majorTwo"); %>
+                <%- generateOptions("majorTwo", name"); %>
             </select>
         </div>
     </div>
@@ -49,7 +49,7 @@ include("../../include/generateOptions.ejs"); %>
         <div class="form-group">
             <label for="sportOne">Sport 1:</label>
             <select class="form-control" id="sportOne" name="sportOne">
-                <%- generateOptions("sportOne"); %>
+                <%- generateOptions("sportOne", "name"); %>
             </select>
         </div>
     </div>
@@ -58,7 +58,7 @@ include("../../include/generateOptions.ejs"); %>
         <div class="form-group">
             <label for="sportTwo">Sport 2:</label>
             <select class="form-control" id="sportTwo" name="sportTwo">
-                <%- generateOptions("sportTwo"); %>
+                <%- generateOptions("sportTwo", "name"); %>
             </select>
         </div>
     </div>
@@ -71,7 +71,7 @@ include("../../include/generateOptions.ejs"); %>
                 id="slpInstructor"
                 name="slpInstructor"
             >
-                <%- generateOptions("slpInstructor"); %>
+                <%- generateOptions("slpInstructor", "name"); %>
             </select>
         </div>
     </div>
