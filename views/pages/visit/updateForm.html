@@ -1,7 +1,7 @@
 <form method="POST" action="<%= baseUrl + action %>">
-    <div class="w3-container w3-third w3-display-middle w3-center w3-border w3-red w3-round w3-border-black">
+    <div>
         <div>
-            <h2>Check Out</h2>
+            <h1>Check Out</h1>
         </div>
 
         <div class="formPiece">
@@ -21,7 +21,7 @@
         </div>
         <% } %>
 
-        <div class="w3-padding-16">
+        <div>
             The purpose of your visit was: <blockquote><%= formData.purpose %></blockquote>
         </div>
 
@@ -43,12 +43,12 @@
                 <label class="radio-inline">No&nbsp;<input type="radio" value="No" name="usedTutor" required onclick="tutorValueChanged(false)"></label>
             </p>
 
-            <div id="tutorDetails" style="display: none;">
+            <div class="form-group" id="tutorDetails">
                 <label for="tutorCourses" value="tutorCourses">For which courses?</label>
-                <input id="tutorCourses" name="tutorCourses" type="text" maxlength="255">
+                <input class="form-control" id="tutorCourses" name="tutorCourses" type="text" maxlength="255">
                 &nbsp; &nbsp;
                 <label for="tutorInstructors" value="tutorInstructors">For which instructors?</label>
-                <input id="tutorInstructors" name="tutorInstructors" type="text" maxlength="255">
+                <input class="form-control" id="tutorInstructors" name="tutorInstructors" type="text" maxlength="255">
             </div>
         </div>
 
@@ -57,8 +57,8 @@
                 <textarea id="comment" name="comment" rows="1" cols="75" placeholder="Comments (optional)"></textarea>
             </p>
         </div>
-        <div class="button w3-padding-16">
-            <button class="w3-btn w3-white" id="submitButton" type="submit">Submit</button>
+        <div>
+            <button class="btn btn-dark" id="submitButton" type="submit">Submit</button>
         </div>
     </div>
 
