@@ -2,17 +2,15 @@
 <form method="POST" action="<%= baseUrl + action %>">
     <div class="form-group">
         <label for="isSlpInstuctor">Are you an SLP Instructor?</label>
-            <div class="form-contol">
-                <select id="isSlpInstructor" name="isSlpInstructor">
-                    <% if (formData.isSlpInstructor) { %>
-                    <option value="true" selected>Yes</option>
-                    <option value="false">No</option>
-                    <% } else { %>
-                    <option value="true">Yes</option>
-                    <option value="false" selected>No</option>
-                    <% } %>
-                </select>
-            </div>
+            <select class="form-control" id="isSlpInstructor" name="isSlpInstructor">
+                <% if (formData.isSlpInstructor) { %>
+                <option value="true" selected>Yes</option>
+                <option value="false">No</option>
+                <% } else { %>
+                <option value="true">Yes</option>
+                <option value="false" selected>No</option>
+                <% } %>
+            </select>
         </div>
     <button id="submitButton" type="submit" class="btn btn-dark" >Submit</button>
 </form>

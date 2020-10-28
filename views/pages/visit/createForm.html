@@ -1,17 +1,10 @@
-<div class="w3-row w3-container w3-third w3-display-middle w3-center w3-border w3-red w3-round w3-border-black"
-    style="width:25%">
-    <h2>Check In</h2>
-
+    <h1>Check In</h1>
     <form method="POST" action="<%= baseUrl + action %>">
-
-        <div class="formPiece">
-            <label id="visitPurposeQuestion">What is your goal/purpose for this visit?</label>
-            <div style="padding-top: 15px;"></div>
-            <textarea id="purpose" name="purpose" rows="10" cols="30" autofocus maxlength="255" required></textarea>
+        <div class="form-group">
+            <label for="visitPurposeQuestion">What is your goal/purpose for this visit?</label>
+            <textarea class="form-control" rows="10" autofocus maxlength="255" id="purpose" name="purpose" required></textarea>
         </div>
-        <div class="button w3-padding-16">
-            <button class="w3-btn w3-white" id="submitButton" type="submit">Submit</button>
-        </div>
+        <button type="submit" class="btn btn-dark">Submit</button>
 
     </form>
 </div>
