@@ -1,66 +1,106 @@
+<h1>Check Out</h1>
 <form method="POST" action="<%= baseUrl + action %>">
+    <p>You checked in <%= formData.checkInTime %>.</p>
 
-        <h1>Check Out</h1>
+    <% if (formData.isLengthEstimated) { %>
+    <div class="form-group">
+        <label for="length" id="lengthLabel">
+            Please estimate the duration of your visit to the nearest quarter
+            hour.
+        </label>
+        <select
+            class="form-control"
+            id="length"
+            name="length"
+            required
+            size="1"
+            autofocus
+        >
+            <option value="" selected>Choose one ...</option>
+            <% for (var i = 1; i <= 32; i++) { %>
+            <option value="<%=i * 0.25%>"><%=i * 0.25%></option>
+            <% } %></select
+        >
+    </div>
+    <% } %>
 
-        <div class="formPiece">
-            You checked in <%= formData.checkInTime %>.
-        </div>
+    <div>
+        The purpose of your visit was:
+        <div class="text-primary p-3"><%= formData.purpose %></div>
+    </div>
 
-        <% if (formData.isLengthEstimated) { %>
-        <div class="formPiece">
-            <p>*Please estimate the duration of your visit to the nearest quarter hour:&nbsp;
-                <select id="length" name="length" required size="1" autofocus>
-                    <option value="" selected>Choose one ...</option>
-                    <% for (var i = 1; i <= 32; i++) { %>
-                    <option value="<%=i * 0.25%>"><%=i * 0.25%></option>
-                    <% } %>
-                </select>&nbsp; hour(s).
-            </p>
-        </div>
-        <% } %>
+    <div class="form-group">
+        <label for="purposeAchieved" id="purposeAchievedLabel"
+            >Did you accomplish the purpose of your visit?</label
+        >
+        <select
+            class="form-control"
+            id="purposeAchieved"
+            name="purposeAchieved"
+            autofocus
+            required
+            size="1"
+        >
+            <option value="">Choose one ...</option>
+            <% for (let option of options.purposeAchieved) { %>
+            <option value="<%= option %>"><%= option %></option>
+            <% } %>
+        </select>
+    </div>
 
-        <div>
-        The purpose of your visit was: <blockquote><%= formData.purpose %></blockquote>
-        </div>
+    <div class="form-group">
+        <label for="tutor" id="tutorQuestion">Did you use a tutor?</label>
+        <select
+            class="form-control"
+            id="tutor"
+            name="tutorQuestion"
+            oninput="tutorValueChanged(this.value)"
+        >
+            <option value>Choose one...</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
 
-        <div class="formPiece">
-            <label for="purposeAchieved" id="purposeAchievedLabel">Did you accomplish the purpose of your
-                visit?</label>
-            <select id="purposeAchieved" name="purposeAchieved" autofocus required size="1">
-                <option value="">Choose one ...</option>
-                <% for (let option of options.purposeAchieved) { %>
-                <option value="<%= option %>"><%= option %></option>
-                <% } %>
-            </select>
-        </div>
+    <div class="form-group" id="tutorDetails" style="display: none">
+        <label for="tutorCourses" value="tutorCourses"
+            >For which courses?</label
+        >
+        <input
+            class="form-control"
+            id="tutorCourses"
+            name="tutorCourses"
+            type="text"
+            maxlength="255"
+        />
+    </div>
+    <div class="form-group" style="display: none">
+        <label for="tutorInstructors" value="tutorInstructors"
+            >For which instructors?</label
+        >
+        <input
+            class="form-control"
+            id="tutorInstructors"
+            name="tutorInstructors"
+            type="text"
+            maxlength="255"
+        />
+    </div>
 
-        <div class="formPiece">
-            <label for= "tutor" id="tutorQuestion">Did you use a tutor?</label>
-                <select id= "tutor" name= "tutorQuestion"  onchange="tutorValueChanged(true)">
-                    <option>No</option>
-                    <option>Yes</option>
+    <p>
+        <textarea
+            class="form-control"
+            rows="10"
+            autofocus
+            maxlength="255"
+            id="comment"
+            name="comment"
+            required
+            placeholder="Comments (optional)"
+        ></textarea>
+    </p>
 
-                </select>
-            </p>
-
-            <div class="form-group" id="tutorDetails" style="display: none;">
-                <label for="tutorCourses" value="tutorCourses">For which courses?</label>
-                <input class="form-control" id="tutorCourses" name="tutorCourses" type="text" maxlength="255">
-                &nbsp; &nbsp;
-                <label for="tutorInstructors" value="tutorInstructors">For which instructors?</label>
-                <input class="form-control" id="tutorInstructors" name="tutorInstructors" type="text" maxlength="255">
-            </div>
-        </div>
-
-        <div class="formPiece">
-            <p>
-                <input class="form-control" id="comment" name="comment" type="text" maxlength="255" placeholder="Comments (optional)">
-            </p>
-        </div>
-        <div>
-            <button class="btn btn-dark" id="submitButton" type="submit">Submit</button>
-        </div>
-
+    <button class="btn btn-dark" id="submitButton" type="submit">Submit</button>
 </form>
 
 <script>
@@ -69,7 +109,7 @@
         let courses = document.getElementById("tutorCourses");
         let instructors = document.getElementById("tutorInstructors");
 
-        if (newValue) {
+        if (newValue === "Yes") {
             div.style.display = "block";
         } else {
             div.style.display = "none";
@@ -77,5 +117,4 @@
             instructors.value = "";
         }
     }
-
 </script>
