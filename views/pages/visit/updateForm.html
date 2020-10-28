@@ -35,10 +35,12 @@
         </div>
 
         <div class="formPiece">
-            <p>Did you use a tutor?&nbsp;
-                <label class="radio-inline">Yes&nbsp;<input type="radio" value="Yes" name="usedTutor" required onclick="tutorValueChanged(true)"></label>
-                &nbsp; &nbsp;
-                <label class="radio-inline">No&nbsp;<input type="radio" value="No" name="usedTutor" required onclick="tutorValueChanged(false)"></label>
+            <label for= "tutor" id="tutorQuestion">Did you use a tutor?</label>
+                <select id= "tutor" name= "tutorQuestion"  onchange="tutorValueChanged(true)">
+                    <option>No</option>
+                    <option>Yes</option>
+
+                </select>
             </p>
 
             <div class="form-group" id="tutorDetails" style="display: none;">
