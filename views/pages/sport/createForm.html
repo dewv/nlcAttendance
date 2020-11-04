@@ -2,7 +2,7 @@
 <form method="POST" action="<%= baseUrl + action %>">
     <div class="form-group">
         <label for="name" value="name">Sport's Name</label>
-        <input type="text" class="form-control" id="name">
+        <input id="name" name="name" type="text" class="form-control" autofocus maxlength="255" required value="<%= formData.name %>">
     </div>
     <button id="submitButton" type="submit" class="btn btn-dark" >Submit</button>
 </form>

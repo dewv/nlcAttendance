@@ -2,7 +2,7 @@
 <form method="POST" action="<%= baseUrl + action %>">
     <div class="form-group">
         <label for="isSlpInstuctor">Are you an SLP Instructor?</label>
-            <select class="form-control" id="isSlpInstructor" name="isSlpInstructor">
+            <select class="form-control" id="isSlpInstructor" name="isSlpInstructor" autofocus maxlength="255">
                 <% if (formData.isSlpInstructor) { %>
                 <option value="true" selected>Yes</option>
                 <option value="false">No</option>
