@@ -19,8 +19,8 @@
             <option value="" selected>Choose one ...</option>
             <% for (var i = 1; i <= 32; i++) { %>
             <option value="<%=i * 0.25%>"><%=i * 0.25%></option>
-            <% } %></select
-        >
+            <% } %>
+        </select>
     </div>
     <% } %>
 
@@ -37,7 +37,7 @@
             class="form-control"
             id="purposeAchieved"
             name="purposeAchieved"
-            autofocus
+            <%= formData.isLengthEstimated ? "" : "autofocus" %>
             required
             size="1"
         >
@@ -53,7 +53,8 @@
         <select
             class="form-control"
             id="tutor"
-            name="tutorQuestion"
+            name="usedTutor"
+            required
             oninput="tutorValueChanged(this.value)"
         >
             <option value>Choose one...</option>
@@ -62,40 +63,40 @@
         </select>
     </div>
 
-    <div class="form-group" id="tutorDetails" style="display: none">
-        <label for="tutorCourses" value="tutorCourses"
-            >For which courses?</label
-        >
-        <input
-            class="form-control"
-            id="tutorCourses"
-            name="tutorCourses"
-            type="text"
-            maxlength="255"
-        />
-    </div>
-    <div class="form-group" style="display: none">
-        <label for="tutorInstructors" value="tutorInstructors"
-            >For which instructors?</label
-        >
-        <input
-            class="form-control"
-            id="tutorInstructors"
-            name="tutorInstructors"
-            type="text"
-            maxlength="255"
-        />
+    <div id="tutorDetails" class="ml-4" style="display: none">
+        <div class="form-group">
+            <label for="tutorCourses" value="tutorCourses"
+                >For which courses?</label
+            >
+            <input
+                class="form-control"
+                id="tutorCourses"
+                name="tutorCourses"
+                type="text"
+                maxlength="255"
+            />
+        </div>
+        <div class="form-group">
+            <label for="tutorInstructors" value="tutorInstructors"
+                >For which instructors?</label
+            >
+            <input
+                class="form-control"
+                id="tutorInstructors"
+                name="tutorInstructors"
+                type="text"
+                maxlength="255"
+            />
+        </div>
     </div>
 
     <p>
         <textarea
             class="form-control"
             rows="10"
-            autofocus
             maxlength="255"
             id="comment"
             name="comment"
-            required
             placeholder="Comments (optional)"
         ></textarea>
     </p>
