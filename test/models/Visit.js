@@ -4,7 +4,7 @@
 
 // "use strict";
 const should = require("should");
-const helperIntegrationTests = require("./_helpers");
+// const helperIntegrationTests = require("./_helpers");
 
 /**
  * Tests the specified model's interaction with Student, using the specified test data.
@@ -19,7 +19,7 @@ describe("Visit model", function () {
         associations: {},
         record: {},
         checkInForm: {},
-        checkOutFormNL: {}, // No Length in form submission test data. 
+        checkOutFormNL: {}, // No Length in form submission test data.
         checkOutFormLE: {}, // Length Estimated in form submission data.
     };
 

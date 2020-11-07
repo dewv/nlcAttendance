@@ -43,7 +43,7 @@ module.exports = {
         let profileUrl = `/student/${request.session.userId}/edit`;
         if (sails.config.custom.restrictBrowsers) {
             if (!request.cookies.location) throw { unregisteredBrowser: profileUrl };
-        };
+        }
         if (request.session.forceProfileUpdate) throw { mustUpdateProfile: profileUrl };
         if (request.session.visit.checkOutTime) throw "alreadyCheckedOut";
 

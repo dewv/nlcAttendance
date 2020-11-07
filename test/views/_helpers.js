@@ -6,11 +6,10 @@
 require("should");
 
 /**
- * Tests view-related helpers. 
+ * Tests view-related helpers.
  * @public
  */
 module.exports = function () {
-    return;
     describe("Standard tests of views, helper integration", function () {
         // context("`generateHtmlSelect` helper", async function () {
         //     it("should provide a <select> tag with <option>s", function () {

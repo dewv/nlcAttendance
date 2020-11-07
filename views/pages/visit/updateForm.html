@@ -33,14 +33,26 @@
         <label for="purposeAchieved" id="purposeAchievedLabel"
             >Did you accomplish the purpose of your visit?</label
         >
+        <% if (formData.isLengthEstimated) { %>
         <select
             class="form-control"
             id="purposeAchieved"
             name="purposeAchieved"
-            <%= formData.isLengthEstimated ? "" : "autofocus" %>
             required
             size="1"
         >
+        <!--Hide conditional content ...
+        <% } else { %>
+        <select
+            autofocus
+            class="form-control"
+            id="purposeAchieved"
+            name="purposeAchieved"
+            required
+            size="1"
+        >
+        <% } %>
+        ... from htmlhint. -->
             <option value="">Choose one ...</option>
             <% for (let option of options.purposeAchieved) { %>
             <option value="<%= option %>"><%= option %></option>
@@ -93,7 +105,7 @@
     <p>
         <textarea
             class="form-control"
-            rows="10"
+            rows="4"
             maxlength="255"
             id="comment"
             name="comment"
