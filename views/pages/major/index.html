@@ -5,11 +5,11 @@
     >Add a new Major</a
 >
 
-<table class="w3-table-all w3-card" id="majorTable">
+<table class="table table-borderless" id="majorTable">
     <thead>
         <tr>
-            <th class="w3-left w3-margin-left">Major</th>
-            <th class="w3-center">Discontinued</th>
+            <th class="text-left">Major</th>
+            <th class="text-center">Discontinued</th>
         </tr>
     </thead>
 
@@ -17,10 +17,10 @@
         <% let count = 0 %> <% if(records) {records.forEach(function(major) {
         count++ %>
         <tr>
-            <td class="w3-left w3-margin-left"><%= major.name %></td>
+            <td class="text-left"><%= major.name %></td>
             <td>
                 <form
-                    class="w3-center"
+                    class="text-center"
                     method="POST"
                     action="<%= baseUrl %>/major/<%= major.id %>"
                 >
