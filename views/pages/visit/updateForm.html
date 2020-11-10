@@ -2,7 +2,9 @@
 <form method="POST" action="<%= baseUrl + action %>">
     <p>You checked in <%= formData.checkInTime %>.</p>
 
+    <% var autofocus_set = false; %>
     <% if (formData.isLengthEstimated) { %>
+        <% autofocus_set = true; %>
     <div class="form-group">
         <label for="length" id="lengthLabel">
             Please estimate the duration of your visit to the nearest quarter
@@ -33,26 +35,16 @@
         <label for="purposeAchieved" id="purposeAchievedLabel"
             >Did you accomplish the purpose of your visit?</label
         >
-        <% if (formData.isLengthEstimated) { %>
         <select
             class="form-control"
             id="purposeAchieved"
             name="purposeAchieved"
             required
             size="1"
-        >
-        <!--Hide conditional content ...
-        <% } else { %>
-        <select
+            <% if (!autofocus_set) { %>
             autofocus
-            class="form-control"
-            id="purposeAchieved"
-            name="purposeAchieved"
-            required
-            size="1"
+            <% } %>
         >
-        <% } %>
-        ... from htmlhint. -->
             <option value="">Choose one ...</option>
             <% for (let option of options.purposeAchieved) { %>
             <option value="<%= option %>"><%= option %></option>
