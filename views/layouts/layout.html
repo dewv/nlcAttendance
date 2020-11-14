@@ -60,7 +60,7 @@
     <body style="padding-top: 60px">
         <% try { %> <% if (typeof session.role !== "undefined") { %>
         <nav class="navbar fixed-top navbar-expand-md navbar-dark de-colors">
-            <a href="#" class="navbar-brand">D&amp;E Naylor Learning Center</a>
+            <a href="#" class="navbar-brand">Naylor Learning Center</a>
             <button
                 class="navbar-toggler"
                 type="button"
@@ -193,7 +193,14 @@
 
         <!-- External, manually loaded scripts -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
 
         <% if (typeof session.role !== "undefined" && session.role === "student") { %>
         <script>

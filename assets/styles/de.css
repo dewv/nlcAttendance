@@ -2,3 +2,17 @@
     background-color:#ee082e;
     color:white;
 }
+
+/* Smaller header fonts for screen widths <= 600px.
+    (Percentages apply to *parent's* font size.)
+*/
+@media screen and (max-width: 600px) {
+  h1.text-responsive {
+    font-size: 150%;
+  }
+
+  h2.text-responsive {
+    font-size: 125%;
+  }
+}
+

@@ -1,54 +1,100 @@
-<a
-    href="<%= baseUrl %>/major/new"
-    class="btn btn-dark float-right mt-2"
-    role="button"
-    >Add a new Major</a
->
-
-<table class="table table-borderless" id="majorTable">
-    <thead>
-        <tr>
-            <th class="text-left">Major</th>
-            <th class="text-center">Discontinued</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        <% let count = 0 %> <% if(records) {records.forEach(function(major) {
-        count++ %>
-        <tr>
-            <td class="text-left"><%= major.name %></td>
-            <td>
-                <form
-                    class="text-center"
-                    method="POST"
-                    action="<%= baseUrl %>/major/<%= major.id %>"
-                >
-                    <% if(major.discontinued === "Yes") { %>
-                    <input type="hidden" name="discontinued" value="No" />
-                    <button
-                        style="border: none; background-color: white"
-                        type="submit"
-                        id="Yes<%= count %>"
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-5">
+        <div class="d-flex justify-content-between">
+            <div><h1>Majors</h1></div>
+            <div>
+                <a href="<%= baseUrl %>/major/new">
+                    <i
+                        class="fa fa-plus-circle"
+                        style="font-size: 48px; color: black"
+                        data-toggle="tooltip"
+                        data-placement="right"
+                        title="Add a new major"
                     >
+                    </i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <table class="table table-borderless" id="majorTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th class="text-nowrap">
+                        Discontinued&nbsp;
                         <i
-                            class="fa fa-check-square-o"
-                            style="font-size: 150%"
-                        ></i>
-                    </button>
-                    <% } else { %>
-                    <input type="hidden" name="discontinued" value="Yes" />
-                    <button
-                        style="border: none; background-color: white"
-                        type="submit"
-                        id="No<%= count %>"
-                    >
-                        <i class="fa fa-square-o" style="font-size: 150%"></i>
-                    </button>
-                    <% } %>
-                </form>
-            </td>
-        </tr>
-        <% }); }%>
-    </tbody>
-</table>
+                            class="fa fa-info-circle"
+                            data-toggle="tooltip"
+                            data-placement="right"
+                            title="After a major is discontinued, it can no longer be added to student profiles. It will remain on profiles where it was already present."
+                        >
+                        </i>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% let count = 0 %> <% if(records)
+                {records.forEach(function(major) { count++ %>
+                <tr>
+                    <td class="text-left pt-0 pb-0">
+                        <% if(major.discontinued === "Yes") { %>
+                        <del>
+                            <% } %> <%= major.name %> <% if(major.discontinued
+                            === "Yes") { %>
+                        </del>
+                        <% } %>
+                    </td>
+                    <td class="pt-0 pb-0">
+                        <form
+                            method="POST"
+                            action="<%= baseUrl %>/major/<%= major.id %>"
+                            class="pl-5"
+                        >
+                            <% if(major.discontinued === "Yes") { %>
+                            <input
+                                type="hidden"
+                                name="discontinued"
+                                value="No"
+                            />
+                            <button
+                                style="border: none; background-color: white"
+                                type="submit"
+                                id="Yes<%= count %>"
+                            >
+                                <i
+                                    class="fa fa-check-square-o"
+                                    style="font-size: 150%"
+                                ></i>
+                            </button>
+                            <% } else { %>
+                            <input
+                                type="hidden"
+                                name="discontinued"
+                                value="Yes"
+                            />
+                            <button
+                                style="border: none; background-color: white"
+                                type="submit"
+                                id="No<%= count %>"
+                            >
+                                <i
+                                    class="fa fa-square-o"
+                                    style="font-size: 150%"
+                                ></i>
+                            </button>
+                            <% } %>
+                        </form>
+                    </td>
+                </tr>
+                <% }); }%>
+            </tbody>
+        </table>
+    </div>
+</div>

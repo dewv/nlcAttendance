@@ -1,10 +1,18 @@
-<h1 style="display: inline">Visits</h1>
-<a
-    href="<%= baseUrl %>/visit/download"
-    class="btn btn-dark float-right mt-2"
-    role="button"
-    >Download all visit data</a
->
+<div class="d-flex justify-content-between">
+    <div><h1>Visits</h1></div>
+    <div>
+        <a href="<%= baseUrl %>/visit/download">
+            <i
+                class="fa fa-download mr-5"
+                style="font-size: 48px; color: black"
+                data-toggle="tooltip"
+                data-placement="right"
+                title="Download all visit data"
+            >
+            </i>
+        </a>
+    </div>
+</div>
 
 <div class="sticky-table-container mt-3">
     <table class="table table-striped table-bordered">
@@ -24,9 +32,7 @@
             '2-digit', day: '2-digit', hour: 'numeric', minute: 'numeric',
             second: 'numeric', }; records.forEach(function(visit) { %>
             <tr>
-                <td class="text-right">
-                    <%= visit.id %>
-                </td>
+                <td class="text-right"><%= visit.id %></td>
                 <td>
                     <%= visit.student.firstName + " " + visit.student.lastName
                     %>
@@ -39,9 +45,7 @@
                     <%= visit.checkOutTime ? new Intl.DateTimeFormat("en-US",
                     dateFormat).format(visit.checkOutTime) : "" %>
                 </td>
-                <td class="text-right">
-                    <%= visit.length %>
-                </td>
+                <td class="text-right"><%= visit.length %></td>
                 <td>
                     <% if (visit.isLengthEstimated === null) { %> <%= "" %> <% }
                     else { %> <%= visit.isLengthEstimated ? "Yes" : "No" %> <% }
