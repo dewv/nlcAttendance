@@ -73,31 +73,31 @@
                 <ul class="navbar-nav">
                     <% if (session.role === "staff") { %>
                     <li class="nav-item">
-                        <a href="<%= baseUrl %>/visit" class="nav-link"
+                        <a href="<%= baseUrl %>/visit" class="nav-link <%= session.path === '/visit' ? 'active' : '' %>"
                             >Visits</a
                         >
                     </li>
                     <li class="nav-item">
-                        <a href="<%= baseUrl %>/major" class="nav-link"
+                        <a href="<%= baseUrl %>/major" class="nav-link <%= session.path.startsWith('/major') ? 'active' : '' %>"
                             >Majors</a
                         >
                     </li>
                     <li class="nav-item">
-                        <a href="<%= baseUrl %>/sport" class="nav-link"
+                        <a href="<%= baseUrl %>/sport" class="nav-link <%= session.path.startsWith('/sport') ? 'active' : '' %>"
                             >Sports</a
                         >
                     </li>
                     <li class="nav-item">
                         <a
                             href="<%= baseUrl %>/browser/register"
-                            class="nav-link"
+                            class="nav-link <%= session.path === '/browser/register' ? 'active' : '' %>"
                             >Browser Registration</a
                         >
                     </li>
                     <li class="nav-item">
                         <a
                             href="<%= baseUrl %>/staff/<%= session.userId %>/edit"
-                            class="nav-link"
+                            class="nav-link <%= session.path.startsWith('/staff/') ? 'active' : '' %>"
                             >Profile</a
                         >
                     </li>
@@ -110,7 +110,7 @@
                     <li class="nav-item">
                         <a
                             href="<%= baseUrl %>/student/<%= session.userId %>/edit"
-                            class="nav-link"
+                            class="nav-link <%= session.path.startsWith('/student/') ? 'active' : '' %>"
                             >Profile</a
                         >
                     </li>
@@ -120,12 +120,16 @@
                         >
                     </li>
 
-                    <%- exposeLocalsToBrowser({ keys: ["baseUrl"] }); -%> <%-
-                    include("../include/logoutTimer.html"); -%> <% } %>
+                    <% } %>
                 </ul>
             </div>
         </nav>
-        <% } %> <% if (typeof session.banner !== "undefined") { %>
+        <% } %>
+        <% if (session.role === "student") { %>
+            <%- exposeLocalsToBrowser({ keys: ["baseUrl"] });-%> <%-
+            include("../include/logoutTimer.html"); -%>
+        <% } %>
+        <% if (typeof session.banner !== "undefined") { %>
         <div
             class="alert alert-dismissible <%= typeof session.bannerClass === 'undefined' ? 'alert-success' : session.bannerClass %> <%= typeof session.role === 'undefined' ? 'animate-fade-out' : '' %>"
             style="margin-top: -5px"
@@ -145,7 +149,7 @@
     -->
 
         <!--TEMPLATES-->
-        
+
         <!--TEMPLATES END-->
 
         <!--

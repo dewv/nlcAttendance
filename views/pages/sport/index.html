@@ -1,34 +1,100 @@
-<a href="<%= baseUrl %>/sport/new" class="btn btn-dark float-right mt-2" role="button">Add a new Sport</a>
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-5">
+        <div class="d-flex justify-content-between">
+            <div><h1>Sports</h1></div>
+            <div>
+                <a href="<%= baseUrl %>/sport/new">
+                    <i
+                        class="fa fa-plus-circle"
+                        style="font-size: 48px; color: black"
+                        data-toggle="tooltip"
+                        data-placement="right"
+                        title="Add a new sport"
+                    >
+                    </i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <table class="table table-borderless" id="sportTable">
-        <thead>
-            <tr>
-                <th class="text-left">Sport</th>
-                <th class="text-center">Discontinued</th>
-            </tr>
-        </thead>
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <table class="table table-borderless" id="sportTable">
+            <thead>
+                <tr>
+                    <th class="text-left">Name</th>
+                    <th class="text-nowrap">
+                        Discontinued&nbsp;
+                        <i
+                            class="fa fa-info-circle"
+                            data-toggle="tooltip"
+                            data-placement="right"
+                            title="After a sport is discontinued, it can no longer be added to student profiles. It will remain on profiles where it was already present."
+                        >
+                        </i>
+                    </th>
+                </tr>
+            </thead>
 
-        <tbody>
-            <% let count = 0; %>
-            <% if (records) {
-        records.forEach(function(sport) {
-            count++;
-    %>
-            <tr>
-                <td class="text-left"><%= sport.name %> </td>
-                <td>
-                    <form class="text-center" method="POST" action="<%= baseUrl %>/sport/<%= sport.id %>">
+            <tbody>
+                <% let count = 0; %> <% if (records) {
+                records.forEach(function(sport) { count++; %>
+                <tr>
+                    <td class="text-left pt-0 pb-0">
                         <% if (sport.discontinued === "Yes") { %>
-                        <input type="hidden" name="discontinued" value="No" />
-                        <button style="border: none; background-color: white;" type="submit" id="Y<%= count %>"><i class="fa fa-check-square-o" style="font-size: 150%;"></i></button>
-                        <% } else { %>
-                        <input type="hidden" name="discontinued" value="Yes" />
-                        <button style="border: none; background-color: white;" type="submit" id="N<%= count %>">
-                            <i class="fa fa-square-o" style="font-size: 150%;"></i></button>
+                        <del>
+                            <% } %> <%= sport.name %> <% if (sport.discontinued
+                            === "Yes") { %>
+                        </del>
                         <% } %>
-                    </form>
-                </td>
-            </tr>
-            <% }); }%>
-        </tbody>
-    </table>
+                    </td>
+                    <td class="pt-0 pb-0">
+                        <form
+                            method="POST"
+                            action="<%= baseUrl %>/sport/<%= sport.id %>"
+                            class="pl-5"
+                        >
+                            <% if(sport.discontinued === "Yes") { %>
+                            <input
+                                type="hidden"
+                                name="discontinued"
+                                value="No"
+                            />
+                            <button
+                                style="border: none; background-color: white"
+                                type="submit"
+                                id="Yes<%= count %>"
+                            >
+                                <i
+                                    class="fa fa-check-square-o"
+                                    style="font-size: 150%"
+                                ></i>
+                            </button>
+                            <% } else { %>
+                            <input
+                                type="hidden"
+                                name="discontinued"
+                                value="Yes"
+                            />
+                            <button
+                                style="border: none; background-color: white;"
+                                type="submit"
+                                id="No<%= count %>"
+                            >
+                                <i
+                                    class="fa fa-square-o"
+                                    style="font-size: 150%;"
+                                ></i>
+                            </button>
+                            <% } %>
+                        </form>
+                    </td>
+                </tr>
+                <% }); }%>
+            </tbody>
+        </table>
+    </div>
+</div>

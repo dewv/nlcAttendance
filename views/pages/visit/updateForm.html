@@ -1,4 +1,7 @@
-<h1>Check Out</h1>
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-5">
+<h1>Goodbye</h1>
 <form method="POST" action="<%= baseUrl + action %>">
     <p>You checked in <%= formData.checkInTime %>.</p>
 
@@ -61,7 +64,7 @@
             required
             oninput="tutorValueChanged(this.value)"
         >
-            <option value>Choose one...</option>
+            <option value>Choose one ...</option>
             <option value="Yes">Yes</option>
             <option value="No">No</option>
         </select>
@@ -105,8 +108,12 @@
         ></textarea>
     </p>
 
-    <button class="btn btn-dark" id="submitButton" type="submit">Submit</button>
+    <div class="text-right">
+        <button class="btn btn-dark" id="submitButton" type="submit">Check Out</button>
+    </div>
 </form>
+    </div>
+    </div>
 
 <script>
     function tutorValueChanged(newValue) {

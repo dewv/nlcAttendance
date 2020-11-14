@@ -25,7 +25,7 @@
         <table class="table table-borderless" id="majorTable">
             <thead>
                 <tr>
-                    <th>Name</th>
+                    <th class="text-left">Name</th>
                     <th class="text-nowrap">
                         Discontinued&nbsp;
                         <i
@@ -44,7 +44,7 @@
                 {records.forEach(function(major) { count++ %>
                 <tr>
                     <td class="text-left pt-0 pb-0">
-                        <% if(major.discontinued === "Yes") { %>
+                        <% if (major.discontinued === "Yes") { %>
                         <del>
                             <% } %> <%= major.name %> <% if(major.discontinued
                             === "Yes") { %>
@@ -57,7 +57,7 @@
                             action="<%= baseUrl %>/major/<%= major.id %>"
                             class="pl-5"
                         >
-                            <% if(major.discontinued === "Yes") { %>
+                            <% if (major.discontinued === "Yes") { %>
                             <input
                                 type="hidden"
                                 name="discontinued"
@@ -80,13 +80,13 @@
                                 value="Yes"
                             />
                             <button
-                                style="border: none; background-color: white"
+                                style="border: none; background-color: white;"
                                 type="submit"
                                 id="No<%= count %>"
                             >
                                 <i
                                     class="fa fa-square-o"
-                                    style="font-size: 150%"
+                                    style="font-size: 150%;"
                                 ></i>
                             </button>
                             <% } %>

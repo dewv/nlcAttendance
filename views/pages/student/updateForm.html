@@ -1,66 +1,75 @@
 <% generateOptions = undefined; %>
 <%-include("../../include/generateOptions.ejs"); %>
-<h1><%= formData.firstName + " " + formData.lastName %></h1>
-<form method="POST" action="<%= baseUrl + action %>">
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-5">
+        <h1><%= formData.firstName + " " + formData.lastName %></h1>
+        <form method="POST" action="<%= baseUrl + action %>">
+            <div class="form-group">
+                <label for="academicRank">Academic Rank</label>
+                <select
+                    class="form-control"
+                    id="academicRank"
+                    name="academicRank"
+                    autofocus
+                >
+                    <%- generateOptions("academicRank"); %>
+                </select>
+            </div>
 
+            <div class="form-group">
+                <label for="residentialStatus">Residential Status</label>
+                <select
+                    class="form-control"
+                    id="residentialStatus"
+                    name="residentialStatus"
+                >
+                    <%- generateOptions("residentialStatus"); %>
+                </select>
+            </div>
 
-    <div class="form-group">
-        <label for="academicRank">Academic Rank</label>
-        <select
-            class="form-control"
-            id="academicRank"
-            name="academicRank"
-            autofocus
-        >
-            <%- generateOptions("academicRank"); %>
-        </select>
+            <div class="form-group">
+                <label for="majorOne">Major 1</label>
+                <select class="form-control" id="majorOne" name="majorOne">
+                    <%- generateOptions("majorOne", "name"); %>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="majorTwo">Major 2</label>
+                <select class="form-control" id="majorTwo" name="majorTwo">
+                    <%- generateOptions("majorTwo", "name"); %>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="sportOne">Sport 1</label>
+                <select class="form-control" id="sportOne" name="sportOne">
+                    <%- generateOptions("sportOne", "name"); %>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="sportTwo">Sport 2</label>
+                <select class="form-control" id="sportTwo" name="sportTwo">
+                    <%- generateOptions("sportTwo", "name"); %>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="slpInstructor">SLP Instructor</label>
+                <select
+                    class="form-control"
+                    id="slpInstructor"
+                    name="slpInstructor"
+                >
+                    <%- generateOptions("slpInstructor", "name"); %>
+                </select>
+            </div>
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-dark">Update</button>
+            </div>
+        </form>
     </div>
-
-    <div class="form-group">
-        <label for="residentialStatus">Residential Status</label>
-        <select
-            class="form-control"
-            id="residentialStatus"
-            name="residentialStatus"
-        >
-            <%- generateOptions("residentialStatus"); %>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="majorOne">Major 1</label>
-        <select class="form-control" id="majorOne" name="majorOne">
-            <%- generateOptions("majorOne", "name"); %>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="majorTwo">Major 2</label>
-        <select class="form-control" id="majorTwo" name="majorTwo">
-            <%- generateOptions("majorTwo", "name"); %>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="sportOne">Sport 1</label>
-        <select class="form-control" id="sportOne" name="sportOne">
-            <%- generateOptions("sportOne", "name"); %>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="sportTwo">Sport 2</label>
-        <select class="form-control" id="sportTwo" name="sportTwo">
-            <%- generateOptions("sportTwo", "name"); %>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="slpInstructor">SLP Instructor</label>
-        <select class="form-control" id="slpInstructor" name="slpInstructor">
-            <%- generateOptions("slpInstructor", "name"); %>
-        </select>
-    </div>
-
-    <button type="submit" class="btn btn-dark">Update</button>
-</form>
+</div>
