@@ -29,6 +29,18 @@
             <div class="text-right">
                 <button type="submit" class="btn btn-dark">Log In</button>
             </div>
+            <% if (!sails.config.custom.ldap) { %>
+            <div class="text-right pt-2">
+                <i
+                    class="fa fa-info-circle"
+                    style="font-size: 200%"
+                    data-toggle="tooltip"
+                    data-placement="left"
+                    title="This non-production deployment will accept any username. Valid passwords, and their purpose, are: `staff` (authorized for staff features), `student` (authorized for student features), `neither` (authenticated but not authorized), and `noldap` (simulates failed LDAP connection)."
+                >
+                </i>
+            </div>
+            <% } %>
         </form>
     </div>
 </div>

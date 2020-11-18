@@ -30,9 +30,9 @@ module.exports = async function (request, response) {
         request.session.bannerClass = "alert-danger";
         return response.redirect("/logout");
     } else if (result instanceof ldap.UnavailableError) {
-        sails.log.debug("appeal to security question");
-        // LDAP is unavailable; appeal to security question
-        return response.redirect("/nonexistentSecurityQuestionUrl"); // TODO
+        request.session.banner = "There is a problem connecting to the college's directory server. Please notify helpdesk@dewv.edu.";
+        request.session.bannerClass = "alert-danger";
+        return response.redirect("/logout");
     }
 
     for (const property in result) {
@@ -162,8 +162,8 @@ function _simulatedAuthentication(username, password) {
     if (password === "student" || password === "staff") {
         return {
             role: password,
-            firstName: "First",
-            lastName: "Last"
+            firstName: "Firstname",
+            lastName: "Lastname"
         };
     } else if (password === "neither") {
         return new ldap.InsufficientAccessRightsError();
