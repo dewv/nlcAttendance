@@ -1,39 +1,108 @@
-<a href="<%= baseUrl %>/sport/new" class="w3-button" style="color: white; position: fixed; right: 0; z-index: 10;">Add a new
-    Sport</a>
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-5">
+        <div class="d-flex justify-content-between">
+            <div><h1>Sports</h1></div>
+            <div>
+                <a href="<%= baseUrl %>/sport/new">
+                    <i
+                        class="fa fa-plus-circle"
+                        style="font-size: 48px; color: black"
+                        data-toggle="tooltip"
+                        data-placement="right"
+                        title="Add a new sport"
+                    >
+                    </i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 
-<div style="width: 70%; padding-left: 30%; padding-bottom: 1%; padding-top: 4%;">
-    <table class="w3-table-all w3-card" id="sportTable">
-        <thead>
-            <tr>
-                <th class="w3-left w3-margin-left">Sport</th>
-                <th class="w3-center">Discontinued</th>
-            </tr>
-        </thead>
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-5">
+        <div class="sticky-table-container">
+            <table class="table table-striped table-bordered" id="sportTable">
+                <thead>
+                    <tr>
+                        <th class="text-left">Name</th>
+                        <th class="text-nowrap">
+                            Discontinued&nbsp;
+                            <i
+                                class="fa fa-info-circle"
+                                data-toggle="tooltip"
+                                data-placement="right"
+                                title="After a sport is discontinued, it can no longer be added to student profiles. It will remain on profiles where it was already present."
+                            >
+                            </i>
+                        </th>
+                    </tr>
+                </thead>
 
-        <tbody>
-            <% let count = 0; %>
-            <% if (records) {
-        records.forEach(function(sport) { 
-            count++; 
-    %>
-            <tr>
-                <td class="w3-left w3-margin-left">
-                    <%= sport.name %>
-                </td>
-                <td>
-                    <form class="w3-center" method="POST" action="<%= baseUrl %>/sport/<%= sport.id %>">
-                        <% if (sport.discontinued === "Yes") { %>
-                        <input type="hidden" name="discontinued" value="No" />
-                        <button style="border: none; background-color: white;" type="submit" id="Y<%= count %>"><i class="fa fa-check-square-o" style="font-size: 150%;"></i></button>
-                        <% } else { %>
-                        <input type="hidden" name="discontinued" value="Yes" />
-                        <button style="border: none; background-color: white;" type="submit" id="N<%= count %>">
-                            <i class="fa fa-square-o" style="font-size: 150%;"></i></button>
-                        <% } %>
-                    </form>
-                </td>
-            </tr>
-            <% }); }%>
-        </tbody>
-    </table>
+                <tbody>
+                    <% let count = 0; %> <% if (records) {
+                    records.forEach(function(sport) { count++; %>
+                    <tr>
+                        <td class="text-left pt-0 pb-0">
+                            <% if (sport.discontinued === "Yes") { %>
+                            <del>
+                                <% } %> <%= sport.name %> <% if
+                                (sport.discontinued === "Yes") { %>
+                            </del>
+                            <% } %>
+                        </td>
+                        <td class="pt-0 pb-0">
+                            <form
+                                method="POST"
+                                action="<%= baseUrl %>/sport/<%= sport.id %>"
+                                class="pl-5"
+                            >
+                                <% if(sport.discontinued === "Yes") { %>
+                                <input
+                                    type="hidden"
+                                    name="discontinued"
+                                    value="No"
+                                />
+                                <button
+                                    style="
+                                        border: none;
+                                        background-color: transparent;
+                                    "
+                                    type="submit"
+                                    id="Yes<%= count %>"
+                                >
+                                    <i
+                                        class="fa fa-check-square-o"
+                                        style="font-size: 150%"
+                                    ></i>
+                                </button>
+                                <% } else { %>
+                                <input
+                                    type="hidden"
+                                    name="discontinued"
+                                    value="Yes"
+                                />
+                                <button
+                                    style="
+                                        border: none;
+                                        background-color: transparent;
+                                    "
+                                    type="submit"
+                                    id="No<%= count %>"
+                                >
+                                    <i
+                                        class="fa fa-square-o"
+                                        style="font-size: 150%"
+                                    ></i>
+                                </button>
+                                <% } %>
+                            </form>
+                        </td>
+                    </tr>
+                    <% }); }%>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

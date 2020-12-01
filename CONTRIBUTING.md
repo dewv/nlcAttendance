@@ -22,7 +22,7 @@ The application now has a profile record for the user. If the "force update" fla
 
 Staff users can access all staff features from any Web browser.
 
-Student users can update their profile information from any Web browser. However, they can check in and check out only from specially "registered" browsers on PCs located in the Naylor Learning Center. 
+Student users can update their profile information from any Web browser. However, they can check in and check out only from specially "registered" browsers on PCs located in the Naylor Learning Center.
 
 ### Student check in, check out
 
@@ -85,7 +85,7 @@ A link that ends the staff user's login session.
 
 These instructions assume that you are using a c9 workspace based on the blank Ubuntu template. But the process would be similar for any Linux environment where Node.js and MySQL are already installed.
 
-In a bash terminal, run the following commands. (The `#` lines are comments; you don't need to type them.) 
+In a bash terminal, run the following commands. (The `#` lines are comments; you don't need to type them.)
 
 ```bash
 # Upgrade c9's dusty old version of Node
@@ -130,11 +130,11 @@ The application is built on the following server software stack.
 
 The application uses [Embedded JavaScript](https://ejs.co/) (EJS) for views; this is Sails' default view engine. It eases [templating](https://en.wikipedia.org/wiki/Web_template_system)-- the process of dynamically modifying HTML resources on the server, before the result is sent to the client. It is an *important project convention* that EJS use is limited to simple data binding. Complex logic should be implemented in the Sails framework (probably as helpers).
 
-For data storage, the application uses MySQL. However, there is no SQL embedded within the code. Instead, models are built on the Sails object request manager (ORM), which provides a standard interface to many types of data storage engines. 
+For data storage, the application uses MySQL. However, there is no SQL embedded within the code. Instead, models are built on the Sails object request manager (ORM), which provides a standard interface to many types of data storage engines.
 
 ### The file tree
 
-The project file tree sticks closely to the [standard Sails app structure](https://sailsjs.com/documentation/anatomy). Your work will typically be in the `api/models`, `api/helpers`, and `views/pages` folders. 
+The project file tree sticks closely to the [standard Sails app structure](https://sailsjs.com/documentation/anatomy). Your work will typically be in the `api/models`, `api/helpers`, and `views/pages` folders.
 
 There are two extensions to note.
 
@@ -154,7 +154,7 @@ The command above runs a script defined in `package.json`. The script starts the
 
 You can now access the application by pointing your Web browser to `https://WORKSPACE-USER.c9users.io`, where `WORKSPACE` represents the name of your c9 workspace, and `USER` is your c9 username.
 
-In the terminal where you launched the application, various messages will appear as incoming traffic is handled. 
+In the terminal where you launched the application, various messages will appear as incoming traffic is handled.
 
 Use `Ctrl-C` to terminate the application.
 
@@ -205,7 +205,7 @@ The Student and Staff components use a "find or create" approach. This means tha
 
 Accordingly, the `student` and `staff` folders (will) have only an `editForm.html` file, following the naming convention expected by the `RestController` class (see the next section).
 
-The Visit component must support creating new records (known as a "check in") and editing existing records (known as a "check out").  So, the `visit` folder will contain `createForm.html` and `editForm.html`, named in anticipation that the `RestController` can be used. 
+The Visit component must support creating new records (known as a "check in") and editing existing records (known as a "check out").  So, the `visit` folder will contain `createForm.html` and `editForm.html`, named in anticipation that the `RestController` can be used.
 
 ### Controllers
 

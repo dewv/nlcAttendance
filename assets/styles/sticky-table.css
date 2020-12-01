@@ -1,0 +1,23 @@
+.sticky-table-container {
+    overflow-y: auto;
+    height: 75vh;
+}
+
+.sticky-table-container table {
+    border-collapse: separate;
+    border-spacing:0;
+    width: 100%;
+}
+
+.sticky-table-container thead,
+.sticky-table-container thead tr,
+.sticky-table-container th {
+    position: sticky;
+    top: 0;
+    background: #eee;
+}
+
+.sticky-table-container th,
+.sticky-table-container td {
+    padding: 8px 16px;
+}

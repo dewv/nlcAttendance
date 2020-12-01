@@ -1,70 +1,119 @@
-<% try { %>
-
-<% generateOptions = undefined; %>
-<%- include("../../include/generateOptions.ejs"); %>
-
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-5">
+<h1>Goodbye</h1>
 <form method="POST" action="<%= baseUrl + action %>">
-    <div class="w3-container w3-third w3-display-middle w3-center w3-border w3-red w3-round w3-border-black">
-        <div>
-            <h2>Check Out</h2>
-        </div>
+    <p>You checked in <%= formData.checkInTime %>.</p>
 
-        <div class="formPiece">
-            You checked in <%= formData.checkInTime %>.
-        </div>
+    <% var autofocus_set = false; %>
+    <% if (formData.isLengthEstimated) { %>
+        <% autofocus_set = true; %>
+    <div class="form-group">
+        <label for="length" id="lengthLabel">
+            Please estimate the duration of your visit to the nearest quarter
+            hour.
+        </label>
+        <select
+            class="form-control"
+            id="length"
+            name="length"
+            required
+            size="1"
+            autofocus
+        >
+            <option value="" selected>Choose one ...</option>
+            <% for (var i = 1; i <= 32; i++) { %>
+            <option value="<%=i * 0.25%>"><%=i * 0.25%></option>
+            <% } %>
+        </select>
+    </div>
+    <% } %>
 
-        <% if (formData.isLengthEstimated) { %>
-        <div class="formPiece">
-            <p>*Please estimate the duration of your visit to the nearest quarter hour:&nbsp;
-                <select id="length" name="length" required size="1" autofocus>
-                    <option value="" selected>Choose one ...</option>
-                    <% for (var i = 1; i <= 32; i++) { %>
-                    <option value="<%=i * 0.25%>"><%=i * 0.25%></option>
-                    <% } %>
-                </select>&nbsp; hour(s).
-            </p>
-        </div>
-        <% } %>
+    <div>
+        The purpose of your visit was:
+        <div class="text-primary p-3"><%= formData.purpose %></div>
+    </div>
 
-        <div class="w3-padding-16">
-            The purpose of your visit was: <blockquote><%= formData.purpose %></blockquote>
-        </div>
+    <div class="form-group">
+        <label for="purposeAchieved" id="purposeAchievedLabel"
+            >Did you accomplish the purpose of your visit?</label
+        >
+        <select
+            class="form-control"
+            id="purposeAchieved"
+            name="purposeAchieved"
+            required
+            size="1"
+            <% if (!autofocus_set) { %>
+            autofocus
+            <% } %>
+        >
+            <option value="">Choose one ...</option>
+            <% for (let option of options.purposeAchieved) { %>
+            <option value="<%= option %>"><%= option %></option>
+            <% } %>
+        </select>
+    </div>
 
-        <div class="formPiece">
-            <label for="purposeAchieved" id="purposeAchievedLabel">*Did you accomplish the purpose of your
-                visit?</label>
-            <select id="purposeAchieved" name="purposeAchieved" autofocus required size="1">
-                <%- generateOptions("purposeAchieved"); %>
-            </select>
-        </div>
+    <div class="form-group">
+        <label for="tutor" id="tutorQuestion">Did you use a tutor?</label>
+        <select
+            class="form-control"
+            id="tutor"
+            name="usedTutor"
+            required
+            oninput="tutorValueChanged(this.value)"
+        >
+            <option value>Choose one ...</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
 
-        <div class="formPiece">
-            <p>*Did you use a tutor?&nbsp;
-                <label class="radio-inline">Yes&nbsp;<input type="radio" value="Yes" name="usedTutor" required onclick="tutorValueChanged(true)"></label>
-                &nbsp; &nbsp;
-                <label class="radio-inline">No&nbsp;<input type="radio" value="No" name="usedTutor" required onclick="tutorValueChanged(false)"></label>
-            </p>
-
-            <div id="tutorDetails" style="display: none;">
-                <label for="tutorCourses" value="tutorCourses">For which courses?</label>
-                <input id="tutorCourses" name="tutorCourses" type="text" maxlength="255">
-                &nbsp; &nbsp;
-                <label for="tutorInstructors" value="tutorInstructors">For which instructors?</label>
-                <input id="tutorInstructors" name="tutorInstructors" type="text" maxlength="255">
-            </div>
+    <div id="tutorDetails" class="ml-4" style="display: none">
+        <div class="form-group">
+            <label for="tutorCourses" value="tutorCourses"
+                >For which courses?</label
+            >
+            <input
+                class="form-control"
+                id="tutorCourses"
+                name="tutorCourses"
+                type="text"
+                maxlength="255"
+            />
         </div>
-
-        <div class="formPiece">
-            <p>
-                <textarea id="comment" name="comment" rows="1" cols="75" placeholder="Comments (optional)"></textarea>
-            </p>
-        </div>
-        <div class="button w3-padding-16">
-            <button class="w3-btn w3-white" id="submitButton" type="submit">Submit</button>
+        <div class="form-group">
+            <label for="tutorInstructors" value="tutorInstructors"
+                >For which instructors?</label
+            >
+            <input
+                class="form-control"
+                id="tutorInstructors"
+                name="tutorInstructors"
+                type="text"
+                maxlength="255"
+            />
         </div>
     </div>
 
+    <p>
+        <textarea
+            class="form-control"
+            rows="4"
+            maxlength="255"
+            id="comment"
+            name="comment"
+            placeholder="Comments (optional)"
+        ></textarea>
+    </p>
+
+    <div class="text-right">
+        <button class="btn btn-dark" id="submitButton" type="submit">Check Out</button>
+    </div>
 </form>
+    </div>
+    </div>
 
 <script>
     function tutorValueChanged(newValue) {
@@ -72,7 +121,7 @@
         let courses = document.getElementById("tutorCourses");
         let instructors = document.getElementById("tutorInstructors");
 
-        if (newValue) {
+        if (newValue === "Yes") {
             div.style.display = "block";
         } else {
             div.style.display = "none";
@@ -80,7 +129,4 @@
             instructors.value = "";
         }
     }
-
 </script>
-
-<% } catch(error) { console.log(`EJS rendering error: ${error}`); }; %>

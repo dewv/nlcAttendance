@@ -8,7 +8,7 @@ let routes = {
     "GET /": "/login",
     "GET /browser/register": { controller: "browser", action: "register" },
     "GET /version.txt": function(request, response) {
-        return response.send(require('../package.json').version);
+        return response.send(require("../package.json").version);
     },
 
     // Major

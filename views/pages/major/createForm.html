@@ -1,13 +1,21 @@
-<form class="w3-row w3-container w3-display-middle w3-center w3-border w3-red w3-round w3-border-black w3-margin" style="width:25%" method="POST" action="<%= baseUrl + action %>">
-    <div>
-        <h2>Add A Major</h2>
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-5">
+        <h1>New Major</h1>
+        <form method="POST" action="<%= baseUrl + action %>">
+            <div class="form-group">
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Name"
+                    autofocus
+                    name="name"
+                    required
+                />
+            </div>
+            <div class="text-right">
+                <button type="submit" class="btn btn-dark">Add</button>
+            </div>
+        </form>
     </div>
-    <div class="w3-input w3-border-0">
-        <label for="name" value="name">Major's Name</label>
-        <input id="name" name="name" type="text" autofocus maxlength="255" required value="<%= formData.name %>">
-    </div>
-
-    <div class="w3-input">
-        <button id="submitButton" type="submit">Submit</button>
-    </div>
-</form>
+</div>

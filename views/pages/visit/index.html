@@ -1,51 +1,62 @@
-    <a href="<%= baseUrl %>/visit/download" class="w3-button" style="color: white; position: fixed; right: 0; z-index: 10;">Download all visit data</a>
-
-    <div style="width: 99%; padding-left: 1%; padding-bottom: 1%; padding-top: 4%;">
-        <table class="w3-table-all w3-card">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Check In</th>
-                    <th>Check Out</th>
-                    <th>Visit Length</th>
-                    <th>Length Estimated?</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <% if (records) {
-                let dateFormat = {
-                    year: 'numeric', month: '2-digit', day: '2-digit',
-                    hour: 'numeric', minute: 'numeric', second: 'numeric',
-                };
-
-                records.forEach(function(visit) { %>
-                <tr>
-                    <td>
-                        <%= visit.id %>
-                    </td>
-                    <td>
-                        <%= visit.student.firstName + " " + visit.student.lastName %>
-                    </td>
-                    <td>
-                        <%= new Intl.DateTimeFormat("en-US", dateFormat).format(visit.checkInTime) %>
-                    </td>
-                    <td>
-                        <%= visit.checkOutTime ? new Intl.DateTimeFormat("en-US", dateFormat).format(visit.checkOutTime) : "" %>
-                    </td>
-                    <td>
-                        <%= visit.length %>
-                    </td>
-                    <td>
-                        <% if (visit.isLengthEstimated === null) { %>
-                        <%= "" %>
-                        <% } else { %>
-                        <%= visit.isLengthEstimated ? "Yes" : "No" %>
-                        <% } %>
-                    </td>
-                </tr>
-                <% }); }%>
-            </tbody>
-        </table>
+<div class="d-flex justify-content-between">
+    <div><h1>Visits</h1></div>
+    <div>
+        <a href="<%= baseUrl %>/visit/download">
+            <i
+                class="fa fa-download"
+                style="font-size: 48px; color: black"
+                data-toggle="tooltip"
+                data-placement="right"
+                title="Download all visit data"
+            >
+            </i>
+        </a>
     </div>
+</div>
+
+<div class="sticky-table-container">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th>Name</th>
+                <th class="text-center">Check In</th>
+                <th class="text-center">Check Out</th>
+                <th class="text-center">Visit Length</th>
+                <th>Length Estimated?</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% if (records) { let dateFormat = { year: 'numeric', month:
+            '2-digit', day: '2-digit', hour: 'numeric', minute: 'numeric',
+            second: 'numeric', };
+            let id = records.length;
+            records.forEach(function(visit) { %>
+            <tr>
+                <td class="text-right">
+                    <%= id-- %>
+                </td>
+                <td>
+                    <%= visit.student.firstName + " " + visit.student.lastName
+                    %>
+                </td>
+                <td class="text-right">
+                    <%= new Intl.DateTimeFormat("en-US",
+                    dateFormat).format(visit.checkInTime) %>
+                </td>
+                <td class="text-right">
+                    <%= visit.checkOutTime ? new Intl.DateTimeFormat("en-US",
+                    dateFormat).format(visit.checkOutTime) : "" %>
+                </td>
+                <td class="text-right"><%= visit.length %></td>
+                <td>
+                    <% if (visit.isLengthEstimated === null) { %> <%= "" %> <% }
+                    else { %> <%= visit.isLengthEstimated ? "Yes" : "No" %> <% }
+                    %>
+                </td>
+            </tr>
+            <% }); }%>
+        </tbody>
+    </table>
+</div>

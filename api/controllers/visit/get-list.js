@@ -26,7 +26,7 @@ module.exports = {
         let ejsData = {
             session: request.session,
         };
-        ejsData.records = await Visit.find().sort("id DESC").populate("student");
+        ejsData.records = await Visit.find().sort("checkInTime DESC").populate("student");
 
         return exits.success(ejsData);
     }

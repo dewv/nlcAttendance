@@ -48,6 +48,5 @@ module.exports.datastores = {
     *                                                                          *
     ***************************************************************************/
         // Use default sails-disk adapter for development.
-        inMemoryOnly: true // Tests assume a fresh database with each run.
     },
 };
