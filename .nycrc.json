@@ -4,6 +4,7 @@
         "test/**/*.js"
     ],
     "reporter": [
-        "text-summary"
+        "text-summary",
+        "lcov"
     ]
 }

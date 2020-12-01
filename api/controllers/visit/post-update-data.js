@@ -32,8 +32,14 @@ module.exports = {
     fn: async function (inputs, exits) {
         let request = this.req;
 
-        // eslint-disable-next-line eqeqeq
-        if (request.session.role !== "student" || request.params.id != request.session.visit.id) throw "unauthorized";
+        /* eslint-disable eqeqeq */
+        if (request.session.role !== "student" ||
+            !request.params.id ||
+            !request.session.visit ||
+            request.params.id != request.session.visit.id) {
+            /* eslint-enable eqeqeq */
+            throw "unauthorized";
+        }
 
         let profileUrl = `/student/${request.session.userId}/edit`;
         if (sails.config.custom.restrictBrowsers) {
