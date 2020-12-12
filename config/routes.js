@@ -1,14 +1,17 @@
 let routes = {
-    // Authentication 
+    // Authentication
     "GET /login": { view: "pages/authentication/loginForm" },
     "POST /login": { controller: "authentication", action: "login" },
     "GET /logout": { controller: "authentication", action: "logout" },
 
-    // Misc 
+    // Misc
     "GET /": "/login",
     "GET /browser/register": { controller: "browser", action: "register" },
+    "GET /version.txt": function(request, response) {
+        return response.send(require("../package.json").version);
+    },
 
-    // Major 
+    // Major
     "GET /major/new": { controller: "major", action: "get-create-form" },
     "POST /major": { controller: "major", action: "post-create-data" },
     "GET /major": { controller: "major", action: "get-list" },
@@ -17,7 +20,7 @@ let routes = {
     "POST /major/:id": { controller: "major", action: "post-update-data" },
     "POST /major/:id/delete": { response: "forbidden" },
 
-    // Sport 
+    // Sport
     "GET /sport/new": { controller: "sport", action: "get-create-form" },
     "POST /sport": { controller: "sport", action: "post-create-data" },
     "GET /sport": { controller: "sport", action: "get-list" },
@@ -26,7 +29,7 @@ let routes = {
     "POST /sport/:id": { controller: "sport", action: "post-update-data" },
     "POST /sport/:id/delete": { response: "forbidden" },
 
-    // Staff 
+    // Staff
     "GET /staff/new": { response: "forbidden" },
     "POST /staff": { response: "forbidden" },
     "GET /staff": { response: "forbidden" },
@@ -44,7 +47,7 @@ let routes = {
     "POST /student/:id": { controller: "student", action: "post-update-data" },
     "POST /student/:id/delete": { response: "forbidden" },
 
-    // Visit 
+    // Visit
     "GET /visit/new": { controller: "visit", action: "get-create-form" },
     "POST /visit": { controller: "visit", action: "post-create-data" },
     "GET /visit": { controller: "visit", action: "get-list" },

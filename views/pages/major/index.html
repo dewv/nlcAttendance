@@ -1,36 +1,108 @@
-<a href="<%= baseUrl %>/major/new" class="w3-button" style="color: white; position: fixed; right: 0; z-index: 10;">Add a new
-    Major</a>
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <div class="d-flex justify-content-between">
+            <div><h1>Majors</h1></div>
+            <div>
+                <a href="<%= baseUrl %>/major/new">
+                    <i
+                        class="fa fa-plus-circle"
+                        style="font-size: 48px; color: black"
+                        data-toggle="tooltip"
+                        data-placement="right"
+                        title="Add a new major"
+                    >
+                    </i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 
-<div style="width: 70%; padding-left: 30%; padding-bottom: 1%; padding-top: 4%;">
-    <table class="w3-table-all w3-card" id="majorTable">
-        <thead>
-            <tr>
-                <th class="w3-left w3-margin-left">Major</th>
-                <th class="w3-center">Discontinued</th>
-            </tr>
-        </thead>
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <div class="sticky-table-container">
+            <table class="table table-striped table-bordered" id="majorTable">
+                <thead>
+                    <tr>
+                        <th class="text-left">Name</th>
+                        <th class="text-nowrap">
+                            Discontinued&nbsp;
+                            <i
+                                class="fa fa-info-circle"
+                                data-toggle="tooltip"
+                                data-placement="right"
+                                title="After a major is discontinued, it can no longer be added to student profiles. It will remain on profiles where it was already present."
+                            >
+                            </i>
+                        </th>
+                    </tr>
+                </thead>
 
-        <tbody>
-            <% let count = 0 %>
-            <% if(records) {records.forEach(function(major) { count++ %>
-            <tr>
-                <td class="w3-left w3-margin-left">
-                    <%= major.name %>
-                </td>
-                <td>
-                    <form class="w3-center" method="POST" action="<%= baseUrl %>/major/<%= major.id %>">
-                        <% if(major.discontinued === "Yes") { %>
-                        <input type="hidden" name="discontinued" value="No" />
-                        <button style="border: none; background-color: white;" type="submit" id="Yes<%= count %>"><i class="fa fa-check-square-o" style="font-size: 150%;"></i></button>
-                        <% } else { %>
-                        <input type="hidden" name="discontinued" value="Yes" />
-                        <button style="border: none; background-color: white;" type="submit" id="No<%= count %>">
-                            <i class="fa fa-square-o" style="font-size: 150%;"></i></button>
-                        <% } %>
-                    </form>
-                </td>
-            </tr>
-            <% }); }%>
-        </tbody>
-    </table>
+                <tbody>
+                    <% let count = 0 %> <% if(records)
+                    {records.forEach(function(major) { count++ %>
+                    <tr>
+                        <td class="text-left pt-0 pb-0">
+                            <% if (major.discontinued === "Yes") { %>
+                            <del>
+                                <% } %> <%= major.name %> <%
+                                if(major.discontinued === "Yes") { %>
+                            </del>
+                            <% } %>
+                        </td>
+                        <td class="pt-0 pb-0">
+                            <form
+                                method="POST"
+                                action="<%= baseUrl %>/major/<%= major.id %>"
+                                class="pl-5"
+                            >
+                                <% if (major.discontinued === "Yes") { %>
+                                <input
+                                    type="hidden"
+                                    name="discontinued"
+                                    value="No"
+                                />
+                                <button
+                                    style="
+                                        border: none;
+                                        background-color: transparent;
+                                    "
+                                    type="submit"
+                                    id="Yes<%= count %>"
+                                >
+                                    <i
+                                        class="fa fa-check-square-o"
+                                        style="font-size: 150%"
+                                    ></i>
+                                </button>
+                                <% } else { %>
+                                <input
+                                    type="hidden"
+                                    name="discontinued"
+                                    value="Yes"
+                                />
+                                <button
+                                    style="
+                                        border: none;
+                                        background-color: transparent;
+                                    "
+                                    type="submit"
+                                    id="No<%= count %>"
+                                >
+                                    <i
+                                        class="fa fa-square-o"
+                                        style="font-size: 150%"
+                                    ></i>
+                                </button>
+                                <% } %>
+                            </form>
+                        </td>
+                    </tr>
+                    <% }); }%>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

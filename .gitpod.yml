@@ -1,6 +1,14 @@
-image: 
+image:
   file: .gitpod.Dockerfile
 
 tasks:
   - init: npm install
     command: sails lift
+
+ports:
+  - port: 1337
+    onOpen: open-browser
+    
+vscode:
+  extensions:
+    - esbenp.prettier-vscode@5.7.1:GDba64T6G+TUi1qmc6BE3A==
