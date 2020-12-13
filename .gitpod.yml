@@ -3,7 +3,7 @@ image:
 
 tasks:
   - init: CYPRESS_CACHE_FOLDER=$GITPOD_REPO_ROOT/.tmp/cypress npm install
-    command: sails lift
+    command: export CYPRESS_CACHE_FOLDER=$GITPOD_REPO_ROOT/.tmp/cypress && sails lift
 
 ports:
   - port: 1337
