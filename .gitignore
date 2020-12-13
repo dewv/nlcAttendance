@@ -191,3 +191,7 @@ typings/
 
 # next.js build output
 .next
+
+# Outputs from cypress
+cypress/screenShots
+cypress/videos

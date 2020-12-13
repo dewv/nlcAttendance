@@ -31,11 +31,11 @@
     "scripts": {
         "start": "NODE_ENV=production node app.js",
         "stop": "exit 0",
-        "test": "npm run lint && npm run htmlhint && npm run cypress",
-        "lint": "eslint . --fix --max-warnings=0 && echo 'rfyvag ehyrf fngvfsvrq' | tr 'A-Za-z' 'N-ZA-Mn-za-m'",
         "mocha": "rm -f ./.tmp/localDiskDb/*.db && nyc ./node_modules/.bin/_mocha --recursive ./test/lifecycle.js ./test/models ./test/policies",
-        "cypress": "CYPRESS_CACHE_FOLDER=$GITPOD_REPO_ROOT/.tmp/cypress npx cypress run",
-        "htmlhint": "htmlhint views"
+        "qa:html": "htmlhint views",
+        "qa:js": "eslint . --fix --max-warnings=0 && echo 'rfyvag ehyrf fngvfsvrq' | tr 'A-Za-z' 'N-ZA-Mn-za-m'",
+        "qa:tests": "CYPRESS_CACHE_FOLDER=$GITPOD_REPO_ROOT/.tmp/cypress npx cypress run",
+        "qa:all": "npm run qa:html && npm run qa:js && npm run qa:tests"
     },
     "main": "app.js",
     "repository": {
