@@ -35,4 +35,5 @@ FROM cypress/base
 # RUN google-chrome --version
 # RUN sudo apt-get install mplayer -y
 
-RUN npm install -g sails
+RUN export CYPRESS_CACHE_FOLDER=$GITPOD_REPO_ROOT/.tmp/cypress \
+    && npm install -g sails
