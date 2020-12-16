@@ -34,7 +34,7 @@
         "mocha": "rm -f ./.tmp/localDiskDb/*.db && nyc ./node_modules/.bin/_mocha --recursive ./test/lifecycle.js ./test/models ./test/policies",
         "qa:html": "htmlhint views",
         "qa:js": "eslint . --fix --max-warnings=0 && echo 'rfyvag ehyrf fngvfsvrq' | tr 'A-Za-z' 'N-ZA-Mn-za-m'",
-        "qa:tests": "CYPRESS_CACHE_FOLDER=$GITPOD_REPO_ROOT/.tmp/cypress npx cypress run && nyc report",
+        "qa:tests": "PORT=1338 nyc sails lift & CYPRESS_CACHE_FOLDER=$GITPOD_REPO_ROOT/.tmp/cypress npx cypress run -q && nyc report && pkill -f nyc",
         "qa:all": "npm run qa:html && npm run qa:js && npm run qa:tests"
     },
     "main": "app.js",
