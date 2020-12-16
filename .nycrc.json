@@ -4,6 +4,7 @@
         "api/**/*.js"
     ],
     "reporter": [
-        "lcov"
+        "lcov",
+        "text-summary"
     ]
 }
