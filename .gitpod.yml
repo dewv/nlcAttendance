@@ -8,6 +8,8 @@ tasks:
 ports:
   - port: 1337
     onOpen: open-browser
+  - port: 1338
+    onOpen: ignore
 
 vscode:
   extensions:

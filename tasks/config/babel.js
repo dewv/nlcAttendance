@@ -14,8 +14,7 @@ module.exports = function(grunt) {
     grunt.config.set("babel", {
         dist: {
             options: {
-                presets: [require("sails-hook-grunt/accessible/babel-preset-env")],
-                plugins: ["transform-class-properties", "istanbul"]
+                presets: [require("sails-hook-grunt/accessible/babel-preset-env")]
             },
             files: [
                 {
