@@ -19,6 +19,7 @@
         "Staff": true,
         "Visit": true,
         "cy": true,
+        "Cypress": true,
         // …and any others (e.g. `"Organization": true`)
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     },
