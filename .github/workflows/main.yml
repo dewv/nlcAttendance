@@ -12,3 +12,4 @@ jobs:
               with:
                   record: false
                   quiet: true
+                  start: PORT=1338 sails lift
