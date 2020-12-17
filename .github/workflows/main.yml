@@ -10,7 +10,8 @@ jobs:
             - name: Cypress run
               uses: cypress-io/github-action@v2
               with:
-                  #   build: npm run build
+                  record: true
                   start: npm run ci
-              #   start: npm start
-              #   wait-on: http://localhost:3030
+                  env:
+                      CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+                      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
