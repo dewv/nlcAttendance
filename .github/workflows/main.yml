@@ -12,5 +12,5 @@ jobs:
               with:
                   record: false
                   quiet: true
-                  start: PORT=1338 sails lift
+                  start: sails lift --port 1338
                   wait-on: "http://localhost:1338"
