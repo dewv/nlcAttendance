@@ -12,5 +12,5 @@ jobs:
               with:
                   record: false
                   quiet: true
-                  start: sails lift --port 1338
+                  start: npx sails lift --port 1338
                   wait-on: "http://localhost:1338"
