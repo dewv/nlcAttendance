@@ -1,3 +1,5 @@
+image: workspace-full-vnc
+
 tasks:
     - init: CYPRESS_CACHE_FOLDER=$GITPOD_REPO_ROOT/.tmp/cypress npm install
       command: npx sails lift
