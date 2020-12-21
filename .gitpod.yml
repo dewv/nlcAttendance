@@ -1,4 +1,4 @@
-image: gitpod/workspace-full-vnc
+image: cypress/base
 
 tasks:
     - init: CYPRESS_CACHE_FOLDER=$GITPOD_REPO_ROOT/.tmp/cypress npm install
