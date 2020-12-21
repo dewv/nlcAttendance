@@ -1,16 +1,16 @@
 image:
-  file: .gitpod.Dockerfile
+    file: .gitpod.Dockerfile
 
 tasks:
-  - init: CYPRESS_CACHE_FOLDER=$GITPOD_REPO_ROOT/.tmp/cypress npm install
-    command: sails lift
+    - init: CYPRESS_CACHE_FOLDER=$GITPOD_REPO_ROOT/.tmp/cypress npm install
+      command: npx sails lift
 
 ports:
-  - port: 1337
-    onOpen: open-browser
-  - port: 1338
-    onOpen: ignore
+    - port: 1337
+      onOpen: open-browser
+    - port: 1338
+      onOpen: ignore
 
 vscode:
-  extensions:
-    - esbenp.prettier-vscode@5.7.1:GDba64T6G+TUi1qmc6BE3A==
+    extensions:
+        - esbenp.prettier-vscode@5.7.1:GDba64T6G+TUi1qmc6BE3A==
