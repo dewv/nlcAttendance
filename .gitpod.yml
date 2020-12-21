@@ -1,6 +1,3 @@
-image:
-    file: .gitpod.Dockerfile
-
 tasks:
     - init: CYPRESS_CACHE_FOLDER=$GITPOD_REPO_ROOT/.tmp/cypress npm install
       command: npx sails lift
