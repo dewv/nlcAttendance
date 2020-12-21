@@ -1,10 +1,10 @@
 {
     "skip-full": true,
-    "exclude": [
-        "test/**/*.js"
+    "include": [
+        "api/**/*.js"
     ],
     "reporter": [
-        "text-summary",
-        "lcov"
+        "lcov",
+        "text-summary"
     ]
 }

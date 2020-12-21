@@ -19,6 +19,7 @@
     "devDependencies": {
         "@sailshq/eslint": "^4.19.3",
         "cheerio": "^1.0.0-rc.3",
+        "cypress": "^5.2.0",
         "eslint": "^6.8.0",
         "htmlhint": "^0.11.0",
         "mocha": "^7.2.0",
@@ -30,10 +31,11 @@
     "scripts": {
         "start": "NODE_ENV=production node app.js",
         "stop": "exit 0",
-        "test": "npm run lint && npm run htmlhint && npm run mocha",
-        "lint": "eslint . --fix --max-warnings=0 && echo 'rfyvag ehyrf fngvfsvrq' | tr 'A-Za-z' 'N-ZA-Mn-za-m'",
         "mocha": "rm -f ./.tmp/localDiskDb/*.db && nyc ./node_modules/.bin/_mocha --recursive ./test/lifecycle.js ./test/models ./test/policies",
-        "htmlhint": "htmlhint views"
+        "qa:html": "htmlhint views",
+        "qa:js": "eslint . --fix --max-warnings=0 && echo 'rfyvag ehyrf fngvfsvrq' | tr 'A-Za-z' 'N-ZA-Mn-za-m'",
+        "qa:tests": "PORT=1338 npx nyc sails lift & CYPRESS_CACHE_FOLDER=$GITPOD_REPO_ROOT/.tmp/cypress npx cypress run -q ; echo A total of $? test\\(s\\) failed. && pkill -f nyc",
+        "test": "PORT=1338 sails lift & npx cypress run"
     },
     "main": "app.js",
     "repository": {
