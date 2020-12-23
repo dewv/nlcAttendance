@@ -1,7 +1,7 @@
-name: dev
+name: staging
 on:
     push:
-        branches: [dev]
+        branches: [staging]
 jobs:
     cypress:
         runs-on: ubuntu-latest
@@ -14,5 +14,5 @@ jobs:
               with:
                   record: false
                   quiet: true
-                  start: npx sails lift --port 1338
+                  start: NODE_ENV=staging node app --port 1338
                   wait-on: "http://localhost:1338"
