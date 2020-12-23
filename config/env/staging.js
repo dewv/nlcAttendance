@@ -18,13 +18,13 @@
  */
 
 module.exports = {
-    datastores: {
-        default: {
-            adapter: "sails-mongo",
-            url: "mongodb://atlas:atlas@cluster0-shard-00-00.dso9n.mongodb.net:27017,cluster0-shard-00-01.dso9n.mongodb.net:27017,cluster0-shard-00-02.dso9n.mongodb.net:27017/nlcAttendance?ssl=true&replicaSet=atlas-87jum1-shard-0&authSource=admin&retryWrites=true&w=majority"
-        },
+    // datastores: {
+    //     default: {
+    //         adapter: "sails-mongo",
+    //         url: "mongodb://atlas:atlas@cluster0-shard-00-00.dso9n.mongodb.net:27017,cluster0-shard-00-01.dso9n.mongodb.net:27017,cluster0-shard-00-02.dso9n.mongodb.net:27017/nlcAttendance?ssl=true&replicaSet=atlas-87jum1-shard-0&authSource=admin&retryWrites=true&w=majority"
+    //     },
 
-    },
+    // },
 
     // models: {
     //     attributes: {
