@@ -2,11 +2,13 @@ name: staging
 on:
     push:
         branches: [staging]
+    pull_request:
+        branches: [staging]
 jobs:
     cypress:
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout
+            - name: Checkout code
               uses: actions/checkout@v1
 
             - name: Run Cypress tests
