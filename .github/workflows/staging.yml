@@ -1,0 +1,18 @@
+name: staging
+on:
+    push:
+        branches: [staging]
+jobs:
+    cypress:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v1
+
+            - name: Run Cypress tests
+              uses: cypress-io/github-action@v2
+              with:
+                  record: false
+                  quiet: true
+                  start: NODE_ENV=staging node app --port 1338
+                  wait-on: "http://localhost:1338"

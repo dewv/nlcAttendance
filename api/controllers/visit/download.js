@@ -21,7 +21,7 @@ module.exports = {
         let response = this.res;
         if (request.session.role !== "staff") throw "unauthorized";
 
-        let records = await Visit.find().sort("id DESC");
+        let records = await Visit.find().sort("checkOutTime DESC");
 
         let dateFormat = {
             year: "numeric", month: "2-digit", day: "2-digit",
@@ -29,10 +29,11 @@ module.exports = {
         };
 
         let download = "";
-        for (let visit of records) {
+        for (let i = records.length - 1; i >= 0; i--) {
+            let visit = records[i];
             let student = await Student.findOne({ id: visit.student }).populate("majorOne").populate("majorTwo").populate("sportOne").populate("sportTwo").populate("slpInstructor");
 
-            download += `"${visit.id}","${student.username}","${student.firstName}","${student.lastName}","${new Intl.DateTimeFormat("en-US", dateFormat).format(visit.checkInTime)}","${visit.checkOutTime ? new Intl.DateTimeFormat("en-US", dateFormat).format(visit.checkOutTime) : ""}","${visit.length}","${visit.isLengthEstimated}","${visit.purpose}","${visit.purposeAchieved}","${visit.location}","${visit.comment}","${student.academicRank}","${student.residentialStatus}",`;
+            download += `"${i + 1}","${student.username}","${student.firstName}","${student.lastName}","${new Intl.DateTimeFormat("en-US", dateFormat).format(visit.checkInTime)}","${visit.checkOutTime ? new Intl.DateTimeFormat("en-US", dateFormat).format(visit.checkOutTime) : ""}","${visit.length}","${visit.isLengthEstimated}","${visit.purpose}","${visit.purposeAchieved}","${visit.location}","${visit.comment}","${student.academicRank}","${student.residentialStatus}",`;
 
             download += `"${student.majorOne ? student.majorOne.name : ""}",`;
             download += `"${student.majorTwo ? student.majorTwo.name : ""}",`;
