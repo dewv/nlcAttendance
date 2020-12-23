@@ -1,25 +1,26 @@
 name: prod
 on:
-    push:
-        branches: [prod]
-    pull_request:
-        branches: [prod]
+  push:
+    branches: [prod]
+  pull_request:
+    branches: [prod]
 jobs:
-    cypress:
-        runs-on: ubuntu-latest
-        environment: prod
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v1
+  cypress:
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
 
-            - name: Run Cypress tests
-              uses: cypress-io/github-action@v2
-              env:
-                  NODE_ENV: production
-                  sails_datastores__default__adapter: "sails-mongo"
-                  sails_datastores__default__url: ${{ secrets.MONGO_URL }}
-              with:
-                  #   record: false
-                  #   quiet: true
-                  start: node app --port 1338
-                  wait-on: "http://localhost:1338"
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v2
+        env:
+          NODE_ENV: production
+          sails_session__cookie__secure: false
+          sails_datastores__default__adapter: "sails-mongo"
+          sails_datastores__default__url: ${{ secrets.MONGO_URL }}
+        with:
+          #   record: false
+          #   quiet: true
+          start: node app --port 1338
+          wait-on: "http://localhost:1338"
