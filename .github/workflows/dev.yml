@@ -2,11 +2,13 @@ name: dev
 on:
     push:
         branches: [dev]
+    pull_request:
+        branches: [dev]
 jobs:
     cypress:
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout
+            - name: Checkout code
               uses: actions/checkout@v1
 
             - name: Run Cypress tests

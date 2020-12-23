@@ -2,17 +2,23 @@ name: staging
 on:
     push:
         branches: [staging]
+    pull_request:
+        branches: [staging]
 jobs:
     cypress:
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout
+            - name: Checkout code
               uses: actions/checkout@v1
 
             - name: Run Cypress tests
               uses: cypress-io/github-action@v2
+              env:
+                  NODE_ENV: staging
+                  sails_datastores__default__adapter: "sails-mongo"
+                  sails_datastores__default__url: "mongodb://atlas:atlas@cluster0-shard-00-00.dso9n.mongodb.net:27017,cluster0-shard-00-01.dso9n.mongodb.net:27017,cluster0-shard-00-02.dso9n.mongodb.net:27017/nlcAttendance?ssl=true&replicaSet=atlas-87jum1-shard-0&authSource=admin&retryWrites=true&w=majority"
               with:
                   record: false
                   quiet: true
-                  start: NODE_ENV=staging node app --port 1338
+                  start: node app --port 1338
                   wait-on: "http://localhost:1338"
