@@ -13,8 +13,10 @@ jobs:
 
             - name: Run Cypress tests
               uses: cypress-io/github-action@v2
+              env:
+                  NODE_ENV: staging
               with:
                   record: false
                   quiet: true
-                  start: NODE_ENV=staging node app --port 1338
+                  start: node app --port 1338
                   wait-on: "http://localhost:1338"
