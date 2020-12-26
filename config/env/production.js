@@ -388,7 +388,7 @@ module.exports = {
     },
 
     views: {
-        locals: { baseUrl: "/nlc_attendance" }
+        // locals: { baseUrl: "/nlc_attendance" }
     }
 
 };
