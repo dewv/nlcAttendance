@@ -17,6 +17,7 @@ jobs:
               env:
                   NODE_ENV: production
                   sails_session__cookie__secure: false
+                  sails_config__http__trustProxy: true
                   sails_session__url: ${{ secrets.REDIS_URL }}
                   sails_datastores__default__adapter: "sails-mongo"
                   sails_datastores__default__url: ${{ secrets.MONGO_URL }}
