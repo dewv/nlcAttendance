@@ -16,7 +16,7 @@ jobs:
               uses: cypress-io/github-action@v2
               env:
                   NODE_ENV: production
-                  sails_session__cookie__secure: false
+                  # sails_session__cookie__secure: false
                   sails_config__http__trustProxy: true
                   sails_session__url: ${{ secrets.REDIS_URL }}
                   sails_datastores__default__adapter: "sails-mongo"
