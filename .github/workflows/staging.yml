@@ -1,0 +1,25 @@
+name: staging
+on:
+    push:
+        branches: [staging]
+    pull_request:
+        branches: [staging]
+jobs:
+    cypress:
+        runs-on: ubuntu-latest
+        environment: staging
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v1
+
+            - name: Run Cypress tests
+              uses: cypress-io/github-action@v2
+              env:
+                  NODE_ENV: staging
+                  sails_datastores__default__adapter: "sails-mongo"
+                  sails_datastores__default__url: ${{ secrets.MONGO_URL }}
+              with:
+                  record: false
+                  quiet: true
+                  start: node app --port 1338
+                  wait-on: "http://localhost:1338"

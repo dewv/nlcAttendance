@@ -1,13 +1,17 @@
-name: Cypress tests
-on: [push]
+name: dev
+on:
+    push:
+        branches: [dev]
+    pull_request:
+        branches: [dev]
 jobs:
-    cypress-run:
+    cypress:
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout
+            - name: Checkout code
               uses: actions/checkout@v1
 
-            - name: Cypress run
+            - name: Run Cypress tests
               uses: cypress-io/github-action@v2
               with:
                   record: false

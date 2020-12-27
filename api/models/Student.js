@@ -1,5 +1,5 @@
 /**
- * A student user's profile. 
+ * A student user's profile.
  */
 module.exports = {
     attributes: {
@@ -55,7 +55,7 @@ module.exports = {
     /**
      * Populates the database with test data for use in development environments.
      * @modifies Database contents.
-     * 
+     *
      * Note convention: sample data is ALL CAPS, using .net rather than .edu domain
      */
     createTestData: async function () {
@@ -70,13 +70,13 @@ module.exports = {
                 firstName: `FIRSTNAME${i + 1}`,
                 lastName: `LASTNAME${i + 1}`,
                 academicRank: i === 0 ? null : Student.attributes.academicRank.validations.isIn[i % Student.attributes.academicRank.validations.isIn.length],
-                majorOne: i + 1,
-                majorTwo: i + 4,
+                // majorOne: i + 1,
+                // majorTwo: i + 4,
                 residentialStatus: i === 0 ? null : Student.attributes.residentialStatus.validations.isIn[i % Student.attributes.residentialStatus.validations.isIn.length],
-                sportOne: i + 1,
-                sportTwo: i + 1,
+                // sportOne: i + 1,
+                // sportTwo: i + 1,
                 forceUpdate: Student.attributes.forceUpdate.defaultsTo,
-                slpInstructor: i === 0 ? null : 1
+                // slpInstructor: i === 0 ? null : 1
             }).fetch());
         }
         for (let i = 0; i < recordCount; i++) {
@@ -85,13 +85,13 @@ module.exports = {
                 firstName: `NoUpdateFirst${i + 1}`,
                 lastName: `NoUpdateLast${i + 1}`,
                 academicRank: i === 0 ? null : Student.attributes.academicRank.validations.isIn[i % Student.attributes.academicRank.validations.isIn.length],
-                majorOne: i + 1,
-                majorTwo: i + 4,
+                // majorOne: i + 1,
+                // majorTwo: i + 4,
                 residentialStatus: i === 0 ? null : Student.attributes.residentialStatus.validations.isIn[i % Student.attributes.residentialStatus.validations.isIn.length],
-                sportOne: i + 1,
-                sportTwo: i + 1,
+                // sportOne: i + 1,
+                // sportTwo: i + 1,
                 forceUpdate: false,
-                slpInstructor: i === 0 ? null : 1
+                // slpInstructor: i === 0 ? null : 1
             }).fetch());
         }
     }
