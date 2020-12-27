@@ -21,5 +21,6 @@ jobs:
               with:
                   record: false
                   quiet: true
+                  command-prefix: npx
                   start: node app --port 1338
                   wait-on: "http://localhost:1338"
