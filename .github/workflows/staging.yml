@@ -18,7 +18,6 @@ jobs:
                   NODE_ENV: staging
                   sails_datastores__default__adapter: "sails-mongo"
                   sails_datastores__default__url: ${{ secrets.MONGO_URL }}
-                  sails_models__migrate: "safe"
               with:
                   record: false
                   quiet: true
