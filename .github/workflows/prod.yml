@@ -21,8 +21,8 @@ jobs:
                   sails_datastores__default__adapter: "sails-mongo"
                   sails_datastores__default__url: ${{ secrets.MONGO_URL }}
               with:
-                  record: true
+                  record: false
                   quiet: true
-                  command-prefix: npx 
+                  command-prefix: npx
                   start: node app --port 1338
                   wait-on: "http://localhost:1338"
