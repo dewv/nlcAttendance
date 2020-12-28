@@ -20,6 +20,7 @@ jobs:
             - name: "Run Cypress tests; code: development, db: Mongo (staging), session store: sails"
               uses: cypress-io/github-action@v2
               env:
+                  NODE_ENV: staging
                   sails_datastores__default__adapter: "sails-mongo"
                   sails_datastores__default__url: ${{ secrets.MONGO_URL }}
               with:
