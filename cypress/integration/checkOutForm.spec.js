@@ -37,8 +37,8 @@ describe("The check out form", () => {
     });
 
     it("should have student estimate length of visits opened more than 8 hours ago", () => {
-        // Server-side test support code will back date check-in using following purpose:
-        const purpose = "To test visit length estimation";
+        // Server-side test support code will back date check-ins with following purpose:
+        const purpose = "To run Cypress test of visit length estimation";
 
         const username = `estimateLength${(new Date()).valueOf()}`;
 

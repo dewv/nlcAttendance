@@ -13,7 +13,7 @@
  */
 module.exports = function (grunt) {
 
-    let prodBaseUrl = "/nlc_attendance";
+    let prodBaseUrl = process.env.CI ? "" : "/nlc_attendance";
 
     grunt.config.set("sails-linker", {
 

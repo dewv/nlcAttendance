@@ -48,12 +48,6 @@ module.exports = {
             action: "/visit"
         };
 
-        if (sails.config.environment !== "production") {
-            if (request.session.purpose === "To test visit length estimation") {
-
-            }
-        }
-
         return exits.success(ejsData);
     }
 };
