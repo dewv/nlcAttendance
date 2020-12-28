@@ -47,10 +47,8 @@ module.exports = {
         let visit = await Visit.create(request.body).fetch();
 
         // Support testing of visit length estimation.
-        if (sails.config.environment !== "production") {
-            if (visit.purpose === "To test visit length estimation") {
-                await Visit.updateOne({ id: visit.id }).set({ checkInTime: new Date(sails.helpers.getCurrentTime() - 8.25 * 60 * 60 * 1000) });
-            }
+        if (visit.purpose === "To run Cypress test of visit length estimation") {
+            await Visit.updateOne({ id: visit.id }).set({ checkInTime: new Date(sails.helpers.getCurrentTime() - 8.25 * 60 * 60 * 1000) });
         }
 
         request.session.banner = `${request.session.firstName} ${request.session.lastName} is now checked in. Please remember to check out before leaving.`;

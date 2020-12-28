@@ -35,7 +35,7 @@
         "mocha": "rm -f ./.tmp/localDiskDb/*.db && nyc ./node_modules/.bin/_mocha --recursive ./test/lifecycle.js ./test/models ./test/policies",
         "qa:html": "htmlhint views",
         "qa:js": "eslint . --fix --max-warnings=0 && echo 'rfyvag ehyrf fngvfsvrq' | tr 'A-Za-z' 'N-ZA-Mn-za-m'",
-        "qa:tests": "PORT=1338 npx nyc sails lift & CYPRESS_CACHE_FOLDER=$GITPOD_REPO_ROOT/.tmp/cypress npx cypress run -q ; echo A total of $? test\\(s\\) failed. && pkill -f nyc",
+        "qa:tests": "PORT=1338 npx nyc sails lift & CYPRESS_CACHE_FOLDER=$GITPOD_REPO_ROOT/.tmp/cypress npx cypress run -q ; printf 'A total of %d test(s) failed.\n\n' $? && pkill -f nyc",
         "test": "PORT=1338 sails lift & npx cypress run"
     },
     "main": "app.js",
