@@ -17,7 +17,7 @@ jobs:
             - name: Run JavaScript checks
               run: "npm run qa:js"
 
-            - name: Run Cypress tests (dev mode)
+            - name: "Run Cypress tests; code: development, db: sails-disk, session store: sails"
               uses: cypress-io/github-action@v2
               with:
                   record: false

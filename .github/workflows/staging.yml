@@ -5,17 +5,21 @@ on:
     pull_request:
         branches: [staging]
 jobs:
-    cypress:
+    qa:
         runs-on: ubuntu-latest
-        environment: staging
         steps:
             - name: Checkout code
               uses: actions/checkout@v1
 
-            - name: Run Cypress tests
+            - name: Run HTML checks
+              run: "npm run qa:html"
+
+            - name: Run JavaScript checks
+              run: "npm run qa:js"
+
+            - name: "Run Cypress tests; code: development, db: Mongo (staging), session store: sails"
               uses: cypress-io/github-action@v2
               env:
-                  NODE_ENV: staging
                   sails_datastores__default__adapter: "sails-mongo"
                   sails_datastores__default__url: ${{ secrets.MONGO_URL }}
               with:

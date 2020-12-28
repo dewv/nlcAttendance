@@ -5,14 +5,19 @@ on:
     pull_request:
         branches: [prod]
 jobs:
-    cypress:
+    qa:
         runs-on: ubuntu-latest
-        environment: prod
         steps:
             - name: Checkout code
               uses: actions/checkout@v1
 
-            - name: Run Cypress tests
+            - name: Run HTML checks
+              run: "npm run qa:html"
+
+            - name: Run JavaScript checks
+              run: "npm run qa:js"
+
+            - name: "Run Cypress tests; code: production, db: Mongo (prod), session store: Redis"
               uses: cypress-io/github-action@v2
               env:
                   NODE_ENV: production
