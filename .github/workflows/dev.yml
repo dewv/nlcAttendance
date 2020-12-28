@@ -11,6 +11,12 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v1
 
+            - name: Run HTML checks
+              run: "npm run qa:html"
+
+            - name: Run JavaScript checks
+              run: "npm run qa:js"
+
             - name: Run Cypress tests
               uses: cypress-io/github-action@v2
               with:
