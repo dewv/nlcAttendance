@@ -1,9 +1,9 @@
 name: staging
 on:
     push:
-        branches: [staging]
+        branches: [staging, prod]
     pull_request:
-        branches: [staging]
+        branches: [staging, prod]
 jobs:
     qa:
         runs-on: ubuntu-latest
