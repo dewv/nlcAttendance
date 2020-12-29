@@ -5,13 +5,19 @@ on:
     pull_request:
         branches: [dev]
 jobs:
-    cypress:
+    qa:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
               uses: actions/checkout@v1
 
-            - name: Run Cypress tests
+            - name: Run HTML checks
+              run: "npm run qa:html"
+
+            - name: Run JavaScript checks
+              run: "npm run qa:js"
+
+            - name: "Run Cypress tests; code: development, db: sails-disk, session store: sails"
               uses: cypress-io/github-action@v2
               with:
                   record: false
