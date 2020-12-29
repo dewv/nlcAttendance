@@ -25,5 +25,5 @@ jobs:
                   record: false
                   quiet: true
                   command-prefix: npx
-                  start: sails lift
+                  start: npx sails lift
                   wait-on: "http://localhost:1338"
