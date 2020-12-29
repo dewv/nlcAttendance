@@ -7,6 +7,16 @@ on:
 jobs:
     qa:
         runs-on: ubuntu-latest
+        container: node:10.18-jessie
+        services:
+            redis:
+                image: redis
+                options: >-
+                    --health-cmd "redis-cli ping"
+                    --health-interval 10s
+                    --health-timeout 5s
+                    --health-retries 5
+        environment: staging
         steps:
             - name: Checkout code
               uses: actions/checkout@v1
@@ -17,15 +27,15 @@ jobs:
             - name: Run JavaScript checks
               run: "npm run qa:js"
 
-            - name: "Run Cypress tests; code: development, db: Mongo (staging), session store: sails"
+            - name: "Run Cypress tests in staging setup"
               uses: cypress-io/github-action@v2
               env:
-                  NODE_ENV: staging
+                  sails_session__url: "redis://localhost:6379"
                   sails_datastores__default__adapter: "sails-mongo"
                   sails_datastores__default__url: ${{ secrets.MONGO_URL }}
               with:
                   record: false
                   quiet: true
                   command-prefix: npx
-                  start: node app --port 1338
+                  start: npm start --port 1338
                   wait-on: "http://localhost:1338"
