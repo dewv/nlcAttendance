@@ -25,8 +25,8 @@ module.exports.views = {
      *                                                                          *
      ***************************************************************************/
 
-    /** 
-     * @description We change default `.ejs` extension to `.html`, so that developer 
+    /**
+     * @description We change default `.ejs` extension to `.html`, so that developer
      *  tools can work with HTML content of the files. Not a problem for EJS engine.
      */
     extension: "html",
@@ -41,6 +41,6 @@ module.exports.views = {
      ***************************************************************************/
 
     layout: "layouts/layout",
-    locals: { baseUrl: "" }
+    locals: { baseUrl: process.env.baseUrl || "" }
 
 };
