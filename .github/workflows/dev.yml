@@ -17,11 +17,13 @@ jobs:
             - name: Run JavaScript checks
               run: "npm run qa:js"
 
-            - name: "Run Cypress tests; code: development, db: sails-disk, session store: sails"
+            - name: "Run Cypress tests in dev setup"
               uses: cypress-io/github-action@v2
+              env:
+                  PORT: 1338
               with:
                   record: false
                   quiet: true
                   command-prefix: npx
-                  start: npx sails lift --port 1338
+                  start: npx sails lift
                   wait-on: "http://localhost:1338"

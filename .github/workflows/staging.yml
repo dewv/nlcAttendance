@@ -17,7 +17,6 @@ jobs:
                     --health-retries 5
                 ports:
                     - 6379:6379
-        environment: staging
         steps:
             - name: Checkout code
               uses: actions/checkout@v1
@@ -36,7 +35,7 @@ jobs:
                   sails_session__url: "redis://localhost:6379"
                   sails_http__trustProxy: true
                   sails_datastores__default__adapter: "sails-mongo"
-                  sails_datastores__default__url: ${{ secrets.MONGO_URL }}
+                  sails_datastores__default__url: ${{ secrets.MONGO_STAGING_URL }}
               with:
                   record: false
                   quiet: true
