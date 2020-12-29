@@ -11,13 +11,26 @@
 
 
 module.exports.bootstrap = async function () {
+    const regex = /:\/\/[^:]+:[^@]+@/;
+    const redact = "://REDACTED:REDACTED@";
 
-    // By convention, this is a good place to set up fake data during development.
+    sails.log.info(`Database: ${sails.config.datastores.default.url.replace(regex, redact)}`);
+    sails.log.info(`Session store: ${sails.config.session.url.replace(regex, redact)}`);
+
     if (sails.config.environment !== "production") {
+        // The following models should create reference records for use in all
+        // setups, including production. For production deplyment they must
+        // be created by one ad hoc launch of development-mode code (`sails lift`).
+        // See https://sailsjs.com/documentation/concepts/deployment#?set-up-production-database-s-for-your-models
         await Major.createData();
         await Sport.createData();
-        await Staff.createTestData();
-        await Student.createTestData();
-        await Visit.createTestData();
+
+        // The following flag will prevent creation of test data by ad hoc
+        // `sails lift` launch that is setting up production data.
+        if (sails.config.custom.createTestData !== false) {
+            await Staff.createTestData();
+            await Student.createTestData();
+            await Visit.createTestData();
+        }
     }
 };
