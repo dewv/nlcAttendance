@@ -32,7 +32,9 @@ jobs:
               uses: cypress-io/github-action@v2
               env:
                   PORT: 1338
+                  sails_session__cookie__secure: false
                   sails_session__url: "redis://localhost:6379"
+                  sails_http__trustProxy: true
                   sails_datastores__default__adapter: "sails-mongo"
                   sails_datastores__default__url: ${{ secrets.MONGO_URL }}
               with:
