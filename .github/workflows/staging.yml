@@ -31,6 +31,7 @@ jobs:
             - name: "Run Cypress tests in staging setup"
               uses: cypress-io/github-action@v2
               env:
+                  PORT: 1338
                   sails_session__url: "redis://localhost:6379"
                   sails_datastores__default__adapter: "sails-mongo"
                   sails_datastores__default__url: ${{ secrets.MONGO_URL }}
@@ -38,5 +39,5 @@ jobs:
                   record: false
                   quiet: true
                   command-prefix: npx
-                  start: npm start --port 1338
+                  start: npm start
                   wait-on: "http://localhost:1338"
