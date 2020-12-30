@@ -16,7 +16,8 @@ module.exports = async function (request, response) {
     let result;
     /* istanbul ignore if */
     if (sails.config.custom.ldap) {
-        result = await _ldapAuthentication(request.body.username, request.body.password);
+        // result = await _ldapAuthentication(request.body.username, request.body.password);
+        result = await sails.helpers.ldapAuthentication(request.body.username, request.body.password);
     } else {
         result = _simulatedAuthentication(request.body.username, request.body.password);
     }
