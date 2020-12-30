@@ -11,16 +11,7 @@
 
 
 module.exports.bootstrap = async function () {
-    const regex = /:\/\/[^:]+:[^@]+@/;
-    const redact = "://REDACTED:REDACTED@";
-
-    if (sails.config.datastores.default.url) {
-        sails.log.info(`Database: ${sails.config.datastores.default.url.replace(regex, redact)}`);
-    }
-
-    if (sails.config.session.url) {
-        sails.log.info(`Session store: ${sails.config.session.url.replace(regex, redact)}`);
-    }
+    sails.log.info(await sails.helpers.getStatus());
 
     if (sails.config.environment !== "production") {
         // The following models should create reference records for use in all
