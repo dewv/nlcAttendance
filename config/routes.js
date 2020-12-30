@@ -7,8 +7,8 @@ let routes = {
     // Misc
     "GET /": "/login",
     "GET /browser/register": { controller: "browser", action: "register" },
-    "GET /version.txt": function(request, response) {
-        return response.send(require("../package.json").version);
+    "GET /status.json": async function (request, response) {
+        return response.send(await sails.helpers.getStatus());
     },
 
     // Major
