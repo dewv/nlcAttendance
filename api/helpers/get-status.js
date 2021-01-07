@@ -16,8 +16,8 @@ module.exports = {
     fn: async function (inputs, exits) {
         let status = {
             version: require("../../package.json").version,
-            db: "sails-disk",
-            sessionStore: "sails",
+            db: sails.config.datastores.default.adapter,
+            sessionStore: sails.config.session.adapter,
             ldapConnected: false
         };
 
