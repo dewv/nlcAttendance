@@ -18,11 +18,12 @@ module.exports = {
             version: require("../../package.json").version,
             db: sails.config.datastores.default.adapter,
             sessionStore: sails.config.session.adapter,
+            restrictBrowsers: false,
             ldapConnected: false
         };
 
         const regex = /:\/\/[^:]+:[^@]+@/;
-        const redact = "://REDACTED:REDACTED@";
+        const redact = "://";
 
         if (sails.config.datastores.default.url) {
             status.db = sails.config.datastores.default.url.replace(regex, redact);
@@ -30,6 +31,10 @@ module.exports = {
 
         if (sails.config.session.url) {
             status.sessionStore = sails.config.session.url.replace(regex, redact);
+        }
+
+        if (sails.config.custom.restrictBrowsers) {
+            status.restrictBrowsers = sails.config.custom.restrictBrowsers;
         }
 
         if (sails.config.custom.ldap) {
