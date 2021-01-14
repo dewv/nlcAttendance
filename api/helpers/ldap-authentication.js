@@ -40,22 +40,23 @@ module.exports = {
 
             client.on("connect", function (_socket, error) {
                 if (error) {
-                    return _handleError(`LDAP connect handler: ${error.message}`);
+                    _handleError(`LDAP connect handler: ${error.message}`);
                 }
 
                 client.bind(inputs.username, inputs.password, function (error) {
                     if (error) {
                         if (error instanceof ldap.InvalidCredentialsError) {
-                            return resolve(error);
+                            client.destroy(); // Must destroy client before resolving
+                            resolve(error);
                         }
-                        return _handleError(`LDAP bind handler: ${error.message}`);
+                        _handleError(`LDAP bind handler: ${error.message}`);
                     }
 
                     // Authentication was successful. Get information about user.
                     ldapConfig.searchOptions.filter = `(userPrincipalName=${inputs.username})`;
                     client.search(ldapConfig.searchBaseDn, ldapConfig.searchOptions, function (error, searchResponse) {
                         if (error) {
-                            return _handleError(`LDAP client search: ${error.message}`);
+                            _handleError(`LDAP client search: ${error.message}`);
                         }
 
                         searchResponse.on("error", function (error) {
@@ -63,7 +64,6 @@ module.exports = {
                         });
 
                         searchResponse.on("searchEntry", function (entry) {
-                            client.unbind();
 
                             // Build result using configured aliases (e.g., "sn" -> "lastName")
                             let result = {};
@@ -81,8 +81,13 @@ module.exports = {
                                 }
                             }
 
+                            client.destroy(); // Must destroy client before resolving
+
                             // User must have at least one role.
-                            if (!result.role) return resolve(new ldap.InsufficientAccessRightsError());
+                            if (!result.role) {
+                                resolve(new ldap.InsufficientAccessRightsError());
+                                sails.log.error("resolve returned (this should never print ?!)");
+                            }
 
                             resolve(result);
                         });
@@ -91,8 +96,8 @@ module.exports = {
             });
 
             function _handleError(message) {
-                // Defensive programming: not clear when/why ldapjs might error here.
                 sails.log.warn(message);
+                client.destroy(); // Must destroy client before resolving
                 resolve(new ldap.UnavailableError());
             }
         }));
