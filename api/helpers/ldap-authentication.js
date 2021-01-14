@@ -31,36 +31,36 @@ module.exports = {
             let client = ldap.createClient(clientOptions);
 
             client.on("error", function (error) {
-                _handleError(`LDAP client error handler: ${error.message}`);
+                return _handleError(`LDAP client error handler: ${error.message}`);
             });
 
             client.on("connectError", function (error) {
-                _handleError(`LDAP connectError handler: ${error.message}`);
+                return _handleError(`LDAP connectError handler: ${error.message}`);
             });
 
             client.on("connect", function (_socket, error) {
                 if (error) {
-                    _handleError(`LDAP connect handler: ${error.message}`);
+                    return _handleError(`LDAP connect handler: ${error.message}`);
                 }
 
                 client.bind(inputs.username, inputs.password, function (error) {
                     if (error) {
                         if (error instanceof ldap.InvalidCredentialsError) {
                             client.destroy(); // Must destroy client before resolving
-                            resolve(error);
+                            return resolve(error);
                         }
-                        _handleError(`LDAP bind handler: ${error.message}`);
+                        return _handleError(`LDAP bind handler: ${error.message}`);
                     }
 
                     // Authentication was successful. Get information about user.
                     ldapConfig.searchOptions.filter = `(userPrincipalName=${inputs.username})`;
                     client.search(ldapConfig.searchBaseDn, ldapConfig.searchOptions, function (error, searchResponse) {
                         if (error) {
-                            _handleError(`LDAP client search: ${error.message}`);
+                            return _handleError(`LDAP client search: ${error.message}`);
                         }
 
                         searchResponse.on("error", function (error) {
-                            _handleError(`LDAP search response error handler: ${error.message}`);
+                            return _handleError(`LDAP search response error handler: ${error.message}`);
                         });
 
                         searchResponse.on("searchEntry", function (entry) {
@@ -85,11 +85,10 @@ module.exports = {
 
                             // User must have at least one role.
                             if (!result.role) {
-                                resolve(new ldap.InsufficientAccessRightsError());
-                                sails.log.error("resolve returned (this should never print ?!)");
+                                return resolve(new ldap.InsufficientAccessRightsError());
                             }
 
-                            resolve(result);
+                            return resolve(result);
                         });
                     });
                 });
@@ -98,7 +97,7 @@ module.exports = {
             function _handleError(message) {
                 sails.log.warn(message);
                 client.destroy(); // Must destroy client before resolving
-                resolve(new ldap.UnavailableError());
+                return resolve(new ldap.UnavailableError());
             }
         }));
     }
