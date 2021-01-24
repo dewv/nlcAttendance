@@ -11,7 +11,7 @@
 
 
 module.exports.bootstrap = async function () {
-    sails.log.info(await sails.helpers.getStatus());
+    sails.log.debug(await sails.helpers.getStatus());
 
     if (sails.config.environment !== "production") {
         // The following models should create reference records for use in all
