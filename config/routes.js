@@ -1,6 +1,6 @@
 let routes = {
     // Authentication
-    "GET /login": { view: "pages/authentication/loginForm" },
+    "GET /login": { controller: "authentication", action: "get-login" },
     "POST /login": { controller: "authentication", action: "login" },
     "GET /logout": { controller: "authentication", action: "logout" },
 
