@@ -21,25 +21,33 @@ module.exports = {
         let response = this.res;
         if (request.session.role !== "staff") throw "unauthorized";
 
-        let records = await Visit.find().sort("checkOutTime DESC");
+        let records = await Visit.find().sort("checkInTime DESC").populate("student");
+        let majors = await Major.find();
+        let sports = await Sport.find();
+        let staff = await Staff.find({ isSlpInstructor: true });
 
-        let dateFormat = {
+        let date = new Intl.DateTimeFormat("en-us", {
             year: "numeric", month: "2-digit", day: "2-digit",
             hour: "numeric", minute: "numeric", second: "numeric",
-        };
+        });
 
         let download = "";
-        for (let i = records.length - 1; i >= 0; i--) {
+
+        for (let i = 0; i < records.length; i++) {
             let visit = records[i];
-            let student = await Student.findOne({ id: visit.student }).populate("majorOne").populate("majorTwo").populate("sportOne").populate("sportTwo").populate("slpInstructor");
 
-            download += `"${i + 1}","${student.username}","${student.firstName}","${student.lastName}","${new Intl.DateTimeFormat("en-US", dateFormat).format(visit.checkInTime)}","${visit.checkOutTime ? new Intl.DateTimeFormat("en-US", dateFormat).format(visit.checkOutTime) : ""}","${visit.length}","${visit.isLengthEstimated}","${visit.purpose}","${visit.purposeAchieved}","${visit.location}","${visit.comment}","${student.academicRank}","${student.residentialStatus}",`;
+            download += `"${records.length - i}","${visit.student.username}","${visit.student.firstName}","${visit.student.lastName}","${date.format(visit.checkInTime)}","${visit.checkOutTime ? date.format(visit.checkOutTime) : ""}","${visit.length}","${visit.isLengthEstimated}","${visit.purpose}","${visit.purposeAchieved}","${visit.location}","${visit.comment}","${visit.student.academicRank}","${visit.student.residentialStatus}",`;
 
-            download += `"${student.majorOne ? student.majorOne.name : ""}",`;
-            download += `"${student.majorTwo ? student.majorTwo.name : ""}",`;
-            download += `"${student.sportOne ? student.sportOne.name : ""}",`;
-            download += `"${student.sportTwo ? student.sportTwo.name : ""}",`;
-            download += `"${student.slpInstructor ? student.slpInstructor.firstName + " " + student.slpInstructor.lastName : ""}",`;
+            let majorOne = majors.find(element => element.id === visit.student.majorOne);
+            download += `"${majorOne ? majorOne.name : ""}",`;
+            let majorTwo = majors.find(element => element.id === visit.student.majorTwo);
+            download += `"${majorTwo ? majorTwo.name : ""}",`;
+            let sportOne = sports.find(element => element.id === visit.student.sportOne);
+            download += `"${sportOne ? sportOne.name : ""}",`;
+            let sportTwo = sports.find(element => element.id === visit.student.sportTwo);
+            download += `"${sportTwo ? sportTwo.name : ""}",`;
+            let slpInstructor = staff.find(element => element.id === visit.student.slpInstructor);
+            download += `"${slpInstructor ? slpInstructor.firstName + " " + slpInstructor.lastName : ""}",`;
 
             download += `"${visit.tutorCourses}","${visit.tutorInstructors}"\n`;
         }
