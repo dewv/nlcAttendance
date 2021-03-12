@@ -12,7 +12,7 @@ module.exports = async function (request, response) {
     if (request.body.username.indexOf("@") < 0 && request.body.username.slice(-domain.length) !== domain) {
         request.body.username = request.body.username + domain;
     }
-
+    request.body.username = request.body.username.toLowerCase()
     let result;
     /* istanbul ignore if */
     if (sails.config.custom.ldap) {
