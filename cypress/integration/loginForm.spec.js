@@ -1,5 +1,5 @@
 describe("The login form", () => {
-    it("should ensure the user is logged out", () => {
+    it("should ensure the user is logged out before authenticating", () => {
         const username = `loginForm${(new Date()).valueOf()}`;
 
         cy.loginStaff(username);
@@ -7,4 +7,12 @@ describe("The login form", () => {
         cy.visit("/login");
         cy.get("[data-cy=navbar]").should("not.exist");
     });
+
+    it("should show appropriate results when students authenticate");
+
+    it("should show appropriate results when staff authenticate");
+
+    it("should refuse access when unauthorized users authenticate");
+
+    it("should display an appropriate error when authentication services are not available");
 });
