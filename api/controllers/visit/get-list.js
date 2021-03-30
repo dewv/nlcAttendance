@@ -53,7 +53,6 @@ module.exports = {
             });
 
             for (let i = 0; i < records.length; i++) {
-                let visit = records[i];
                 results.data.push({
                     id: results.total - skip - i,
                     student:
