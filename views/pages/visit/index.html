@@ -1,14 +1,95 @@
+<script>
+    (function () {
+        const visitsEl = document.querySelector('tbody');
+
+        const getVisits = async (page, limit) => {
+            const API_URL = `/visit?page=${page}&limit=${limit}`;
+            const response = await fetch(API_URL);
+            if (!response.ok) {
+                throw new Error(`An error occurred: ${response.status}`);
+            }
+            return await response.json();
+        }
+
+        const showVisits = (visits) => {
+            visits.forEach(visit => {
+                const visitEl = document.createElement('tr');
+                visitEl.innerHTML = `
+                <td class="text-right">
+                    ${id}
+                </td>
+                <td>
+                    ${visit.student.firstName + " " + visit.student.lastName}
+                </td>
+                <td class="text-right">
+                    ${visit.checkInTime}
+                </td>
+                <td class="text-right">
+                    ${visit.checkOutTime}
+                </td>
+                <td class="text-right">${visit.length}</td>
+                <td>
+                    ${visit.isLengthEstimated}
+                </td>
+        `;
+
+                visitsEl.appendChild(visitEl);
+            });
+        };
+
+        const hasVisits = (page, limit, total) => {
+            const startIndex = (page - 1) * limit + 1;
+            return total === 0 || startIndex < total;
+        };
+
+        const loadVisits = async (page, limit) => {
+            try {
+                // if having more quotes to fetch
+                if (hasMoreVisits(page, limit, total)) {
+                    // call the API to get quotes
+                    const response = await getVisits(page, limit);
+                    showVisits(response.data);
+                    total = response.total;
+                }
+            } catch (error) {
+                console.log(error.message);
+            }
+        };
+
+        // control variables
+        let currentPage = 1;
+        const limit = 10;
+        let total = 0;
+
+        window.addEventListener('scroll', () => {
+            const {
+                scrollTop,
+                scrollHeight,
+                clientHeight
+            } = document.documentElement;
+
+            if (scrollTop + clientHeight >= scrollHeight - 5 &&
+                hasMoreVisits(currentPage, limit, total)) {
+                currentPage++;
+                loadVisits(currentPage, limit);
+            }
+        }, {
+            passive: true
+        });
+
+        // initialize
+        loadVisits(currentPage, limit);
+
+    })();
+</script>
 <div class="d-flex justify-content-between">
-    <div><h1>Visits</h1></div>
+    <div>
+        <h1>Visits</h1>
+    </div>
     <div>
         <a href="<%= baseUrl %>/visit/download">
-            <i
-                class="fa fa-download"
-                style="font-size: 48px; color: black"
-                data-toggle="tooltip"
-                data-placement="right"
-                title="Download all visit data"
-            >
+            <i class="fa fa-download" style="font-size: 48px; color: black" data-toggle="tooltip" data-placement="right"
+                title="Download all visit data">
             </i>
         </a>
     </div>
@@ -28,35 +109,6 @@
         </thead>
 
         <tbody>
-            <% if (records) { let dateFormat = { year: 'numeric', month:
-            '2-digit', day: '2-digit', hour: 'numeric', minute: 'numeric',
-            second: 'numeric', };
-            let id = records.length;
-            records.forEach(function(visit) { %>
-            <tr>
-                <td class="text-right">
-                    <%= id-- %>
-                </td>
-                <td>
-                    <%= visit.student.firstName + " " + visit.student.lastName
-                    %>
-                </td>
-                <td class="text-right">
-                    <%= new Intl.DateTimeFormat("en-US",
-                    dateFormat).format(visit.checkInTime) %>
-                </td>
-                <td class="text-right">
-                    <%= visit.checkOutTime ? new Intl.DateTimeFormat("en-US",
-                    dateFormat).format(visit.checkOutTime) : "" %>
-                </td>
-                <td class="text-right"><%= visit.length %></td>
-                <td>
-                    <% if (visit.isLengthEstimated === null) { %> <%= "" %> <% }
-                    else { %> <%= visit.isLengthEstimated ? "Yes" : "No" %> <% }
-                    %>
-                </td>
-            </tr>
-            <% }); }%>
         </tbody>
     </table>
 </div>
