@@ -4,7 +4,7 @@
 
         const getVisits = async (page, limit) => {
             const API_URL = `/visit?page=${page}&limit=${limit}`;
-            const response = await fetch(API_URL);
+            const response = await fetch(API_URL, { headers: { "Accept": "application/json" } });
             if (!response.ok) {
                 throw new Error(`An error occurred: ${response.status}`);
             }
@@ -37,7 +37,7 @@
             });
         };
 
-        const hasVisits = (page, limit, total) => {
+        const hasMoreVisits = (page, limit, total) => {
             const startIndex = (page - 1) * limit + 1;
             return total === 0 || startIndex < total;
         };

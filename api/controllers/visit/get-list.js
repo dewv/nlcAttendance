@@ -76,7 +76,7 @@ module.exports = {
                 });
             }
 
-            return exits.json(results);
+            return this.res.json(results);
         }
 
         let ejsData = {
