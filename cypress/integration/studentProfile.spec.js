@@ -1,5 +1,5 @@
 describe("The student profile form", () => {
-    it("should require student to enter their academic rank", () => {
+    it.skip("should require student to enter their academic rank", () => {
         // generate unique username
         const username = `studentProfileAcademicStatus${(new Date()).valueOf()}`;
 
@@ -10,11 +10,11 @@ describe("The student profile form", () => {
         let profileUrl = cy.url();
 
         // (get select element with id residentialStatus, choose "Undecided")
-        cy.get('select#residentialStatus").select("Undecided");
-       // (then need to fill in all other required fields except the one under test)
+        cy.get("select#residentialStatus").select("Undecided");
+        // (then need to fill in all other required fields except the one under test)
 
-       // click the form submit button
-       cy.get("[data-cy=submit]").click();
+        // click the form submit button
+        cy.get("[data-cy=submit]").click();
 
         // Since required data was not supplied, should still be on same page.
         cy.url().should("equal", profileUrl);
