@@ -59,13 +59,13 @@ module.exports = {
                         records[i].student.firstName +
                         " " +
                         records[i].student.lastName,
-                    checkIn: records[i].checkInTime
+                    checkInTime: records[i].checkInTime
                         ? date.format(records[i].checkInTime)
                         : "",
-                    checkOut: records[i].checkOutTime
+                    checkOutTime: records[i].checkOutTime
                         ? date.format(records[i].checkOutTime)
                         : "",
-                    visitLength: records[i].checkOutTime
+                    length: records[i].checkOutTime
                         ? records[i].length
                         : "",
                     isLengthEstimated: records[i].checkOutTime
