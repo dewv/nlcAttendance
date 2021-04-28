@@ -3,14 +3,9 @@
         <h1>Visits</h1>
     </div>
     <div>
-        <a href="<%= baseUrl %>/visit/download">
-            <i
-                class="fa fa-download"
-                style="font-size: 48px; color: black"
-                data-toggle="tooltip"
-                data-placement="right"
-                title="Download all visit data"
-            >
+        <a href="<%= baseUrl %>/visit/download" aria-label="Download all visit data">
+            <i class="fa fa-download" style="font-size: 48px; color: black" data-toggle="tooltip" data-placement="right"
+                title="Download all visit data">
             </i>
         </a>
     </div>
@@ -33,7 +28,7 @@
     </table>
     <div id="loading" class="mx-auto" style="width: 150px;">
         <div class="spinner-border text-primary"></div>
-      </div>
+    </div>
 </div>
 
 <script>
@@ -92,7 +87,7 @@
                         showVisits(response.data);
                         total = response.total;
                     } else {
-                        document.getElementById("loading").style.display = "none"; 
+                        document.getElementById("loading").style.display = "none";
                     }
                 } catch (error) {
                     console.log(error.message);

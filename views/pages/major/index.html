@@ -3,7 +3,7 @@
         let discontinued = document.querySelector(`#name${rowNum}`).classList.toggle("discontinued") ? "Yes" : "No";
         document.querySelector(`#toggle${rowNum} i`).classList.toggle("fa-check-square-o");
         document.querySelector(`#toggle${rowNum} i`).classList.toggle("fa-square-o");
-        
+
         let formData = new FormData();
         formData.append("discontinued", discontinued);
         fetch("<%= baseUrl %>/major/" + id, {
@@ -21,7 +21,7 @@
                 <h1>Majors</h1>
             </div>
             <div>
-                <a href="<%= baseUrl %>/major/new" data-cy="new-major-link">
+                <a href="<%= baseUrl %>/major/new" data-cy="new-major-link" aria-label="Add a new major">
                     <i class="fa fa-plus-circle" style="font-size: 48px; color: black" data-toggle="tooltip"
                         data-placement="right" title="Add a new major">
                     </i>
@@ -49,23 +49,25 @@
                 </thead>
 
                 <tbody>
-                    <% let count = 0; %> 
+                    <% let count = 0; %>
                     <% if(records) {
-                        records.forEach(function(major) { 
+                        records.forEach(function(major) {
                             count++ %>
-                            <tr>
-                                <td id="name<%= count %>" class="text-left pt-0 pb-0 <%= major.discontinued === 'Yes' ? 'discontinued' : '' %>">
-                                    <%= major.name %>
-                                </td>
-                                <td class="pt-0 pb-0">
-                                    <% let newVal = (major.discontinued === "Yes" ? "No" : "Yes"); %>
-                                    <button style="border: none;background-color: transparent;"
-                                        onclick="onUpdate(<%= major.id %>, <%= count %>)" id="toggle<%= count %>">
-                                        <i class="fa <%= major.discontinued === 'Yes' ? 'fa-check-square-o' : 'fa-square-o' %>" style="font-size: 150%"></i>
-                                    </button>                            
-                                </td>
-                            </tr>
-                        <% });
+                    <tr>
+                        <td id="name<%= count %>"
+                            class="text-left pt-0 pb-0 <%= major.discontinued === 'Yes' ? 'discontinued' : '' %>">
+                            <%= major.name %>
+                        </td>
+                        <td class="pt-0 pb-0">
+                            <% let newVal = (major.discontinued === "Yes" ? "No" : "Yes"); %>
+                            <button style="border: none;background-color: transparent;"
+                                onclick="onUpdate(<%= major.id %>, <%= count %>)" id="toggle<%= count %>">
+                                <i class="fa <%= major.discontinued === 'Yes' ? 'fa-check-square-o' : 'fa-square-o' %>"
+                                    style="font-size: 150%"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <% });
                     }%>
                 </tbody>
             </table>
