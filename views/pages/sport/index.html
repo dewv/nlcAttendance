@@ -1,3 +1,18 @@
+<script>
+    function onUpdate(id, rowNum) {
+        let discontinued = document.querySelector(`#name${rowNum}`).classList.toggle("discontinued") ? "Yes" : "No";
+        document.querySelector(`#toggle${rowNum} i`).classList.toggle("fa-check-square-o");
+        document.querySelector(`#toggle${rowNum} i`).classList.toggle("fa-square-o");
+
+        let formData = new FormData();
+        formData.append("discontinued", discontinued);
+        fetch("<%= baseUrl %>/sport/" + id, {
+            method: "POST",
+            body: new URLSearchParams([...formData])
+        })
+    }
+</script>
+
 <div class="row">
     <div class="col-sm-3"></div>
     <div class="col-sm-5">
@@ -34,40 +49,26 @@
                 </thead>
 
                 <tbody>
-                    <% let count = 0; %> <% if (records) {
-                    records.forEach(function(sport) { count++; %>
+                    <% let count = 0; %>
+                    <% if(records) {
+                        records.forEach(function(sport) {
+                            count++ %>
                     <tr>
-                        <td class="text-left pt-0 pb-0">
-                            <% if (sport.discontinued === "Yes") { %>
-                            <del>
-                                <% } %> <%= sport.name %> <% if
-                                (sport.discontinued === "Yes") { %>
-                            </del>
-                            <% } %>
+                        <td id="name<%= count %>"
+                            class="text-left pt-0 pb-0 <%= sport.discontinued === 'Yes' ? 'discontinued' : '' %>">
+                            <%= sport.name %>
                         </td>
                         <td class="pt-0 pb-0">
-                            <form method="POST" action="<%= baseUrl %>/sport/<%= sport.id %>" class="pl-5">
-                                <% if(sport.discontinued === "Yes") { %>
-                                <input type="hidden" name="discontinued" value="No" />
-                                <button style="
-                                        border: none;
-                                        background-color: transparent;
-                                    " type="submit" id="Yes<%= count %>">
-                                    <i class="fa fa-check-square-o" style="font-size: 150%"></i>
-                                </button>
-                                <% } else { %>
-                                <input type="hidden" name="discontinued" value="Yes" />
-                                <button style="
-                                        border: none;
-                                        background-color: transparent;
-                                    " type="submit" id="No<%= count %>">
-                                    <i class="fa fa-square-o" style="font-size: 150%"></i>
-                                </button>
-                                <% } %>
-                            </form>
+                            <% let newVal = (sport.discontinued === "Yes" ? "No" : "Yes"); %>
+                            <button style="border: none;background-color: transparent;"
+                                onclick="onUpdate(<%= sport.id %>, <%= count %>)" id="toggle<%= count %>">
+                                <i class="fa <%= sport.discontinued === 'Yes' ? 'fa-check-square-o' : 'fa-square-o' %>"
+                                    style="font-size: 150%"></i>
+                            </button>
                         </td>
                     </tr>
-                    <% }); }%>
+                    <% });
+                    }%>
                 </tbody>
             </table>
         </div>
