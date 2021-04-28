@@ -12,5 +12,5 @@ describe("Data management for Majors", () => {
         cy.url().should("match", /\/major$/);
     });
 
-    it("should allow staff to change a Major's `discontinued` flag."); // TODO
+    it("should allow staff to change a Major's `discontinued` flag.");
 });
