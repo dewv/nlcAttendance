@@ -1,25 +1,67 @@
+<div class="d-flex justify-content-between">
+    <div>
+        <h1>Visits</h1>
+    </div>
+    <div>
+        <a href="<%= baseUrl %>/visit/download">
+            <i
+                class="fa fa-download"
+                style="font-size: 48px; color: black"
+                data-toggle="tooltip"
+                data-placement="right"
+                title="Download all visit data"
+            >
+            </i>
+        </a>
+    </div>
+</div>
+
+<div id="infinite-scroller" class="sticky-table-container">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th>Name</th>
+                <th class="text-center">Check In</th>
+                <th class="text-center">Check Out</th>
+                <th class="text-center">Visit Length</th>
+                <th>Length Estimated?</th>
+            </tr>
+        </thead>
+
+        <tbody id="table-body"></tbody>
+    </table>
+    <div id="loading" class="mx-auto" style="width: 150px;">
+        <div class="spinner-border text-primary"></div>
+      </div>
+</div>
+
 <script>
     (function () {
-        const visitsEl = document.querySelector('tbody');
+        const scroller = document.getElementById("infinite-scroller");
+        const visitsEl = document.getElementById("table-body");
 
         const getVisits = async (page, limit) => {
             const API_URL = `/visit?page=${page}&limit=${limit}`;
-            const response = await fetch(API_URL, { headers: { "Accept": "application/json" } });
+            const response = await fetch(API_URL, {
+                headers: { Accept: "application/json" },
+            });
+
             if (!response.ok) {
                 throw new Error(`An error occurred: ${response.status}`);
             }
             return await response.json();
-        }
+        };
 
         const showVisits = (visits) => {
-            visits.forEach(visit => {
-                const visitEl = document.createElement('tr');
+            visits.forEach((visit) => {
+                const visitEl = document.createElement("tr");
                 visitEl.innerHTML = `
                 <td class="text-right">
-                    ${id}
+                    ${visit.id}
                 </td>
                 <td>
-                    ${visit.student.firstName + " " + visit.student.lastName}
+                    ${visit.student}
                 </td>
                 <td class="text-right">
                     ${visit.checkInTime}
@@ -43,72 +85,44 @@
         };
 
         const loadVisits = async (page, limit) => {
-            try {
-                // if having more quotes to fetch
-                if (hasMoreVisits(page, limit, total)) {
-                    // call the API to get quotes
-                    const response = await getVisits(page, limit);
-                    showVisits(response.data);
-                    total = response.total;
+            setTimeout(async () => {
+                try {
+                    if (hasMoreVisits(page, limit, total)) {
+                        const response = await getVisits(page, limit);
+                        showVisits(response.data);
+                        total = response.total;
+                    } else {
+                        document.getElementById("loading").style.display = "none"; 
+                    }
+                } catch (error) {
+                    console.log(error.message);
                 }
-            } catch (error) {
-                console.log(error.message);
-            }
+            }, 500);
         };
 
-        // control variables
         let currentPage = 1;
         const limit = 10;
         let total = 0;
 
-        window.addEventListener('scroll', () => {
-            const {
-                scrollTop,
-                scrollHeight,
-                clientHeight
-            } = document.documentElement;
+        const activateScrollHandler = () => {
+            scroller.addEventListener("scroll", onScroll, {
+                passive: true,
+            })
+        };
 
-            if (scrollTop + clientHeight >= scrollHeight - 5 &&
-                hasMoreVisits(currentPage, limit, total)) {
+        const onScroll = () => {
+            const { scrollTop, scrollHeight, clientHeight } = scroller;
+
+            if (scrollTop + clientHeight >= scrollHeight - 5
+                && hasMoreVisits(currentPage, limit, total)) {
+                scroller.removeEventListener("scroll", onScroll);
                 currentPage++;
                 loadVisits(currentPage, limit);
+                setTimeout(activateScrollHandler, 100);
             }
-        }, {
-            passive: true
-        });
+        };
 
-        // initialize
+        activateScrollHandler();
         loadVisits(currentPage, limit);
-
     })();
 </script>
-<div class="d-flex justify-content-between">
-    <div>
-        <h1>Visits</h1>
-    </div>
-    <div>
-        <a href="<%= baseUrl %>/visit/download">
-            <i class="fa fa-download" style="font-size: 48px; color: black" data-toggle="tooltip" data-placement="right"
-                title="Download all visit data">
-            </i>
-        </a>
-    </div>
-</div>
-
-<div class="sticky-table-container">
-    <table class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th class="text-center">#</th>
-                <th>Name</th>
-                <th class="text-center">Check In</th>
-                <th class="text-center">Check Out</th>
-                <th class="text-center">Visit Length</th>
-                <th>Length Estimated?</th>
-            </tr>
-        </thead>
-
-        <tbody>
-        </tbody>
-    </table>
-</div>

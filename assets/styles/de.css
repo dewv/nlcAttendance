@@ -3,6 +3,10 @@
     color:white;
 }
 
+.discontinued {
+  text-decoration: line-through;
+}
+
 /* Smaller header fonts for screen widths <= 600px.
     (Percentages apply to *parent's* font size.)
 */
