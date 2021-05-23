@@ -12,5 +12,14 @@ describe("Data management for Majors", () => {
         cy.url().should("match", /\/major$/);
     });
 
-    it("should allow staff to change a Major's `discontinued` flag.");
+    it("should allow staff to change a Major's `discontinued` flag.", () => {
+        // Log in as staff and navigate to majors page.
+        cy.loginStaff("DiscontinueAMajor");
+        cy.get("[data-cy=majors-link]").click();
+
+        cy.get(".custom-check-box").first().within(() => {
+            cy.get(".fa-square-o").click();
+            cy.get(".fa-check-square-o").click();
+        });
+    });
 });
