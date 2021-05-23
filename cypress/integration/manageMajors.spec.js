@@ -12,22 +12,18 @@ describe("Data management for Majors", () => {
         cy.url().should("match", /\/major$/);
     });
 
-    it("should allow staff to change a Major's `discontinued` flag."); // TODO
-    cy.loginStaff("DiscontinueAMajor");
+    it("should allow staff to change a Major's `discontinued` flag.", () => {
+        // Log in as staff and navigate to majors page.
+        cy.loginStaff("DiscontinueAMajor");
+        cy.get("[data-cy=majors-link]").click();
 
-    cy.get("[data-cy=majors-link]").click();
-    let openBoxes = cy.get('.fa-squares-o')
-    let openBoxesCount = openBoxes.length
-
-    cy.url().should("match", /\/major\/new$/);
-    let openBoxes = cy.get('.fa-square-0')
-    let checkedBoxesCount = openBoxes.length
-    cy.get("[name=name]").type("Discontinue major");
-    openBoxes[0].click();
-    cy.get('.fa-square-o').length.should.equal(openBoxCount - 1);
-    cy.get("[data-cy=submit]").click();
-    checkedBoxes[0].click();
-    cy.get('.fa-squares-o').length.should.equal(checkedBoxesCount + 1);
-    cy.url().should("match", /\/major$/);
-
+        // First major is not discontinued; click it.
+        cy.get("[data-cy=No1]").click();
+        // It should now be discontinued.
+        cy.get("[data-cy=No1]").should("not.exist");
+        // Click it again.
+        cy.get("[data-cy=Yes1]").click();
+        // Again it should not be discontinued.
+        cy.get("[data-cy=Yes1]").should("not.exist");
+    });
 });
