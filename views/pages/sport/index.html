@@ -60,7 +60,7 @@
                         </td>
                         <td class="pt-0 pb-0">
                             <% let newVal = (sport.discontinued === "Yes" ? "No" : "Yes"); %>
-                            <button style="border: none;background-color: transparent;"
+                            <button class="custom-check-box"
                                 onclick="onUpdate(<%= sport.id %>, <%= count %>)" id="toggle<%= count %>">
                                 <i class="fa <%= sport.discontinued === 'Yes' ? 'fa-check-square-o' : 'fa-square-o' %>"
                                     style="font-size: 150%"></i>

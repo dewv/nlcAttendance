@@ -60,7 +60,7 @@
                         </td>
                         <td class="pt-0 pb-0">
                             <% let newVal = (major.discontinued === "Yes" ? "No" : "Yes"); %>
-                            <button class="custom-check-box" style="border: none;background-color: transparent;"
+                            <button class="custom-check-box" 
                                 onclick="onUpdate(<%= major.id %>, <%= count %>)" id="toggle<%= count %>">
                                 <i class="fa <%= major.discontinued === 'Yes' ? 'fa-check-square-o' : 'fa-square-o' %>"
                                     style="font-size: 150%"></i>

@@ -12,5 +12,14 @@ describe("Data management for Sports", () => {
         cy.url().should("match", /\/sport$/);
     });
 
-    it("should allow staff to change a Sport's `discontinued` flag.");
+    it("should allow staff to change a Sport's `discontinued` flag.", () => {
+        // Log in as staff and navigate to sports page.
+        cy.loginStaff("DiscontinueASport");
+        cy.get("[data-cy=sports-link]").click();
+
+        cy.get(".custom-check-box").first().within(() => {
+            cy.get(".fa-square-o").click();
+            cy.get(".fa-check-square-o").click();
+        });
+    });
 });

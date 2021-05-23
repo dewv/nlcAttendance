@@ -7,6 +7,11 @@
   text-decoration: line-through;
 }
 
+.custom-check-box {
+  border: none;
+  background-color: transparent;
+}
+
 /* Smaller header fonts for screen widths <= 600px.
     (Percentages apply to *parent's* font size.)
 */
