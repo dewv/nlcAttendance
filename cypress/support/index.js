@@ -25,18 +25,21 @@ Cypress.Commands.add("loginUnathorized", (username, navigate) => {
     cy.get("[name=password]").type("neither");
     cy.get("[data-cy=submit]").click();
 });
+
 Cypress.Commands.add("loginStaff", (username, navigate) => {
     if (navigate !== false) cy.visit("/login");
     cy.get("[name=username]").type(username);
     cy.get("[name=password]").type("staff");
     cy.get("[data-cy=submit]").click();
 });
+
 Cypress.Commands.add("loginNoLdap", (username, navigate) => {
     if (navigate !== false) cy.visit("/login");
     cy.get("[name=username]").type(username);
     cy.get("[name=password]").type("noldap");
     cy.get("[data-cy=submit]").click();
 });
+
 Cypress.Commands.add("loginStudent", (username, navigate) => {
     if (navigate !== false) cy.visit("/login");
     cy.get("[name=username]").type(username);
@@ -49,12 +52,12 @@ Cypress.Commands.add("updateStudentProfile", (navigate, studentId) => {
         const url = `/student/${studentId}/edit`;
         cy.visit(url);
         cy.url().should("contain", url);
-    }
-    else {
+    } else {
         cy.url().should("match", /\/student\/.*\/edit$/);
     }
 
-    // TODO user can submit form doing nothing - no required entries!
+    cy.get("select#academicRank").select("Freshman");
+    cy.get("select#residentialStatus").select("Commuter");
     cy.get("[data-cy=submit]").click();
 });
 

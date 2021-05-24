@@ -1,19 +1,18 @@
 describe("The student profile form", () => {
     it.skip("should require student to enter their academic rank", () => {
-        // generate unique username
-        const username = `studentProfileAcademicStatus${(new Date()).valueOf()}`;
+        // Generate unique username.
+        const username = `studentProfileAcademicRank${(new Date()).valueOf()}`;
 
-        // login as student
+        // Login as student. NB this fills in required fields.
         cy.loginStudent(username);
 
-        // this first time login takes us to student profile update; store the url
+        // This first time login takes us to student profile update; store the url.
         let profileUrl = cy.url();
 
-        // (get select element with id residentialStatus, choose "Undecided")
-        cy.get("select#residentialStatus").select("Undecided");
-        // (then need to fill in all other required fields except the one under test)
+        // "Clear" the required field under test. 
+        cy.get("select#academicRank").select("Choose one ...");
 
-        // click the form submit button
+        // Submit the form. 
         cy.get("[data-cy=submit]").click();
 
         // Since required data was not supplied, should still be on same page.
@@ -21,6 +20,22 @@ describe("The student profile form", () => {
     });
 
     it("should require student to enter their residential status", () => {
-        // this one should populate all required data except residential status, submit form, make sure url stays same
-    });
+        // Generate unique username.
+        const username = `XresidentialStatus${(new Date()).valueOf()}`;
+        // Login as student. NB this fills in required fields.
+        cy.loginStudent(username);
+
+        // This first time login takes us to student profile update; store the url.
+        let profileUrl = cy.url();
+
+        // "Clear" the required field under test. 
+        cy.get("select#residentialStatus").select("Commuter");
+        cy.get("select#academicRank").select("Senior");
+
+        // Submit the form. 
+        cy.get("[data-cy=submit]").click();
+
+        // Since required data was not supplied, should still be on same page.
+        cy.url().should("equal", profileUrl);
+   });
 });
