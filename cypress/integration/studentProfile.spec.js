@@ -1,41 +1,43 @@
 describe("The student profile form", () => {
-    it.skip("should require student to enter their academic rank", () => {
+    it("should require student to enter their academic rank", () => {
         // Generate unique username.
-        const username = `studentProfileAcademicRank${(new Date()).valueOf()}`;
+        const username = `academicRank${new Date().valueOf()}`;
 
         // Login as student. NB this fills in required fields.
         cy.loginStudent(username);
 
-        // This first time login takes us to student profile update; store the url.
-        let profileUrl = cy.url();
+        // This first time login takes us to student profile update; need a closure to use the url.
+        cy.url().then(($profileUrl) => {
+            // Fill in all required fields ...
+            cy.get("select#residentialStatus").select("Commuter");
+            // ... except the one under test: cy.get("select#academicRank").select("Freshman");
 
-        // "Clear" the required field under test. 
-        cy.get("select#academicRank").select("Choose one ...");
+            // Submit the form.
+            cy.get("[data-cy=submit]").click();
 
-        // Submit the form. 
-        cy.get("[data-cy=submit]").click();
-
-        // Since required data was not supplied, should still be on same page.
-        cy.url().should("equal", profileUrl);
+            // Since required data was not supplied, should still be on same page.
+            cy.url().should("equal", $profileUrl);
+        });
     });
 
     it("should require student to enter their residential status", () => {
         // Generate unique username.
-        const username = `XresidentialStatus${(new Date()).valueOf()}`;
-        // Login as student. NB this fills in required fields.
+        const username = `residentialStatus${new Date().valueOf()}`;
+
+        // Login as student.
         cy.loginStudent(username);
 
-        // This first time login takes us to student profile update; store the url.
-        let profileUrl = cy.url();
+        // This first time login takes us to student profile update; need a closure to use the url.
+        cy.url().then(($profileUrl) => {
+            // Fill in all required fields ...
+            cy.get("select#academicRank").select("Freshman");
+            // ... except the one under test: cy.get("select#residentialStatus").select("Commuter");
 
-        // "Clear" the required field under test. 
-        cy.get("select#residentialStatus").select("Commuter");
-        cy.get("select#academicRank").select("Senior");
+            // Submit the form.
+            cy.get("[data-cy=submit]").click();
 
-        // Submit the form. 
-        cy.get("[data-cy=submit]").click();
-
-        // Since required data was not supplied, should still be on same page.
-        cy.url().should("equal", profileUrl);
-   });
+            // Since required data was not supplied, should still be on same page.
+            cy.url().should("equal", $profileUrl);
+        });
+    });
 });
