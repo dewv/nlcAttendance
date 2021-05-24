@@ -193,5 +193,5 @@ typings/
 .next
 
 # Outputs from cypress
-cypress/screenShots
+cypress/screenshots
 cypress/videos
