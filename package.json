@@ -37,6 +37,6 @@
     "author": "dewv.net",
     "license": "MIT",
     "engines": {
-        "node": "^11.6"
+        "node": "^14.17.5"
     }
 }
