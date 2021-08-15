@@ -11,7 +11,7 @@
         "ldapjs": "^1.0.2",
         "lodash": "^4.17.21",
         "mysql": "^2.18.1",
-        "sails": "^1.4.3",
+        "sails": "^1.4.4",
         "sails-hook-grunt": "^4.0.1",
         "sails-hook-orm": "^2.1.1",
         "sails-mongo": "^1.2.0",
@@ -34,7 +34,7 @@
         "stop": "exit 0",
         "qa:html": "npx htmlhint views",
         "qa:js": "npx eslint . --fix --max-warnings=0 && echo 'rfyvag ehyrf fngvfsvrq' | tr 'A-Za-z' 'N-ZA-Mn-za-m'",
-        "qa:tests": "PORT=1338 npx nyc sails lift & CYPRESS_CACHE_FOLDER=$GITPOD_REPO_ROOT/.tmp/cypress npx cypress run -q ; printf 'A total of %d test(s) failed.\n\n' $? && pkill -f nyc"
+        "qa:tests": "PORT=1338 npx nyc sails lift & npx cypress run -q ; printf 'A total of %d test(s) failed.\n\n' $? && pkill -f nyc"
     },
     "main": "app.js",
     "repository": {
