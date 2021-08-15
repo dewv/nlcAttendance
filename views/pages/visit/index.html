@@ -80,17 +80,18 @@
         };
 
         const loadVisits = async (page, limit) => {
+            document.getElementById("loading").style.display = "block";
             setTimeout(async () => {
                 try {
                     if (hasMoreVisits(page, limit, total)) {
                         const response = await getVisits(page, limit);
                         showVisits(response.data);
                         total = response.total;
-                    } else {
-                        document.getElementById("loading").style.display = "none";
                     }
                 } catch (error) {
                     console.log(error.message);
+                } finally {
+                    document.getElementById("loading").style.display = "none";
                 }
             }, 500);
         };
