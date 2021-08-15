@@ -17,13 +17,9 @@ describe("Data management for Majors", () => {
         cy.loginStaff("DiscontinueAMajor");
         cy.get("[data-cy=majors-link]").click();
 
-        // First major is not discontinued; click it.
-        cy.get("[data-cy=No1]").click();
-        // It should now be discontinued.
-        cy.get("[data-cy=No1]").should("not.exist");
-        // Click it again.
-        cy.get("[data-cy=Yes1]").click();
-        // Again it should not be discontinued.
-        cy.get("[data-cy=Yes1]").should("not.exist");
+        cy.get(".custom-check-box").first().within(() => {
+            cy.get(".fa-square-o").click();
+            cy.get(".fa-check-square-o").click();
+        });
     });
 });

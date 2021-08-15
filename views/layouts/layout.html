@@ -49,7 +49,8 @@
     <% try { %> <% if (typeof session.role !== "undefined") { %>
     <nav class="navbar fixed-top navbar-expand-md navbar-dark de-colors" data-cy="navbar">
         <a href="#" class="navbar-brand">Naylor Learning Center</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar"
+            aria-label="Navigation Menu">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
@@ -66,7 +67,8 @@
                 </li>
                 <li class="nav-item">
                     <a href="<%= baseUrl %>/sport"
-                        class="nav-link <%= session.path.startsWith('/sport') ? 'active' : '' %>">Sports</a>
+                        class="nav-link <%= session.path.startsWith('/sport') ? 'active' : '' %>"
+                        data-cy="sports-link">Sports</a>
                 </li>
                 <li class="nav-item">
                     <a href="<%= baseUrl %>/browser/register"
@@ -160,6 +162,7 @@
     <!--SCRIPTS-->
     <script src="/js/logoutTimer.js"></script>
     <script src="/js/preventMultiSubmit.js"></script>
+    <script src="/js/toggleCustomCheckbox.js"></script>
     <!--SCRIPTS END-->
 
     <!-- External, manually loaded scripts -->
