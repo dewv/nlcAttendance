@@ -37,7 +37,7 @@
         const visitsEl = document.getElementById("table-body");
 
         const getVisits = async (page, limit) => {
-            const API_URL = `/visit?page=${page}&limit=${limit}`;
+            const API_URL = `./visit?page=${page}&limit=${limit}`;
             const response = await fetch(API_URL, {
                 headers: { Accept: "application/json" },
             });
